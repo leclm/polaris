@@ -1,0 +1,50 @@
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
+    <div class="sidebar-heading">
+      <a id="link-home" href="#">
+        <img class="logo" loading="lazy" class="lozad" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
+      </a>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="mb-3"><a href="#">Home</a></li>
+      <li class=" mb-3"><a href="#">Dashboard</a></li>
+
+      <li><a href="#">Aluguel</a></li>
+      <li class="ms-4"><a href="#">Novo Aluguel</a></li>
+      <li class="ms-4 mb-3"><a href="#">Visualizar Aluguéis</a></li>
+      
+      <li><a href="#">Cliente</a></li>
+      <li class="ms-4"><a href="#">Cadastro</a></li>
+      <li class="ms-4 mb-3"><a href="#">Visualizar Clientes</a></li>
+
+      <li><a href="#">Contêiner</a></li>
+      <li class="ms-4"><a href="#">Cadastro</a></li>
+      <li class="ms-4 mb-3"><a href="#">Estoque</a></li>
+      
+      <li><a href="#">Categorias e Tipos</a></li>
+      <li class="ms-4"><a href="#">Visualizar Categorias</a></li>
+      <li class="ms-4 mb-3"><a href="#">Visualizar Tipos</a></li>
+
+      <li><a href="#">Terceirizados</a></li>
+      <li class="ms-4"><a href="#">Cadastro</a></li>
+      <li class="ms-4 mb-3"><a href="#">Visualizar Terceirizados</a></li>
+
+      <li class="container-logout"><a href="#"><button type="button" class="btn">Logout</button></a></li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  
+  <!-- Page Content -->
+  <div class="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="menu-toogle" (click)="clickEvent()"><i class="fa fa-bars me-3" aria-hidden="true"></i>Menu</a>
+        <p class="text-center">Sistema de Gerenciamento de Aluguéis de Contêineres</p>
+        <img class="logo" loading="lazy" class="lozad" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
+      </div>      
+    </nav>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

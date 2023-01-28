@@ -1,0 +1,130 @@
+$dark-blue: #0f2b46;
+$white: #fff;
+$aqua: #18e2c4;
+$greyish-blue: #30536F;
+
+body {
+  overflow-x: hidden;
+}
+
+.sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  transition: margin .25s ease-out;
+  background-color: $dark-blue;
+
+  .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+    a {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 100px;
+      }
+    }
+  }
+  ul {
+    width: 15rem;
+    display: block;
+    padding: 1rem;
+    margin: auto 0 auto auto;
+    list-style: none;
+    max-width: 1200px;
+    .ident {
+      margin-left: 20px;
+    }
+    li {
+      a {
+        padding: 5px 0 5px 5px;
+        font-size: 14px;
+        font-weight: 300;
+        color: $white;
+        text-transform: uppercase;
+        line-height: 1;
+        text-decoration: none;
+        display: block;
+        :hover {
+          color: $dark-blue;
+          background-color: $aqua;          
+        }
+      }
+      :hover {
+        color: $aqua;
+        background-color: $greyish-blue;
+        border-left: 2px solid $aqua;
+      }
+    }
+
+    .container-logout {
+      margin: 30px auto 0px;
+      .btn {
+        width: 100%;
+        font-weight: 500;
+        border-radius: 50px;
+        text-transform: uppercase;
+        display: block;
+        padding: 0.3rem 1rem;
+        border: 1px solid transparent;
+        background-color: $white; 
+      }
+      :hover {
+        color: unset;
+        background-color: unset;
+        border-left: unset;
+      }
+    }
+  }
+}
+
+.page-content-wrapper {
+  min-width: 100vw;
+  nav {
+    background-color: $dark-blue;
+    .menu-toogle {
+      color: $white;
+      text-decoration: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    p {
+      color: $white;
+      margin-bottom: 0px;
+    }
+    img {
+      width: 80px;
+      margin: 10px;
+    }
+  }
+  
+}
+
+@media (min-width: 768px) {
+  .sidebar-wrapper {
+    margin-left: 0;
+  }
+  .page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+  .show {
+    margin-left: 0 !important;
+  }
+  .hide {
+    margin-left: -15rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .show {
+    margin-left: -15rem !important;
+  }
+  .hide {
+    margin-left: -0 !important;
+  }
+  .page-content-wrapper {
+    p {
+      display: none;
+    }
+  }
+}
