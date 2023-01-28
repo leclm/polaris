@@ -1,0 +1,45 @@
+$dark-blue: #0f2b46;
+$white: #fff;
+$aqua: #0fbda3;
+$greyish-blue: #30536F;
+
+.historico-alugueis {
+  h1 {
+    margin: 20px 0 50px;
+  }
+
+  .fa-eye {
+    color: $dark-blue;
+    
+  }
+  .fa-eye:hover {
+    color: $aqua;
+  }
+
+  .ctn-btn {
+    flex-direction: column;
+    a {
+      border-radius: 50px;
+      text-decoration: none;
+      padding: 0.3rem 1rem;
+      margin: 10px 0;
+      border: 1px solid transparent;
+      background-color: $dark-blue;
+      color: $white;
+      text-align: center;      
+    }
+    :hover {
+      color: unset;
+      background-color: $aqua;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .ctn-btn {
+    flex-direction: row !important;
+    a {      
+      width: 22%;
+    }
+  }
+}
