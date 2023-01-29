@@ -2,39 +2,72 @@ $dark-blue: #0f2b46;
 $white: #fff;
 $aqua: #0fbda3;
 $greyish-blue: #30536F;
+$gray: #f5f9f9;
+$border-gray: #dee2e6;
 
 .historico-alugueis {
-  h3 {
-    margin: 20px 0 50px;
-  }
-
-  .fa-eye {
-    color: $dark-blue;
-    
-  }
-  .fa-eye:hover {
-    color: $aqua;
-  }
-
-  .ctn-btn {
-    flex-direction: column;
-    a {
-      border-radius: 50px;
-      text-decoration: none;
-      padding: 0.3rem 1rem;
-      margin: 10px 0;
-      border: 1px solid transparent;
-      background-color: $dark-blue;
-      color: $white;
-      text-align: center;      
+  .container-content {
+    border: 1px solid $border-gray;
+    border-radius: 15px;
+    background-color: $white;
+    h3 {
+      margin: 20px 0 50px;
     }
-    :hover {
-      color: unset;
-      background-color: $aqua;
+    .table {
+      font-size: 15px;  
+      border-collapse: unset;
+      border-spacing: 0px;
+      border: none;
+      thead {
+        th {
+          border: solid 1px $border-gray;
+        }
+        th:first-child {
+          border-radius: 10px 0 0 0;
+        }
+        th:last-child {
+          border-radius: 0 10px 0 0;
+        }
+      }
+      tbody {
+        td {
+          border: solid 1px $border-gray;
+        }
+        tr:last-child td:first-child {
+          border-radius: 0 0 0 10px;
+          
+        }
+        tr:last-child td:last-child {
+          border-radius: 0 0 10px 0;
+        }
+      }    
+    }
+    
+    .fa-eye {
+      color: $dark-blue; 
+    }
+    .fa-eye:hover {
+      color: $aqua;
+    }
+    .ctn-btn {
+      flex-direction: column;
+      a {
+        border-radius: 50px;
+        text-decoration: none;
+        padding: 0.3rem 1rem;
+        margin: 10px 0;
+        border: 1px solid transparent;
+        background-color: $dark-blue;
+        color: $white;
+        text-align: center;      
+      }
+      :hover {
+        color: unset;
+        background-color: $aqua;
+      }
     }
   }
 }
-
 @media (min-width: 768px) {
   .ctn-btn {
     flex-direction: row !important;

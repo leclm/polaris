@@ -40,7 +40,7 @@ body {
         font-size: 14px;
         font-weight: 300;
         color: $white;
-        text-transform: uppercase;
+        text-transform: initial;
         line-height: 1;
         text-decoration: none;
         display: block;
@@ -96,7 +96,6 @@ body {
       margin: 10px;
     }
   }
-  
 }
 
 @media (min-width: 768px) {

@@ -2,10 +2,21 @@ $dark-blue: #0f2b46;
 $white: #fff;
 $aqua: #0fbda3;
 $greyish-blue: #30536F;
+$border-gray: #dee2e6;
 
 .detalhes-aluguel {
+  .container-content {
+    border: 1px solid $border-gray;
+    border-radius: 15px;
+    background-color: $white;
+  }
+
   h3 {
     margin: 20px 0 50px;
+  }
+
+  p {
+    font-size: 15px;
   }
 
   .line {
@@ -17,6 +28,36 @@ $greyish-blue: #30536F;
     span {
       font-weight: 600;
     }
+  }
+
+  .table {
+    font-size: 15px;  
+    border-collapse: unset;
+    border-spacing: 0px;
+    border: none;
+    thead {
+      th {
+        border: solid 1px $border-gray;
+      }
+      th:first-child {
+        border-radius: 10px 0 0 0;
+      }
+      th:last-child {
+        border-radius: 0 10px 0 0;
+      }
+    }
+    tbody {
+      td {
+        border: solid 1px $border-gray;
+      }
+      tr:last-child td:first-child {
+        border-radius: 0 0 0 10px;
+        
+      }
+      tr:last-child td:last-child {
+        border-radius: 0 0 10px 0;
+      }
+    }    
   }
 
   .price {
@@ -34,7 +75,11 @@ $greyish-blue: #30536F;
       border: 1px solid transparent;
       background-color: $dark-blue;
       color: $white;
-      text-align: center;      
+      text-align: center; 
+      display: flex;
+      align-items: center;      
+      justify-content: center;
+      font-weight: 200;  
     }
     :hover {
       color: unset;
@@ -50,7 +95,7 @@ $greyish-blue: #30536F;
   .ctn-btn {
     flex-direction: row !important;
     a {      
-      width: 22%;
+      width: 25%;
     }
   }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ClienteService } from './services/cliente.service';
 import { VisualizarAluguelComponent } from './visualizar-aluguel/visualizar-aluguel.component';
 import { DetalhesAluguelComponent } from './detalhes-aluguel/detalhes-aluguel.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { DetalhesAluguelComponent } from './detalhes-aluguel/detalhes-aluguel.co
     DetalhesAluguelComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   providers: [
     ClienteService
