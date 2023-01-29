@@ -1,8 +1,6 @@
 $dark-blue: #0f2b46;
 $white: #fff;
 $aqua: #0fbda3;
-$greyish-blue: #30536F;
-$gray: #f5f9f9;
 $border-gray: #dee2e6;
 
 .historico-alugueis {
@@ -10,7 +8,7 @@ $border-gray: #dee2e6;
     border: 1px solid $border-gray;
     border-radius: 15px;
     background-color: $white;
-    h3 {
+    h4 {
       margin: 20px 0 50px;
     }
     .table {
