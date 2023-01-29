@@ -1,26 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VisualizarAluguelComponent } from './cliente/visualizar-aluguel/visualizar-aluguel.component';
-import { DetalhesAluguelComponent } from './cliente/detalhes-aluguel/detalhes-aluguel.component';
+import { ClienteRoutes } from './cliente/cliente-routing.module';
 
 const routes: Routes = [
   { 
     path: '',
-    redirectTo: 'cliente/visualizar-aluguel',
+    redirectTo: 'cliente',
     pathMatch: 'full' 
   },
-  { 
-    path: 'cliente',
-    redirectTo: 'cliente/visualizar-aluguel' 
-  },
-  { 
-    path: 'cliente/visualizar-aluguel',
-    component: VisualizarAluguelComponent 
-  },
-  { 
-    path: 'cliente/detalhes-aluguel',
-    component: DetalhesAluguelComponent
-  }
+  ...ClienteRoutes
 ];
 
 @NgModule({

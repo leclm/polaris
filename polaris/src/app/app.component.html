@@ -1,18 +1,18 @@
 <div class="d-flex" id="wrapper">
   <div class="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
     <div class="sidebar-heading">
-      <a id="link-home" href="#">
+      <a id="link-home" href="#" routerLink="/cliente">
         <img class="logo" loading="lazy" class="lozad" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
       </a>
     </div>
 
     <!-- Menu Cliente -->
     <ul class="list-group list-group-flush">
-      <li class="mb-3"><a href="#">Home</a></li>
+      <li class="mb-3"><a href="#" routerLink="/cliente">Home</a></li>
       <li class="container-logout"><a href="#"><button type="button" class="btn">Logout</button></a></li>
     </ul> 
 
-    <!-- Menu funcionário 
+    <!-- Menu funcionário
     <ul class="list-group list-group-flush">
       <li class="mb-3"><a href="#">Home</a></li>
       <li class=" mb-3"><a href="#">Dashboard</a></li>
@@ -38,7 +38,7 @@
       <li class="ms-4 mb-3"><a href="#">Visualizar Terceirizados</a></li>
 
       <li class="container-logout"><a href="#"><button type="button" class="btn">Logout</button></a></li>
-    </ul>-->
+    </ul> -->
   </div>
   
   <div class="page-content-wrapper">
@@ -46,10 +46,12 @@
       <div class="container-fluid">
         <a class="menu-toogle" (click)="clickEvent()"><i class="fa fa-bars me-3" aria-hidden="true"></i>Menu</a>
         <p class="text-center">Sistema de Gerenciamento de Aluguéis de Contêineres</p>
-        <img class="logo" loading="lazy" class="lozad" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
+        <a id="link-home" href="#" routerLink="/cliente">
+          <img class="logo" loading="lazy" class="lozad me-4" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
+        </a>
       </div>      
     </nav>
-    <div class="ms-3 me-4 m">
+    <div class="ms-3 me-4">
       <router-outlet></router-outlet>
     </div>
   </div>
