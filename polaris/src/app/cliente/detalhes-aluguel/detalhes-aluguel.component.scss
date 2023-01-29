@@ -3,17 +3,25 @@ $white: #fff;
 $aqua: #0fbda3;
 $greyish-blue: #30536F;
 
-.historico-alugueis {
+.detalhes-aluguel {
   h3 {
     margin: 20px 0 50px;
   }
 
-  .fa-eye {
-    color: $dark-blue;
-    
+  .line {
+    border-top: $dark-blue 3px solid;
   }
-  .fa-eye:hover {
-    color: $aqua;
+  
+  .content {
+    flex-direction: column;
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .price {
+    flex-direction: column;
+    align-items: flex-end;
   }
 
   .ctn-btn {
@@ -36,6 +44,9 @@ $greyish-blue: #30536F;
 }
 
 @media (min-width: 768px) {
+  .content {
+    flex-direction: row !important;
+  }
   .ctn-btn {
     flex-direction: row !important;
     a {      
