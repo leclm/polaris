@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClienteModule } from './cliente/cliente.module';
+import { AuthModule } from './auth';
+import { ClienteModule } from './cliente';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ClienteModule } from './cliente/cliente.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AuthModule,
     ClienteModule
   ],
   providers: [],
