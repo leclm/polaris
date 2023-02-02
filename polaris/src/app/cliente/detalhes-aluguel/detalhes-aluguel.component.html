@@ -69,8 +69,7 @@
           </tbody>
         </table>
       </div>
-    </div>
-  
+    </div>    
     <div class="pt-2 line">
       <div class="price d-flex">
         <p><span>Total da compra:</span> R$4.100,00</p>
@@ -83,6 +82,6 @@
   <div class="ctn-btn d-flex justify-content-evenly mt-4 mb-4">
     <a href="#" routerLink="/cliente/visualizar-aluguel">Voltar</a>
     <a href="#">Ver contrato</a>
-    <a href="#">Realizar pagamento PayPal</a>
+    <ngx-paypal class="mt-4" [config]="payPalConfig"></ngx-paypal>
   </div>  
 </div>

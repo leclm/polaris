@@ -4,6 +4,7 @@ import { ClienteService } from './services/cliente.service';
 import { VisualizarAluguelComponent } from './visualizar-aluguel/visualizar-aluguel.component';
 import { DetalhesAluguelComponent } from './detalhes-aluguel/detalhes-aluguel.component';
 import { RouterModule } from '@angular/router';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgxPayPalModule
   ],
   providers: [
     ClienteService

@@ -9,6 +9,15 @@ $white: #fff;
     border: 1px solid $border-gray;
     border-radius: 15px;
     background-color: $white;
+
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+    .btn-paypal {
+      display: flex;
+      justify-content: flex-end; 
+    }
   }
 
   h4 {
@@ -73,6 +82,7 @@ $white: #fff;
 
   .ctn-btn {
     flex-direction: column;
+    align-items: center;
     a {
       border-radius: 50px;
       text-decoration: none;
@@ -85,11 +95,15 @@ $white: #fff;
       display: flex;
       align-items: center;      
       justify-content: center;
-      font-weight: 200;  
+      font-weight: 200;
+      height: 100%;
     }
     :hover {
       color: unset;
       background-color: $aqua;
+    }
+    ngx-paypal:hover  {
+      background-color: unset;
     }
   }
 }
