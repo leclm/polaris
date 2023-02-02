@@ -6,15 +6,15 @@
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex justify-content-start ms-5">
         <p class="me-5"><span>Nome do locatário:</span> Letícia das Chagas Lima</p>
-        <p><span>CPF:</span> 078.452.365-85</p>
+        <p><span>CPF:</span> {{ aluguelData.content[0].cpfCliente }}</p>
       </div>
     </div>
   
     <div class="mb-5">
       <p class="title">Período de Locação</p>
       <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>Data de início:</span> 03/01/2023</p>
-        <p class="me-5"><span>Data de devolução:</span> 03/05/2023</p>
+        <p class="me-5"><span>Data de início:</span> {{ aluguelData.content[0].dataRetirada }}</p>
+        <p class="me-5"><span>Data de devolução:</span> {{ aluguelData.content[0].dataDevolucao }}</p>
         <p><span>Tipo de locação:</span> mensal</p>
       </div>
     </div>
@@ -22,14 +22,14 @@
     <div class="mb-1">
       <p class="title">Endereço de locação</p>
       <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>Endereço:</span> Rua Martim Afonso</p>
+        <p class="me-5"><span>Endereço:</span> {{ aluguelData.content[0].endereco }}</p>
         <p class="me-5"><span>Número:</span> 242</p>
         <p><span>Complemento:</span> Apto 73</p>
       </div>
       <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>CEP:</span> 80.470-950</p>
-        <p class="me-5"><span>Cidade:</span> Curitiba</p>
-        <p><span>Estado:</span> Paraná</p>
+        <p class="me-5"><span>CEP:</span> {{ aluguelData.content[0].cep }}</p>
+        <p class="me-5"><span>Cidade:</span> {{ aluguelData.content[0].cidade }}</p>
+        <p><span>Estado:</span> {{ aluguelData.content[0].estado }}</p>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@
       <div class="price d-flex">
         <p><span>Total da compra:</span> R$4.100,00</p>
         <p><span>Desconto:</span> R$410,00</p>
-        <p class="line pt-2"><span>Total com desconto:</span> R$3.690</p>
+        <p class="line pt-2"><span>Total com desconto:</span> R${{ aluguelData.content[0].valorTotalAluguel }}</p>
       </div>
     </div>
   </div>

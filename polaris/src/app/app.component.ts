@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Polaris';
-  
+
   status: boolean = false;
   clickEvent(){
     this.status = !this.status;       
