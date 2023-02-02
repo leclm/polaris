@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
+import { ClienteService } from '../services';
 
 @Component({
   selector: 'app-detalhes-aluguel',
@@ -10,11 +11,23 @@ import { environment } from 'src/environments/environment';
 export class DetalhesAluguelComponent implements OnInit {
 
   public payPalConfig?: IPayPalConfig;
+  public authData: any;
+  public aluguelData: any;
 
-  constructor() { }
+  constructor( private _clienteServiceAPI: ClienteService ) { }
 
   ngOnInit(): void {
     this.initConfig();
+    
+    this._clienteServiceAPI.getAuthData().subscribe( (res: any) => {
+        this.authData = res;
+      }
+    )
+
+    this._clienteServiceAPI.getAluguelData().subscribe( (res: any) => {
+        this.aluguelData = res;
+      }
+    )
   }
 
   private initConfig(): void {
@@ -74,5 +87,4 @@ export class DetalhesAluguelComponent implements OnInit {
       }
     };
   }
-
 }
