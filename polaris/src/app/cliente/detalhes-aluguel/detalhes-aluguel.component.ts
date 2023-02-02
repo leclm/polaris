@@ -25,12 +25,12 @@ export class DetalhesAluguelComponent implements OnInit {
         intent: 'CAPTURE',
         purchase_units: [{
           amount: {
-            currency_code: 'EUR',
-            value: '9.99',
+            currency_code: 'BRL',
+            value: '3690',
             breakdown: {
               item_total: {
-                currency_code: 'EUR',
-                value: '9.99'
+                currency_code: 'BRL',
+                value: '3690'
               }
             }
           },
@@ -39,8 +39,8 @@ export class DetalhesAluguelComponent implements OnInit {
             quantity: '1',
             category: 'DIGITAL_GOODS',
             unit_amount: {
-              currency_code: 'EUR',
-              value: '9.99',
+              currency_code: 'BRL',
+              value: '3690',
             },
           }]
         }]
