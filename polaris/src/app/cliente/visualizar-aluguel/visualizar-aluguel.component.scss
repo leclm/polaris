@@ -8,11 +8,12 @@ $border-gray: #dee2e6;
     border: 1px solid $border-gray;
     border-radius: 15px;
     background-color: $white;
-    h4 {
-      margin: 20px 0 50px;
+    h1 {
+      margin: 10px 0;
+      font-size: 20px;
     }
     .table {
-      font-size: 15px;  
+      font-size: 14px;  
       border-collapse: unset;
       border-spacing: 0px;
       border: none;
