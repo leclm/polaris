@@ -53,20 +53,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>#123</td>
+                  <td>#CCM002</td>
                   <td>Construção Civil</td>
-                  <td>Pequeno</td>
+                  <td>Médio</td>
                   <td>R$ 400,00</td>
                   <td>R$ 0,00</td>
-                  <td>R$ 1.600,00</td>
-                </tr>
-                <tr>
-                  <td>#45</td>
-                  <td>Construção Civil</td>
-                  <td>Grande</td>
-                  <td>R$ 500,00</td>
-                  <td>R$ 0,00</td>
-                  <td>R$ 2.500,00</td>
+                  <td> {{ item.valorTotalAluguel! | currency }}</td>
                 </tr>
               </tbody>
             </table>
@@ -76,7 +68,7 @@
           <div class="price d-flex">
             <p><span>Total da compra:</span> {{ item.valorTotalAluguel! | currency }}</p>
             <p><span>Desconto:</span> {{ item.desconto! | currency }}</p>
-            <p class="line pt-2"><span>Total com desconto:</span> {{ item.valorTotalAluguel! | currency }}</p>
+            <p class="line pt-2"><span>Total com desconto:</span> {{ (item.valorTotalAluguel - item.desconto)! | currency }}</p>
           </div>
         </div>
       </div>
