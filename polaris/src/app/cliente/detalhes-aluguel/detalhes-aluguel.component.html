@@ -17,7 +17,7 @@
           <div class="content d-flex justify-content-start ms-5">
             <p class="me-5"><span>Data de início:</span> {{ item.dataRetirada! | date:'mediumDate' }}</p>
             <p class="me-5"><span>Data de devolução:</span> {{ item.dataDevolucao! | date : 'mediumDate' }}</p>
-            <p><span>Tipo de locação:</span> mensal</p>
+            <p><span>Tipo de locação:</span> {{ item.tipoLocacao }}</p>
           </div>
         </div>
       
@@ -25,8 +25,8 @@
           <p class="title">Endereço de locação</p>
           <div class="content d-flex justify-content-start ms-5">
             <p class="me-5"><span>Endereço:</span> {{ item.endereco }}</p>
-            <p class="me-5"><span>Número:</span> 242</p>
-            <p><span>Complemento:</span> Apto 73</p>
+            <p class="me-5"><span>Número:</span> {{ item.numero }}</p>
+            <p><span>Complemento:</span> {{ item.complemento }}</p>
           </div>
           <div class="content d-flex justify-content-start ms-5">
             <p class="me-5"><span>CEP:</span> {{ item.cep! | cep }}</p>
