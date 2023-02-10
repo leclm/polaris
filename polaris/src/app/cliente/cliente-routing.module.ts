@@ -12,7 +12,7 @@ export const ClienteRoutes: Routes = [
     component: VisualizarAluguelComponent
   },
   {
-    path: 'cliente/detalhes-aluguel',
+    path: 'cliente/detalhes-aluguel/:id',
     component: DetalhesAluguelComponent
   }
 ];
