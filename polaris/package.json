@@ -24,6 +24,8 @@
     "bootstrap": "^5.2.3",
     "creditcardpayments": "^1.0.3",
     "jquery": "^3.6.3",
+    "ng2-currency-mask": "^13.0.3",
+    "ngx-mask": "^13.1.13",
     "ngx-paypal": "^6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

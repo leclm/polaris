@@ -5,16 +5,26 @@ import { VisualizarAluguelComponent } from './visualizar-aluguel/visualizar-alug
 import { DetalhesAluguelComponent } from './detalhes-aluguel/detalhes-aluguel.component';
 import { RouterModule } from '@angular/router';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { CepPipe, CpfPipe, PhonePipe } from '../shared/pipes';
+
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 
 @NgModule({
   declarations: [
     VisualizarAluguelComponent,
-    DetalhesAluguelComponent
+    DetalhesAluguelComponent,
+    CpfPipe,
+    CepPipe,
+    PhonePipe
   ],
   imports: [
     CommonModule,
     RouterModule,
-    NgxPayPalModule
+    NgxPayPalModule, NgxMaskModule.forRoot(), 
+    CurrencyMaskModule
   ],
   providers: [
     ClienteService

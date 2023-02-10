@@ -1,87 +1,92 @@
 <div class="detalhes-aluguel container-fluid mt-4 mb-4">
-  <div class="container-content mb-4 p-4">
-    <h1>Visualizar Detalhes do Aluguel</h1>
+  <div *ngFor="let item of aluguelData.content">
+    <div *ngIf="item.id == aluguelId">
+      <div class="container-content mb-4 p-4">
+        <h1>Visualizar Detalhes do Aluguel</h1>
 
-    <div class="mb-5">
-      <p class="title">Dados cadastrais</p>
-      <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>Nome do locatário:</span> Letícia das Chagas Lima</p>
-        <p><span>CPF:</span> {{ aluguelData.content[0].cpfCliente }}</p>
+        <div class="mb-5">
+          <p class="title">Dados cadastrais</p>
+          <div class="content d-flex justify-content-start ms-5">
+            <p class="me-5"><span>Nome do locatário:</span> Letícia das Chagas Lima</p>
+            <p><span>CPF:</span> {{ item.cpfCliente! | cpf }}</p>
+          </div>
+        </div>
+      
+        <div class="mb-5">
+          <p class="title">Período de Locação</p>
+          <div class="content d-flex justify-content-start ms-5">
+            <p class="me-5"><span>Data de início:</span> {{ item.dataRetirada! | date:'mediumDate' }}</p>
+            <p class="me-5"><span>Data de devolução:</span> {{ item.dataDevolucao! | date : 'mediumDate' }}</p>
+            <p><span>Tipo de locação:</span> mensal</p>
+          </div>
+        </div>
+      
+        <div class="mb-1">
+          <p class="title">Endereço de locação</p>
+          <div class="content d-flex justify-content-start ms-5">
+            <p class="me-5"><span>Endereço:</span> {{ item.endereco }}</p>
+            <p class="me-5"><span>Número:</span> 242</p>
+            <p><span>Complemento:</span> Apto 73</p>
+          </div>
+          <div class="content d-flex justify-content-start ms-5">
+            <p class="me-5"><span>CEP:</span> {{ item.cep! | cep }}</p>
+            <p class="me-5"><span>Cidade:</span> {{ item.cidade }}</p>
+            <p><span>Estado:</span> {{ item.estado }}</p>
+          </div>
+        </div>
       </div>
-    </div>
-  
-    <div class="mb-5">
-      <p class="title">Período de Locação</p>
-      <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>Data de início:</span> {{ aluguelData.content[0].dataRetirada }}</p>
-        <p class="me-5"><span>Data de devolução:</span> {{ aluguelData.content[0].dataDevolucao }}</p>
-        <p><span>Tipo de locação:</span> mensal</p>
+
+      <div class="container-content p-4">
+        <div class="mb-4">
+          <p class="title">Itens selecionados</p>
+          <div class="table-responsive">
+            <table class="table align-middle text-center">
+              <thead class="table-light">
+                <tr>
+                  <th>Código</th>
+                  <th>Categoria</th>
+                  <th>Tipo</th>
+                  <th>Valor por mês</th>
+                  <th>Desconto</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#123</td>
+                  <td>Construção Civil</td>
+                  <td>Pequeno</td>
+                  <td>R$ 400,00</td>
+                  <td>R$ 0,00</td>
+                  <td>R$ 1.600,00</td>
+                </tr>
+                <tr>
+                  <td>#45</td>
+                  <td>Construção Civil</td>
+                  <td>Grande</td>
+                  <td>R$ 500,00</td>
+                  <td>R$ 0,00</td>
+                  <td>R$ 2.500,00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>    
+        <div class="pt-2 line">
+          <div class="price d-flex">
+            <p><span>Total da compra:</span> {{ item.valorTotalAluguel! | currency }}</p>
+            <p><span>Desconto:</span> {{ item.desconto! | currency }}</p>
+            <p class="line pt-2"><span>Total com desconto:</span> {{ item.valorTotalAluguel! | currency }}</p>
+          </div>
+        </div>
       </div>
-    </div>
-  
-    <div class="mb-1">
-      <p class="title">Endereço de locação</p>
-      <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>Endereço:</span> {{ aluguelData.content[0].endereco }}</p>
-        <p class="me-5"><span>Número:</span> 242</p>
-        <p><span>Complemento:</span> Apto 73</p>
-      </div>
-      <div class="content d-flex justify-content-start ms-5">
-        <p class="me-5"><span>CEP:</span> {{ aluguelData.content[0].cep }}</p>
-        <p class="me-5"><span>Cidade:</span> {{ aluguelData.content[0].cidade }}</p>
-        <p><span>Estado:</span> {{ aluguelData.content[0].estado }}</p>
-      </div>
+
+      <div class="ctn-btn d-flex justify-content-evenly mt-4 mb-4">
+        <a href="#" routerLink="/cliente/visualizar-aluguel">Voltar</a>
+        <a href="#">Ver contrato</a>
+        <ngx-paypal class="mt-4" [config]="payPalConfig"></ngx-paypal>
+      </div>  
     </div>
   </div>
-
-  <div class="container-content p-4">
-    <div class="mb-4">
-      <p class="title">Itens selecionados</p>
-      <div class="table-responsive">
-        <table class="table align-middle text-center">
-          <thead class="table-light">
-            <tr>
-              <th>Código</th>
-              <th>Categoria</th>
-              <th>Tipo</th>
-              <th>Valor por mês</th>
-              <th>Desconto</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>#123</td>
-              <td>Construção Civil</td>
-              <td>Pequeno</td>
-              <td>R$400,00</td>
-              <td>R$0,00</td>
-              <td>R$1.600,00</td>
-            </tr>
-            <tr>
-              <td>#45</td>
-              <td>Construção Civil</td>
-              <td>Grande</td>
-              <td>R$500,00</td>
-              <td>R$0,00</td>
-              <td>R$2.500,00</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>    
-    <div class="pt-2 line">
-      <div class="price d-flex">
-        <p><span>Total da compra:</span> R$4.100,00</p>
-        <p><span>Desconto:</span> R$410,00</p>
-        <p class="line pt-2"><span>Total com desconto:</span> R${{ aluguelData.content[0].valorTotalAluguel }}</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="ctn-btn d-flex justify-content-evenly mt-4 mb-4">
-    <a href="#" routerLink="/cliente/visualizar-aluguel">Voltar</a>
-    <a href="#">Ver contrato</a>
-    <ngx-paypal class="mt-4" [config]="payPalConfig"></ngx-paypal>
-  </div>  
+  
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from '../services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalhes-aluguel',
@@ -13,11 +14,13 @@ export class DetalhesAluguelComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
   public authData: any;
   public aluguelData: any;
+  aluguelId: any;
 
-  constructor( private _clienteServiceAPI: ClienteService ) { }
+  constructor( private _clienteServiceAPI: ClienteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.initConfig();
+    this.aluguelId = this.activatedRoute.snapshot.params['id'];
     
     this._clienteServiceAPI.getAuthData().subscribe( (res: any) => {
         this.authData = res;

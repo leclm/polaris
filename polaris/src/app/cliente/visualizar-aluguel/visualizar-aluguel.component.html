@@ -21,86 +21,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#133</td>
-            <td>{{ aluguelData.content[0].dataRetirada }}</td>
-            <td>{{ aluguelData.content[0].dataDevolucao }}</td>
-            <td>{{ aluguelData.content[0].valorTotalAluguel }}</td>
-            <td>{{ aluguelData.content[0].status }}</td>
+          <tr *ngFor="let item of aluguelData.content">
+            <td>#</td>
+            <td>{{ item.dataRetirada! | date:'mediumDate' }}</td>
+            <td>{{ item.dataDevolucao! | date:'mediumDate' }}</td>
+            <td>{{ item.valorTotalAluguel! | currency }}</td>
+            <td>{{ item.status }}</td>
             <td>Sim</td>
             <td>Não</td>
             <td>
-              <a routerLink="/cliente/detalhes-aluguel" href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>#133</td>
-            <td>03/01/2023</td>
-            <td>03/05/2023</td>
-            <td>R$4.100,00</td>
-            <td>Não</td>
-            <td>Sim</td>
-            <td>Não</td>
-            <td>
-              <a routerLink="/cliente/detalhes-aluguel" href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>#133</td>
-            <td>03/01/2023</td>
-            <td>03/05/2023</td>
-            <td>R$4.100,00</td>
-            <td>Não</td>
-            <td>Sim</td>
-            <td>Não</td>
-            <td>
-              <a routerLink="/cliente/detalhes-aluguel" href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>#133</td>
-            <td>03/01/2023</td>
-            <td>03/05/2023</td>
-            <td>R$4.100,00</td>
-            <td>Não</td>
-            <td>Sim</td>
-            <td>Não</td>
-            <td>
-              <a routerLink="/cliente/detalhes-aluguel" href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>#133</td>
-            <td>03/01/2023</td>
-            <td>03/05/2023</td>
-            <td>R$4.100,00</td>
-            <td>Não</td>
-            <td>Sim</td>
-            <td>Não</td>
-            <td>
-              <a routerLink="/cliente/detalhes-aluguel" href="#">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>#133</td>
-            <td>03/01/2023</td>
-            <td>03/05/2023</td>
-            <td>R$4.100,00</td>
-            <td>Não</td>
-            <td>Sim</td>
-            <td>Não</td>
-            <td>
-              <a routerLink="/cliente/detalhes-aluguel" href="#">
+              <a [routerLink]="['/cliente/detalhes-aluguel', item.id]" href="#">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </a>
             </td>
