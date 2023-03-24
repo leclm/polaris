@@ -16,7 +16,7 @@ $white: #fff;
   }
 
   h1 {
-    margin: 20px 0 50px;
+    margin: 20px 0;
     font-size: 20px;
   }
 
@@ -27,6 +27,10 @@ $white: #fff;
 
   p, label {
     font-size: 14px;
+  }
+
+  .line {
+    border-bottom: $dark-blue 1px solid;
   }
   
   .content {

@@ -1,0 +1,1 @@
+export * from './visualizar-detalhes-cliente.component';

@@ -4,7 +4,7 @@ $dark-blue: #0f2b46;
 $dark-gray: #2d2e30;
 $white: #fff;
 
-.detalhes-aluguel {
+.visualizar-detalhes-cliente {
   .container-content {
     border: 1px solid $border-gray;
     border-radius: 15px;
@@ -13,11 +13,6 @@ $white: #fff;
     display: flex;
     align-items: stretch;
     flex-direction: column;
-
-    .btn-paypal {
-      display: flex;
-      justify-content: flex-end; 
-    }
   }
 
   h1 {
@@ -30,55 +25,19 @@ $white: #fff;
     font-weight: 500;
   }
 
-  p {
+  p, label {
     font-size: 14px;
   }
 
   .line {
-    border-top: $dark-blue 3px solid;
+    border-bottom: $dark-blue 1px solid;
   }
   
   .content {
     flex-direction: column;
-    span {
-      font-weight: 600;
-      color: $dark-gray;
+    .form-control {
+      background-color: $border-gray;
     }
-  }
-
-  .table {
-    font-size: 15px;  
-    border-collapse: unset;
-    border-spacing: 0px;
-    border: none;
-    thead {
-      th {
-        border: solid 1px $border-gray;
-      }
-      th:first-child {
-        border-radius: 10px 0 0 0;
-      }
-      th:last-child {
-        border-radius: 0 10px 0 0;
-      }
-    }
-    tbody {
-      td {
-        border: solid 1px $border-gray;
-      }
-      tr:last-child td:first-child {
-        border-radius: 0 0 0 10px;
-        
-      }
-      tr:last-child td:last-child {
-        border-radius: 0 0 10px 0;
-      }
-    }    
-  }
-
-  .price {
-    flex-direction: column;
-    align-items: flex-end;
   }
 
   .ctn-btn {
@@ -102,9 +61,6 @@ $white: #fff;
     :hover {
       color: unset;
       background-color: $aqua;
-    }
-    ngx-paypal:hover  {
-      background-color: unset;
     }
   }
 }
