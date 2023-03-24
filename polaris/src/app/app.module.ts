@@ -10,6 +10,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { GerenteModule } from './gerente/gerente.module';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -34,7 +35,8 @@ registerLocaleData(localePt, 'pt');
     AuthModule,
     ClienteModule,
     NgxMaskModule.forRoot(),
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    GerenteModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CURRENCY_MASK_CONFIG },
