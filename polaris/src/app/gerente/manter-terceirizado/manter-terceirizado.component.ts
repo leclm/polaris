@@ -9,7 +9,5 @@ export class ManterTerceirizadoComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 }
