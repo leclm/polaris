@@ -1,16 +1,18 @@
 <div class="visualizar-detalhes-cliente container-fluid mt-4 mb-4">
+  <!--<div *ngFor="let item of clienteData.content">
+    <div *ngIf="item.id == clienteId">-->
   <div class="container-content mb-4 p-4">
     <h1>Visualizar Detalhes do Cliente</h1>
 
     <div class="line mb-5"></div>
-    
+
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex justify-content-start ms-3">
         <form class="row g-3">
           <div class="col-md-6">
             <label for="inputFirstName" class="form-label">Nome</label>
-            <p class="form-control">Letícia</p>
+            <p class="form-control"> Letícia </p>
           </div>
           <div class="col-md-6">
             <label for="inputSurname" class="form-label">Sobrenome</label>
@@ -32,7 +34,7 @@
             <label for="inputEmai" class="form-label">Email</label>
             <p class="form-control">polaris@gmail.com</p>
           </div>
-     
+
           <div class="col-12">
             <label for="inputAddress" class="form-label">Endereço</label>
             <p class="form-control">Rua Adir Dalabona</p>
@@ -59,9 +61,11 @@
           </div>
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <a href="#" routerLink="/gerente/manter-cliente">Voltar</a>
+            <a href="#">Ver Histórico de Aluguéis</a>
+            <a href="/gerente/visualizar-clientes">Voltar</a>
           </div>
         </form>
       </div>
-    </div>  
+    </div>
+  </div>
 </div>
