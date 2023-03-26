@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ManterClienteComponent } from './manter-cliente';
+import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
 
 export const GerenteRoutes: Routes = [
@@ -8,12 +9,11 @@ export const GerenteRoutes: Routes = [
     component: ManterClienteComponent
   },
   {
-    path: 'gerente/visualizar-detalhes-cliente',
+    path: 'gerente/visualizar-detalhes-cliente/:id',
     component: VisualizarDetalhesClienteComponent
+  },
+  {
+    path: 'gerente/visualizar-clientes',
+    component: VisualizarClientesComponent
   }
-  
-  /*{
-    path: 'gerente/editar-cliente/:id',
-    component: EditarClienteComponent
-  }*/
 ];

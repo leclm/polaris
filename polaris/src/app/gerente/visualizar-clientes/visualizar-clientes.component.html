@@ -1,0 +1,46 @@
+<div class="visualizar-clientes container-fluid mt-4 mb-4">
+  <div class="container-content p-4">
+    <h1 class="mb-4">Clientes Cadastrados</h1>
+
+    <div class="table-responsive">
+      <table class="table align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+            <th>Data da Devolução <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of clienteData.content">
+            <td>{{ item.nome }}</td>
+            <td>{{ item.telefone }}</td>
+            <td>{{ item.cpf }}</td>
+            <td>{{ item.endereco }}</td>
+            <td>{{ item.dataDevolucao }}</td>
+            <td>
+              <a href="/gerente/visualizar-detalhes-cliente/2">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>
+              <a href="/gerente/visualizar-detalhes-cliente/2">
+                <i class="fa fa-user-edit" aria-hidden="true"></i>
+              </a>              
+              <i class="fa fa-trash-alt" aria-hidden="true"></i>
+            </td>
+          </tr>
+          <!--
+            <a [routerLink]="['/gerente/visualizar-detalhes-cliente', item.id]" href="#">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>-->
+        </tbody>
+      </table>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a href="/gerente/manter-cliente">Cadastrar Cliente</a>
+        <!--<a href="#" routerLink="/gerente/manter-cliente">Cadastrar Cliente</a>-->
+      </div>
+    </div>
+  </div>
+</div>

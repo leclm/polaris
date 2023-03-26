@@ -47,12 +47,7 @@ $white: #fff;
         border: 1px solid transparent;
         background-color: $dark-blue;
         color: $white;
-        text-align: center; 
-        display: flex;
-        align-items: center;      
-        justify-content: center;
-        font-weight: 200;
-        height: 100%;
+        text-align: center;      
       }
       :hover {
         color: unset;
@@ -68,7 +63,7 @@ $white: #fff;
     .ctn-btn {
       flex-direction: row-reverse !important;
       a, button {      
-        width: 25%;
+        width: 22%;
       }
     }
   }  

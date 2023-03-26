@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detalhes-aluguel.component.scss']
 })
 export class DetalhesAluguelComponent implements OnInit {
-
   public payPalConfig?: IPayPalConfig;
   public authData: any;
   public aluguelData: any;
