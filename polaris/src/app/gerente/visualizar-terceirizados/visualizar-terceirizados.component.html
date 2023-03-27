@@ -6,11 +6,11 @@
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th>Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th>Empresa</th>
-            <th>Telefone</th>
-            <th>CNPJ</th>
-            <th>Endereço</th>
+            <th [appSort]="clienteData.content" data-order="desc" data-name="tipo">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData.content" data-order="desc" data-name="empresa">Empresa <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData.content" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData.content" data-order="desc" data-name="cnpj">CNPJ <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData.content" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th>Opções</th>
           </tr>
         </thead>
