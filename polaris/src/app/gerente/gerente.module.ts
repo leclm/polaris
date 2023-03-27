@@ -4,13 +4,15 @@ import { ManterClienteComponent } from './manter-cliente/manter-cliente.componen
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente/visualizar-detalhes-cliente.component';
 import { VisualizarClientesComponent } from './visualizar-clientes/visualizar-clientes.component';
 import { ManterTerceirizadoComponent } from './manter-terceirizado/manter-terceirizado.component';
+import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados/visualizar-terceirizados.component';
 
 @NgModule({
   declarations: [
     ManterClienteComponent,
     VisualizarDetalhesClienteComponent,
     VisualizarClientesComponent,
-    ManterTerceirizadoComponent
+    ManterTerceirizadoComponent,
+    VisualizarTerceirizadosComponent
   ],
   imports: [
     CommonModule

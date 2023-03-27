@@ -3,6 +3,7 @@ import { ManterClienteComponent } from './manter-cliente';
 import { ManterTerceirizadoComponent } from './manter-terceirizado';
 import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
+import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados';
 
 export const GerenteRoutes: Routes = [
   {
@@ -20,5 +21,9 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/manter-terceirizado',
     component: ManterTerceirizadoComponent
+  },
+  {
+    path: 'gerente/visualizar-terceirizados',
+    component: VisualizarTerceirizadosComponent
   }
 ];
