@@ -4,7 +4,7 @@ $dark-blue: #0f2b46;
 $dark-gray: #2d2e30;
 $white: #fff;
 
-.manter-terceirizado {
+.visualizar-detalhes-terceirizado {
   .container-content {
     border: 1px solid $border-gray;
     border-radius: 15px;
@@ -35,11 +35,13 @@ $white: #fff;
   
   .content {
     flex-direction: column;
-    
+    .form-control {
+      background-color: $border-gray;
+    }
     .ctn-btn {
       flex-direction: column;
       align-items: center;
-      a, button {
+       a {
         border-radius: 50px;
         text-decoration: none;
         padding: 0.3rem 1rem;
