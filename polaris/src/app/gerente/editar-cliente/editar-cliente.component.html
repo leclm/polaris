@@ -1,71 +1,69 @@
-<div class="visualizar-detalhes-cliente container-fluid mt-4 mb-4">
-  <!--<div *ngFor="let item of clienteData.content">
-    <div *ngIf="item.id == clienteId">-->
+<div class="editar-cliente container-fluid mt-4 mb-4">
   <div class="container-content mb-4 p-4">
-    <h1>Visualizar Detalhes do Cliente</h1>
+    <h1>Editar Cliente</h1>
 
     <div class="line mb-5"></div>
-
+    
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
-      <div class="content d-flex justify-content-start ms-3">
+      <div class="content d-flex ms-3">
         <form class="row g-3">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
-            <p class="form-control"> Letícia </p>
+            <input type="text" class="form-control" id="inputNome">
           </div>
           <div class="col-md-6">
             <label for="inputSobrenome" class="form-label">Sobrenome</label>
-            <p class="form-control">das Chagas Lima</p>
+            <input type="text" class="form-control" id="inputSobrenome">
           </div>
           <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
-            <p class="form-control">03/09/1995</p>
+            <input type="text" class="form-control" id="inputDataNascimento">
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>
-            <p class="form-control">058.954.785-88</p>
+            <input type="text" class="form-control" id="inputCpf">
           </div>
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <p class="form-control">(41) 9 9891-7792</p>
+            <input type="tel" class="form-control" id="inputTelefone">
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <p class="form-control">polaris@gmail.com</p>
+            <input type="email" class="form-control" id="inputEmail">
           </div>
-
+     
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <p class="form-control">85854-964</p>
+            <input type="text" class="form-control" id="inputCep">
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-            <p class="form-control">Estado</p>
+            <input type="text" class="form-control" id="inputEstado">
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <p class="form-control">Curitiba</p>
+            <input type="text" class="form-control" id="inputCidade">
           </div>
           <div class="col-6">
             <label for="inputEndereco" class="form-label">Endereço</label>
-            <p class="form-control">Rua Adir Dalabona</p>
+            <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso">
           </div>
           <div class="col-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <p class="form-control">341</p>
+            <input type="number" class="form-control" id="inputNumero" placeholder="123">
           </div>
           <div class="col-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
-            <p class="form-control">Casa 2</p>
+            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2">
           </div>
-          
+
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <a href="#">Ver Histórico de Aluguéis</a>
+            <button type="submit">Salvar Alterações</button>
             <a href="/gerente/visualizar-clientes">Voltar</a>
+            <!--<a href="#" routerLink="/gerente/visualizar-clientes">Voltar</a>-->
           </div>
         </form>
       </div>
-    </div>
-  </div>
+    </div>  
 </div>
