@@ -9,6 +9,7 @@ import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-t
 import { SortDirective } from '../shared/directives/sort.directive';
 import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-terceirizado.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
+import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EditarClienteComponent } from './editar-cliente/editar-cliente.componen
     VisualizarDetalhesTerceirizadoComponent,
     SortDirective,
     EditarTerceirizadoComponent,
-    EditarClienteComponent
+    EditarClienteComponent,
+    VisualizarHistoricoTerceirizadoComponent
   ],
   imports: [
     CommonModule
