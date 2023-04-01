@@ -6,6 +6,7 @@ import { ManterTerceirizadoComponent } from './manter-terceirizado';
 import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
 import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-terceirizado';
+import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
 import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados';
 
 export const GerenteRoutes: Routes = [
@@ -42,5 +43,9 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-detalhes-terceirizado/:id',
     component: VisualizarDetalhesTerceirizadoComponent
+  },
+  {
+    path: 'gerente/visualizar-historico-terceirizado/:id',
+    component: VisualizarHistoricoTerceirizadoComponent
   }
 ];
