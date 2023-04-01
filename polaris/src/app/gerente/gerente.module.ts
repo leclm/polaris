@@ -7,6 +7,8 @@ import { ManterTerceirizadoComponent } from './manter-terceirizado/manter-tercei
 import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados/visualizar-terceirizados.component';
 import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-terceirizado/visualizar-detalhes-terceirizado.component';
 import { SortDirective } from '../shared/directives/sort.directive';
+import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-terceirizado.component';
+import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { SortDirective } from '../shared/directives/sort.directive';
     ManterTerceirizadoComponent,
     VisualizarTerceirizadosComponent,
     VisualizarDetalhesTerceirizadoComponent,
-    SortDirective
+    SortDirective,
+    EditarTerceirizadoComponent,
+    EditarClienteComponent
   ],
   imports: [
     CommonModule
