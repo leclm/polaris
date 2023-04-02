@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Endereco.Models
 {
@@ -9,16 +10,19 @@ namespace Polaris.Endereco.Models
         [Key]
         public int EnderecoId { get; set; }
         [Required]
-        [StringLength(45)]
+        [MaxLength(45)]
         public string? Cep { get; set; }
         [Required]
-        [StringLength(100)]
+        [NotNull]
+        [MaxLength(100)]
         public string? Cidade { get; set; }
         [Required]
-        [StringLength(45)]
+        [NotNull]
+        [MaxLength(45)]
         public string? Estado { get; set; }
         [Required]
-        [StringLength(200)]
+        [NotNull]
+        [MaxLength(200)]
         public string? Logradouro { get; set; }
         public string? Complemento { get; set; }
         public int Numero { get; set; }
