@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ViaCepService } from 'src/app/shared';
 
 @Component({
@@ -7,9 +7,10 @@ import { ViaCepService } from 'src/app/shared';
   styleUrls: ['./manter-terceirizado.component.scss']
 })
 export class ManterTerceirizadoComponent implements OnInit {
-  cep!: string;
-  address: any;
-
+  public cep!: string;
+  public address: any;
+  public status!: string;
+  
   constructor( private viaCepService: ViaCepService ) { }
 
   ngOnInit(): void { }
@@ -18,5 +19,15 @@ export class ManterTerceirizadoComponent implements OnInit {
     this.viaCepService.getAddressByCep(this.cep).subscribe(data => {
       this.address = data;
     });
+  }
+  
+  // mock para mensagem
+  cadastrar(): any {
+    var code = "200";
+    if ( code == "200") {
+      this.status = 'success';
+    } else {
+      this.status = 'fail';
+    }
   }
 }
