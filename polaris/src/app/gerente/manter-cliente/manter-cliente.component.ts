@@ -14,12 +14,8 @@ export class ManterClienteComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  searchAddress() {
-    
-  }
-
-  onInput(event: any) {
+  
+  searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.cep).subscribe(data => {
       this.address = data;
     });
