@@ -1,0 +1,39 @@
+<div class="editar-categoria container-fluid mt-4 mb-4">
+  <div class="container-content mb-4 p-4">
+    <h1>Editar Categoria</h1>
+
+    <div class="line mb-5"></div>
+    
+    <div [ngSwitch]="status">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Edição realizada com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao editar, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="title">Informação cadastral</p>
+      <div class="content ms-3">
+        <form class="row g-3">
+          <div class="col-md-6">
+            <label for="inputNome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="inputNome">
+          </div>
+          
+          <div class="ctn-btn d-flex justify-content-evenly mt-5">
+            <button type="submit" (click)="editar()">Salvar Alterações</button>
+            <a href="/gerente/visualizar-categorias">Voltar</a>
+            <!--<a href="#" routerLink="/gerente/visualizar-categorias">Voltar</a>-->
+          </div>
+        </form>
+      </div>
+    </div>  
+</div>

@@ -11,6 +11,9 @@ import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-tercei
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
 import { FormsModule } from '@angular/forms';
+import { ManterCategoriaComponent } from './manter-categoria/manter-categoria.component';
+import { VisualizarCategoriasComponent } from './visualizar-categorias/visualizar-categorias.component';
+import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { FormsModule } from '@angular/forms';
     SortDirective,
     EditarTerceirizadoComponent,
     EditarClienteComponent,
-    VisualizarHistoricoTerceirizadoComponent
+    VisualizarHistoricoTerceirizadoComponent,
+    ManterCategoriaComponent,
+    VisualizarCategoriasComponent,
+    EditarCategoriaComponent
   ],
   imports: [
     CommonModule,

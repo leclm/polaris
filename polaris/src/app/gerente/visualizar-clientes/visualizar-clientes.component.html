@@ -10,7 +10,6 @@
             <th [appSort]="clienteData.content" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th [appSort]="clienteData.content" data-order="desc" data-name="cpf">CPF <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th [appSort]="clienteData.content" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="dataDevolucao">Data da Devolução <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th>Opções</th>
           </tr>
         </thead>
@@ -20,7 +19,6 @@
             <td>{{ item.telefone }}</td>
             <td>{{ item.cpf }}</td>
             <td>{{ item.endereco }}</td>
-            <td>{{ item.dataDevolucao }}</td>
             <td>
               <a href="/gerente/visualizar-detalhes-cliente/2">
                 <i class="fa fa-eye" aria-hidden="true"></i>

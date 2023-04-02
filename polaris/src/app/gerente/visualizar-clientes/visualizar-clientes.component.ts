@@ -17,7 +17,6 @@ export class VisualizarClientesComponent implements OnInit {
         'nome': 'Letícia das Chagas Lima ',
         'telefone': '(41) 9 9891-7792',
         'cpf': '07804144970',
-        'dataDevolucao': '30/04/2023',
         'endereco': 'Rua Bruno Filgueira',
         'numero': '54',
         'cidade': 'Curitiba'
@@ -27,7 +26,6 @@ export class VisualizarClientesComponent implements OnInit {
         'nome': 'Lucas das Chagas Lima ',
         'telefone': '(41) 9 8855-7465',
         'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
         'endereco': 'Rua Adir Dalabona',
         'numero': '111',
         'cidade': 'Curitiba'
@@ -37,7 +35,6 @@ export class VisualizarClientesComponent implements OnInit {
         'nome': 'Lucas das Chagas Lima ',
         'telefone': '(41) 9 8855-7465',
         'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
         'endereco': 'Rua Adir Dalabona',
         'numero': '111',
         'cidade': 'Curitiba'
@@ -47,7 +44,6 @@ export class VisualizarClientesComponent implements OnInit {
         'nome': 'Lucas das Chagas Lima ',
         'telefone': '(41) 9 8855-7465',
         'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
         'endereco': 'Rua Adir Dalabona',
         'numero': '111',
         'cidade': 'Curitiba'
@@ -57,7 +53,6 @@ export class VisualizarClientesComponent implements OnInit {
         'nome': 'Lucas das Chagas Lima ',
         'telefone': '(41) 9 8855-7465',
         'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
         'endereco': 'Rua Adir Dalabona',
         'numero': '111',
         'cidade': 'Curitiba'
@@ -67,7 +62,6 @@ export class VisualizarClientesComponent implements OnInit {
         'nome': 'Lucas das Chagas Lima ',
         'telefone': '(41) 9 8855-7465',
         'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
         'endereco': 'Rua Adir Dalabona',
         'numero': '111',
         'cidade': 'Curitiba'

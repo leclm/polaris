@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
+import { EditarCategoriaComponent } from './editar-categoria';
 import { EditarClienteComponent } from './editar-cliente';
 import { EditarTerceirizadoComponent } from './editar-terceirizado';
+import { ManterCategoriaComponent } from './manter-categoria';
 import { ManterClienteComponent } from './manter-cliente';
 import { ManterTerceirizadoComponent } from './manter-terceirizado';
+import { VisualizarCategoriasComponent } from './visualizar-categorias';
 import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
 import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-terceirizado';
@@ -47,5 +50,18 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-historico-terceirizado/:id',
     component: VisualizarHistoricoTerceirizadoComponent
+  },
+  // Categoria de Contêiner
+  {
+    path: 'gerente/manter-categoria',
+    component: ManterCategoriaComponent
+  },
+  {
+    path: 'gerente/visualizar-categorias',
+    component: VisualizarCategoriasComponent
+  },
+  {
+    path: 'gerente/editar-categoria/:id',
+    component: EditarCategoriaComponent
   }
 ];
