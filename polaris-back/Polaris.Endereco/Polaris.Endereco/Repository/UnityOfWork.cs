@@ -15,7 +15,7 @@ namespace Polaris.Endereco.Repository
         {
             get
             {
-                return _enderecoRepo = _enderecoRepo ?? new EnderecoRepository(_context); //verifica se é nula
+                return _enderecoRepo = _enderecoRepo ?? new EnderecoRepository(_context);
             }
         }
 

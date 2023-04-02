@@ -82,8 +82,8 @@ namespace Polaris.Endereco.Controllers
         }
 
         // ALTERAR STATUS: api/Enderecos/altera-status/5 
-        [HttpPut("altera-status/{id:int:min(1)}")]
-        public async Task<ActionResult<EnderecoDTO>> AlteraStatus(int id, bool status)
+        [HttpPut("alterar-status/{id:int:min(1)}")]
+        public async Task<ActionResult<EnderecoDTO>> AlterarStatus(int id, bool status)
         {
             var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoId == id);
 
