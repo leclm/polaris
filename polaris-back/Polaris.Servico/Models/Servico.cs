@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml.Linq;
 
 namespace Polaris.Servico.Models
 {
@@ -13,6 +15,8 @@ namespace Polaris.Servico.Models
         [NotNull]
         [MaxLength(100)]
         public string? Nome { get; set; }
+        public bool Status { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Terceirizado>? Terceirizados { get; set; }
     }
 }

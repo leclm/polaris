@@ -19,7 +19,7 @@ namespace Polaris.Servico.Repository
                 .Take(servicosParameters.PageSize)
                 .ToList();
         }
-        public async Task<IEnumerable<Models.Servico>> GetTerceirizadosServicos()
+        public async Task<IEnumerable<Models.Servico>> GetServicosTerceirizados()
         {
             return await Get().Include(x => x.Terceirizados).ToListAsync();
         }

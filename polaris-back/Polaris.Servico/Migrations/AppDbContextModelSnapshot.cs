@@ -29,7 +29,13 @@ namespace Polaris.Servico.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("ServicoId");
+
+                    b.HasIndex("Nome")
+                        .IsUnique();
 
                     b.ToTable("Servicos");
                 });
@@ -55,12 +61,18 @@ namespace Polaris.Servico.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)");
 
                     b.HasKey("TerceirizadoId");
+
+                    b.HasIndex("Empresa", "Cnpj", "Email", "Telefone")
+                        .IsUnique();
 
                     b.ToTable("Terceirizado");
                 });

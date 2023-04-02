@@ -16,7 +16,7 @@ namespace Polaris.Servico.Repository
         {
             get
             {
-                return _servicoRepo = _servicoRepo ?? new ServicoRepository(_context); //verifica se é nula
+                return _servicoRepo = _servicoRepo ?? new ServicoRepository(_context);
             }
         }
 

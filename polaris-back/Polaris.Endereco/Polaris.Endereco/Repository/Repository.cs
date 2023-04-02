@@ -26,10 +26,10 @@ namespace Polaris.Endereco.Repository
             _context.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-        }
+        //public void Delete(T entity)
+        //{
+        //    _context.Set<T>().Remove(entity);
+        //}
 
         public void Update(T entity)
         {

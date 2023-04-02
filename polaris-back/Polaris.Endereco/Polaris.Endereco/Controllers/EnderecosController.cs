@@ -21,16 +21,6 @@ namespace Polaris.Endereco.Controllers
             _mapper = mapper;
         }
 
-        //// GET: api/CategoriasProdutos
-        //[HttpGet("produtos")]
-        //public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetCategoriasProdutos()
-        //{
-        //    var categorias = await _context.CategoriaRepository.GetCategoriasProdutos();
-        //    var categoriasDto = _mapper.Map<List<CategoriaDTO>>(categorias);
-        //    return categoriasDto;
-
-        //}
-
         // GET: api/Enderecos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EnderecoDTO>>> GetEnderecos()
@@ -91,9 +81,9 @@ namespace Polaris.Endereco.Controllers
             return Ok();
         }
 
-        // DELETE: api/Enderecos/5 FAZER COM DESATIVAR
-        [HttpDelete("{id:int:min(1)}")]
-        public async Task<ActionResult<EnderecoDTO>> DeleteEndereco(int id)
+        // ALTERAR STATUS: api/Enderecos/altera-status/5 
+        [HttpPut("alterar-status/{id:int:min(1)}")]
+        public async Task<ActionResult<EnderecoDTO>> AlterarStatus(int id, bool status)
         {
             var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoId == id);
 
@@ -102,7 +92,9 @@ namespace Polaris.Endereco.Controllers
                 return NotFound("Endereço não encontrado.");
             }
 
-            _context.EnderecoRepository.Delete(endereco);
+            endereco.Status = status;
+
+            _context.EnderecoRepository.Update(endereco);
             await _context.Commit();
 
             var enderecoDto = _mapper.Map<EnderecoDTO>(endereco);

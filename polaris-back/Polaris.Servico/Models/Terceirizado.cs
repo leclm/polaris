@@ -31,7 +31,8 @@ namespace Polaris.Servico.Models
         [NotNull]
         [MaxLength(45)]
         public string? Telefone { get; set; }
-
+        public bool Status { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Servico>? Servicos { get; set; }
     }
 }
