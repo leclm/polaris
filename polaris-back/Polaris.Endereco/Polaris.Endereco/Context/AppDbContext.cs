@@ -11,5 +11,12 @@ namespace Polaris.Endereco.Context
 
         public DbSet<Models.Endereco>? Enderecos { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Models.Endereco>()
+               .HasIndex(p => new { p.EnderecoUuid })
+               .IsUnique();
+        }
+
     }
 }

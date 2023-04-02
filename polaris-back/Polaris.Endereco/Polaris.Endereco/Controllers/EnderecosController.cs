@@ -1,104 +1,146 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Polaris.Endereco.DTOs;
-using Polaris.Endereco.Models;
-using Polaris.Endereco.Repository;
-using System.Xml.Linq;
+using Polaris.Endereco.Services;
+using static Polaris.Endereco.Exceptions.CustomExceptions;
 
 namespace Polaris.Endereco.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class EnderecosController : ControllerBase
+    public class EnderecosController : UtilsController
     {
-        private readonly IUnityOfWork _context;
-        private readonly IMapper _mapper;
+        private readonly IEnderecosService _service;
+        
 
-        public EnderecosController(IUnityOfWork contexto, IMapper mapper)
+        public EnderecosController(IEnderecosService service)
         {
-            _context = contexto;
-            _mapper = mapper;
+            _service = service;
         }
 
+
+        /// <summary>
+        /// Este endpoint deve consultar os endereços cadastrados
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os endereços cadastrados
+        /// </returns>
         // GET: api/Enderecos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EnderecoDTO>>> GetEnderecos()
+        public async Task<IActionResult> GetEnderecos()
         {
-            var enderecos = await _context.EnderecoRepository.Get().ToListAsync();
-            if (enderecos is null)
+            try
             {
-                return NotFound("Não há endereços cadastrados.");
+                return Ok(await _service.GetEnderecos());
             }
-            var enderecosDto = _mapper.Map<List<EnderecoDTO>>(enderecos);
-            return enderecosDto;
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
         }
 
+        /// <summary>
+        /// Este endpoint deve consultar um endereço cadastrado
+        /// </summary>
+        /// <returns>
+        /// Retorna um endereço cadastrado
+        /// </returns>
         // GET: api/Enderecos/5
-        [HttpGet("{id:int:min(1)}", Name = "ObterEndereco")]
-        public async Task<ActionResult<EnderecoDTO>> GetEndereco(int id)
+        [HttpGet("{uuid}", Name = "ObterEndereco")]
+        public async Task<IActionResult> GetEndereco(Guid uuid)
         {
-            var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoId == id);
-
-            if (endereco is null)
+            try
             {
-                return NotFound("Endereço não encontrado.");
+                return Ok(await _service.GetEndereco(uuid));
             }
-            var enderecoDto = _mapper.Map<EnderecoDTO>(endereco);
-            return enderecoDto;
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
         }
 
-
+        /// <summary>
+        /// Este endpoint deve cadastrar um endereço
+        /// </summary>
+        /// <returns>
+        /// Retorna 2xx caso sucesso
+        /// Retorna 4xx caso erro
+        /// </returns>
         // POST: api/Enderecos
         [HttpPost]
-        public async Task<ActionResult<EnderecoDTO>> PostEndereco(EnderecoDTO enderecoDto)
+        public async Task<IActionResult> PostEndereco(CadastroEnderecoViewModel enderecoDto)
         {
-            var endereco = _mapper.Map<Models.Endereco>(enderecoDto);
-
-            if (endereco is null) return BadRequest("Erro ao cadastrar um endereço.");
-
-            _context.EnderecoRepository.Add(endereco);
-            await _context.Commit();
-
-            var enderecoDTO = _mapper.Map<EnderecoDTO>(endereco);
-
-            return new CreatedAtRouteResult("ObterEndereco", new { id = endereco.EnderecoId }, enderecoDTO);
+            try
+            {
+                return StatusCode(StatusCodes.Status201Created, await _service.PostEndereco(enderecoDto));
+            }
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
         }
 
+        /// <summary>
+        /// Este endpoint deve atualizar um endereço cadastrado
+        /// </summary>
+        /// <returns>
+        /// Retorna 2xx caso sucesso
+        /// Retorna 4xx caso erro
+        /// </returns>
         // PUT: api/Enderecos/5
-        [HttpPut("{id:int:min(1)}")]
-        public async Task<IActionResult> PutEndereco(EnderecoDTO enderecoDto)
+        [HttpPut]
+        public async Task<IActionResult> PutEndereco(AtualizaEnderecoViewModel enderecoDto)
         {
-            if (enderecoDto.EnderecoId != enderecoDto.EnderecoId)
+            try
             {
-                return BadRequest("Erro ao atualizar o endereço.");
+                await _service.PutEndereco(enderecoDto);
+                return Ok();
             }
-
-            var endereco = _mapper.Map<Models.Endereco>(enderecoDto);
-
-            _context.EnderecoRepository.Add(endereco);
-            await _context.Commit();
-            return Ok();
+            catch (AtualizarEnderecoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
         }
 
-        // ALTERAR STATUS: api/Enderecos/altera-status/5 
-        [HttpPut("alterar-status/{id:int:min(1)}")]
-        public async Task<ActionResult<EnderecoDTO>> AlterarStatus(int id, bool status)
+        /// <summary>
+        /// Este endpoint deve alterar para ativado ou desativado o status de um endereço
+        /// </summary>
+        /// <returns>
+        /// Retorna 2xx caso sucesso
+        /// Retorna 4xx caso erro
+        /// </returns>
+        // ALTERAR STATUS: api/Enderecos/altera-status/5/true 
+        [HttpPut("alterar-status/{uuid}/{status}")]
+        public async Task<IActionResult> AlterarStatus(Guid uuid, bool status)
         {
-            var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoId == id);
-
-            if (endereco == null)
+            try
             {
-                return NotFound("Endereço não encontrado.");
+                await _service.AlterarStatus(uuid, status);
+                return Ok();
             }
-
-            endereco.Status = status;
-
-            _context.EnderecoRepository.Update(endereco);
-            await _context.Commit();
-
-            var enderecoDto = _mapper.Map<EnderecoDTO>(endereco);
-            return enderecoDto;
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
         }
     }
 }
