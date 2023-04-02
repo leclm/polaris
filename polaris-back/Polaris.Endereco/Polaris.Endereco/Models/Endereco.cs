@@ -26,5 +26,6 @@ namespace Polaris.Endereco.Models
         public string? Logradouro { get; set; }
         public string? Complemento { get; set; }
         public int Numero { get; set; }
+        public bool Status { get; set; }
     }
 }
