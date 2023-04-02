@@ -77,9 +77,9 @@ namespace Polaris.Endereco.Controllers
 
         // PUT: api/Enderecos/5
         [HttpPut("{id:int:min(1)}")]
-        public async Task<IActionResult> PutEndereco(int id, EnderecoDTO enderecoDto)
+        public async Task<IActionResult> PutEndereco(EnderecoDTO enderecoDto)
         {
-            if (id != enderecoDto.EnderecoId)
+            if (enderecoDto.EnderecoId != enderecoDto.EnderecoId)
             {
                 return BadRequest("Erro ao atualizar o endereço.");
             }
@@ -91,7 +91,7 @@ namespace Polaris.Endereco.Controllers
             return Ok();
         }
 
-        // DELETE: api/Enderecos/5
+        // DELETE: api/Enderecos/5 FAZER COM DESATIVAR
         [HttpDelete("{id:int:min(1)}")]
         public async Task<ActionResult<EnderecoDTO>> DeleteEndereco(int id)
         {
