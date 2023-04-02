@@ -10,6 +10,8 @@ namespace Polaris.Endereco.Models
         [Key]
         public int EnderecoId { get; set; }
         [Required]
+        public Guid EnderecoUuid { get; set; }
+        [Required]
         [MaxLength(45)]
         public string? Cep { get; set; }
         [Required]

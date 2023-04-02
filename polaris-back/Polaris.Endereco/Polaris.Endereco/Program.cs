@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Polaris.Endereco.Context;
 using Polaris.Endereco.DTOs.Mappings;
 using Polaris.Endereco.Repository;
+using Polaris.Endereco.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
                     ServerVersion.AutoDetect(mySqlConnection)));
 
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
+builder.Services.AddScoped<IEnderecosService, EnderecosService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
