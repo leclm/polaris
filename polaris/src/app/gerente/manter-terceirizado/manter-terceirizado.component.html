@@ -37,19 +37,19 @@
      
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep">
+            <input type="text" class="form-control" id="inputCep" name="cep" (input)="searchAddress($event)" [(ngModel)]="cep">
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="inputEstado">
+            <p class="form-control" id="inputEstado">{{ address.uf }}</p>
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="inputCidade">
+            <p class="form-control" id="inputCidade">{{ address.localidade }}</p>
           </div>
           <div class="col-md-6">
-            <label for="inputEndereco" class="form-label">Endereço</label>
-            <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso">
+            <label for="inputLogradouro" class="form-label">Endereço</label>
+            <p class="form-control" id="inputLogradouro">{{ address.logradouro }}</p>
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
