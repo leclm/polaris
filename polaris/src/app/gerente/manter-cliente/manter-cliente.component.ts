@@ -7,8 +7,9 @@ import { ViaCepService } from 'src/app/shared';
   styleUrls: ['./manter-cliente.component.scss']
 })
 export class ManterClienteComponent implements OnInit {
-  cep!: string;
-  address: any;
+  public cep!: string;
+  public address: any;
+  public status!: string;
 
   constructor( private viaCepService: ViaCepService ) { }
 
@@ -19,5 +20,15 @@ export class ManterClienteComponent implements OnInit {
     this.viaCepService.getAddressByCep(this.cep).subscribe(data => {
       this.address = data;
     });
+  }
+
+  // mock para mensagem
+  cadastrar(): any {
+    var code = "200";
+    if ( code == "200") {
+      this.status = 'success';
+    } else {
+      this.status = 'fail';
+    }
   }
 }

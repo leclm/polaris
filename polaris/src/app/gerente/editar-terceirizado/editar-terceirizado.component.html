@@ -4,6 +4,21 @@
 
     <div class="line mb-5"></div>
     
+    <div [ngSwitch]="status">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Edição realizada com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao editar, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex ms-3">
@@ -61,7 +76,7 @@
           </div>
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <button type="submit">Salvar Alterações</button>
+            <button type="submit"(click)="editar()">Salvar Alterações</button>
             <a href="/gerente/visualizar-terceirizados">Voltar</a>
             <!--<a href="#" routerLink="/gerente/visualizar-clientes">Voltar</a>-->
           </div>
