@@ -10,6 +10,7 @@ import { SortDirective } from '../shared/directives/sort.directive';
 import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-terceirizado.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico
     VisualizarHistoricoTerceirizadoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class GerenteModule { }
