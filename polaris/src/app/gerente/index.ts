@@ -14,3 +14,7 @@ export * from './visualizar-historico-terceirizado';
 export * from './manter-categoria';
 export * from './visualizar-categorias';
 export * from './editar-categoria';
+
+export * from './manter-tipo';
+export * from './editar-tipo';
+export * from './visualizar-tipos';

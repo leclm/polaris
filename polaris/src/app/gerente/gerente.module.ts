@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { ManterCategoriaComponent } from './manter-categoria/manter-categoria.component';
 import { VisualizarCategoriasComponent } from './visualizar-categorias/visualizar-categorias.component';
 import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.component';
+import { ManterTipoComponent } from './manter-tipo/manter-tipo.component';
+import { EditarTipoComponent } from './editar-tipo/editar-tipo.component';
+import { VisualizarTiposComponent } from './visualizar-tipos/visualizar-tipos.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.co
     VisualizarHistoricoTerceirizadoComponent,
     ManterCategoriaComponent,
     VisualizarCategoriasComponent,
-    EditarCategoriaComponent
+    EditarCategoriaComponent,
+    ManterTipoComponent,
+    EditarTipoComponent,
+    VisualizarTiposComponent
   ],
   imports: [
     CommonModule,

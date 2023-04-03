@@ -1,0 +1,76 @@
+<div class="manter-tipo container-fluid mt-4 mb-4">
+  <div class="container-content mb-4 p-4">
+    <h1>Cadastrar Novo Tipo de Contêiner</h1>
+
+    <div class="line mb-5"></div>
+    
+    <div [ngSwitch]="status">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Cadastro realizado com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao cadastrar, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="title">Dados cadastrais</p>
+      <div class="content d-flex ms-3">
+        <form class="row g-3">
+          <div class="col-md-4">
+            <label for="inputCategoria" class="form-label">Categoria de Contêiner</label>
+            <select class="form-select" id="inputCategoria" aria-label="Categoria">
+              <option value="1" selected>Construção Civil</option>
+              <option value="2">Comércio</option>
+              <option value="3">Banheiro</option>
+              <option value="2">Moradia</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="inputTipo" class="form-label">Tipo</label>
+            <input type="text" class="form-control" id="inputTipo" placeholder="Pequeno, Médio, Grande...">
+          </div>
+          <div class="col-md-4">
+            <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
+            <input type="number" class="form-control" id="inputPesoMaximo">
+          </div>
+          <div class="col-md-4">
+            <label for="inputComprimento" class="form-label">Comprimento</label>
+            <input type="number" class="form-control" id="inputComprimento">
+          </div>
+          <div class="col-md-4">
+            <label for="inputLargura" class="form-label">Largura</label>
+            <input type="number" class="form-control" id="inputLargura">
+          </div>
+          <div class="col-md-4">
+            <label for="inputAltura" class="form-label">Altura</label>
+            <input type="number" class="form-control" id="inputAltura">
+          </div>
+          <div class="col-md-4">
+            <label for="inputVolume" class="form-label">Volume</label>
+            <input type="number" class="form-control" id="inputVolume">
+          </div>
+          <div class="col-md-4">
+            <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
+            <input type="text" class="form-control" id="inputValorDiaria" value="R$ ">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="inputValorMes" class="form-label">Valor por Mês</label>
+            <input type="text" class="form-control" id="inputValorMes" value="R$ ">
+          </div>
+          
+          <div class="ctn-btn d-flex justify-content-evenly mt-5">
+            <button type="submit" (click)="cadastrar()">Cadastrar</button>
+            <a href="/gerente/visualizar-tipos">Voltar</a>
+            <!--<a href="#" routerLink="/gerente/visualizar-tipos">Voltar</a>-->
+          </div>
+        </form>
+      </div>
+    </div>  
+</div>
