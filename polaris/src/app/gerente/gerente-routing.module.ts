@@ -2,15 +2,18 @@ import { Routes } from '@angular/router';
 import { EditarCategoriaComponent } from './editar-categoria';
 import { EditarClienteComponent } from './editar-cliente';
 import { EditarTerceirizadoComponent } from './editar-terceirizado';
+import { EditarTipoComponent } from './editar-tipo';
 import { ManterCategoriaComponent } from './manter-categoria';
 import { ManterClienteComponent } from './manter-cliente';
 import { ManterTerceirizadoComponent } from './manter-terceirizado';
+import { ManterTipoComponent } from './manter-tipo';
 import { VisualizarCategoriasComponent } from './visualizar-categorias';
 import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
 import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-terceirizado';
 import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
 import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados';
+import { VisualizarTiposComponent } from './visualizar-tipos';
 
 export const GerenteRoutes: Routes = [
   // Cliente
@@ -63,5 +66,18 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/editar-categoria/:id',
     component: EditarCategoriaComponent
+  },
+  // Tipo de Contêiner
+  {
+    path: 'gerente/manter-tipo',
+    component: ManterTipoComponent
+  },
+  {
+    path: 'gerente/editar-tipo/:id',
+    component: EditarTipoComponent
+  },
+  {
+    path: 'gerente/visualizar-tipos',
+    component: VisualizarTiposComponent
   }
 ];
