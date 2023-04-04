@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Models;
-using System;
 
 namespace Polaris.Servico.Context
 {
@@ -13,6 +12,7 @@ namespace Polaris.Servico.Context
 
         public DbSet<Models.Servico>? Servicos { get; set; }
         public DbSet<Models.Terceirizado>? Terceirizados { get; set; }
+        public DbSet<Models.Endereco>? Enderecos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,9 @@ namespace Polaris.Servico.Context
 
             modelBuilder.Entity<Models.Terceirizado>()
                .HasIndex(p => new { p.Empresa, p.Cnpj, p.Email, p.Telefone })
-               .IsUnique();
+            .IsUnique();
+
+            modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
         }
     }
 }

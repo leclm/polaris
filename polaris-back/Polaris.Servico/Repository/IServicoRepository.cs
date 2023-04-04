@@ -5,6 +5,5 @@ namespace Polaris.Servico.Repository
     public interface IServicoRepository : IRepository<Models.Servico>
     {
         IEnumerable<Models.Servico> GetServicos(ServicosParameters servicosParameters);
-        Task<IEnumerable<Models.Servico>> GetServicosTerceirizados();
     }
 }

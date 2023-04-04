@@ -17,7 +17,6 @@ namespace Polaris.Endereco.Controllers
             _service = service;
         }
 
-
         /// <summary>
         /// Este endpoint deve consultar os endereços cadastrados
         /// </summary>
@@ -43,7 +42,7 @@ namespace Polaris.Endereco.Controllers
         }
 
         /// <summary>
-        /// Este endpoint deve consultar um endereço cadastrado
+        /// Este endpoint deve consultar um endereço cadastrado via Guid
         /// </summary>
         /// <returns>
         /// Retorna um endereço cadastrado
@@ -118,7 +117,7 @@ namespace Polaris.Endereco.Controllers
         }
 
         /// <summary>
-        /// Este endpoint deve alterar para ativado ou desativado o status de um endereço
+        /// Este endpoint deve alterar para ativado ou desativado o status de um endereço via Guid
         /// </summary>
         /// <returns>
         /// Retorna 2xx caso sucesso
