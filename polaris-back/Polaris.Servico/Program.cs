@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Context;
 using Polaris.Servico.DTOs.Mappings;
 using Polaris.Servico.Repository;
+using Polaris.Servico.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
                     ServerVersion.AutoDetect(mySqlConnection)));
 
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
+builder.Services.AddScoped<IServicosService, ServicosService>();
+builder.Services.AddScoped<ITerceirizadosService, TerceirizadosService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {

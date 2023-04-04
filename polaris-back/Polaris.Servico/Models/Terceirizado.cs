@@ -15,6 +15,7 @@ namespace Polaris.Servico.Models
 
         [Key]
         public int TerceirizadoId { get; set; }
+        public Guid TerceirizadoUuid { get; set; }
         [Required]
         [NotNull]
         [MaxLength(45)]
@@ -31,6 +32,11 @@ namespace Polaris.Servico.Models
         [NotNull]
         [MaxLength(45)]
         public string? Telefone { get; set; }
+        [Required]
+        [NotNull]
+        [ForeignKey("Endereco")]
+        public int EnderecoId { get; set; }
+        public virtual Endereco Endereco { get; set; }
         public bool Status { get; set; }
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Servico>? Servicos { get; set; }

@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Xml.Linq;
 
 namespace Polaris.Servico.Models
 {
@@ -11,6 +9,7 @@ namespace Polaris.Servico.Models
     {
         [Key]
         public int ServicoId { get; set; }
+        public Guid ServicoUuid { get; set; }
         [Required]
         [NotNull]
         [MaxLength(100)]

@@ -4,122 +4,147 @@ using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.DTOs;
 using Polaris.Servico.Models;
 using Polaris.Servico.Repository;
+using Polaris.Servico.Services;
+using Polaris.Servico.ViewModels;
+using static Polaris.Servico.Exceptions.CustomExceptions;
 
 namespace Polaris.Servico.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ServicosController : ControllerBase
+    public class ServicosController : UtilsController
     {
-        private readonly IUnityOfWork _context;
-        private readonly IMapper _mapper;
+        private readonly IServicosService _service;
 
-        public ServicosController(IUnityOfWork context, IMapper mapper)
+        public ServicosController(IServicosService service)
         {
-            _context = context;
-            _mapper = mapper;
+            _service = service;
         }
 
-        // GET: api/ServicosTerceirizados
-        [HttpGet("terceirizados")]
-        public async Task<ActionResult<IEnumerable<ServicoDTO>>> GetServicosTerceirizados()
-        {
-            var servicos = await _context.ServicoRepository.GetServicosTerceirizados();
-            var servicosDto = _mapper.Map<List<ServicoDTO>>(servicos);
-            return servicosDto;
-        }
-
+        /// <summary>
+        /// Este endpoint deve consultar os serviços cadastrados
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os serviços cadastrados
+        /// </returns>
         // GET: api/Servicos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ServicoDTO>>> GetServicos()
+        public async Task<ActionResult> GetServicos()
         {
-            var servicos = await _context.ServicoRepository.Get().ToListAsync();
-            if (servicos is null)
+            try
             {
-                return NotFound("Não há serviços cadastrados.");
+                return Ok(await _service.GetServicos());
             }
-            var servicosDto = _mapper.Map<List<ServicoDTO>>(servicos);
-            return servicosDto;
+            catch (ServicoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
+
         }
 
+        /// <summary>
+        /// Este endpoint deve consultar um serviço cadastrado via Guid
+        /// </summary>
+        /// <returns>
+        /// Retorna um serviço cadastrado
+        /// </returns>
         // GET: api/Servicos/5
-        [HttpGet("{id:int:min(1)}", Name = "ObterServico")]
-        public async Task<ActionResult<ServicoDTO>> GetServico(int id)
+        [HttpGet("{uuid}", Name = "ObterServico")]
+        public async Task<ActionResult> GetServico(Guid uuid)
         {
-            var servico = await _context.ServicoRepository.GetById(p => p.ServicoId == id);
-
-            if (servico is null)
+            try
             {
-                return NotFound("Servico não encontrado.");
+                return Ok(await _service.GetServico(uuid));
             }
-            var servicoDto = _mapper.Map<ServicoDTO>(servico);
-            return servicoDto;
+            catch (ServicoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
         }
 
+        /// <summary>
+        /// Este endpoint deve cadastrar um serviço
+        /// </summary>
+        /// <returns>
+        /// Retorna 2xx caso sucesso
+        /// Retorna 4xx caso erro
+        /// </returns>
         // POST: api/Servicos
         [HttpPost]
-        public async Task<ActionResult<ServicoDTO>> PostServico(ServicoDTO servicoDto)
+        public async Task<ActionResult> PostServico(CadastroServicoViewModel servicoDto)
         {
             try
             {
-                var servico = _mapper.Map<Models.Servico>(servicoDto); if (servicoDto is null) return BadRequest("Erro ao cadastrar um serviço.");
-
-                servico.Nome = servico.Nome.ToUpper();
-                _context.ServicoRepository.Add(servico);
-                await _context.Commit();
-
-                var servicoDTO = _mapper.Map<ServicoDTO>(servico);
-
-                return new CreatedAtRouteResult("ObterServico", new { id = servico.ServicoId }, servicoDTO);
+                return StatusCode(StatusCodes.Status201Created, await _service.PostServico(servicoDto));
             }
-            catch (DbUpdateException ex)
+            catch (ServicoNaoEncontradoException ex)
             {
-                return BadRequest("Serviço já cadastrado.");
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
             }
         }
 
+        /// <summary>
+        /// Este endpoint deve atualizar um serviço cadastrado
+        /// </summary>
+        /// <returns>
+        /// Retorna 2xx caso sucesso
+        /// Retorna 4xx caso erro
+        /// </returns>
         // PUT: api/Servicos/5
-        [HttpPut("{id:int:min(1)}")]
-        public async Task<IActionResult> PutServico(int id, ServicoDTO servicoDto)
+        [HttpPut]
+        public async Task<IActionResult> PutServico(AtualizaServicoViewModel servicoDto)
         {
             try
             {
-                if (id != servicoDto.ServicoId)
-                {
-                    return BadRequest("Erro ao atualizar um serviço.");
-                }
-
-                var servico = _mapper.Map<Models.Servico>(servicoDto);
-
-                servico.Nome = servico.Nome.ToUpper();
-                _context.ServicoRepository.Update(servico);
-                await _context.Commit();
+                await _service.PutServico(servicoDto);
                 return Ok();
             }
-            catch (DbUpdateException ex)
+            catch (AtualizarServicoException ex)
             {
-                return BadRequest("Serviço já cadastrado.");
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
             }
         }
 
+        /// <summary>
+        /// Este endpoint deve alterar para ativado ou desativado o status de um serviço via Guid
+        /// </summary>
+        /// <returns>
+        /// Retorna 2xx caso sucesso
+        /// Retorna 4xx caso erro
+        /// </returns>
         // ALTERAR STATUS: api/Servicos/5
-        [HttpPut("alterar-status/{id:int:min(1)}")]
-        public async Task<ActionResult<ServicoDTO>> AlterarStatus(int id, bool status)
+        [HttpPut("alterar-status/{uuid}/{status}")]
+        public async Task<ActionResult> AlterarStatus(Guid uuid, bool status)
         {
-            var servico = await _context.ServicoRepository.GetById(p => p.ServicoId == id);
-            if (servico == null)
+            try
             {
-                return NotFound("Serviço não encontrado.");
+                await _service.AlterarStatus(uuid, status);
+                return Ok();
             }
-
-            servico.Status = status;
-
-            _context.ServicoRepository.Update(servico);
-            await _context.Commit(); 
-
-            var servicoDto = _mapper.Map<ServicoDTO>(servico);
-
-            return servicoDto;
+            catch (ServicoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
         }
     }
 }

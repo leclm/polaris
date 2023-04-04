@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Polaris.Servico.Migrations
 {
     /// <inheritdoc />
-    public partial class PermiteChaveUnicaNomeServico : Migration
+    public partial class PrimeiraMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,6 +21,7 @@ namespace Polaris.Servico.Migrations
                 {
                     ServicoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ServicoUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false)
@@ -36,6 +38,7 @@ namespace Polaris.Servico.Migrations
                 {
                     TerceirizadoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TerceirizadoUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Cnpj = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Empresa = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -44,11 +47,18 @@ namespace Polaris.Servico.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefone = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    EnderecoId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Terceirizado", x => x.TerceirizadoId);
+                    table.ForeignKey(
+                        name: "FK_Terceirizado_Enderecos_EnderecoId",
+                        column: x => x.EnderecoId,
+                        principalTable: "Enderecos",
+                        principalColumn: "EnderecoId",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -93,6 +103,11 @@ namespace Polaris.Servico.Migrations
                 table: "Terceirizado",
                 columns: new[] { "Empresa", "Cnpj", "Email", "Telefone" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Terceirizado_EnderecoId",
+                table: "Terceirizado",
+                column: "EnderecoId");
         }
 
         /// <inheritdoc />
