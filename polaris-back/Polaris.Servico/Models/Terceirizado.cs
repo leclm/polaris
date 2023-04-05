@@ -16,21 +16,25 @@ namespace Polaris.Servico.Models
         [Key]
         public int TerceirizadoId { get; set; }
         public Guid TerceirizadoUuid { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite um CNPJ.")]
+        [MaxLength(18, ErrorMessage = " Erro. CNPJ inválido.")]
         [NotNull]
-        [MaxLength(45)]
+        [Required]
         public string? Cnpj { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite uma empresa.")]
+        [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(100)]
+        [Required]
         public string? Empresa { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite um e-mail.")]
+        [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(45)]
+        [Required]
         public string? Email { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite um telefone.")]
+        [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(45)]
+        [Required]
         public string? Telefone { get; set; }
         [Required]
         [NotNull]

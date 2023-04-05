@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Repository;
+using Polaris.Servico.Validation;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
@@ -17,6 +18,17 @@ namespace Polaris.Servico.Services
             _mapper = mapper;
         }
 
+        public IEnumerable<RetornoTerceirizadoViewModel> GetTerceirizadosPorServico(string servico)
+        {  
+            var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosPorServico(servico);
+            if (terceirizados is null)
+            {
+                throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
+            }
+            var terceirizadosDto = _mapper.Map<List<RetornoTerceirizadoViewModel>>(terceirizados);
+            return terceirizadosDto;
+        }
+
         public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados()
         {
             var terceirizados = await _context.TerceirizadoRepository.Get().ToListAsync();
@@ -30,7 +42,7 @@ namespace Polaris.Servico.Services
 
         public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid)
         {
-            var terceirizado = await _context.TerceirizadoRepository.GetById(p => p.TerceirizadoUuid == uuid);
+            var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == uuid);
 
             if (terceirizado is null)
             {
@@ -42,16 +54,37 @@ namespace Polaris.Servico.Services
 
         public async Task<Guid> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto)
         {
+            if (await _context.TerceirizadoRepository.GetByParameter(x => x.Empresa == terceirizadoDto.Empresa 
+            || x.Cnpj == terceirizadoDto.Cnpj
+            || x.Email == terceirizadoDto.Email) is not null)
+            {
+                throw new CadastrarTerceirizadoException("Terceirizado já existe. Erro ao cadastrar um terceirizado.");
+            };
+
             var terceirizado = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
             terceirizado.TerceirizadoUuid = Guid.NewGuid();
+            terceirizado.Endereco.EnderecoUuid = Guid.NewGuid();
             terceirizado.Status = true;
 
-            if (terceirizado is null)
+            if (ValidaCnpj.IsCnpj(terceirizado.Cnpj) is false)
             {
-                throw new CadastrarTerceirizadoException("Terceirizado inválido. Erro ao cadastrar um terceirizado.");
+                throw new CadastrarTerceirizadoException("Cnpj inválido. Erro ao cadastrar um terceirizado.");
+            };
+
+            if(ValidaEmail.IsValidEmail(terceirizado.Email) is false)
+            {
+                throw new CadastrarTerceirizadoException("E-mail inválido. Erro ao cadastrar um terceirizado.");
             }
 
             _context.TerceirizadoRepository.Add(terceirizado);
+            await _context.Commit();
+
+            foreach (var servicoUuid in terceirizadoDto!.ListaServicos!)
+            {
+                var servico = await _context.ServicoRepository.GetByParameter(x => x.ServicoUuid == servicoUuid);
+                terceirizado!.Servicos!.Add(servico);
+            }
+
             await _context.Commit();
             return terceirizado.TerceirizadoUuid;
         }
@@ -64,7 +97,7 @@ namespace Polaris.Servico.Services
                 throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
             }
 
-            var terceirizado = await _context.TerceirizadoRepository.GetById(p => p.TerceirizadoUuid == terceirizadoDto.TerceirizadoUuid);
+            var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoDto.TerceirizadoUuid);
 
             if (terceirizado.TerceirizadoId != 0)
             {
@@ -82,7 +115,7 @@ namespace Polaris.Servico.Services
 
         public async Task AlterarStatus(Guid uuid, bool status)
         {
-            var terceirizado = await _context.TerceirizadoRepository.GetById(p => p.TerceirizadoUuid == uuid);
+            var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == uuid);
 
             if (terceirizado == null)
             {

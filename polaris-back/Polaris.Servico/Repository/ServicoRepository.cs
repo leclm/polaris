@@ -19,5 +19,9 @@ namespace Polaris.Servico.Repository
                 .Take(servicosParameters.PageSize)
                 .ToList();
         }
+        public IEnumerable<Models.Servico> GetServicosPorTerceirizado(string cnpj)
+        {
+            return GetAllByParameter(t => t.Terceirizados.Any(s => s.Cnpj == cnpj)).Include(x => x.Terceirizados);
+        }
     }
 }

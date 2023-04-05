@@ -4,6 +4,7 @@ namespace Polaris.Servico.Services
 {
     public interface IServicosService
     {
+        IEnumerable<RetornoServicoViewModel> GetServicosPorTerceirizado(string cnpj);
         Task<IEnumerable<RetornoServicoViewModel>> GetServicos();
         Task<RetornoServicoViewModel> GetServico(Guid uuid);
         Task<Guid> PostServico(CadastroServicoViewModel servicoDto);

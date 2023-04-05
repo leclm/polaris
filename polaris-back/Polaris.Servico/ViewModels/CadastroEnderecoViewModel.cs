@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Endereco.DTOs
+namespace Polaris.Servico.ViewModels
 {
-    public class AtualizaEnderecoViewModel
+    public class CadastroEnderecoViewModel
     {
-        public Guid EnderecoUuid { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um CEP.")]
         [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]

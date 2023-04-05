@@ -11,20 +11,25 @@ namespace Polaris.Endereco.Models
         public int EnderecoId { get; set; }
         [Required]
         public Guid EnderecoUuid { get; set; }
+        [MinLength(1, ErrorMessage = "Erro. Digite um CEP.")]
+        [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
+        [NotNull]
         [Required]
-        [MaxLength(45)]
         public string? Cep { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite uma cidade.")]
+        [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(100)]
+        [Required]
         public string? Cidade { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite um estado.")]
+        [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(45)]
+        [Required]
         public string? Estado { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite um logradouro.")]
+        [MaxLength(200, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(200)]
+        [Required]
         public string? Logradouro { get; set; }
         public string? Complemento { get; set; }
         public int Numero { get; set; }

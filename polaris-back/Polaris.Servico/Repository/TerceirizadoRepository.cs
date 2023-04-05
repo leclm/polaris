@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Context;
-using Polaris.Servico.Models;
 using Polaris.Servico.Pagination;
 
 namespace Polaris.Servico.Repository
@@ -19,9 +18,9 @@ namespace Polaris.Servico.Repository
                 .Take(terceirizadosParameters.PageSize)
                 .ToList();
         }
-        public async Task<IEnumerable<Models.Terceirizado>> GetServicosTerceirizados()
+        public IEnumerable<Models.Terceirizado> GetTerceirizadosPorServico(string servico)
         {
-            return await Get().Include(x => x.Servicos).ToListAsync();
+            return GetAllByParameter(t => t.Servicos.Any(s => s.Nome == servico)).Include(x => x.Servicos);
         }
     }
 }

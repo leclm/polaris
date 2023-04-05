@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Polaris.Servico.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Servico.ViewModels
@@ -11,6 +12,8 @@ namespace Polaris.Servico.ViewModels
         public string? Email { get; set; }
         public string? Telefone { get; set; }
         public bool Status { get; set; }
-        public IEnumerable<Models.Servico>? Servicos { get; set; }
+        public Endereco? Endereco { get; set; }
+
+        public IEnumerable<BuscaServicoViewModel>? Servicos { get; set; }
     }
 }

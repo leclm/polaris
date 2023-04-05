@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Polaris.Servico.DTOs;
 using Polaris.Servico.Repository;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
@@ -19,6 +17,17 @@ namespace Polaris.Servico.Services
             _mapper = mapper;
         }
 
+        public IEnumerable<RetornoServicoViewModel> GetServicosPorTerceirizado(string cnpj)
+        {
+            var servicos = _context.ServicoRepository.GetServicosPorTerceirizado(cnpj);
+            if (servicos is null)
+            {
+                throw new ServicoNaoEncontradoException("Não há serviços cadastrados.");
+            }
+            var servicosDto = _mapper.Map<List<RetornoServicoViewModel>>(servicos);
+            return servicosDto;
+        }
+
         public async Task<IEnumerable<RetornoServicoViewModel>> GetServicos()
         {
             var servicos = await _context.ServicoRepository.Get().ToListAsync();
@@ -32,7 +41,7 @@ namespace Polaris.Servico.Services
 
         public async Task<RetornoServicoViewModel> GetServico(Guid uuid)
         {
-            var servico = await _context.ServicoRepository.GetById(p => p.ServicoUuid == uuid);
+            var servico = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == uuid);
 
             if (servico is null)
             {
@@ -44,6 +53,11 @@ namespace Polaris.Servico.Services
 
         public async Task<Guid> PostServico(CadastroServicoViewModel servicoDto)
         {
+            if (await _context.ServicoRepository.GetByParameter(x => x.Nome == servicoDto.Nome) is not null)
+            {
+                throw new CadastrarServicoException("Serviço já existe. Erro ao cadastrar um serviço.");
+            };
+
             var servico = _mapper.Map<Models.Servico>(servicoDto);
             servico.ServicoUuid = Guid.NewGuid();
             servico.Status = true;
@@ -56,7 +70,6 @@ namespace Polaris.Servico.Services
             _context.ServicoRepository.Add(servico);
             await _context.Commit();
             return servico.ServicoUuid;
-
         }
 
         public async Task PutServico(AtualizaServicoViewModel servicoDto)
@@ -67,7 +80,7 @@ namespace Polaris.Servico.Services
                 throw new AtualizarServicoException("Serviço inválido. Erro ao atualizar o serviço.");
             }
 
-            var servico = await _context.ServicoRepository.GetById(p => p.ServicoUuid == servicoDto.ServicoUuid);
+            var servico = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == servicoDto.ServicoUuid);
 
             if (servico.ServicoId != 0)
             {
@@ -85,7 +98,7 @@ namespace Polaris.Servico.Services
 
         public async Task AlterarStatus(Guid uuid, bool status)
         {
-            var servico = await _context.ServicoRepository.GetById(p => p.ServicoUuid == uuid);
+            var servico = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == uuid);
 
             if (servico == null)
             {
