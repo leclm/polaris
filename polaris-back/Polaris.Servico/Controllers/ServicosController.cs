@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Polaris.Servico.DTOs;
+using Polaris.Servico.ViewModels;
 using Polaris.Servico.Models;
 using Polaris.Servico.Repository;
 using Polaris.Servico.Services;
@@ -20,6 +20,31 @@ namespace Polaris.Servico.Controllers
         {
             _service = service;
         }
+
+        /// <summary>
+        /// Este endpoint deve consultar os serviços oferecidos por um terceirizado
+        /// /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os serviços cadastrados por um terceirizado
+        /// </returns>
+        /// GET: api/Servicos/terceirizados
+        [HttpGet("terceirizados")]
+        public async Task<ActionResult> GetServicosPorTerceirizado(string cnpj)
+        {
+            try
+            {
+                return Ok(_service.GetServicosPorTerceirizado(cnpj));
+            }
+            catch (ServicoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
+        }
+
 
         /// <summary>
         /// Este endpoint deve consultar os serviços cadastrados
@@ -86,6 +111,10 @@ namespace Polaris.Servico.Controllers
                 return StatusCode(StatusCodes.Status201Created, await _service.PostServico(servicoDto));
             }
             catch (ServicoNaoEncontradoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (CadastrarServicoException ex)
             {
                 return BadRequest(ex.Message);
             }

@@ -10,9 +10,10 @@ namespace Polaris.Servico.Models
         [Key]
         public int ServicoId { get; set; }
         public Guid ServicoUuid { get; set; }
-        [Required]
+        [MinLength(1, ErrorMessage = "Erro. Digite um serviço.")]
+        [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
-        [MaxLength(100)]
+        [Required]
         public string? Nome { get; set; }
         public bool Status { get; set; }
         [System.Text.Json.Serialization.JsonIgnore]

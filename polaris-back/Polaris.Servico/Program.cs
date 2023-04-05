@@ -1,9 +1,9 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Context;
-using Polaris.Servico.DTOs.Mappings;
 using Polaris.Servico.Repository;
 using Polaris.Servico.Services;
+using Polaris.Servico.ViewModels.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 

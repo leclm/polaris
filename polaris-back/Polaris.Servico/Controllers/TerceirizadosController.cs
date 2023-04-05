@@ -16,16 +16,29 @@ namespace Polaris.Servico.Controllers
             _service = service;
         }
 
-        //// GET: api/TerceirizadosServicos
-        //[HttpGet("servicos")]
-        //public async Task<ActionResult<IEnumerable<ServicoDTO>>> GetSTerceirizadosServicos()
-        //{
-        //    var terceirizados = await _context.TerceirizadoRepository.GetTerceirizadosServicos();
-        //    var terceirizadosDto = _mapper.Map<List<ServicoDTO>>(terceirizados);
-        //    return sterceirizadosDto;
-        //}
-
-
+        /// <summary>
+        /// Este endpoint deve consultar os terceirizados que prestam o serviço buscado
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os terceirizados que prestam um determinado serviço
+        /// </returns>
+        /// GET: api/Terceirizados/servicos
+        [HttpGet("servicos")]
+        public async Task<ActionResult> GetTerceirizadosPorServico(string servico)
+        {
+            try
+            {
+                return Ok(_service.GetTerceirizadosPorServico(servico));
+            }
+            catch (TerceirizadoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
 
         /// <summary>
         /// Este endpoint deve consultar os terceirizados cadastrados
@@ -45,7 +58,7 @@ namespace Polaris.Servico.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return ReturnError();
             }
@@ -92,6 +105,10 @@ namespace Polaris.Servico.Controllers
                 return StatusCode(StatusCodes.Status201Created, await _service.PostTerceirizado(terceirizadoDto));
             }
             catch (TerceirizadoNaoEncontradoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (CadastrarTerceirizadoException ex)
             {
                 return BadRequest(ex.Message);
             }
