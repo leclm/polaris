@@ -106,6 +106,11 @@ namespace Polaris.Servico.Services
 
             var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoDto.TerceirizadoUuid);
 
+            if (terceirizado == null)
+            {
+                throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
+            }
+
             if (terceirizado.TerceirizadoId != 0)
             {
                 var terceirizadoMap = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
