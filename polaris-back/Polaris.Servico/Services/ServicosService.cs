@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Repository;
+using Polaris.Servico.Utils;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
@@ -59,6 +60,7 @@ namespace Polaris.Servico.Services
             };
 
             var servico = _mapper.Map<Models.Servico>(servicoDto);
+            StringUtils.ClassToUpper(servico);
             servico.ServicoUuid = Guid.NewGuid();
             servico.Status = true;
 
@@ -85,6 +87,7 @@ namespace Polaris.Servico.Services
             if (servico.ServicoId != 0)
             {
                 var servicoMap = _mapper.Map<Models.Servico>(servicoDto);
+                StringUtils.ClassToUpper(servico);
                 servicoMap.ServicoId = servico.ServicoId;
 
                 _context.ServicoRepository.Update(servicoMap);

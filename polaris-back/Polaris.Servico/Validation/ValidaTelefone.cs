@@ -4,7 +4,7 @@ namespace Polaris.Servico.Validation
 {
     public class ValidaTelefone
     {
-        public bool IsTelefone(string telefone)
+        public static bool IsTelefone(string telefone)
         {
             Regex Rgx = new Regex(@"^\(\d{2}\)\d{5}-\d{4}$"); //formato (XX)XXXXX-XXXX
 

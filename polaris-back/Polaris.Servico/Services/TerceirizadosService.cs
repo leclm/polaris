@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Repository;
+using Polaris.Servico.Utils;
 using Polaris.Servico.Validation;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
@@ -62,6 +63,7 @@ namespace Polaris.Servico.Services
             };
 
             var terceirizado = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
+            StringUtils.ClassToUpper(terceirizado);
             terceirizado.TerceirizadoUuid = Guid.NewGuid();
             terceirizado.Endereco.EnderecoUuid = Guid.NewGuid();
             terceirizado.Status = true;
@@ -71,7 +73,12 @@ namespace Polaris.Servico.Services
                 throw new CadastrarTerceirizadoException("Cnpj inválido. Erro ao cadastrar um terceirizado.");
             };
 
-            if(ValidaEmail.IsValidEmail(terceirizado.Email) is false)
+            if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
+            {
+                throw new CadastrarTerceirizadoException("Telefone inválido. Erro ao cadastrar um terceirizado.");
+            };
+
+            if (ValidaEmail.IsValidEmail(terceirizado.Email) is false)
             {
                 throw new CadastrarTerceirizadoException("E-mail inválido. Erro ao cadastrar um terceirizado.");
             }
@@ -102,6 +109,7 @@ namespace Polaris.Servico.Services
             if (terceirizado.TerceirizadoId != 0)
             {
                 var terceirizadoMap = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
+                StringUtils.ClassToUpper(terceirizadoMap);
                 terceirizadoMap.TerceirizadoId = terceirizado.TerceirizadoId;
 
                 _context.TerceirizadoRepository.Update(terceirizadoMap);

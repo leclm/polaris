@@ -145,7 +145,7 @@
               "email": "exemplo@email.com", <br />
               "telefone": "(XX)XXXXX-XXXX",   <br />
               "endereco": { <br />
-              "cep": "80 220 000", <br />
+              "cep": "80220000", <br />
               "cidade": "Curitiba", <br />
               "estado": "Paraná",  <br />
               "logradouro": "Rua Exemplo",  <br />

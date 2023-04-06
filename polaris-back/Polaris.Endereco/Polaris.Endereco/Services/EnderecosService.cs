@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Polaris.Endereco.DTOs;
 using Polaris.Endereco.Repository;
+using Polaris.Endereco.Utils;
 using static Polaris.Endereco.Exceptions.CustomExceptions;
 
 namespace Polaris.Endereco.Services
@@ -43,6 +44,7 @@ namespace Polaris.Endereco.Services
         public async Task<Guid> PostEndereco(CadastroEnderecoViewModel enderecoDto)
         {
             var endereco = _mapper.Map<Models.Endereco>(enderecoDto);
+            StringUtils.ClassToUpper(endereco);
             endereco.EnderecoUuid = Guid.NewGuid();
             endereco.Status = true;
 
@@ -69,6 +71,7 @@ namespace Polaris.Endereco.Services
             if (endereco.EnderecoId != 0)
             {
                 var enderecoMap = _mapper.Map<Models.Endereco>(enderecoDto);
+                StringUtils.ClassToUpper(enderecoMap);
                 enderecoMap.EnderecoId = endereco.EnderecoId;
 
                 _context.EnderecoRepository.Update(enderecoMap);
