@@ -20,9 +20,9 @@ namespace Polaris.Servico.Services
         public IEnumerable<RetornoServicoViewModel> GetServicosPorTerceirizado(string cnpj)
         {
             var servicos = _context.ServicoRepository.GetServicosPorTerceirizado(cnpj);
-            if (servicos is null)
+            if (servicos.Count() == 0)
             {
-                throw new ServicoNaoEncontradoException("Não há serviços cadastrados.");
+                throw new ServicoNaoEncontradoException("Nenhum resultado encontrado.");
             }
             var servicosDto = _mapper.Map<List<RetornoServicoViewModel>>(servicos);
             return servicosDto;

@@ -21,9 +21,9 @@ namespace Polaris.Servico.Services
         public IEnumerable<RetornoTerceirizadoViewModel> GetTerceirizadosPorServico(string servico)
         {  
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosPorServico(servico);
-            if (terceirizados is null)
+            if (terceirizados.Count() == 0)
             {
-                throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
+                throw new TerceirizadoNaoEncontradoException("Nenhum resultado encontrado.");
             }
             var terceirizadosDto = _mapper.Map<List<RetornoTerceirizadoViewModel>>(terceirizados);
             return terceirizadosDto;
