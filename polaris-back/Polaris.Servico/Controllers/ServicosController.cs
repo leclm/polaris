@@ -114,8 +114,9 @@ namespace Polaris.Servico.Controllers
         ///     }<br />
         /// </remarks>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 400 caso erro em algum campo com a mensagem
+        /// Retorna 500 caso erro interno 
         /// </returns>
         //GET: api/Servicos
         [HttpPost]
@@ -151,8 +152,9 @@ namespace Polaris.Servico.Controllers
         ///
         /// </remarks>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 400 caso erro, retorna a mensagem especificando
+        /// Retorna 500 caso erro interno 
         /// </returns>
         //PUT: api/Servicos
         [HttpPut]
@@ -177,8 +179,9 @@ namespace Polaris.Servico.Controllers
         /// Este endpoint deve alterar para ativado ou desativado o status de um serviço via Guid
         /// </summary>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno 
         /// </returns>
         // ALTERAR STATUS: api/Servicos/5
         [HttpPut("alterar-status/{uuid}/{status}")]

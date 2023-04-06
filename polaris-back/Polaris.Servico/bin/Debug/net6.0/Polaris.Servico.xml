@@ -49,8 +49,9 @@
                 }<br />
             </remarks>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 400 caso erro em algum campo com a mensagem
+            Retorna 500 caso erro interno 
             </returns>
         </member>
         <member name="M:Polaris.Servico.Controllers.ServicosController.PutServico(Polaris.Servico.ViewModels.AtualizaServicoViewModel)">
@@ -66,8 +67,9 @@
             
              </remarks>
              <returns>
-             Retorna 2xx caso sucesso
-             Retorna 4xx caso erro
+             Retorna 201 caso sucesso
+             Retorna 400 caso erro em algum campo com a mensagem
+             Retorna 500 caso erro interno 
              </returns>
         </member>
         <member name="M:Polaris.Servico.Controllers.ServicosController.AlterarStatus(System.Guid,System.Boolean)">
@@ -75,8 +77,9 @@
             Este endpoint deve alterar para ativado ou desativado o status de um serviço via Guid
             </summary>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 404 caso uuid não encontrado
+            Retorna 500 caso erro interno 
             </returns>
         </member>
         <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadosPorServico(System.String)">
@@ -128,8 +131,9 @@
               ]<br />}
             </remarks>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 400 caso erro em algum campo com a mensagem
+            Retorna 500 caso erro interno 
             </returns>
         </member>
         <member name="M:Polaris.Servico.Controllers.TerceirizadosController.PutTerceirizado(Polaris.Servico.ViewModels.AtualizaTerceirizadoViewModel)">
@@ -157,8 +161,9 @@
               ]<br />}
             </remarks>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 400 caso erro em algum campo com a mensagem
+            Retorna 500 caso erro interno         
             </returns>
         </member>
         <member name="M:Polaris.Servico.Controllers.TerceirizadosController.AlterarStatus(System.Guid,System.Boolean)">
@@ -166,8 +171,9 @@
             Este endpoint deve alterar para ativado ou desativado o status de um terceirizo via Guid
             </summary>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 404 caso uuid não encontrado
+            Retorna 500 caso erro interno         
             </returns>
         </member>
         <member name="T:Polaris.Servico.Migrations.PrimeiraMigration">

@@ -112,8 +112,9 @@ namespace Polaris.Servico.Controllers
         ///   ]<br />}
         /// </remarks>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 400 caso erro em algum campo com a mensagem
+        /// Retorna 500 caso erro interno 
         /// </returns>
         // POST: api/Terceirizados
         [HttpPost]
@@ -161,8 +162,9 @@ namespace Polaris.Servico.Controllers
         ///   ]<br />}
         /// </remarks>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 400 caso erro, retorna a mensagem especificando
+        /// Retorna 500 caso erro interno         
         /// </returns>
         // PUT: api/Terceirizados/5
         [HttpPut]
@@ -187,8 +189,9 @@ namespace Polaris.Servico.Controllers
         /// Este endpoint deve alterar para ativado ou desativado o status de um terceirizo via Guid
         /// </summary>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
         /// </returns>
         // ALTERAR STATUS: api/Terceirizados/5
         [HttpPut("alterar-status/{uuid}/{status}")]

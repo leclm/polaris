@@ -84,6 +84,11 @@ namespace Polaris.Servico.Services
 
             var servico = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == servicoDto.ServicoUuid);
 
+            if (servico == null)
+            {
+                throw new AtualizarServicoException("Serviço não encontrado. Erro ao atualizar o serviço.");
+            }
+
             if (servico.ServicoId != 0)
             {
                 var servicoMap = _mapper.Map<Models.Servico>(servicoDto);
