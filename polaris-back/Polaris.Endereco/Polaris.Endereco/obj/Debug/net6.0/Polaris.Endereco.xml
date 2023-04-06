@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Polaris.Endereco</name>
+    </assembly>
+    <members>
+        <member name="M:Polaris.Endereco.Controllers.EnderecosController.GetEnderecos">
+            <summary>
+            Este endpoint deve consultar os endereços cadastrados
+            </summary>
+            <returns>
+            Retorna a lista com todos os endereços cadastrados
+            </returns>
+        </member>
+        <member name="M:Polaris.Endereco.Controllers.EnderecosController.GetEndereco(System.Guid)">
+            <summary>
+            Este endpoint deve consultar um endereço cadastrado via Guid
+            </summary>
+            <returns>
+            Retorna um endereço cadastrado
+            </returns>
+        </member>
+        <member name="M:Polaris.Endereco.Controllers.EnderecosController.PostEndereco(Polaris.Endereco.DTOs.CadastroEnderecoViewModel)">
+            <summary>
+            Este endpoint deve cadastrar um endereço
+            </summary>
+            <remarks>
+            Exemplo: <br />
+            {<br />
+            "cep": "80222666", <br />
+            "cidade": "Curitiba", <br />
+            "estado": "Paraná", <br />
+            "logradouro": "Rua Exemplo",<br />  
+            "complemento": "opcional",<br />
+            "numero": 100<br />
+            }
+            </remarks>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="M:Polaris.Endereco.Controllers.EnderecosController.PutEndereco(Polaris.Endereco.DTOs.AtualizaEnderecoViewModel)">
+            <summary>
+            Este endpoint deve atualizar um endereço cadastrado
+            </summary>
+            <remarks>
+            Exemplo: <br />
+            {<br />
+            "EnderecoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722", <br />
+            "cep": "80222666", <br />
+            "cidade": "Curitiba", <br />
+            "estado": "Paraná", <br />
+            "logradouro": "Rua Exemplo", <br />
+            "complemento": "opcional",<br />
+            "numero": 100<br />
+            }
+            </remarks>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="M:Polaris.Endereco.Controllers.EnderecosController.AlterarStatus(System.Guid,System.Boolean)">
+            <summary>
+            Este endpoint deve alterar para ativado ou desativado o status de um endereço via Guid
+            </summary>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="T:Polaris.Endereco.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Polaris.Endereco.Migrations.FirstMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.FirstMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.FirstMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.FirstMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Polaris.Endereco.Migrations.PrimeiraMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.PrimeiraMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.PrimeiraMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Endereco.Migrations.PrimeiraMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

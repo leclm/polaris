@@ -68,31 +68,54 @@ namespace Polaris.Endereco.Controllers
         /// <summary>
         /// Este endpoint deve cadastrar um endereço
         /// </summary>
+        /// <remarks>
+        /// Exemplo: <br />
+        /// {<br />
+        /// "cep": "80222666", <br />
+        /// "cidade": "Curitiba", <br />
+        /// "estado": "Paraná", <br />
+        /// "logradouro": "Rua Exemplo",<br />  
+        /// "complemento": "opcional",<br />
+        /// "numero": 100<br />
+        /// }
+        /// </remarks>
         /// <returns>
         /// Retorna 2xx caso sucesso
         /// Retorna 4xx caso erro
         /// </returns>
         // POST: api/Enderecos
         [HttpPost]
-        public async Task<IActionResult> PostEndereco(CadastroEnderecoViewModel enderecoDto)
-        {
-            try
+            public async Task<IActionResult> PostEndereco(CadastroEnderecoViewModel enderecoDto)
             {
-                return StatusCode(StatusCodes.Status201Created, await _service.PostEndereco(enderecoDto));
+                try
+                {
+                    return StatusCode(StatusCodes.Status201Created, await _service.PostEndereco(enderecoDto));
+                }
+                catch (EnderecoNaoEncontradoException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch (Exception)
+                {
+                    return ReturnError();
+                }
             }
-            catch (EnderecoNaoEncontradoException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception)
-            {
-                return ReturnError();
-            }
-        }
 
         /// <summary>
         /// Este endpoint deve atualizar um endereço cadastrado
         /// </summary>
+        /// <remarks>
+        /// Exemplo: <br />
+        /// {<br />
+        /// "EnderecoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722", <br />
+        /// "cep": "80222666", <br />
+        /// "cidade": "Curitiba", <br />
+        /// "estado": "Paraná", <br />
+        /// "logradouro": "Rua Exemplo", <br />
+        /// "complemento": "opcional",<br />
+        /// "numero": 100<br />
+        /// }
+        /// </remarks>
         /// <returns>
         /// Retorna 2xx caso sucesso
         /// Retorna 4xx caso erro

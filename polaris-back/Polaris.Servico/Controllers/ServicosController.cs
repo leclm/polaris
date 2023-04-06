@@ -23,11 +23,20 @@ namespace Polaris.Servico.Controllers
 
         /// <summary>
         /// Este endpoint deve consultar os serviços oferecidos por um terceirizado
-        /// /// </summary>
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Exemplo:<br />
+        ///
+        ///    GET: api/Servicos/terceirizados<br /> <br />
+        ///     {<br />
+        ///        "cnpj": "32.738.811/0001-80"<br />
+        ///     }<br />
+        ///
+        /// </remarks>
         /// <returns>
         /// Retorna a lista com todos os serviços cadastrados por um terceirizado
         /// </returns>
-        /// GET: api/Servicos/terceirizados
         [HttpGet("terceirizados")]
         public async Task<ActionResult> GetServicosPorTerceirizado(string cnpj)
         {
@@ -98,11 +107,17 @@ namespace Polaris.Servico.Controllers
         /// <summary>
         /// Este endpoint deve cadastrar um serviço
         /// </summary>
+        /// <remarks>
+        /// Exemplo:<br />
+        ///     {<br />
+        ///        "nome": "limpeza" <br />
+        ///     }<br />
+        /// </remarks>
         /// <returns>
         /// Retorna 2xx caso sucesso
         /// Retorna 4xx caso erro
         /// </returns>
-        // POST: api/Servicos
+        //GET: api/Servicos
         [HttpPost]
         public async Task<ActionResult> PostServico(CadastroServicoViewModel servicoDto)
         {
@@ -127,11 +142,19 @@ namespace Polaris.Servico.Controllers
         /// <summary>
         /// Este endpoint deve atualizar um serviço cadastrado
         /// </summary>
+        /// <remarks>
+        /// Exemplo:<br />
+        ///     {<br />
+        ///        "servicoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722" <br />
+        ///        "nome": "limpeza" <br />
+        ///     }<br />
+        ///
+        /// </remarks>
         /// <returns>
         /// Retorna 2xx caso sucesso
         /// Retorna 4xx caso erro
         /// </returns>
-        // PUT: api/Servicos/5
+        //PUT: api/Servicos
         [HttpPut]
         public async Task<IActionResult> PutServico(AtualizaServicoViewModel servicoDto)
         {

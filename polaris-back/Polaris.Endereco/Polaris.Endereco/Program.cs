@@ -4,6 +4,7 @@ using Polaris.Endereco.Context;
 using Polaris.Endereco.DTOs.Mappings;
 using Polaris.Endereco.Repository;
 using Polaris.Endereco.Services;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,13 @@ builder.Services.AddControllers()
         .ReferenceHandler = ReferenceHandler.IgnoreCycles); ;
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 
 string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 

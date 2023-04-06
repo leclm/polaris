@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Polaris.Servico</name>
+    </assembly>
+    <members>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.GetServicosPorTerceirizado(System.String)">
+             <summary>
+             Este endpoint deve consultar os serviços oferecidos por um terceirizado
+             </summary>
+             <remarks>
+             
+             Exemplo:<br />
+            
+                GET: api/Servicos/terceirizados<br /> <br />
+                 {<br />
+                    "cnpj": "32.738.811/0001-80"<br />
+                 }<br />
+            
+             </remarks>
+             <returns>
+             Retorna a lista com todos os serviços cadastrados por um terceirizado
+             </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.GetServicos">
+            <summary>
+            Este endpoint deve consultar os serviços cadastrados
+            </summary>
+            <returns>
+            Retorna a lista com todos os serviços cadastrados
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.GetServico(System.Guid)">
+            <summary>
+            Este endpoint deve consultar um serviço cadastrado via Guid
+            </summary>
+            <returns>
+            Retorna um serviço cadastrado
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.PostServico(Polaris.Servico.ViewModels.CadastroServicoViewModel)">
+            <summary>
+            Este endpoint deve cadastrar um serviço
+            </summary>
+            <remarks>
+            Exemplo:<br />
+                {<br />
+                   "nome": "limpeza" <br />
+                }<br />
+            </remarks>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.PutServico(Polaris.Servico.ViewModels.AtualizaServicoViewModel)">
+             <summary>
+             Este endpoint deve atualizar um serviço cadastrado
+             </summary>
+             <remarks>
+             Exemplo:<br />
+                 {<br />
+                    "servicoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722" <br />
+                    "nome": "limpeza" <br />
+                 }<br />
+            
+             </remarks>
+             <returns>
+             Retorna 2xx caso sucesso
+             Retorna 4xx caso erro
+             </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.AlterarStatus(System.Guid,System.Boolean)">
+            <summary>
+            Este endpoint deve alterar para ativado ou desativado o status de um serviço via Guid
+            </summary>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadosPorServico(System.String)">
+            <summary>
+            Este endpoint deve consultar os terceirizados que prestam o serviço buscado
+            </summary>
+            <returns>
+            Retorna a lista com todos os terceirizados que prestam um determinado serviço
+            </returns>
+            GET: api/Terceirizados/servicos
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadoss">
+            <summary>
+            Este endpoint deve consultar os terceirizados cadastrados
+            </summary>
+            <returns>
+            Retorna a lista com todos os terceirizados cadastrados
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizado(System.Guid)">
+            <summary>
+            Este endpoint deve consultar um terceirizado cadastrado via Guid
+            </summary>
+            <returns>
+            Retorna um terceirizado cadastrado
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.PostTerceirizadoo(Polaris.Servico.ViewModels.CadastroTerceirizadoViewModel)">
+            <summary>
+            Este endpoint deve cadastrar um terceirizado
+            </summary>
+            <remarks>
+            Exemplo: <br />
+            { <br />
+              "cnpj":"32.738.811/0001-80",<br />
+              "empresa": "Empresa Exemplo", <br />
+              "email": "exemplo@email.com", <br />
+              "telefone": "(XX)XXXXX-XXXX",   <br />
+              "endereco": { <br />
+              "cep": "80 220 000", <br />
+              "cidade": "Curitiba", <br />
+              "estado": "Paraná",  <br />
+              "logradouro": "Rua Exemplo",  <br />
+              "complemento": "opcional",  <br />
+              "numero": 100  <br />
+              },  <br />
+              "listaServicos": [  <br />
+              "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
+              ]<br />}
+            </remarks>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.PutTerceirizado(Polaris.Servico.ViewModels.AtualizaTerceirizadoViewModel)">
+            <summary>
+            Este endpoint deve atualizar um terceirizado cadastrado
+            </summary>
+            <remarks>
+            Exemplo: <br />
+            { <br />
+              "terceirizadoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722",
+              "cnpj":"32.738.811/0001-80",<br />
+              "empresa": "Empresa Exemplo", <br />
+              "email": "exemplo@email.com", <br />
+              "telefone": "(XX)XXXXX-XXXX",   <br />
+              "endereco": { <br />
+              "cep": "80 220 000", <br />
+              "cidade": "Curitiba", <br />
+              "estado": "Paraná",  <br />
+              "logradouro": "Rua Exemplo",  <br />
+              "complemento": "opcional",  <br />
+              "numero": 100  <br />
+              },  <br />
+              "listaServicos": [  <br />
+              "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
+              ]<br />}
+            </remarks>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.AlterarStatus(System.Guid,System.Boolean)">
+            <summary>
+            Este endpoint deve alterar para ativado ou desativado o status de um terceirizo via Guid
+            </summary>
+            <returns>
+            Retorna 2xx caso sucesso
+            Retorna 4xx caso erro
+            </returns>
+        </member>
+        <member name="T:Polaris.Servico.Migrations.PrimeiraMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Servico.Migrations.PrimeiraMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Servico.Migrations.PrimeiraMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Polaris.Servico.Migrations.PrimeiraMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
