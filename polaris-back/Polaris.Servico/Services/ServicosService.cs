@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.Repository;
+using Polaris.Servico.Utils;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
@@ -20,9 +21,9 @@ namespace Polaris.Servico.Services
         public IEnumerable<RetornoServicoViewModel> GetServicosPorTerceirizado(string cnpj)
         {
             var servicos = _context.ServicoRepository.GetServicosPorTerceirizado(cnpj);
-            if (servicos is null)
+            if (servicos.Count() == 0)
             {
-                throw new ServicoNaoEncontradoException("Não há serviços cadastrados.");
+                throw new ServicoNaoEncontradoException("Nenhum resultado encontrado.");
             }
             var servicosDto = _mapper.Map<List<RetornoServicoViewModel>>(servicos);
             return servicosDto;
@@ -59,6 +60,7 @@ namespace Polaris.Servico.Services
             };
 
             var servico = _mapper.Map<Models.Servico>(servicoDto);
+            StringUtils.ClassToUpper(servico);
             servico.ServicoUuid = Guid.NewGuid();
             servico.Status = true;
 
@@ -85,6 +87,7 @@ namespace Polaris.Servico.Services
             if (servico.ServicoId != 0)
             {
                 var servicoMap = _mapper.Map<Models.Servico>(servicoDto);
+                StringUtils.ClassToUpper(servico);
                 servicoMap.ServicoId = servico.ServicoId;
 
                 _context.ServicoRepository.Update(servicoMap);

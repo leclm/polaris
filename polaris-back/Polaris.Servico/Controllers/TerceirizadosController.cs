@@ -71,7 +71,7 @@ namespace Polaris.Servico.Controllers
         /// <returns>
         /// Retorna um terceirizado cadastrado
         /// </returns>
-        // GET: api/Terceirizados/5
+        // GET: api/Terceirizados/uuid
         [HttpGet("{uuid}", Name = "ObterTerceirizado")]
         public async Task<ActionResult> GetTerceirizado(Guid uuid)
         {
@@ -92,6 +92,25 @@ namespace Polaris.Servico.Controllers
         /// <summary>
         /// Este endpoint deve cadastrar um terceirizado
         /// </summary>
+        /// <remarks>
+        /// Exemplo: <br />
+        /// { <br />
+        ///   "cnpj":"32.738.811/0001-80",<br />
+        ///   "empresa": "Empresa Exemplo", <br />
+        ///   "email": "exemplo@email.com", <br />
+        ///   "telefone": "(XX)XXXXX-XXXX",   <br />
+        ///   "endereco": { <br />
+        ///   "cep": "80 220 000", <br />
+        ///   "cidade": "Curitiba", <br />
+        ///   "estado": "Paraná",  <br />
+        ///   "logradouro": "Rua Exemplo",  <br />
+        ///   "complemento": "opcional",  <br />
+        ///   "numero": 100  <br />
+        ///   },  <br />
+        ///   "listaServicos": [  <br />
+        ///   "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
+        ///   ]<br />}
+        /// </remarks>
         /// <returns>
         /// Retorna 2xx caso sucesso
         /// Retorna 4xx caso erro
@@ -121,6 +140,26 @@ namespace Polaris.Servico.Controllers
         /// <summary>
         /// Este endpoint deve atualizar um terceirizado cadastrado
         /// </summary>
+        /// <remarks>
+        /// Exemplo: <br />
+        /// { <br />
+        ///   "terceirizadoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722",
+        ///   "cnpj":"32.738.811/0001-80",<br />
+        ///   "empresa": "Empresa Exemplo", <br />
+        ///   "email": "exemplo@email.com", <br />
+        ///   "telefone": "(XX)XXXXX-XXXX",   <br />
+        ///   "endereco": { <br />
+        ///   "cep": "80220000", <br />
+        ///   "cidade": "Curitiba", <br />
+        ///   "estado": "Paraná",  <br />
+        ///   "logradouro": "Rua Exemplo",  <br />
+        ///   "complemento": "opcional",  <br />
+        ///   "numero": 100  <br />
+        ///   },  <br />
+        ///   "listaServicos": [  <br />
+        ///   "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
+        ///   ]<br />}
+        /// </remarks>
         /// <returns>
         /// Retorna 2xx caso sucesso
         /// Retorna 4xx caso erro
