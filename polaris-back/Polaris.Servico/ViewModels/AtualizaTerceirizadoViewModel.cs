@@ -29,7 +29,7 @@ namespace Polaris.Servico.ViewModels
         public string? Telefone { get; set; }
         [Required]
         [NotNull]
-        public Endereco? Endereco { get; set; }
+        public AtualizaEnderecoViewModel? Endereco { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Models.Servico>? Servicos { get; set; }

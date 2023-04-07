@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Flurl;
+using Flurl.Http;
+using Microsoft.Extensions.Options;
 using Polaris.Servico.Configs;
+using Polaris.Servico.Models;
+using Polaris.Servico.ViewModels;
 
 namespace Polaris.Servico.ExternalServices
 {
@@ -11,9 +15,28 @@ namespace Polaris.Servico.ExternalServices
             _config = config.Value;
         }
 
-        public void Teste()
+        public async Task<Endereco> GetEnderecos(Guid uuid)
         {
-            var temp = _config;
+            return await _config.PolarisEnderecoConfig.Url
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEndereco)
+                .AppendPathSegment(uuid)
+                .GetJsonAsync<Endereco>();
+        }
+
+        public async Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco)
+        {
+            return await _config.PolarisEnderecoConfig.Url
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEndereco)
+                .PostJsonAsync(endereco)
+                .ReceiveJson<Guid>();
+        }
+
+        public async Task<Guid> PutEnderecos(AtualizaEnderecoViewModel endereco)
+        {
+            return await _config.PolarisEnderecoConfig.Url
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEndereco)
+                .PutJsonAsync(endereco)
+                .ReceiveJson<Guid>();
         }
     }
 }

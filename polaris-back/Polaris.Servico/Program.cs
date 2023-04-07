@@ -32,6 +32,7 @@ builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<IServicosService, ServicosService>();
 builder.Services.AddScoped<ITerceirizadosService, TerceirizadosService>();
 builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
+builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 
 builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection("ExternalConfigs"));
 

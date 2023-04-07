@@ -80,8 +80,9 @@ namespace Polaris.Endereco.Controllers
         /// }
         /// </remarks>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 400 caso erro em algum campo com a mensagem
+        /// Retorna 500 caso erro interno 
         /// </returns>
         // POST: api/Enderecos
         [HttpPost]
@@ -117,8 +118,9 @@ namespace Polaris.Endereco.Controllers
         /// }
         /// </remarks>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 400 caso erro, retorna a mensagem especificando
+        /// Retorna 500 caso erro interno         
         /// </returns>
         // PUT: api/Enderecos/5
         [HttpPut]
@@ -143,8 +145,9 @@ namespace Polaris.Endereco.Controllers
         /// Este endpoint deve alterar para ativado ou desativado o status de um endereço via Guid
         /// </summary>
         /// <returns>
-        /// Retorna 2xx caso sucesso
-        /// Retorna 4xx caso erro
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
         /// </returns>
         // ALTERAR STATUS: api/Enderecos/altera-status/5/true 
         [HttpPut("alterar-status/{uuid}/{status}")]

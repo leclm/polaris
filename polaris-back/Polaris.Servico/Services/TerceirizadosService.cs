@@ -14,12 +14,14 @@ namespace Polaris.Servico.Services
         private readonly IUnityOfWork _context;
         private readonly IMapper _mapper;
         private readonly IEnderecoExternalService _enderecoExternalService;
+        private readonly IEnderecoRepository _enderecoRepository;
 
-        public TerceirizadosService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService)
+        public TerceirizadosService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository)
         {
             _context = context;
             _mapper = mapper;
             _enderecoExternalService = enderecoExternalService;
+            _enderecoRepository = enderecoRepository;
         }
 
         public IEnumerable<RetornoTerceirizadoViewModel> GetTerceirizadosPorServico(string servico)
@@ -35,8 +37,7 @@ namespace Polaris.Servico.Services
 
         public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados()
         {
-            _enderecoExternalService.Teste();
-            var terceirizados = await _context.TerceirizadoRepository.Get().ToListAsync();
+            var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosCompleto();
             if (terceirizados is null)
             {
                 throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
@@ -66,10 +67,13 @@ namespace Polaris.Servico.Services
                 throw new CadastrarTerceirizadoException("Terceirizado já existe. Erro ao cadastrar um terceirizado.");
             };
 
+            var enderecoUuid = await _enderecoExternalService.PostEnderecos(terceirizadoDto.Endereco);
+            terceirizadoDto.Endereco = null;
+
             var terceirizado = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
             StringUtils.ClassToUpper(terceirizado);
             terceirizado.TerceirizadoUuid = Guid.NewGuid();
-            terceirizado.Endereco.EnderecoUuid = Guid.NewGuid();
+            terceirizado.EnderecoId = _enderecoRepository.GetEnderecoId(enderecoUuid);
             terceirizado.Status = true;
 
             if (ValidaCnpj.IsCnpj(terceirizado.Cnpj) is false)
@@ -102,7 +106,6 @@ namespace Polaris.Servico.Services
 
         public async Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
         {
-
             if (terceirizadoDto.TerceirizadoUuid == Guid.Empty)
             {
                 throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
@@ -114,6 +117,9 @@ namespace Polaris.Servico.Services
             {
                 throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
             }
+
+            var enderecoUuid = await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco);
+            terceirizadoDto.Endereco = null;
 
             if (terceirizado.TerceirizadoId != 0)
             {
