@@ -149,7 +149,7 @@ namespace Polaris.Endereco.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Enderecos/altera-status/5/true 
+        // ALTERAR STATUS: api/Enderecos/alterar-status/5/true 
         [HttpPut("alterar-status/{uuid}/{status}")]
         public async Task<IActionResult> AlterarStatus(Guid uuid, bool status)
         {
@@ -157,6 +157,32 @@ namespace Polaris.Endereco.Controllers
             {
                 await _service.AlterarStatus(uuid, status);
                 return Ok();
+            }
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
+
+        /// <summary>
+        /// Este endpoint deve buscar qual endereço está vinculado com o terceirizado buscado
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Enderecos/buscar-endereco-terceirizado/uuid
+        [HttpGet("buscar-endereco-terceirizado/{uuidTerceirizado}")]
+        public async Task<IActionResult> BuscarVinculoEnderecoTerceirizado(Guid uuidTerceirizado)
+        {
+            try
+            {
+                return Ok(await _service.BuscarVinculoEnderecoTerceirizado(uuidTerceirizado));
             }
             catch (EnderecoNaoEncontradoException ex)
             {

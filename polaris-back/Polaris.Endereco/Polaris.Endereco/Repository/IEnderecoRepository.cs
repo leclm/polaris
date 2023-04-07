@@ -2,5 +2,6 @@
 {
     public interface IEnderecoRepository : IRepository<Models.Endereco>
     {
+        Task<Models.Endereco> GetEnderecoByTerceirizado(Guid uuidTerceirizado);
     }
 }
