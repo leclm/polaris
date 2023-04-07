@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YbtooAkJsOwZQgKBYmsM8Q0cB+SbzfkWrY7uFaUsTwBy/2DAk4vHYQSPnVNYtGslg1ZylNr6VUs9RFpFdI5dsQ==",
+  "dgSpecHash": "OI7sQunjAMT9Uq753tPrOCcncp4STHq+7XIHR2TIcrqCx88uQv+7CZQ0GUiorRL6x5h0Tn17hju2b7qTK3UXWQ==",
   "success": true,
   "projectFilePath": "C:\\GIT\\polaris\\polaris-back\\Polaris.Servico\\Polaris.Servico.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\katia\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\katia\\.nuget\\packages\\flurl\\3.0.6\\flurl.3.0.6.nupkg.sha512",
+    "C:\\Users\\katia\\.nuget\\packages\\flurl.http\\3.2.4\\flurl.http.3.2.4.nupkg.sha512",
     "C:\\Users\\katia\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\katia\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\katia\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

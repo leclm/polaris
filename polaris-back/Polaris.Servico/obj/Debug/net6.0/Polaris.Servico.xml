@@ -68,7 +68,7 @@
              </remarks>
              <returns>
              Retorna 201 caso sucesso
-             Retorna 400 caso erro em algum campo com a mensagem
+             Retorna 400 caso erro, retorna a mensagem especificando
              Retorna 500 caso erro interno 
              </returns>
         </member>
@@ -162,7 +162,7 @@
             </remarks>
             <returns>
             Retorna 201 caso sucesso
-            Retorna 400 caso erro em algum campo com a mensagem
+            Retorna 400 caso erro, retorna a mensagem especificando
             Retorna 500 caso erro interno         
             </returns>
         </member>

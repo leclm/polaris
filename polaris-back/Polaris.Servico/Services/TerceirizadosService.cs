@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Polaris.Servico.ExternalServices;
 using Polaris.Servico.Repository;
 using Polaris.Servico.Utils;
 using Polaris.Servico.Validation;
@@ -12,11 +13,13 @@ namespace Polaris.Servico.Services
     {
         private readonly IUnityOfWork _context;
         private readonly IMapper _mapper;
+        private readonly IEnderecoExternalService _enderecoExternalService;
 
-        public TerceirizadosService(IUnityOfWork context, IMapper mapper)
+        public TerceirizadosService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService)
         {
             _context = context;
             _mapper = mapper;
+            _enderecoExternalService = enderecoExternalService;
         }
 
         public IEnumerable<RetornoTerceirizadoViewModel> GetTerceirizadosPorServico(string servico)
@@ -32,6 +35,7 @@ namespace Polaris.Servico.Services
 
         public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados()
         {
+            _enderecoExternalService.Teste();
             var terceirizados = await _context.TerceirizadoRepository.Get().ToListAsync();
             if (terceirizados is null)
             {
