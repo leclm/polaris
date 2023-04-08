@@ -6,7 +6,7 @@ namespace Polaris.Servico.Services
 {
     public interface ITerceirizadosService
     {
-        IEnumerable<RetornoTerceirizadoViewModel> GetTerceirizadosPorServico(string servico);
+        Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosPorServico(string servico);
         Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados();
         Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid);
         Task<Guid> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto);

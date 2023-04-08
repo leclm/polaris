@@ -92,6 +92,8 @@ namespace Polaris.Servico.Services
             if (servico.ServicoId != 0)
             {
                 var servicoMap = _mapper.Map<Models.Servico>(servicoDto);
+                var servicoBase = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == servicoMap.ServicoUuid);
+                servicoMap.Status = servicoBase.Status;
                 StringUtils.ClassToUpper(servico);
                 servicoMap.ServicoId = servico.ServicoId;
 

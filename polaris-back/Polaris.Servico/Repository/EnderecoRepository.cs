@@ -8,10 +8,10 @@ namespace Polaris.Servico.Repository
         {
         }
 
-        public int GetEnderecoId(Guid uuid)
+        public async Task<int> GetEnderecoId(Guid uuid)
         {
-            var endereco = GetByParameter(x => x.EnderecoUuid == uuid);
-            return endereco.Id;
+            var endereco = await GetByParameter(x => x.EnderecoUuid == uuid);
+            return endereco.EnderecoId;
         }
     }
 }

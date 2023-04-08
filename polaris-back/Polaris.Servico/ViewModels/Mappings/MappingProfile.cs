@@ -17,6 +17,7 @@ namespace Polaris.Servico.ViewModels.Mappings
 
             CreateMap<Models.Endereco, CadastroEnderecoViewModel>().ReverseMap();
             CreateMap<Models.Endereco, RetornoEnderecoViewModel>().ReverseMap();
+            CreateMap<Models.Endereco, AtualizaEnderecoViewModel>().ReverseMap();
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IEnderecoRepository
     {
-        int GetEnderecoId(Guid uuid);
+        Task<int> GetEnderecoId(Guid uuid);
     }
 }

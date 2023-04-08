@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.ExternalServices;
+using Polaris.Servico.Models;
 using Polaris.Servico.Repository;
 using Polaris.Servico.Utils;
 using Polaris.Servico.Validation;
 using Polaris.Servico.ViewModels;
+using System;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
 namespace Polaris.Servico.Services
@@ -24,31 +26,32 @@ namespace Polaris.Servico.Services
             _enderecoRepository = enderecoRepository;
         }
 
-        public IEnumerable<RetornoTerceirizadoViewModel> GetTerceirizadosPorServico(string servico)
+        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosPorServico(string servico)
         {  
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosPorServico(servico);
-            if (terceirizados.Count() == 0)
+            if (!terceirizados.Any())
             {
                 throw new TerceirizadoNaoEncontradoException("Nenhum resultado encontrado.");
             }
-            var terceirizadosDto = _mapper.Map<List<RetornoTerceirizadoViewModel>>(terceirizados);
-            return terceirizadosDto;
+
+            return await ConsultaEnderecosTerceirizados(terceirizados);
         }
 
         public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados()
         {
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosCompleto();
-            if (terceirizados is null)
+            if (!terceirizados.Any())
             {
                 throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
             }
-            var terceirizadosDto = _mapper.Map<List<RetornoTerceirizadoViewModel>>(terceirizados);
-            return terceirizadosDto;
+
+           return await ConsultaEnderecosTerceirizados(terceirizados);
         }
 
         public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid)
         {
-            var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == uuid);
+            var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(uuid);
+            terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(uuid);
 
             if (terceirizado is null)
             {
@@ -73,7 +76,7 @@ namespace Polaris.Servico.Services
             var terceirizado = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
             StringUtils.ClassToUpper(terceirizado);
             terceirizado.TerceirizadoUuid = Guid.NewGuid();
-            terceirizado.EnderecoId = _enderecoRepository.GetEnderecoId(enderecoUuid);
+            terceirizado.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
             terceirizado.Status = true;
 
             if (ValidaCnpj.IsCnpj(terceirizado.Cnpj) is false)
@@ -81,10 +84,10 @@ namespace Polaris.Servico.Services
                 throw new CadastrarTerceirizadoException("Cnpj inválido. Erro ao cadastrar um terceirizado.");
             };
 
-            if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
-            {
-                throw new CadastrarTerceirizadoException("Telefone inválido. Erro ao cadastrar um terceirizado.");
-            };
+            //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
+            //{
+            //    throw new CadastrarTerceirizadoException("Telefone inválido. Erro ao cadastrar um terceirizado.");
+            //};
 
             if (ValidaEmail.IsValidEmail(terceirizado.Email) is false)
             {
@@ -118,15 +121,32 @@ namespace Polaris.Servico.Services
                 throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
             }
 
-            var enderecoUuid = await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco);
+            await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco);
             terceirizadoDto.Endereco = null;
+
+            if (ValidaCnpj.IsCnpj(terceirizadoDto.Cnpj) is false)
+            {
+                throw new AtualizarTerceirizadoException("Cnpj inválido. Erro ao editar um terceirizado.");
+            };
+
+            //if (ValidaTelefone.IsTelefone(terceirizadoDto.Telefone) is false)
+            //{
+            //    throw new AtualizarTerceirizadoException("Telefone inválido. Erro ao editar um terceirizado.");
+            //};
+
+            if (ValidaEmail.IsValidEmail(terceirizadoDto.Email) is false)
+            {
+                throw new AtualizarTerceirizadoException("E-mail inválido. Erro ao editar um terceirizado.");
+            }
 
             if (terceirizado.TerceirizadoId != 0)
             {
                 var terceirizadoMap = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
+                var terceirizadoBase = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoMap.TerceirizadoUuid);
+                terceirizadoMap.Status = terceirizadoBase.Status;
                 StringUtils.ClassToUpper(terceirizadoMap);
                 terceirizadoMap.TerceirizadoId = terceirizado.TerceirizadoId;
-
+                terceirizadoMap.EnderecoId = terceirizado.EnderecoId;
                 _context.TerceirizadoRepository.Update(terceirizadoMap);
                 await _context.Commit();
             }
@@ -151,6 +171,17 @@ namespace Polaris.Servico.Services
             await _context.Commit();
 
             var enderecoDto = _mapper.Map<AtualizaTerceirizadoViewModel>(terceirizado);
+        }
+
+        private async Task<IEnumerable<RetornoTerceirizadoViewModel>> ConsultaEnderecosTerceirizados(IEnumerable<Terceirizado> terceirizados)
+        {
+            List<RetornoTerceirizadoViewModel> terceirizadosDto = new();
+            foreach (var terceirizado in terceirizados)
+            {
+                terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid);
+                terceirizadosDto.Add(_mapper.Map<RetornoTerceirizadoViewModel>(terceirizado));
+            }
+            return terceirizadosDto;
         }
     }
 }

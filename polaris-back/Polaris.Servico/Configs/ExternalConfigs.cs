@@ -13,6 +13,7 @@
 
     public class Endpoints
     {
-        public string GetEndereco { get; set; }
+        public string Endereco { get; set; }
+        public string GetEnderecoTerceirizado { get; set; }
     }
 }

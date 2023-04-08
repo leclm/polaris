@@ -16,7 +16,7 @@ namespace Polaris.Endereco.Repository
         {
             return _context.Set<T>().AsNoTracking();
         }
-        public async Task<T> GetById(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetByParameter(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
@@ -25,12 +25,6 @@ namespace Polaris.Endereco.Repository
         {
             _context.Set<T>().Add(entity);
         }
-
-        //public void Delete(T entity)
-        //{
-        //    _context.Set<T>().Remove(entity);
-        //}
-
         public void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
