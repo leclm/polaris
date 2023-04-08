@@ -12,7 +12,7 @@ namespace Polaris.Servico.ViewModels
         public string? Email { get; set; }
         public string? Telefone { get; set; }
         public bool Status { get; set; }
-        public Endereco? Endereco { get; set; }
+        public RetornoEnderecoViewModel? Endereco { get; set; }
 
         public IEnumerable<BuscaServicoViewModel>? Servicos { get; set; }
     }

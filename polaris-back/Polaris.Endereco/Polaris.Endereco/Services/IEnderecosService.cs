@@ -9,5 +9,6 @@ namespace Polaris.Endereco.Services
         Task<Guid> PostEndereco(CadastroEnderecoViewModel enderecoDto);
         Task PutEndereco(AtualizaEnderecoViewModel enderecoDto);
         Task AlterarStatus(Guid uuid, bool status);
+        Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoTerceirizado(Guid uuidTerceirizado);
     }
 }

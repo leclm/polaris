@@ -1,4 +1,6 @@
-﻿using Polaris.Endereco.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Polaris.Endereco.Context;
+using System.Linq.Expressions;
 
 namespace Polaris.Endereco.Repository
 {

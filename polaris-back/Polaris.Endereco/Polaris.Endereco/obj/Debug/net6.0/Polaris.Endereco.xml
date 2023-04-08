@@ -36,8 +36,9 @@
             }
             </remarks>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 400 caso erro em algum campo com a mensagem
+            Retorna 500 caso erro interno 
             </returns>
         </member>
         <member name="M:Polaris.Endereco.Controllers.EnderecosController.PutEndereco(Polaris.Endereco.DTOs.AtualizaEnderecoViewModel)">
@@ -57,8 +58,9 @@
             }
             </remarks>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 400 caso erro, retorna a mensagem especificando
+            Retorna 500 caso erro interno         
             </returns>
         </member>
         <member name="M:Polaris.Endereco.Controllers.EnderecosController.AlterarStatus(System.Guid,System.Boolean)">
@@ -66,8 +68,19 @@
             Este endpoint deve alterar para ativado ou desativado o status de um endereço via Guid
             </summary>
             <returns>
-            Retorna 2xx caso sucesso
-            Retorna 4xx caso erro
+            Retorna 201 caso sucesso
+            Retorna 404 caso uuid não encontrado
+            Retorna 500 caso erro interno         
+            </returns>
+        </member>
+        <member name="M:Polaris.Endereco.Controllers.EnderecosController.BuscarVinculoEnderecoTerceirizado(System.Guid)">
+            <summary>
+            Este endpoint deve buscar qual endereço está vinculado com o terceirizado buscado
+            </summary>
+            <returns>
+            Retorna 201 caso sucesso
+            Retorna 404 caso uuid não encontrado
+            Retorna 500 caso erro interno         
             </returns>
         </member>
         <member name="T:Polaris.Endereco.Migrations.InitialCreate">

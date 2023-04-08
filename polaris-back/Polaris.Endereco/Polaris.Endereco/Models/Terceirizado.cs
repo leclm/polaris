@@ -1,11 +1,16 @@
-﻿using Polaris.Servico.Models;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Servico.ViewModels
+namespace Polaris.Endereco.Models
 {
-    public class AtualizaTerceirizadoViewModel
+    [Table("Terceirizado")]
+    public class Terceirizado
     {
+        
+        [Key]
+        public int TerceirizadoId { get; set; }
         public Guid TerceirizadoUuid { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um CNPJ.")]
         [MaxLength(18, ErrorMessage = " Erro. CNPJ inválido.")]
@@ -29,9 +34,9 @@ namespace Polaris.Servico.ViewModels
         public string? Telefone { get; set; }
         [Required]
         [NotNull]
-        public AtualizaEnderecoViewModel? Endereco { get; set; }
-
-        [System.Text.Json.Serialization.JsonIgnore]
-        public ICollection<Models.Servico>? Servicos { get; set; }
+        [ForeignKey("Endereco")]
+        public int EnderecoId { get; set; }
+        public virtual Endereco Endereco { get; set; }
+        public bool Status { get; set; }
     }
 }
