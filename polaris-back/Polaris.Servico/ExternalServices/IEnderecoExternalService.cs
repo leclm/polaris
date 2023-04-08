@@ -6,7 +6,8 @@ namespace Polaris.Servico.ExternalServices
     public interface IEnderecoExternalService
     {
         Task<Endereco> GetEnderecos(Guid uuid);
+        Task<Endereco> GetEnderecoTerceirizado(Guid uuid);
         Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco);
-        Task<Guid> PutEnderecos(AtualizaEnderecoViewModel endereco);
+        Task PutEnderecos(AtualizaEnderecoViewModel endereco);
     }
 }

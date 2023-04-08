@@ -18,7 +18,16 @@ namespace Polaris.Servico.ExternalServices
         public async Task<Endereco> GetEnderecos(Guid uuid)
         {
             return await _config.PolarisEnderecoConfig.Url
-                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEndereco)
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
+                .AppendPathSegment(uuid)
+                .GetJsonAsync<Endereco>();
+        }
+        
+        public async Task<Endereco> GetEnderecoTerceirizado(Guid uuid)
+        {
+            return await _config.PolarisEnderecoConfig.Url
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEnderecoTerceirizado)
                 .AppendPathSegment(uuid)
                 .GetJsonAsync<Endereco>();
         }
@@ -26,17 +35,16 @@ namespace Polaris.Servico.ExternalServices
         public async Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco)
         {
             return await _config.PolarisEnderecoConfig.Url
-                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEndereco)
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
                 .PostJsonAsync(endereco)
                 .ReceiveJson<Guid>();
         }
 
-        public async Task<Guid> PutEnderecos(AtualizaEnderecoViewModel endereco)
+        public async Task PutEnderecos(AtualizaEnderecoViewModel endereco)
         {
-            return await _config.PolarisEnderecoConfig.Url
-                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEndereco)
-                .PutJsonAsync(endereco)
-                .ReceiveJson<Guid>();
+            await _config.PolarisEnderecoConfig.Url
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
+                .PutJsonAsync(endereco);
         }
     }
 }

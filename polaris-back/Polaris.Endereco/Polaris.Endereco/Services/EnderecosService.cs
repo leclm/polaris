@@ -31,7 +31,7 @@ namespace Polaris.Endereco.Services
 
         public async Task<RetornoEnderecoViewModel> GetEndereco(Guid uuid)
         {
-            var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoUuid == uuid);
+            var endereco = await _context.EnderecoRepository.GetByParameter(p => p.EnderecoUuid == uuid);
 
             if (endereco is null)
             {
@@ -61,16 +61,19 @@ namespace Polaris.Endereco.Services
         public async Task PutEndereco(AtualizaEnderecoViewModel enderecoDto)
         {
             
-            if (enderecoDto.EnderecoUuid == Guid.Empty)
+            if (enderecoDto.EnderecoUuid == Guid.Empty || String.IsNullOrEmpty(enderecoDto.ToString()))
             {
                 throw new AtualizarEnderecoException("Endereço inválido. Erro ao atualizar o endereço.");
             }
 
-            var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoUuid == enderecoDto.EnderecoUuid);
+            var endereco = await _context.EnderecoRepository.GetByParameter(p => p.EnderecoUuid == enderecoDto.EnderecoUuid);
 
             if (endereco.EnderecoId != 0)
             {
                 var enderecoMap = _mapper.Map<Models.Endereco>(enderecoDto);
+                var enderecoBase = await _context.EnderecoRepository.GetByParameter(p => p.EnderecoUuid == enderecoMap.EnderecoUuid);
+                enderecoMap.Status = enderecoBase.Status;
+
                 StringUtils.ClassToUpper(enderecoMap);
                 enderecoMap.EnderecoId = endereco.EnderecoId;
 
@@ -85,7 +88,7 @@ namespace Polaris.Endereco.Services
 
         public async Task AlterarStatus(Guid uuid, bool status)
         {
-            var endereco = await _context.EnderecoRepository.GetById(p => p.EnderecoUuid == uuid);
+            var endereco = await _context.EnderecoRepository.GetByParameter(p => p.EnderecoUuid == uuid);
 
             if (endereco == null)
             {

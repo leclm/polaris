@@ -28,7 +28,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return Ok(_service.GetTerceirizadosPorServico(servico));
+                return Ok(await _service.GetTerceirizadosPorServico(servico));
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {
@@ -144,12 +144,13 @@ namespace Polaris.Servico.Controllers
         /// <remarks>
         /// Exemplo: <br />
         /// { <br />
-        ///   "terceirizadoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722",
+        ///   "terceirizadoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722, <br />
         ///   "cnpj":"32.738.811/0001-80",<br />
         ///   "empresa": "Empresa Exemplo", <br />
         ///   "email": "exemplo@email.com", <br />
         ///   "telefone": "(XX)XXXXX-XXXX",   <br />
         ///   "endereco": { <br />
+        ///   "enderecooUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722,<br />
         ///   "cep": "80220000", <br />
         ///   "cidade": "Curitiba", <br />
         ///   "estado": "Paraná",  <br />
