@@ -13,7 +13,7 @@ namespace Polaris.Endereco.Repository
             _context = context;
         }
 
-        public async Task<Models.Endereco> GetEnderecoByTerceirizado(Guid uuidTerceirizado)
+        public async Task<Models.Endereco?> GetEnderecoByTerceirizado(Guid uuidTerceirizado)
         {
             using (_context)
             {
