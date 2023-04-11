@@ -8,8 +8,6 @@ namespace Polaris.Endereco.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[EnableCors("PermitirAngularRequest")]
-
     public class EnderecosController : UtilsController
     {
         private readonly IEnderecosService _service;
