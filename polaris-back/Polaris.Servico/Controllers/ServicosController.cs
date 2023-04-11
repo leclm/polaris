@@ -7,11 +7,13 @@ using Polaris.Servico.Repository;
 using Polaris.Servico.Services;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
+using Microsoft.AspNetCore.Cors;
 
 namespace Polaris.Servico.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("PermitirAngularRequest")]
     public class ServicosController : UtilsController
     {
         private readonly IServicosService _service;

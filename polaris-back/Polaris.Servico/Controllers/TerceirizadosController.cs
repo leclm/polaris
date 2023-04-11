@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Servico.Services;
 using Polaris.Servico.ViewModels;
 using static Polaris.Servico.Exceptions.CustomExceptions;
@@ -7,6 +8,7 @@ namespace Polaris.Servico.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("PermitirAngularRequest")]
     public class TerceirizadosController : UtilsController
     {
         private readonly ITerceirizadosService _service;

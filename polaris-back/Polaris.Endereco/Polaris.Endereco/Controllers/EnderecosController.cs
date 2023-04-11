@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Endereco.DTOs;
 using Polaris.Endereco.Services;
 using static Polaris.Endereco.Exceptions.CustomExceptions;
@@ -7,6 +8,8 @@ namespace Polaris.Endereco.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("PermitirAngularRequest")]
+
     public class EnderecosController : UtilsController
     {
         private readonly IEnderecosService _service;
