@@ -13,7 +13,7 @@ namespace Polaris.Servico.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [EnableCors("PermitirAngularRequest")]
+    //[EnableCors("PermitirAngularRequest")]
     public class ServicosController : UtilsController
     {
         private readonly IServicosService _service;
