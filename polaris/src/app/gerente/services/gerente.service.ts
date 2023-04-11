@@ -15,4 +15,12 @@ export class GerenteService {
   getAluguelData() {
     return this._http.get('http://localhost:8180/aluguel');
   }
+
+  getServicoData() {
+    return this._http.get('http://localhost:44352/Servicos');
+  }
+
+  getTerceirizadoData() {
+    return this._http.get('http://localhost:44352/Terceirizados');
+  }
 }

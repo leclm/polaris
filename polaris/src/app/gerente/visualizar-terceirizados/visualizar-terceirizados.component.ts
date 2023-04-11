@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
 
 @Component({
   selector: 'app-visualizar-terceirizados',
@@ -27,9 +28,21 @@ export class VisualizarTerceirizadosComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  public servicoData: any;
+  public terceirizadoData: any;
+
+  constructor( private _gerenteServiceAPI: GerenteService ) { }
 
   ngOnInit(): void {
+    this._gerenteServiceAPI.getServicoData().subscribe( (res: any) => {
+        this.servicoData = res;
+      }
+    )
+
+    this._gerenteServiceAPI.getTerceirizadoData().subscribe( (res: any) => {
+      this.terceirizadoData = res;
+    }
+  )
   }
 
 }

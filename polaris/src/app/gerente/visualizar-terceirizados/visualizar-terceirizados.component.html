@@ -1,26 +1,26 @@
 <div class="visualizar-terceirizados container-fluid mt-4 mb-4">
   <div class="container-content p-4">
-    <h1 class="mb-4">Clientes Cadastrados</h1>
+    <h1 class="mb-4">Terceirizados Cadastrados</h1>
 
     <div class="table-responsive">
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="tipo">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="empresa">Empresa <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="cnpj">CNPJ <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="terceirizadoData" data-order="desc" data-name="tipo">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="terceirizadoData" data-order="desc" data-name="empresa">Empresa <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="terceirizadoData" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="terceirizadoData" data-order="desc" data-name="cnpj">CNPJ <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="terceirizadoData" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th>Opções</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of clienteData.content">
-            <td>{{ item.tipo }}</td>
+          <tr *ngFor="let item of terceirizadoData">
+            <td>{{ item.servicos[0].nome }}</td>
             <td>{{ item.empresa }}</td>
             <td>{{ item.telefone }}</td>
             <td>{{ item.cnpj }}</td>
-            <td>{{ item.endereco }}</td>
+            <td>{{ item.endereco.logradouro }}</td>
             <td>
               <a href="/gerente/visualizar-detalhes-terceirizado/2">
                 <i class="fa fa-eye" aria-hidden="true"></i>
