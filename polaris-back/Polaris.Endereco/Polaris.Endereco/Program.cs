@@ -40,12 +40,14 @@ var mappingConfig = new MapperConfiguration(mc =>
 IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("PermitirAngularRequest",
-        builder =>
-        builder.WithOrigins("http://localhost:4200"));
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("PermitirAngularRequest",
+//        builder =>
+//        builder.WithOrigins("http://localhost:4200"));
+//});
+
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -60,7 +62,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors(opt => opt.WithOrigins("http://localhost:4200"));
+//app.UseCors(opt => opt.WithOrigins("http://localhost:4200"));
+app.UseCors(opt => opt.AllowAnyOrigin());
 
 app.MapControllers();
 
