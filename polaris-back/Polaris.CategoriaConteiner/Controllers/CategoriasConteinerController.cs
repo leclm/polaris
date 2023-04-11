@@ -8,8 +8,6 @@ namespace Polaris.CategoriaConteiner.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [EnableCors("PermitirAngularRequest")]
-
     public class CategoriasConteinerController : UtilsController
     {
         private readonly ICategoriasConteinerService _service;
@@ -18,7 +16,6 @@ namespace Polaris.CategoriaConteiner.Controllers
         {
             _service = service;
         } 
-        
         
         
         /// <summary>

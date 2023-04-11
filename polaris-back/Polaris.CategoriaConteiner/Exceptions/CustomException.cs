@@ -1,5 +1,6 @@
 ﻿namespace Polaris.CategoriaConteiner.Exceptions
 {
+    [Serializable]
     public class CustomException
     {
         public class CategoriaConteinerNaoEncontradaException : Exception
