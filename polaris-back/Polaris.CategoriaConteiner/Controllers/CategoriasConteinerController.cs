@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.CategoriaConteiner.Services;
 using Polaris.CategoriaConteiner.ViewModels;
 using static Polaris.CategoriaConteiner.Exceptions.CustomException;
@@ -7,6 +8,8 @@ namespace Polaris.CategoriaConteiner.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("PermitirAngularRequest")]
+
     public class CategoriasConteinerController : UtilsController
     {
         private readonly ICategoriasConteinerService _service;
