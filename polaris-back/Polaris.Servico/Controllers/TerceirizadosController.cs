@@ -72,7 +72,7 @@ namespace Polaris.Servico.Controllers
         /// <returns>
         /// Retorna a lista com todos os terceirizados cadastrados
         /// </returns>
-        // GET: api/Terceirizados
+        // GET: api/Terceirizados/terceirizados-ativos
         [HttpGet("terceirizados-ativos")]
         public async Task<ActionResult> GetTerceirizadosAtivos()
         {
