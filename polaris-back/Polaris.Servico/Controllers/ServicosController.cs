@@ -87,7 +87,7 @@ namespace Polaris.Servico.Controllers
         /// <returns>
         /// Retorna a lista com todos os serviços cadastrados
         /// </returns>
-        // GET: api/Servicos
+        // GET: api/Servicos/servicos-ativo
         [HttpGet("servicos-ativos")]
         public async Task<ActionResult> GetServicosAtivos()
         {
