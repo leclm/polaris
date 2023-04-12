@@ -17,6 +17,7 @@ import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.co
 import { ManterTipoComponent } from './manter-tipo/manter-tipo.component';
 import { EditarTipoComponent } from './editar-tipo/editar-tipo.component';
 import { VisualizarTiposComponent } from './visualizar-tipos/visualizar-tipos.component';
+import { CapitalizacaoPipe } from '../shared/pipes';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VisualizarTiposComponent } from './visualizar-tipos/visualizar-tipos.co
     EditarCategoriaComponent,
     ManterTipoComponent,
     EditarTipoComponent,
-    VisualizarTiposComponent
+    VisualizarTiposComponent,
+    CapitalizacaoPipe    
   ],
   imports: [
     CommonModule,
