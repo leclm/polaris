@@ -8,6 +8,7 @@ namespace Polaris.Servico.Services
     {
         Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosPorServico(string servico);
         Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados();
+        Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosAtivos();
         Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid);
         Task<Guid> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto);
         Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto);

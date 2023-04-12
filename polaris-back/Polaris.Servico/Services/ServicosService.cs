@@ -40,6 +40,16 @@ namespace Polaris.Servico.Services
             return servicosDto;
         }
 
+        public async Task<IEnumerable<RetornoServicoViewModel>> GetServicosAtivos()
+        {
+            var servicos = _context.ServicoRepository.GetAllByParameter(x => x.Status == true);
+            if (servicos is null)
+            {
+                throw new ServicoNaoEncontradoException("Não há serviços cadastrados.");
+            }
+            return _mapper.Map<List<RetornoServicoViewModel>>(servicos);
+        }
+
         public async Task<RetornoServicoViewModel> GetServico(Guid uuid)
         {
             var servico = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == uuid);

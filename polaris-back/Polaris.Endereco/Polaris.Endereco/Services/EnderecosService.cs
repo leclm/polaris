@@ -20,13 +20,25 @@ namespace Polaris.Endereco.Services
 
         public async Task<IEnumerable<RetornoEnderecoViewModel>> GetEnderecos()
         {
-            var enderecos = await _context.EnderecoRepository.Get().ToListAsync();
+            var enderecos = _context.EnderecoRepository.GetAllByParameter(x => x.Status == true);
             if (enderecos is null)
             {
                 throw new EnderecoNaoEncontradoException("Não há endereços cadastrados.");
             }
-            var enderecosDto = _mapper.Map<List<RetornoEnderecoViewModel>>(enderecos);
-            return enderecosDto;
+            return _mapper.Map<IEnumerable<RetornoEnderecoViewModel>>(enderecos);
+
+            //List<RetornoEnderecoViewModel> enderecosDto = new ();
+            //foreach (var endereco in enderecos)
+            //{
+            //    if (endereco.Status == true)
+            //    {
+            //         enderecosDto.Append(_mapper.Map<RetornoEnderecoViewModel>(endereco));
+            //    }
+            //}
+            //return enderecosDto;
+
+            //var enderecosDto = _mapper.Map<List<RetornoEnderecoViewModel>>(enderecos);
+            // return enderecosDto;
         }
 
         public async Task<RetornoEnderecoViewModel> GetEndereco(Guid uuid)

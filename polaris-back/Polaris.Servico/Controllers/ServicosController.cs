@@ -82,6 +82,31 @@ namespace Polaris.Servico.Controllers
         }
 
         /// <summary>
+        /// Este endpoint deve consultar os serviços ATIVOS
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os serviços cadastrados
+        /// </returns>
+        // GET: api/Servicos
+        [HttpGet("servicos-ativos")]
+        public async Task<ActionResult> GetServicosAtivos()
+        {
+            try
+            {
+                return Ok(await _service.GetServicosAtivos());
+            }
+            catch (ServicoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
+
+        }
+
+        /// <summary>
         /// Este endpoint deve consultar um serviço cadastrado via Guid
         /// </summary>
         /// <returns>
