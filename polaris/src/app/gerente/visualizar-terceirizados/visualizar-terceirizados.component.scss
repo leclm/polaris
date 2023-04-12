@@ -31,6 +31,11 @@ $border-gray: #dee2e6;
       tbody {
         td {
           border: solid 1px $border-gray;
+          tr {
+            td {
+              border: none;
+            }
+          }
         }
         tr:last-child td:first-child {
           border-radius: 0 0 0 10px;
