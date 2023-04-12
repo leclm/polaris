@@ -22,31 +22,31 @@
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex ms-3">
-        <form class="row g-3" #f="ngForm" (ngSubmit)="cadastrar()">
+        <form class="row g-3" #f="ngForm" (ngSubmit)="cadastrar(f)">
           <div class="col-md-4">
-            <label for="inputEmpresa" class="form-label">Nome da Empresa</label>
-            <input type="text" class="form-control" id="inputEmpresa" [(ngModel)]="terceirizado.empresa" name="empresa">
+            <label for="inputNomeEmpresa" class="form-label">Nome da Empresa</label>
+            <input type="text" class="form-control" id="inputNomeEmpresa" [(ngModel)]="empresa.nome" name="nome">
           </div>
           <div class="col-md-4">
             <label for="inputCnpj" class="form-label">CNPJ</label>
-            <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj">
+            <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="empresa.cnpj" name="cnpj">
           </div>
           <div class="col-md-4">
-            <label for="inputNome" class="form-label">Tipo de Empresa</label>
-            <select class="form-select" id="inputNome" aria-label="Tipo de empresa" [(ngModel)]="servico.nome" name="nome">
-              <option value="Frete" [selected]="servico.nome === 'Frete'">Frete</option>
-              <option value="Limpeza" [selected]="servico.nome === 'Limpeza'">Limpeza</option>
-              <option value="Manutenção" [selected]="servico.nome === 'Manutenção'">Manutenção</option>
+            <label for="inputTipo" class="form-label">Tipo de Empresa</label>
+            <select class="form-select" id="inputTipo" aria-label="Tipo de empresa" [(ngModel)]="empresa.tipo" name="tipo">
+              <option value="1" [selected]="empresa.tipo === 'Frete'">Frete</option>
+              <option value="2" [selected]="empresa.tipo === 'Limpeza'">Limpeza</option>
+              <option value="3" [selected]="empresa.tipo === 'Manutenção'">Manutenção</option>
             </select>
           </div>
 
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="terceirizado.telefone" name="telefone">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="empresa.telefone" name="telefone">
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email">
+            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="empresa.email" name="email">
           </div>     
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
@@ -66,11 +66,11 @@
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-          <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="empresa.numero" name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
-          <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="endereco.complemento" name="complemento">
+            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="empresa.complemento" name="complemento">
           </div>
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
