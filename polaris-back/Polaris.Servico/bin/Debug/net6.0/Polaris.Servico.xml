@@ -30,6 +30,14 @@
             Retorna a lista com todos os serviços cadastrados
             </returns>
         </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.GetServicosAtivos">
+            <summary>
+            Este endpoint deve consultar os serviços ATIVOS
+            </summary>
+            <returns>
+            Retorna a lista com todos os serviços cadastrados
+            </returns>
+        </member>
         <member name="M:Polaris.Servico.Controllers.ServicosController.GetServico(System.Guid)">
             <summary>
             Este endpoint deve consultar um serviço cadastrado via Guid

@@ -10,6 +10,7 @@ namespace Polaris.Endereco.Repository
         Task<T> GetByParameter(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Update(T entity);
+        IQueryable<T> GetAllByParameter(Expression<Func<T, bool>> predicate);
         //void Delete(T entity);
     }
 }

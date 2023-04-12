@@ -20,7 +20,10 @@ namespace Polaris.Endereco.Repository
         {
             return await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(predicate);
         }
-
+        public IQueryable<T> GetAllByParameter(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().AsNoTracking().Where(predicate);
+        }
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
