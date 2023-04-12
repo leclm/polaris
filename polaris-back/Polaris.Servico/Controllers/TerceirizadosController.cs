@@ -49,11 +49,36 @@ namespace Polaris.Servico.Controllers
         /// </returns>
         // GET: api/Terceirizados
         [HttpGet]
-        public async Task<ActionResult> GetTerceirizadoss()
+        public async Task<ActionResult> GetTerceirizados()
         {
             try
             {
                 return Ok(await _service.GetTerceirizados());
+            }
+            catch (TerceirizadoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+
+        }
+
+        /// <summary>
+        /// Este endpoint deve consultar os terceirizados ATIVOS
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os terceirizados cadastrados
+        /// </returns>
+        // GET: api/Terceirizados
+        [HttpGet("terceirizados-ativos")]
+        public async Task<ActionResult> GetTerceirizadosAtivos()
+        {
+            try
+            {
+                return Ok(await _service.GetTerceirizadosAtivos());
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {

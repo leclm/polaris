@@ -19,6 +19,11 @@ namespace Polaris.Servico.Repository
         {
             return Get().Include(x => x.Servicos);
         }
+        
+        public IEnumerable<Models.Terceirizado> GetTerceirizadosAtivosCompleto()
+        {
+            return GetAllByParameter(x => x.Status == true).Include(x => x.Servicos);
+        }
 
         public IEnumerable<Models.Terceirizado> GetTerceirizados(TerceirizadosParameters terceirizadosParameters)
         {

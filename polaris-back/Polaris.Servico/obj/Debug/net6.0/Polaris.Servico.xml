@@ -99,9 +99,17 @@
             </returns>
             GET: api/Terceirizados/servicos
         </member>
-        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadoss">
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizados">
             <summary>
             Este endpoint deve consultar os terceirizados cadastrados
+            </summary>
+            <returns>
+            Retorna a lista com todos os terceirizados cadastrados
+            </returns>
+        </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadosAtivos">
+            <summary>
+            Este endpoint deve consultar os terceirizados ATIVOS
             </summary>
             <returns>
             Retorna a lista com todos os terceirizados cadastrados

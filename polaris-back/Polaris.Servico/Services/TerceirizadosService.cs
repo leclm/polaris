@@ -48,6 +48,16 @@ namespace Polaris.Servico.Services
            return await ConsultaEnderecosTerceirizados(terceirizados);
         }
 
+        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosAtivos()
+        {
+            var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosAtivosCompleto();
+            if (!terceirizados.Any())
+            {
+                throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
+            }
+            return await ConsultaEnderecosTerceirizados(terceirizados);
+        }
+
         public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid)
         {
             var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(uuid);
