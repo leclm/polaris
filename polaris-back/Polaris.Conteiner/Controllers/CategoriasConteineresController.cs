@@ -7,11 +7,11 @@ namespace Polaris.Conteiner.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class CategoriasConteinerController : UtilsController
+    public class CategoriasConteineresController : UtilsController
     {
         private readonly ICategoriasConteinerService _service;
 
-        public CategoriasConteinerController(ICategoriasConteinerService service)
+        public CategoriasConteineresController(ICategoriasConteinerService service)
         {
             _service = service;
         } 
@@ -120,7 +120,7 @@ namespace Polaris.Conteiner.Controllers
         /// </returns>
         //PUT: api/Categorias
         [HttpPut]
-        public async Task<IActionResult> PutCagoria(AtualizarCategoriaConteinerViewModel categoriaDto)
+        public async Task<IActionResult> PutCagoria(AtualizaCategoriaConteinerViewModel categoriaDto)
         {
             try
             {

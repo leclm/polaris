@@ -6,6 +6,7 @@ namespace Polaris.Conteiner.Repository
     {
         private TipoConteinerRepository _tipoConteinerRepository;
         private CategoriaConteinerRepository _categoriaConteinerRepository;
+        private ConteinerRepository _conteinerRepository;
         public AppDbContext _context;
 
         public UnityOfWork(AppDbContext context)
@@ -26,6 +27,14 @@ namespace Polaris.Conteiner.Repository
             get
             {
                 return _categoriaConteinerRepository = _categoriaConteinerRepository ?? new CategoriaConteinerRepository(_context);
+            }
+        }
+
+        public IConteinerRepository ConteinerRepository
+        {
+            get
+            {
+                return _conteinerRepository = _conteinerRepository ?? new ConteinerRepository(_context);
             }
         }
 

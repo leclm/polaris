@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Conteiner.ViewModels
 {
-    public class AtualizarCategoriaConteinerViewModel
+    public class BuscaCategoriaViewModel
     {
         public Guid CategoriaConteinerUuid { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite uma categoria.")]

@@ -112,7 +112,7 @@ namespace Polaris.Servico.Controllers
         /// <returns>
         /// Retorna um serviço cadastrado
         /// </returns>
-        // GET: api/Servicos/5
+        // GET: api/Servicos/uuid
         [HttpGet("{uuid}", Name = "ObterServico")]
         public async Task<ActionResult> GetServico(Guid uuid)
         {
@@ -209,7 +209,7 @@ namespace Polaris.Servico.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno 
         /// </returns>
-        // ALTERAR STATUS: api/Servicos/5
+        // ALTERAR STATUS: api/Servicos/uuid/status
         [HttpPut("alterar-status/{uuid}/{status}")]
         public async Task<ActionResult> AlterarStatus(Guid uuid, bool status)
         {

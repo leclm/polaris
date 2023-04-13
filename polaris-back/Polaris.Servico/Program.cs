@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 using Polaris.Servico.Configs;
 using Polaris.Servico.Context;
 using Polaris.Servico.ExternalServices;
@@ -33,6 +34,8 @@ builder.Services.AddScoped<IServicosService, ServicosService>();
 builder.Services.AddScoped<ITerceirizadosService, TerceirizadosService>();
 builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
 builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+builder.Services.AddScoped<IServicoRepository, ServicoRepository>();
+builder.Services.AddScoped<ITerceirizadoRepository, TerceirizadoRepository>();
 
 builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection("ExternalConfigs"));
 

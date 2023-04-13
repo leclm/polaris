@@ -11,5 +11,12 @@
         {
             categoriaConteiner.Nome = categoriaConteiner.Nome.ToUpper();
         }
+
+        public static void ClassToUpper(Models.Conteiner conteiner)
+        {
+            conteiner.Cor = conteiner.Cor.ToUpper();
+            conteiner.Fabricante = conteiner.Fabricante.ToUpper();
+            conteiner.Material = conteiner.Material.ToUpper();
+        }
     }
 }
