@@ -30,8 +30,6 @@ namespace Polaris.Servico.ViewModels
         [Required]
         [NotNull]
         public AtualizaEnderecoViewModel? Endereco { get; set; }
-
-        [System.Text.Json.Serialization.JsonIgnore]
-        public ICollection<Models.Servico>? Servicos { get; set; }
+        public IEnumerable<Guid>? ListaServicos { get; set; }
     }
 }

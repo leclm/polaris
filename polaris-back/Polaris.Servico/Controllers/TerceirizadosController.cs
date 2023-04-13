@@ -193,7 +193,7 @@ namespace Polaris.Servico.Controllers
         /// Retorna 400 caso erro, retorna a mensagem especificando
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // PUT: api/Terceirizados/5
+        // PUT: api/Terceirizados
         [HttpPut]
         public async Task<IActionResult> PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadooDto)
         {
@@ -220,7 +220,7 @@ namespace Polaris.Servico.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Terceirizados/5
+        // ALTERAR STATUS: api/Terceirizados/uuid/status
         [HttpPut("alterar-status/{uuid}/{status}")]
         public async Task<ActionResult> AlterarStatus(Guid uuid, bool status)
         {

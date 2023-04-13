@@ -31,9 +31,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<ITipoConteinerRepository, TipoConteinerRepository>();
-builder.Services.AddScoped<ITiposConteineresService, TiposConteineresService>();
 builder.Services.AddScoped<ICategoriaConteinerRepository, CategoriaConteinerRepository>();
+builder.Services.AddScoped<IConteinerRepository, ConteinerRepository>();
 builder.Services.AddScoped<ICategoriasConteinerService, CategoriasConteinerService>();
+builder.Services.AddScoped<IConteineresService, ConteineresService>();
+builder.Services.AddScoped<ITiposConteineresService, TiposConteineresService>();
 
 
 var mappingConfig = new MapperConfiguration(mc =>

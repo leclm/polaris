@@ -4,6 +4,7 @@
     {
         ITipoConteinerRepository TipoConteinerRepository { get; }
         ICategoriaConteinerRepository CategoriaConteinerRepository { get; }
+        IConteinerRepository ConteinerRepository { get; }
         Task Commit();
     }
 }

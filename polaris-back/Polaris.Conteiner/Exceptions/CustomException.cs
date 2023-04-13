@@ -26,6 +26,7 @@
                 : base(message) { }
         }
 
+
         public class CategoriaConteinerNaoEncontradaException : Exception
         {
             public CategoriaConteinerNaoEncontradaException() { }
@@ -45,6 +46,28 @@
             public AtualizarCategoriaConteinerException() { }
 
             public AtualizarCategoriaConteinerException(string message)
+                : base(message) { }
+        }
+
+        public class ConteinerNaoEncontradoException : Exception
+        {
+            public ConteinerNaoEncontradoException() { }
+
+            public ConteinerNaoEncontradoException(string message)
+                : base(message) { }
+        }
+        public class CadastrarConteinerException : Exception
+        {
+            public CadastrarConteinerException() { }
+
+            public CadastrarConteinerException(string message)
+                : base(message) { }
+        }
+        public class AtualizarConteinerException : Exception
+        {
+            public AtualizarConteinerException() { }
+
+            public AtualizarConteinerException(string message)
                 : base(message) { }
         }
     }

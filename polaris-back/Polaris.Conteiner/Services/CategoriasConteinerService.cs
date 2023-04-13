@@ -62,7 +62,7 @@ namespace Polaris.Conteiner.Services
             return categoria.CategoriaConteinerUuid;
         }
 
-        public async Task PutCategoria(AtualizarCategoriaConteinerViewModel categoriaDto)
+        public async Task PutCategoria(AtualizaCategoriaConteinerViewModel categoriaDto)
         {
 
             if (categoriaDto.CategoriaConteinerUuid == Guid.Empty)
@@ -108,7 +108,7 @@ namespace Polaris.Conteiner.Services
             _context.CategoriaConteinerRepository.Update(categoria);
             await _context.Commit();
 
-            var enderecoDto = _mapper.Map<AtualizarCategoriaConteinerViewModel>(categoria);
+            var enderecoDto = _mapper.Map<AtualizaCategoriaConteinerViewModel>(categoria);
         }
     }
 }
