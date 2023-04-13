@@ -4,7 +4,7 @@
 
     <div class="line mb-5"></div>
 
-    <div [ngSwitch]="status">
+    <div [ngSwitch]="statusMsg">
       <div *ngSwitchCase="'success'">
         <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
           Cadastro realizado com sucesso!
@@ -31,12 +31,11 @@
             <label for="inputCnpj" class="form-label">CNPJ</label>
             <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj">
           </div>
-          <div class="col-md-4">
+
+          <div class="col-md-4">         
             <label for="inputNome" class="form-label">Tipo de Empresa</label>
-            <select class="form-select" id="inputNome" aria-label="Tipo de empresa" [(ngModel)]="servico.nome" name="nome">
-              <option value="Frete" [selected]="servico.nome === 'Frete'">Frete</option>
-              <option value="Limpeza" [selected]="servico.nome === 'Limpeza'">Limpeza</option>
-              <option value="Manutenção" [selected]="servico.nome === 'Manutenção'">Manutenção</option>
+            <select class="form-select" id="inputNome" aria-label="Tipo de empresa" name="nome" [(ngModel)]="servico.servicoUuid">
+              <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.servicoUuid}}</option>
             </select>
           </div>
 
@@ -48,29 +47,46 @@
             <label for="inputEmail" class="form-label">Email</label>
             <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email">
           </div>     
+
+
+
+
+
+
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep" name="cep" (input)="searchAddress($event)" [(ngModel)]="cep">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep">
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-            <p class="form-control" id="inputEstado">{{ address.uf }}</p>
+            <input type="text" class="form-control" id="inputEstado" name="estado" [(ngModel)]="endereco.estado">
+            <!-- <p class="form-control" id="inputEstado">{{ endereco.estado }}</p> -->
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <p class="form-control" id="inputCidade">{{ address.localidade }}</p>
+            <input type="text" class="form-control" id="inputCidade" name="cidade" [(ngModel)]="endereco.cidade">
+            <!-- <p class="form-control" id="inputCidade">{{ endereco.cidade }}</p> -->
           </div>
           <div class="col-md-6">
             <label for="inputLogradouro" class="form-label">Endereço</label>
-            <p class="form-control" id="inputLogradouro">{{ address.logradouro }}</p>
+            <input type="text" class="form-control" id="inputLogradouro" name="logradouro" [(ngModel)]="endereco.logradouro">
+            <!-- <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p> -->
           </div>
+
+
+
+
+
+
+
+          
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-          <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
-          <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="endereco.complemento" name="complemento">
+            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="endereco.complemento" name="complemento">
           </div>
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">

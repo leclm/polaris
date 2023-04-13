@@ -22,7 +22,6 @@ export class GerenteService {
   }
 
   addTerceirizado(terceirizado: Terceirizado): Observable<Terceirizado> {
-    terceirizado.id = '000000000-0000-0000-0000-000000000000';
     return this.http.post<Terceirizado>(this.terceirizadoURL, terceirizado);
   }
 
