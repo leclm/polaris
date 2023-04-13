@@ -12,30 +12,24 @@ import { Servico } from 'src/app/models/servico.model';
 })
 
 export class ManterTerceirizadoComponent implements OnInit {
-  public cep!: string;
-  public address: any;
-  public status!: string;
+  public statusMsg!: string;
+  public terceirizadosCadastrados: Terceirizado[] = [];
+  public servicosCadastrados: Servico[] = [];
 
-  public terceirizados: Terceirizado[] = [];
-  public servicos: Servico[] = [];
-
+  public servico: Servico = {
+    servicoUuid: '' // exemplo uuid nao cadastrado no db: 7db3f5dc-b90c-4d7d-b179-1d2341a96722
+  }
+  
   public endereco: Endereco = {
-    id: '',
     cep: '',
     cidade: '',
     estado: '',
     logradouro: '',
     complemento: '',
-    numero: 0
-  }
-
-  public servico: Servico = {
-    id: '',
-    nome: ''
+    numero: NaN
   }
 
   public terceirizado: Terceirizado = {
-    id: '',
     empresa: '',
     cnpj: '',
     email: '',
@@ -44,51 +38,55 @@ export class ManterTerceirizadoComponent implements OnInit {
     servicos: [this.servico]
   }
 
-  constructor( 
-    private viaCepService: ViaCepService,
-    private gerenteService: GerenteService ) { }
+  constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.getAllTerceirizados();
-    this.getAllServicos();
-  }
-
-  getAllTerceirizados() {
-    this.gerenteService.getAllTerceirizados()
-    .subscribe( response => {
-      this.terceirizados = response;
-      console.log(response);
-    })
-  }
-
-  getAllServicos() {
-    this.gerenteService.getAllServicos()
-    .subscribe( response => {
-      this.servicos = response;
-      console.log(response);
-    })
+    this.getAllTerceirizados(); // usado só pra mostrar no console os terceirizados cadastrados e ver se ta dando certo ou não
+    this.getAllServicos(); // pega os serviços cadastrados e popula o select do html
   }
 
   cadastrar() {
     this.gerenteService.addTerceirizado(this.terceirizado)
     .subscribe( response => {
       console.log(response);
+    });
+    
+    this.getAllTerceirizados();
+    console.log(this.terceirizado);
+  }
+  
+  searchAddress(event: any) {
+    this.viaCepService.getAddressByCep(this.endereco.cep).subscribe(data => {
+      this.endereco = data;
+      console.log(data);
+      console.log(this.terceirizado);
+    });
+  }
+  
+  getAllTerceirizados() {
+    this.gerenteService.getAllTerceirizados()
+    .subscribe( response => {
+      this.terceirizadosCadastrados = response;
+      console.log(this.terceirizadosCadastrados);
     })
   }
 
-  // mock para mensagem
+  getAllServicos() {
+    this.gerenteService.getAllServicos()
+    .subscribe( response => {
+      this.servicosCadastrados = response;
+      console.log(this.servicosCadastrados);
+    })
+  }
+
+  
+  // mock para mensagem de sucesso e erro ao cadastrar (nao implementado)
   cadastrarError(): any {
     var code = "200";
     if ( code == "200") {
-      this.status = 'success';
+      this.statusMsg = 'success';
     } else {
-      this.status = 'fail';
+      this.statusMsg = 'fail';
     }
-  }  
-
-  searchAddress(event: any) {
-    this.viaCepService.getAddressByCep(this.cep).subscribe(data => {
-      this.address = data;
-    });
-  }
+  } 
 }

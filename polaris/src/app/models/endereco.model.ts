@@ -1,5 +1,4 @@
 export interface Endereco {
-    id: string;
     cep: string;
     cidade: string;
     estado: string;
