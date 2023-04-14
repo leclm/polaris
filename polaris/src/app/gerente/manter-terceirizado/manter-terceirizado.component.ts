@@ -67,7 +67,10 @@ export class ManterTerceirizadoComponent implements OnInit {
 
   searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.endereco.cep).subscribe(data => {
-      this.endereco = data;
+      this.endereco.cidade = data.localidade;
+      this.endereco.estado = data.uf;
+      this.endereco.logradouro = data.logradouro;
+      
       console.log(data);
       console.log(this.terceirizado);
     });

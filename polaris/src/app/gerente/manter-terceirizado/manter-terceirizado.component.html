@@ -50,22 +50,19 @@
 
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)">
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="inputEstado" name="estado" [(ngModel)]="endereco.estado">
-            <!-- <p class="form-control" id="inputEstado">{{ endereco.estado }}</p> -->
+           <p class="form-control" id="inputEstado">{{ endereco.estado }}</p> 
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="inputCidade" name="cidade" [(ngModel)]="endereco.cidade">
-            <!-- <p class="form-control" id="inputCidade">{{ endereco.cidade }}</p> -->
+            <p class="form-control" id="inputCidade">{{ endereco.cidade }}</p>
           </div>
           <div class="col-md-6">
             <label for="inputLogradouro" class="form-label">Endereço</label>
-            <input type="text" class="form-control" id="inputLogradouro" name="logradouro" [(ngModel)]="endereco.logradouro">
-            <!-- <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p> -->
+            <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p>
           </div>
           
           <div class="col-md-3">
