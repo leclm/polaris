@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "efFZH8m0iMw4MRYbGkWbELfa4cVYuhB2rPB0apL+DTdgQGXec4GIAB81Qm9tuD+nK3ucBsEnQwzlPUGMigCmhQ==",
+  "dgSpecHash": "1WXa1X8zvv4bkLfp6ITNi6Km1PueyAUYZztTlZBvSXo5vc1NdAik64pjcSPtv3SFKWM5Hd9G4yK3Tx+Ba+fh4g==",
   "success": true,
-  "projectFilePath": "C:\\GIT\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\Polaris.Endereco.csproj",
+  "projectFilePath": "C:\\GIT\\polaris\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\Polaris.Endereco.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\katia\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\katia\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
