@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 
@@ -10,8 +10,8 @@ import { Terceirizado } from 'src/app/models/terceirizado.model';
 export class GerenteService {
   terceirizadoURL = 'http://localhost:44352/terceirizados';
   servicoURL = 'http://localhost:44352/servicos';
-  
-  constructor( private http: HttpClient ) { }
+
+  constructor( private http: HttpClient ) { } 
   // curso post
   getAllServicos(): Observable<Servico[]> {
     return this.http.get<Servico[]>(this.servicoURL);
@@ -21,8 +21,10 @@ export class GerenteService {
     return this.http.get<Terceirizado[]>(this.terceirizadoURL);
   }
 
-  addTerceirizado(terceirizado: Terceirizado): Observable<Terceirizado> {
-    return this.http.post<Terceirizado>(this.terceirizadoURL, terceirizado);
+  addTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
+    const url = this.terceirizadoURL;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Terceirizado>(url, terceirizado, { headers, observe: 'response' });
   }
 
   // old

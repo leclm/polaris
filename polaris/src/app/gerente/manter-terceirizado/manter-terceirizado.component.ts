@@ -4,6 +4,7 @@ import { GerenteService } from '../services';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { Servico } from 'src/app/models/servico.model';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-manter-terceirizado',
@@ -17,7 +18,8 @@ export class ManterTerceirizadoComponent implements OnInit {
   public servicosCadastrados: Servico[] = [];
 
   public servico: Servico = {
-    servicoUuid: '' // exemplo uuid nao cadastrado no db: 7db3f5dc-b90c-4d7d-b179-1d2341a96722
+    servicoUuid: '',
+    nome: ''
   }
   
   public endereco: Endereco = {
@@ -35,26 +37,34 @@ export class ManterTerceirizadoComponent implements OnInit {
     email: '',
     telefone: '',
     endereco: this.endereco,
-    servicos: [this.servico]
+    listaServicos: []
   }
 
   constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.getAllTerceirizados(); // usado só pra mostrar no console os terceirizados cadastrados e ver se ta dando certo ou não
-    this.getAllServicos(); // pega os serviços cadastrados e popula o select do html
+    this.getAllTerceirizados();
+    this.getAllServicos();
   }
 
   cadastrar() {
-    this.gerenteService.addTerceirizado(this.terceirizado)
-    .subscribe( response => {
-      console.log(response);
-    });
-    
-    this.getAllTerceirizados();
-    console.log(this.terceirizado);
+    this.terceirizado.listaServicos = [this.servico.servicoUuid];
+    this.gerenteService.addTerceirizado(this.terceirizado).subscribe(
+      (response: HttpResponse<Terceirizado>) => {   
+        if (response.status === 200 || response.status === 201) {
+          this.statusMsg = 'success';
+          console.log('Post request successful');
+        } else {
+          console.log('Post request failed');
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.statusMsg = 'fail';
+      }
+    );
   }
-  
+
   searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.endereco.cep).subscribe(data => {
       this.endereco = data;
@@ -67,7 +77,6 @@ export class ManterTerceirizadoComponent implements OnInit {
     this.gerenteService.getAllTerceirizados()
     .subscribe( response => {
       this.terceirizadosCadastrados = response;
-      console.log(this.terceirizadosCadastrados);
     })
   }
 
@@ -75,18 +84,6 @@ export class ManterTerceirizadoComponent implements OnInit {
     this.gerenteService.getAllServicos()
     .subscribe( response => {
       this.servicosCadastrados = response;
-      console.log(this.servicosCadastrados);
     })
   }
-
-  
-  // mock para mensagem de sucesso e erro ao cadastrar (nao implementado)
-  cadastrarError(): any {
-    var code = "200";
-    if ( code == "200") {
-      this.statusMsg = 'success';
-    } else {
-      this.statusMsg = 'fail';
-    }
-  } 
 }

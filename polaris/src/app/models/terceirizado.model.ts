@@ -1,4 +1,3 @@
-import { Servico } from './servico.model';
 import { Endereco } from './endereco.model';
 
 export interface Terceirizado {
@@ -7,5 +6,5 @@ export interface Terceirizado {
     email: string;
     telefone: string;
     endereco: Endereco;
-    servicos: Servico[];
+    listaServicos: string[];
 }
