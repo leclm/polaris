@@ -10955,11 +10955,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GIT\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\Polaris.Endereco.csproj",
+      "projectUniqueName": "C:\\GIT\\polaris\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\Polaris.Endereco.csproj",
       "projectName": "Polaris.Endereco",
-      "projectPath": "C:\\GIT\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\Polaris.Endereco.csproj",
+      "projectPath": "C:\\GIT\\polaris\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\Polaris.Endereco.csproj",
       "packagesPath": "C:\\Users\\katia\\.nuget\\packages\\",
-      "outputPath": "C:\\GIT\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\obj\\",
+      "outputPath": "C:\\GIT\\polaris\\polaris\\polaris-back\\Polaris.Endereco\\Polaris.Endereco\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

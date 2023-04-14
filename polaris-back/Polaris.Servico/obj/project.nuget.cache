@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HvYYZvqwxppd6TypIhp/uVaJOudcpMc7r1hSHd/r/xWsfWnP1fMds/YBuy4IwPta7xSxcNs1gM5+y94sGv+1xg==",
+  "dgSpecHash": "oKIWd4KAISkvo8dL+/eg9qXKKHz7w6Jls2FnylrqpiEjOTSVXWpkGAcTjKALl3Nn+1EBypmIsAHwsVbfsAehZg==",
   "success": true,
-  "projectFilePath": "C:\\GIT\\polaris\\polaris-back\\Polaris.Servico\\Polaris.Servico.csproj",
+  "projectFilePath": "C:\\GIT\\polaris\\polaris\\polaris-back\\Polaris.Servico\\Polaris.Servico.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\katia\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\katia\\.nuget\\packages\\flurl\\3.0.6\\flurl.3.0.6.nupkg.sha512",

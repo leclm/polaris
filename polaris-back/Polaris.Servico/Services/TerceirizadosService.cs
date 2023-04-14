@@ -17,13 +17,15 @@ namespace Polaris.Servico.Services
         private readonly IMapper _mapper;
         private readonly IEnderecoExternalService _enderecoExternalService;
         private readonly IEnderecoRepository _enderecoRepository;
+        private readonly IServicoRepository _servicoRepository;
 
-        public TerceirizadosService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository)
+        public TerceirizadosService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository, IServicoRepository servicoRepository)
         {
             _context = context;
             _mapper = mapper;
             _enderecoExternalService = enderecoExternalService;
             _enderecoRepository = enderecoRepository;
+            _servicoRepository = servicoRepository;
         }
 
         public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosPorServico(string servico)
@@ -149,14 +151,28 @@ namespace Polaris.Servico.Services
                 throw new AtualizarTerceirizadoException("E-mail inválido. Erro ao editar um terceirizado.");
             }
 
+            List<Models.Servico> servicos = new();
+            if (terceirizadoDto.ListaServicos is not null || terceirizadoDto.ListaServicos!.Any())
+            {
+                foreach (var servicoUuid in terceirizadoDto.ListaServicos!)
+                {
+                    servicos.Add(await _servicoRepository.GetByParameter(x => x.ServicoUuid == servicoUuid));
+                }
+            }
+            else
+            {
+                throw new AtualizarTerceirizadoException("Serviço Inválido. Erro ao atualizar o terceirizado.");
+            }
+
             if (terceirizado.TerceirizadoId != 0)
             {
-                var terceirizadoMap = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
+                var terceirizadoMap = _mapper.Map<Terceirizado>(terceirizadoDto);
                 var terceirizadoBase = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoMap.TerceirizadoUuid);
                 terceirizadoMap.Status = terceirizadoBase.Status;
                 StringUtils.ClassToUpper(terceirizadoMap);
                 terceirizadoMap.TerceirizadoId = terceirizado.TerceirizadoId;
                 terceirizadoMap.EnderecoId = terceirizado.EnderecoId;
+                terceirizadoMap.Servicos = servicos;
                 _context.TerceirizadoRepository.Update(terceirizadoMap);
                 await _context.Commit();
             }
