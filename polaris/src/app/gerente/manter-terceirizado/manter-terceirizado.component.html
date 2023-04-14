@@ -35,7 +35,7 @@
           <div class="col-md-4">         
             <label for="inputNome" class="form-label">Tipo de Empresa</label>
             <select class="form-select" id="inputNome" aria-label="Tipo de empresa" name="nome" [(ngModel)]="servico.servicoUuid">
-              <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.servicoUuid}}</option>
+              <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.nome}}</option>
             </select>
           </div>
 
@@ -47,11 +47,6 @@
             <label for="inputEmail" class="form-label">Email</label>
             <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email">
           </div>     
-
-
-
-
-
 
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
@@ -72,13 +67,6 @@
             <input type="text" class="form-control" id="inputLogradouro" name="logradouro" [(ngModel)]="endereco.logradouro">
             <!-- <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p> -->
           </div>
-
-
-
-
-
-
-
           
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
