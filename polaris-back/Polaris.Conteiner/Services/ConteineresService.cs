@@ -129,13 +129,47 @@ namespace Polaris.Conteiner.Services
                 throw new ConteinerNaoEncontradoException("Conteiner não encontrado. Erro ao atualizar o conteiner.");
             }
 
+            if (conteinerDto.Categoria != Guid.Empty)
+            {
+                var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria);
+                if (categoria != null)
+                {
+                    conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
+                }
+                else
+                {
+                    throw new AtualizarConteinerException("Categoria inválida. Erro ao atualizar o conteiner.");
+                }
+
+            }
+            else { throw new AtualizarConteinerException("Categoria inválida. Erro ao atualizar o conteiner."); }
+
+            if (conteinerDto.Tipo != Guid.Empty)
+            {
+                var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
+                if (tipo != null)
+                {
+                    conteiner.TipoConteinerId = tipo.TipoConteineroId;
+                }
+                else
+                {
+                    throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner.");
+                }
+            }
+            else { throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner."); }
+
+
+
             if (conteiner.ConteinerId != 0)
             {
                 var conteinerMap = _mapper.Map<Models.Conteiner>(conteinerDto);
-                var conteinerBase = await _context.ConteinerRepository.GetByParameter(p => p.ConteinerUuid == conteinerMap.ConteinerUuid);
-                conteinerMap.Status = conteinerBase.Status;
-                StringUtils.ClassToUpper(conteinerMap);
+                conteinerMap.Status = conteiner.Status;
+                conteinerMap.Codigo = conteiner.Codigo;
                 conteinerMap.ConteinerId = conteiner.ConteinerId;
+                conteinerMap.Disponivel = conteiner.Disponivel;
+                conteinerMap.TipoConteinerId = conteiner.TipoConteinerId;
+                conteinerMap.CategoriaConteinerId = conteiner.CategoriaConteinerId;
+
                 _context.ConteinerRepository.Update(conteinerMap);
                 await _context.Commit();
             }

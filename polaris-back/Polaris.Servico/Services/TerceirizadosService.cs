@@ -121,6 +121,8 @@ namespace Polaris.Servico.Services
 
         public async Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
         {
+            //StringUtils.ClassToUpper(terceirizadoDto);
+
             if (terceirizadoDto.TerceirizadoUuid == Guid.Empty)
             {
                 throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
@@ -169,7 +171,6 @@ namespace Polaris.Servico.Services
                 var terceirizadoMap = _mapper.Map<Terceirizado>(terceirizadoDto);
                 var terceirizadoBase = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoMap.TerceirizadoUuid);
                 terceirizadoMap.Status = terceirizadoBase.Status;
-                StringUtils.ClassToUpper(terceirizadoMap);
                 terceirizadoMap.TerceirizadoId = terceirizado.TerceirizadoId;
                 terceirizadoMap.EnderecoId = terceirizado.EnderecoId;
                 terceirizadoMap.Servicos = servicos;
