@@ -19,5 +19,11 @@ namespace Polaris.Conteiner.Repository
                 .Take(categoriasParameters.PageSize)
                 .ToList();
         }
+
+        public async Task<int> GetCategoriaId(Guid uuid)
+        {
+            var categoria = await GetByParameter(x => x.CategoriaConteinerUuid == uuid);
+            return categoria.CategoriaConteinerId;
+        }
     }
 }

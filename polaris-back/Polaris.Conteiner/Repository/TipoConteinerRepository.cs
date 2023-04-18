@@ -17,5 +17,10 @@ namespace Polaris.Conteiner.Repository
                 .Take(tiposParameters.PageSize)
                 .ToList();
         }
+        public async Task<int> GetTipoId(Guid uuid)
+        {
+            var tipo = await GetByParameter(x => x.TipoConteinerUuid == uuid);
+            return tipo.TipoConteineroId;
+        }
     }
 }

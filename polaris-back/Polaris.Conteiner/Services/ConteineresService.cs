@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Polaris.Conteiner.Models;
 using Polaris.Conteiner.Repository;
 using Polaris.Conteiner.Utils;
 using Polaris.Conteiner.ViewModels;
@@ -11,11 +10,17 @@ namespace Polaris.Conteiner.Services
     {
         private readonly IUnityOfWork _context;
         private readonly IMapper _mapper;
+        private readonly ICategoriasConteinerService _categoriaService;
+        private readonly ITiposConteineresService _tipoService;
+        private readonly ICategoriaConteinerRepository _categoriaRepository;
+        private readonly ITipoConteinerRepository _tipoRepository;
 
-        public ConteineresService(IUnityOfWork context, IMapper mapper)
+        public ConteineresService(IUnityOfWork context, IMapper mapper, ICategoriasConteinerService categoriaService, ITiposConteineresService tipoService)
         {
             _context = context;
             _mapper = mapper;
+            _categoriaService = categoriaService;
+            _tipoService = tipoService;
         }
 
         public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresPorCategoria(string categoria)
@@ -94,25 +99,19 @@ namespace Polaris.Conteiner.Services
             var conteiner = _mapper.Map<Models.Conteiner>(conteinerDto);
             StringUtils.ClassToUpper(conteiner);
             conteiner.ConteinerUuid = Guid.NewGuid();
+
+            var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria);
+            conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
+
+            var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
+            conteiner.TipoConteinerId = tipo.TipoConteineroId;
+
             conteiner.Disponivel = true;
             conteiner.Status = true;
-
-            _context.ConteinerRepository.Add(conteiner);
+          
+            _context.ConteinerRepository.Add(conteiner); 
             await _context.Commit();
 
-            foreach (var categoriaUuid in conteinerDto!.ListaCategorias!)
-            {
-                var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == categoriaUuid);
-                conteiner!.CategoriasConteineres!.Add(categoria);
-            }
-
-            foreach (var tipoUuid in conteinerDto!.ListaTipos!)
-            {
-                var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == tipoUuid);
-                conteiner!.TiposConteineres!.Add(tipo);
-            }
-
-            await _context.Commit();
             return conteiner.ConteinerUuid;
         }
 

@@ -9,12 +9,6 @@ namespace Polaris.Conteiner.Models
 
     public class Conteiner
     {
-        public Conteiner()
-        {
-            CategoriasConteineres = new Collection<CategoriaConteiner>();
-            TiposConteineres = new Collection<TipoConteiner>();
-        }
-
         [Key]
         public int ConteinerId { get; set; }
         public Guid ConteinerUuid { get; set; }
@@ -37,9 +31,15 @@ namespace Polaris.Conteiner.Models
         public string? Cor { get; set; }
         public bool Disponivel { get; set; }
         public bool Status { get; set; }
-        [System.Text.Json.Serialization.JsonIgnore]
-        public ICollection<CategoriaConteiner>? CategoriasConteineres { get; set; }
-        public ICollection<TipoConteiner>? TiposConteineres { get; set; }
+
+        [ForeignKey("CategoriaConteiner")]
+        public int CategoriaConteinerId { get; set; }
+        public virtual CategoriaConteiner? CategoriaConteiner { get; set; }
+
+        [ForeignKey("TipoConteiner")]
+        public int TipoConteinerId { get; set; }
+
+        public virtual TipoConteiner? TipoConteiner { get; set; }
     }
 
 }

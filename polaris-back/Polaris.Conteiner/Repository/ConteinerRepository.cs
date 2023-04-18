@@ -15,22 +15,22 @@ namespace Polaris.Conteiner.Repository
         public IEnumerable<Models.Conteiner> GetConteineresCompleto()
         {
             return Get()
-                .Include(x => x.CategoriasConteineres)
-                .Include(x => x.TiposConteineres);
+                .Include(x => x.CategoriaConteiner)
+                .Include(x => x.TipoConteiner);
         }
 
         public IEnumerable<Models.Conteiner> GetConteineresAtivosCompleto()
         {
             return GetAllByParameter(x => x.Status == true)
-                .Include(x => x.CategoriasConteineres)
-                .Include(x => x.TiposConteineres);
+                .Include(x => x.CategoriaConteiner)
+                .Include(x => x.TipoConteiner);
         }
 
         public IEnumerable<Models.Conteiner> GetConteineresAtivosDisponiveis()
         {
             return GetAllByParameter(x => x.Status == true && x.Disponivel == true)
-                .Include(x => x.CategoriasConteineres)
-                .Include(x => x.TiposConteineres);
+                .Include(x => x.CategoriaConteiner)
+                .Include(x => x.TipoConteiner);
         }
 
         public IEnumerable<Models.Conteiner> GetConteineres(ConteinerParameters conteinerParameters)
@@ -44,22 +44,22 @@ namespace Polaris.Conteiner.Repository
 
         public IEnumerable<Models.Conteiner> GetConteineresPorCategoria(string categoria)
         {
-            return GetAllByParameter(t => t.CategoriasConteineres.Any(s => s.Nome == categoria))
-                 .Include(x => x.CategoriasConteineres)
-                 .Include(x => x.TiposConteineres);
+            return GetAllByParameter(s => s.CategoriaConteiner.Nome == categoria)
+                 .Include(x => x.CategoriaConteiner)
+                 .Include(x => x.TipoConteiner);
         }
         public IEnumerable<Models.Conteiner> GetConteineresPorTipo(string tipo)
         {
-            return GetAllByParameter(t => t.TiposConteineres.Any(s => s.Nome == tipo))
-                 .Include(x => x.CategoriasConteineres)
-                 .Include(x => x.TiposConteineres);
+            return GetAllByParameter(s => s.TipoConteiner.Nome == tipo)
+                 .Include(x => x.CategoriaConteiner)
+                 .Include(x => x.TipoConteiner);
         }
 
         public async Task<Models.Conteiner> GetConteiner(Guid uuid)
         {
             return await _context.Set<Models.Conteiner>().AsNoTracking().Where(x => x.ConteinerUuid == uuid)
-                .Include(x => x.CategoriasConteineres)
-                 .Include(x => x.TiposConteineres)
+                .Include(x => x.CategoriaConteiner)
+                 .Include(x => x.TipoConteiner)
                 .FirstOrDefaultAsync();
         }
     }

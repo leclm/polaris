@@ -24,7 +24,7 @@ namespace Polaris.Conteiner.ViewModels
         [Required]
         public string? Cor { get; set; }
         public bool Disponivel { get; set; }
-        public IEnumerable<Guid>? ListaCategorias { get; set; }
-        public IEnumerable<Guid>? ListaTipos { get; set; }
+        public AtualizaCategoriaConteinerViewModel? Categoria { get; set; }
+        public AtualizaTipoConteinerViewModel? Tipo { get; set; }
     }
 }

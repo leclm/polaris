@@ -28,9 +28,6 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<Guid>("CategoriaConteinerUuid")
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("ConteinerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -40,8 +37,6 @@ namespace Polaris.Conteiner.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("CategoriaConteinerId");
-
-                    b.HasIndex("ConteinerId");
 
                     b.HasIndex("Nome")
                         .IsUnique();
@@ -53,6 +48,9 @@ namespace Polaris.Conteiner.Migrations
                 {
                     b.Property<int>("ConteinerId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaConteinerId")
                         .HasColumnType("int");
 
                     b.Property<int>("Codigo")
@@ -85,10 +83,17 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("TipoConteinerId")
+                        .HasColumnType("int");
+
                     b.HasKey("ConteinerId");
+
+                    b.HasIndex("CategoriaConteinerId");
 
                     b.HasIndex("Codigo")
                         .IsUnique();
+
+                    b.HasIndex("TipoConteinerId");
 
                     b.ToTable("Conteiner");
                 });
@@ -104,9 +109,6 @@ namespace Polaris.Conteiner.Migrations
 
                     b.Property<double>("Comprimento")
                         .HasColumnType("double");
-
-                    b.Property<int?>("ConteinerId")
-                        .HasColumnType("int");
 
                     b.Property<double>("Largura")
                         .HasColumnType("double");
@@ -136,33 +138,29 @@ namespace Polaris.Conteiner.Migrations
 
                     b.HasKey("TipoConteineroId");
 
-                    b.HasIndex("ConteinerId");
-
                     b.HasIndex("Nome")
                         .IsUnique();
 
                     b.ToTable("TiposConteineres");
                 });
 
-            modelBuilder.Entity("Polaris.Conteiner.Models.CategoriaConteiner", b =>
-                {
-                    b.HasOne("Polaris.Conteiner.Models.Conteiner", null)
-                        .WithMany("CategoriasConteineres")
-                        .HasForeignKey("ConteinerId");
-                });
-
-            modelBuilder.Entity("Polaris.Conteiner.Models.TipoConteiner", b =>
-                {
-                    b.HasOne("Polaris.Conteiner.Models.Conteiner", null)
-                        .WithMany("TiposConteineres")
-                        .HasForeignKey("ConteinerId");
-                });
-
             modelBuilder.Entity("Polaris.Conteiner.Models.Conteiner", b =>
                 {
-                    b.Navigation("CategoriasConteineres");
+                    b.HasOne("Polaris.Conteiner.Models.CategoriaConteiner", "CategoriaConteiner")
+                        .WithMany()
+                        .HasForeignKey("CategoriaConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("TiposConteineres");
+                    b.HasOne("Polaris.Conteiner.Models.TipoConteiner", "TipoConteiner")
+                        .WithMany()
+                        .HasForeignKey("TipoConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoriaConteiner");
+
+                    b.Navigation("TipoConteiner");
                 });
 #pragma warning restore 612, 618
         }
