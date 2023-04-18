@@ -11,7 +11,7 @@ using Polaris.Conteiner.Context;
 namespace Polaris.Conteiner.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230412002528_PrimeiraMigration")]
+    [Migration("20230417203500_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -31,6 +31,9 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<Guid>("CategoriaConteinerUuid")
                         .HasColumnType("char(36)");
 
+                    b.Property<int?>("ConteinerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -41,10 +44,56 @@ namespace Polaris.Conteiner.Migrations
 
                     b.HasKey("CategoriaConteinerId");
 
+                    b.HasIndex("ConteinerId");
+
                     b.HasIndex("Nome")
                         .IsUnique();
 
-                    b.ToTable("CategoriaConteineres");
+                    b.ToTable("CategoriasConteineres");
+                });
+
+            modelBuilder.Entity("Polaris.Conteiner.Models.Conteiner", b =>
+                {
+                    b.Property<int>("ConteinerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Codigo")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ConteinerUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Disponivel")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Fabricacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Fabricante")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("ConteinerId");
+
+                    b.HasIndex("Codigo")
+                        .IsUnique();
+
+                    b.ToTable("Conteiner");
                 });
 
             modelBuilder.Entity("Polaris.Conteiner.Models.TipoConteiner", b =>
@@ -58,6 +107,9 @@ namespace Polaris.Conteiner.Migrations
 
                     b.Property<double>("Comprimento")
                         .HasColumnType("double");
+
+                    b.Property<int?>("ConteinerId")
+                        .HasColumnType("int");
 
                     b.Property<double>("Largura")
                         .HasColumnType("double");
@@ -87,10 +139,33 @@ namespace Polaris.Conteiner.Migrations
 
                     b.HasKey("TipoConteineroId");
 
+                    b.HasIndex("ConteinerId");
+
                     b.HasIndex("Nome")
                         .IsUnique();
 
                     b.ToTable("TiposConteineres");
+                });
+
+            modelBuilder.Entity("Polaris.Conteiner.Models.CategoriaConteiner", b =>
+                {
+                    b.HasOne("Polaris.Conteiner.Models.Conteiner", null)
+                        .WithMany("CategoriasConteineres")
+                        .HasForeignKey("ConteinerId");
+                });
+
+            modelBuilder.Entity("Polaris.Conteiner.Models.TipoConteiner", b =>
+                {
+                    b.HasOne("Polaris.Conteiner.Models.Conteiner", null)
+                        .WithMany("TiposConteineres")
+                        .HasForeignKey("ConteinerId");
+                });
+
+            modelBuilder.Entity("Polaris.Conteiner.Models.Conteiner", b =>
+                {
+                    b.Navigation("CategoriasConteineres");
+
+                    b.Navigation("TiposConteineres");
                 });
 #pragma warning restore 612, 618
         }

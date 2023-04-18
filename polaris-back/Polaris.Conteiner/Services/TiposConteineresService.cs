@@ -40,6 +40,15 @@ namespace Polaris.Conteiner.Services
             var tipoDto = _mapper.Map<RetornoTipoConteinerViewModel>(tipo);
             return tipoDto;
         }
+        public async Task<IEnumerable<RetornoTipoConteinerViewModel>> GetTiposAtivos()
+        {
+            var tipos = _context.TipoConteinerRepository.GetAllByParameter(x => x.Status == true);
+            if (!tipos.Any())
+            {
+                throw new TipoConteinerNaoEncontradoException("Não há tipos ativas.");
+            }
+            return _mapper.Map<List<RetornoTipoConteinerViewModel>>(tipos);
+        }
 
         public async Task<Guid> PostTipo(CadastroTipoConteinerViewModel tipoDto)
         {

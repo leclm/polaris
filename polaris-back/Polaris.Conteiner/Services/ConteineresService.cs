@@ -55,7 +55,18 @@ namespace Polaris.Conteiner.Services
             var conteineres = _context.ConteinerRepository.GetConteineresAtivosCompleto();
             if (!conteineres.Any())
             {
-                throw new ConteinerNaoEncontradoException("Não há conteineres cadastrados.");
+                throw new ConteinerNaoEncontradoException("Não há conteineres ativos.");
+            }
+            var conteineresDto = _mapper.Map<List<RetornoConteinerViewModel>>(conteineres);
+            return conteineresDto;
+        }
+
+        public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveis()
+        {
+            var conteineres = _context.ConteinerRepository.GetConteineresAtivosDisponiveis();
+            if (!conteineres.Any())
+            {
+                throw new ConteinerNaoEncontradoException("Não há conteineres ativos e/ou disponíveis.");
             }
             var conteineresDto = _mapper.Map<List<RetornoConteinerViewModel>>(conteineres);
             return conteineresDto;
@@ -145,6 +156,21 @@ namespace Polaris.Conteiner.Services
             }
 
             conteiner.Status = status;
+
+            _context.ConteinerRepository.Update(conteiner);
+            await _context.Commit();
+        }
+
+        public async Task AlterarDisponibilidade(Guid uuid, bool disponibilidade)
+        {
+            var conteiner = await _context.ConteinerRepository.GetByParameter(p => p.ConteinerUuid == uuid);
+
+            if (conteiner == null)
+            {
+                throw new ConteinerNaoEncontradoException("Conteiner não encontrado.");
+            }
+
+            conteiner.Disponivel = disponibilidade;
 
             _context.ConteinerRepository.Update(conteiner);
             await _context.Commit();

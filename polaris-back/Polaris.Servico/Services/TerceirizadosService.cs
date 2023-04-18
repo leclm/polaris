@@ -55,7 +55,7 @@ namespace Polaris.Servico.Services
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosAtivosCompleto();
             if (!terceirizados.Any())
             {
-                throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
+                throw new TerceirizadoNaoEncontradoException("Não há terceirizados ativos.");
             }
             return await ConsultaEnderecosTerceirizados(terceirizados);
         }

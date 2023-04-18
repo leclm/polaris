@@ -12,5 +12,7 @@ namespace Polaris.Conteiner.Services
         Task<Guid> PostConteiner(CadastroConteinerViewModel conteinerDto);
         Task PutConteiner(AtualizaConteinerViewModel conteinerDto);
         Task AlterarStatus(Guid uuid, bool status);
+        Task AlterarDisponibilidade(Guid uuid, bool disponibilidade);
+        Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveis();
     }
 }

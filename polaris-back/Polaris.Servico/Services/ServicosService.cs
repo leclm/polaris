@@ -45,7 +45,7 @@ namespace Polaris.Servico.Services
             var servicos = _context.ServicoRepository.GetAllByParameter(x => x.Status == true);
             if (servicos is null)
             {
-                throw new ServicoNaoEncontradoException("Não há serviços cadastrados.");
+                throw new ServicoNaoEncontradoException("Não há serviços ativos.");
             }
             return _mapper.Map<List<RetornoServicoViewModel>>(servicos);
         }

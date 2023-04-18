@@ -9,5 +9,6 @@ namespace Polaris.Conteiner.Services
         Task<Guid> PostTipo(CadastroTipoConteinerViewModel tipoDto);
         Task PutTipo(AtualizaTipoConteinerViewModel tipoDto);
         Task AlterarStatus(Guid uuid, bool status);
+        Task<IEnumerable<RetornoTipoConteinerViewModel>> GetTiposAtivos();
     }
 }

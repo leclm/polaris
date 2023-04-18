@@ -40,6 +40,16 @@ namespace Polaris.Conteiner.Services
             return servicoDto;
         }
 
+        public async Task<IEnumerable<RetornoCategoriaConteinerViewModel>> GetCategoriasAtivas()
+        {
+            var categorias = _context.CategoriaConteinerRepository.GetAllByParameter(x => x.Status == true);
+            if (!categorias.Any())
+            {
+                throw new CategoriaConteinerNaoEncontradaException("Não há categorias ativas.");
+            }
+            return _mapper.Map<List<RetornoCategoriaConteinerViewModel>>(categorias);
+        }
+
         public async Task<Guid> PostCategoria(CadastroCategoriaConteinerViewModel categoriaDto)
         {
             if (await _context.CategoriaConteinerRepository.GetByParameter(x => x.Nome == categoriaDto.Nome) is not null)

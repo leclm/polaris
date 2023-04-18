@@ -116,6 +116,31 @@ namespace Polaris.Conteiner.Controllers
         }
 
         /// <summary>
+        /// Este endpoint deve consultar os conteineres ATIVOS e DISPONIVEIS
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os conteineres ativos e disponiveis cadastrados
+        /// </returns>
+        // GET: api/Conteineres/conteineres-ativos-disponiveis
+        [HttpGet("conteineres-ativos-disponiveis")]
+        public async Task<ActionResult> GetConteineresAtivosDisponiveis()
+        {
+            try
+            {
+                return Ok(await _service.GetConteineresAtivosDisponiveis());
+            }
+            catch (ConteinerNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+
+        }
+
+        /// <summary>
         /// Este endpoint deve consultar um conteiner cadastrado via Guid
         /// </summary>
         /// <returns>
@@ -237,13 +262,40 @@ namespace Polaris.Conteiner.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Conteineres/5
+        // ALTERAR STATUS: api/Conteineres/uuid/status
         [HttpPut("alterar-status/{uuid}/{status}")]
         public async Task<ActionResult> AlterarStatus(Guid uuid, bool status)
         {
             try
             {
                 await _service.AlterarStatus(uuid, status);
+                return Ok();
+            }
+            catch (ConteinerNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
+
+        /// <summary>
+        /// Este endpoint deve alterar para disponivel ou indisponivel para locação um conteiner via Guid
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Conteineres/uuid/status
+        [HttpPut("alterar-disponibilidade/{uuid}/{disponibilidade}")]
+        public async Task<ActionResult> AlterarDisponibilidade(Guid uuid, bool disponibilidade)
+        {
+            try
+            {
+                await _service.AlterarDisponibilidade(uuid, disponibilidade);
                 return Ok();
             }
             catch (ConteinerNaoEncontradoException ex)

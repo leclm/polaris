@@ -26,6 +26,13 @@ namespace Polaris.Conteiner.Repository
                 .Include(x => x.TiposConteineres);
         }
 
+        public IEnumerable<Models.Conteiner> GetConteineresAtivosDisponiveis()
+        {
+            return GetAllByParameter(x => x.Status == true && x.Disponivel == true)
+                .Include(x => x.CategoriasConteineres)
+                .Include(x => x.TiposConteineres);
+        }
+
         public IEnumerable<Models.Conteiner> GetConteineres(ConteinerParameters conteinerParameters)
         {
             return Get()

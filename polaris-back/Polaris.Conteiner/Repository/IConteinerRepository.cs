@@ -6,6 +6,7 @@ namespace Polaris.Conteiner.Repository
     {
         IEnumerable<Models.Conteiner> GetConteineresCompleto();
         IEnumerable<Models.Conteiner> GetConteineresAtivosCompleto();
+        IEnumerable<Models.Conteiner> GetConteineresAtivosDisponiveis();
         IEnumerable<Models.Conteiner> GetConteineres(ConteinerParameters conteinerParameters);
         IEnumerable<Models.Conteiner> GetConteineresPorCategoria(string categoria);
         IEnumerable<Models.Conteiner> GetConteineresPorTipo(string tipo);

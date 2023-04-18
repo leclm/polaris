@@ -1,4 +1,5 @@
-﻿using Polaris.Conteiner.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Polaris.Conteiner.Context;
 using Polaris.Conteiner.Pagination;
 
 namespace Polaris.Conteiner.Repository
