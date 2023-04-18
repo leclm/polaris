@@ -9,5 +9,6 @@ namespace Polaris.Conteiner.Services
         Task<Guid> PostCategoria(CadastroCategoriaConteinerViewModel categoriaDto);
         Task PutCategoria(AtualizaCategoriaConteinerViewModel categoriaDto);
         Task AlterarStatus(Guid uuid, bool status);
+        Task<IEnumerable<RetornoCategoriaConteinerViewModel>> GetCategoriasAtivas();
     }
 }

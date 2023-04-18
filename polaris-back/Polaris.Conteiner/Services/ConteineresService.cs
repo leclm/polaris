@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Polaris.Conteiner.Models;
 using Polaris.Conteiner.Repository;
 using Polaris.Conteiner.Utils;
 using Polaris.Conteiner.ViewModels;
@@ -11,11 +10,17 @@ namespace Polaris.Conteiner.Services
     {
         private readonly IUnityOfWork _context;
         private readonly IMapper _mapper;
+        private readonly ICategoriasConteinerService _categoriaService;
+        private readonly ITiposConteineresService _tipoService;
+        private readonly ICategoriaConteinerRepository _categoriaRepository;
+        private readonly ITipoConteinerRepository _tipoRepository;
 
-        public ConteineresService(IUnityOfWork context, IMapper mapper)
+        public ConteineresService(IUnityOfWork context, IMapper mapper, ICategoriasConteinerService categoriaService, ITiposConteineresService tipoService)
         {
             _context = context;
             _mapper = mapper;
+            _categoriaService = categoriaService;
+            _tipoService = tipoService;
         }
 
         public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresPorCategoria(string categoria)
@@ -55,7 +60,18 @@ namespace Polaris.Conteiner.Services
             var conteineres = _context.ConteinerRepository.GetConteineresAtivosCompleto();
             if (!conteineres.Any())
             {
-                throw new ConteinerNaoEncontradoException("Não há conteineres cadastrados.");
+                throw new ConteinerNaoEncontradoException("Não há conteineres ativos.");
+            }
+            var conteineresDto = _mapper.Map<List<RetornoConteinerViewModel>>(conteineres);
+            return conteineresDto;
+        }
+
+        public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveis()
+        {
+            var conteineres = _context.ConteinerRepository.GetConteineresAtivosDisponiveis();
+            if (!conteineres.Any())
+            {
+                throw new ConteinerNaoEncontradoException("Não há conteineres ativos e/ou disponíveis.");
             }
             var conteineresDto = _mapper.Map<List<RetornoConteinerViewModel>>(conteineres);
             return conteineresDto;
@@ -83,25 +99,19 @@ namespace Polaris.Conteiner.Services
             var conteiner = _mapper.Map<Models.Conteiner>(conteinerDto);
             StringUtils.ClassToUpper(conteiner);
             conteiner.ConteinerUuid = Guid.NewGuid();
+
+            var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria);
+            conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
+
+            var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
+            conteiner.TipoConteinerId = tipo.TipoConteineroId;
+
             conteiner.Disponivel = true;
             conteiner.Status = true;
-
-            _context.ConteinerRepository.Add(conteiner);
+          
+            _context.ConteinerRepository.Add(conteiner); 
             await _context.Commit();
 
-            foreach (var categoriaUuid in conteinerDto!.ListaCategorias!)
-            {
-                var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == categoriaUuid);
-                conteiner!.CategoriasConteineres!.Add(categoria);
-            }
-
-            foreach (var tipoUuid in conteinerDto!.ListaTipos!)
-            {
-                var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == tipoUuid);
-                conteiner!.TiposConteineres!.Add(tipo);
-            }
-
-            await _context.Commit();
             return conteiner.ConteinerUuid;
         }
 
@@ -119,13 +129,47 @@ namespace Polaris.Conteiner.Services
                 throw new ConteinerNaoEncontradoException("Conteiner não encontrado. Erro ao atualizar o conteiner.");
             }
 
+            if (conteinerDto.Categoria != Guid.Empty)
+            {
+                var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria);
+                if (categoria != null)
+                {
+                    conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
+                }
+                else
+                {
+                    throw new AtualizarConteinerException("Categoria inválida. Erro ao atualizar o conteiner.");
+                }
+
+            }
+            else { throw new AtualizarConteinerException("Categoria inválida. Erro ao atualizar o conteiner."); }
+
+            if (conteinerDto.Tipo != Guid.Empty)
+            {
+                var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
+                if (tipo != null)
+                {
+                    conteiner.TipoConteinerId = tipo.TipoConteineroId;
+                }
+                else
+                {
+                    throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner.");
+                }
+            }
+            else { throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner."); }
+
+
+
             if (conteiner.ConteinerId != 0)
             {
                 var conteinerMap = _mapper.Map<Models.Conteiner>(conteinerDto);
-                var conteinerBase = await _context.ConteinerRepository.GetByParameter(p => p.ConteinerUuid == conteinerMap.ConteinerUuid);
-                conteinerMap.Status = conteinerBase.Status;
-                StringUtils.ClassToUpper(conteinerMap);
+                conteinerMap.Status = conteiner.Status;
+                conteinerMap.Codigo = conteiner.Codigo;
                 conteinerMap.ConteinerId = conteiner.ConteinerId;
+                conteinerMap.Disponivel = conteiner.Disponivel;
+                conteinerMap.TipoConteinerId = conteiner.TipoConteinerId;
+                conteinerMap.CategoriaConteinerId = conteiner.CategoriaConteinerId;
+
                 _context.ConteinerRepository.Update(conteinerMap);
                 await _context.Commit();
             }
@@ -145,6 +189,21 @@ namespace Polaris.Conteiner.Services
             }
 
             conteiner.Status = status;
+
+            _context.ConteinerRepository.Update(conteiner);
+            await _context.Commit();
+        }
+
+        public async Task AlterarDisponibilidade(Guid uuid, bool disponibilidade)
+        {
+            var conteiner = await _context.ConteinerRepository.GetByParameter(p => p.ConteinerUuid == uuid);
+
+            if (conteiner == null)
+            {
+                throw new ConteinerNaoEncontradoException("Conteiner não encontrado.");
+            }
+
+            conteiner.Disponivel = disponibilidade;
 
             _context.ConteinerRepository.Update(conteiner);
             await _context.Commit();

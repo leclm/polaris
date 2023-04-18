@@ -16,7 +16,7 @@ namespace Polaris.Conteiner.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "CategoriaConteineres",
+                name: "CategoriasConteineres",
                 columns: table => new
                 {
                     CategoriaConteinerId = table.Column<int>(type: "int", nullable: false)
@@ -28,7 +28,7 @@ namespace Polaris.Conteiner.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoriaConteineres", x => x.CategoriaConteinerId);
+                    table.PrimaryKey("PK_CategoriasConteineres", x => x.CategoriaConteinerId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -56,11 +56,65 @@ namespace Polaris.Conteiner.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Conteiner",
+                columns: table => new
+                {
+                    ConteinerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ConteinerUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    Fabricacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Fabricante = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Material = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Cor = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Disponivel = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CategoriaConteinerId = table.Column<int>(type: "int", nullable: false),
+                    TipoConteinerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Conteiner", x => x.ConteinerId);
+                    table.ForeignKey(
+                        name: "FK_Conteiner_CategoriasConteineres_CategoriaConteinerId",
+                        column: x => x.CategoriaConteinerId,
+                        principalTable: "CategoriasConteineres",
+                        principalColumn: "CategoriaConteinerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Conteiner_TiposConteineres_TipoConteinerId",
+                        column: x => x.TipoConteinerId,
+                        principalTable: "TiposConteineres",
+                        principalColumn: "TipoConteineroId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
-                name: "IX_CategoriaConteineres_Nome",
-                table: "CategoriaConteineres",
+                name: "IX_CategoriasConteineres_Nome",
+                table: "CategoriasConteineres",
                 column: "Nome",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Conteiner_CategoriaConteinerId",
+                table: "Conteiner",
+                column: "CategoriaConteinerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Conteiner_Codigo",
+                table: "Conteiner",
+                column: "Codigo",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Conteiner_TipoConteinerId",
+                table: "Conteiner",
+                column: "TipoConteinerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TiposConteineres_Nome",
@@ -73,7 +127,10 @@ namespace Polaris.Conteiner.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CategoriaConteineres");
+                name: "Conteiner");
+
+            migrationBuilder.DropTable(
+                name: "CategoriasConteineres");
 
             migrationBuilder.DropTable(
                 name: "TiposConteineres");

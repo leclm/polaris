@@ -47,7 +47,7 @@ namespace Polaris.Conteiner.Controllers
         /// <returns>
         /// Retorna um tipo cadastrado
         /// </returns>
-        // GET: api/GetTipos/uuid
+        // GET: api/Tipos/uuid
         [HttpGet("{uuid}", Name = "ObterTipo")]
         public async Task<ActionResult> GetTipo(Guid uuid)
         {
@@ -63,6 +63,31 @@ namespace Polaris.Conteiner.Controllers
             {
                 return ReturnError();
             }
+        }
+
+        /// <summary>
+        /// Este endpoint deve consultar os tipos de conteineres ATIVOS
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os tipos ativos
+        /// </returns>
+        // GET: api/Tipos/tipos-ativos
+        [HttpGet("tipos-ativos")]
+        public async Task<ActionResult> GetTiposAtivos()
+        {
+            try
+            {
+                return Ok(await _service.GetTiposAtivos());
+            }
+            catch (TipoConteinerNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+
         }
 
         /// <summary>

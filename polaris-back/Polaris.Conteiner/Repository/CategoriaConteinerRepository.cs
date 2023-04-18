@@ -1,4 +1,5 @@
-﻿using Polaris.Conteiner.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Polaris.Conteiner.Context;
 using Polaris.Conteiner.Pagination;
 
 namespace Polaris.Conteiner.Repository
@@ -17,6 +18,12 @@ namespace Polaris.Conteiner.Repository
                 .Skip((categoriasParameters.PageNumber - 1) * categoriasParameters.PageSize)
                 .Take(categoriasParameters.PageSize)
                 .ToList();
+        }
+
+        public async Task<int> GetCategoriaId(Guid uuid)
+        {
+            var categoria = await GetByParameter(x => x.CategoriaConteinerUuid == uuid);
+            return categoria.CategoriaConteinerId;
         }
     }
 }

@@ -11,7 +11,7 @@ using Polaris.Conteiner.Context;
 namespace Polaris.Conteiner.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230412002528_PrimeiraMigration")]
+    [Migration("20230418010740_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -44,7 +44,61 @@ namespace Polaris.Conteiner.Migrations
                     b.HasIndex("Nome")
                         .IsUnique();
 
-                    b.ToTable("CategoriaConteineres");
+                    b.ToTable("CategoriasConteineres");
+                });
+
+            modelBuilder.Entity("Polaris.Conteiner.Models.Conteiner", b =>
+                {
+                    b.Property<int>("ConteinerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaConteinerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Codigo")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ConteinerUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Disponivel")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Fabricacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Fabricante")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("TipoConteinerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ConteinerId");
+
+                    b.HasIndex("CategoriaConteinerId");
+
+                    b.HasIndex("Codigo")
+                        .IsUnique();
+
+                    b.HasIndex("TipoConteinerId");
+
+                    b.ToTable("Conteiner");
                 });
 
             modelBuilder.Entity("Polaris.Conteiner.Models.TipoConteiner", b =>
@@ -91,6 +145,25 @@ namespace Polaris.Conteiner.Migrations
                         .IsUnique();
 
                     b.ToTable("TiposConteineres");
+                });
+
+            modelBuilder.Entity("Polaris.Conteiner.Models.Conteiner", b =>
+                {
+                    b.HasOne("Polaris.Conteiner.Models.CategoriaConteiner", "CategoriaConteiner")
+                        .WithMany()
+                        .HasForeignKey("CategoriaConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Conteiner.Models.TipoConteiner", "TipoConteiner")
+                        .WithMany()
+                        .HasForeignKey("TipoConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoriaConteiner");
+
+                    b.Navigation("TipoConteiner");
                 });
 #pragma warning restore 612, 618
         }

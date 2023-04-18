@@ -67,6 +67,31 @@ namespace Polaris.Conteiner.Controllers
         }
 
         /// <summary>
+        /// Este endpoint deve consultar as categorias ATIVAS
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos as categorias ativas
+        /// </returns>
+        // GET: api/Categorias/categorias-ativas
+        [HttpGet("categorias-ativas")]
+        public async Task<ActionResult> GetCategoriasAtivas()
+        {
+            try
+            {
+                return Ok(await _service.GetCategoriasAtivas());
+            }
+            catch (CategoriaConteinerNaoEncontradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+
+        }
+
+        /// <summary>
         /// Este endpoint deve cadastrar uma categoria
         /// </summary>
         /// <remarks>
@@ -145,7 +170,7 @@ namespace Polaris.Conteiner.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno 
         /// </returns>
-        // ALTERAR STATUS: api/Servicos/5
+        // ALTERAR STATUS: api/Servicos/uuid/status
         [HttpPut("alterar-status/{uuid}/{status}")]
         public async Task<ActionResult> AlterarStatus(Guid uuid, bool status)
         {

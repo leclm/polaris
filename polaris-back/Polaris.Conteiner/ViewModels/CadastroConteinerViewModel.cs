@@ -23,7 +23,7 @@ namespace Polaris.Conteiner.ViewModels
         [NotNull]
         [Required]
         public string? Cor { get; set; }
-        public IEnumerable<Guid>? ListaCategorias { get; set; }
-        public IEnumerable<Guid>? ListaTipos { get; set; }
+        public Guid Categoria { get; set; }
+        public Guid Tipo { get; set; }
     }
 }
