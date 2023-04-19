@@ -15,8 +15,8 @@ namespace Polaris.Conteiner.Repository
         public IEnumerable<Models.Conteiner> GetConteineresCompleto()
         {
             return Get()
-                .Include(x => x.CategoriaConteiner)
-                .Include(x => x.TipoConteiner);
+                .Include(x => x.CategoriaConteiner.CategoriaConteinerUuid)
+                .Include(x => x.TipoConteiner.TipoConteinerUuid);
         }
 
         public IEnumerable<Models.Conteiner> GetConteineresAtivosCompleto()
