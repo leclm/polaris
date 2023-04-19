@@ -19,7 +19,8 @@ export class ManterTerceirizadoComponent implements OnInit {
 
   public servico: Servico = {
     servicoUuid: '',
-    nome: ''
+    nome: '',
+    checked: false
   }
   
   public endereco: Endereco = {
@@ -70,9 +71,6 @@ export class ManterTerceirizadoComponent implements OnInit {
       this.endereco.cidade = data.localidade;
       this.endereco.estado = data.uf;
       this.endereco.logradouro = data.logradouro;
-      
-      console.log(data);
-      console.log(this.terceirizado);
     });
   }
   
