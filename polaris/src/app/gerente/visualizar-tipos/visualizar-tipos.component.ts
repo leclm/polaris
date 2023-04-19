@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
 
 @Component({
   selector: 'app-visualizar-tipos',
@@ -6,61 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visualizar-tipos.component.scss']
 })
 export class VisualizarTiposComponent implements OnInit {
-  tipos = {
-    content: [
-      {
-        'id': '1',
-        'categoria': 'Construção Civil',
-        'tipo': 'Pequeno',
-        'largura': '2',
-        'comprimento': '6',
-        'altura':'3',
-        'volume': '12',
-        'pesoMaximo': '2000',
-        'valorDiaria': '70',
-        'valorMes': '400'
-      },
-      {
-        'id': '2',
-        'categoria': 'Construção Civil',
-        'tipo': 'Pequeno',
-        'largura': '2',
-        'comprimento': '6',
-        'altura':'3',
-        'volume': '12',
-        'pesoMaximo': '2000',
-        'valorDiaria': '70',
-        'valorMes': '400'
-      },
-      {
-        'id': '3',
-        'categoria': 'Construção Civil',
-        'tipo': 'Pequeno',
-        'largura': '2',
-        'comprimento': '6',
-        'altura':'3',
-        'volume': '12',
-        'pesoMaximo': '2000',
-        'valorDiaria': '70',
-        'valorMes': '400'
-      },
-      {
-        'id': '4',
-        'categoria': 'Construção Civil',
-        'tipo': 'Pequeno',
-        'largura': '2',
-        'comprimento': '6',
-        'altura':'3',
-        'volume': '12',
-        'pesoMaximo': '2000',
-        'valorDiaria': '70',
-        'valorMes': '400'
-      }
-    ]
-  }
-  constructor() { }
+  public tipoData: any;
+
+  constructor( private gerenteServiceAPI: GerenteService ) { }
 
   ngOnInit(): void {
+    this.gerenteServiceAPI.getAllTipos().subscribe( (res: any) => {
+        this.tipoData = res;
+      }
+    )
   }
-
 }

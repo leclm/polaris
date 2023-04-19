@@ -1,8 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Categoria } from 'src/app/models/categoria.model';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
+import { Tipo } from 'src/app/models/tipo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +12,19 @@ import { Terceirizado } from 'src/app/models/terceirizado.model';
 export class GerenteService {
   terceirizadoURL = 'http://localhost:44352/terceirizados';
   servicoURL = 'http://localhost:44352/servicos';
+  categoriaURL = 'https://localhost:44387/CategoriasConteineres';
+  tipoURL = 'https://localhost:44387/TiposConteineres';
+  conteinerURL = 'https://localhost:44387/Conteineres';
 
   constructor( private http: HttpClient ) { } 
-  // curso post
+  getAllCategorias(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(this.categoriaURL);
+  }
+
+  getAllTipos(): Observable<Tipo[]> {
+    return this.http.get<Tipo[]>(this.tipoURL);
+  }
+
   getAllServicos(): Observable<Servico[]> {
     return this.http.get<Servico[]>(this.servicoURL);
   }

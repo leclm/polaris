@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editar-categoria',
@@ -7,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarCategoriaComponent implements OnInit {
   public status!: string;
-  
-  constructor() { }
+  public categoriaUuid: any;
+  public categoriaData: any;
+
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.categoriaUuid = this.activatedRoute.snapshot.params['id'];
+    
+    this.gerenteService.getAllCategorias().subscribe( (res: any) => {
+        this.categoriaData = res;
+        console.log(this.categoriaData);
+      }
+    )
   }
 
   // mock para mensagem
