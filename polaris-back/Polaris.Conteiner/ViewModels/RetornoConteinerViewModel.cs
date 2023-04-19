@@ -26,8 +26,8 @@ namespace Polaris.Conteiner.ViewModels
         public string? Cor { get; set; }
         public bool Disponivel { get; set; }
         public bool Status { get; set; }
-        public Guid Categoria { get; set; }
-        public Guid Tipo { get; set; }
+        public CategoriaConteiner CategoriaConteiner { get; set; }
+        public TipoConteiner TipoConteiner { get; set; }
 
     }
 }

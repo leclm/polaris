@@ -111,7 +111,6 @@ namespace Polaris.Conteiner.Services
                 {
                     throw new CadastrarConteinerException("Categoria inválida. Erro ao cadastrar o conteiner.");
                 }
-
             }
             else
             {
@@ -153,7 +152,6 @@ namespace Polaris.Conteiner.Services
             }
 
             var conteiner = await _context.ConteinerRepository.GetByParameter(p => p.ConteinerUuid == conteinerDto.ConteinerUuid);
-            StringUtils.ClassToUpper(conteiner);
 
             if (conteiner == null)
             {
@@ -187,9 +185,10 @@ namespace Polaris.Conteiner.Services
                     throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner.");
                 }
             }
-            else { throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner."); }
-
-
+            else 
+            {
+                throw new AtualizarConteinerException("Tipo inválido. Erro ao atualizar o conteiner."); 
+            }
 
             if (conteiner.ConteinerId != 0)
             {
@@ -200,7 +199,7 @@ namespace Polaris.Conteiner.Services
                 conteinerMap.Disponivel = conteiner.Disponivel;
                 conteinerMap.TipoConteinerId = conteiner.TipoConteinerId;
                 conteinerMap.CategoriaConteinerId = conteiner.CategoriaConteinerId;
-
+                StringUtils.ClassToUpper(conteinerMap);
                 _context.ConteinerRepository.Update(conteinerMap);
                 await _context.Commit();
             }

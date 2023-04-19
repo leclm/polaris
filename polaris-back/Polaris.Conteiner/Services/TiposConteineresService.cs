@@ -92,7 +92,7 @@ namespace Polaris.Conteiner.Services
                 var tipoMap = _mapper.Map<Models.TipoConteiner>(tipoDto);
                 var tipoBase = await _context.TipoConteinerRepository.GetByParameter(p => p.TipoConteinerUuid == tipoMap.TipoConteinerUuid);
                 tipoMap.Status = tipoBase.Status;
-                StringUtils.ClassToUpper(tipo);
+                StringUtils.ClassToUpper(tipoMap);
                 tipoMap.TipoConteineroId = tipo.TipoConteineroId;
 
                 _context.TipoConteinerRepository.Update(tipoMap);

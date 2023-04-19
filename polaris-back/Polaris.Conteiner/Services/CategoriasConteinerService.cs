@@ -92,7 +92,7 @@ namespace Polaris.Conteiner.Services
                 var categoriaMap = _mapper.Map<Models.CategoriaConteiner>(categoriaDto);
                 var categoriaBase = await _context.CategoriaConteinerRepository.GetByParameter(p => p.CategoriaConteinerUuid == categoriaMap.CategoriaConteinerUuid);
                 categoriaMap.Status = categoriaBase.Status;
-                StringUtils.ClassToUpper(categoria);
+                StringUtils.ClassToUpper(categoriaMap);
                 categoriaMap.CategoriaConteinerId = categoria.CategoriaConteinerId;
 
                 _context.CategoriaConteinerRepository.Update(categoriaMap);
