@@ -28,10 +28,10 @@
             <td>{{ item.cnpj }}</td>
             <td>{{ item.endereco.logradouro! | capitalizacao }}</td>
             <td>
-              <a [routerLink]="['/gerente/visualizar-detalhes-terceirizado/2']">
+              <a [routerLink]="['/gerente/visualizar-detalhes-terceirizado', item.terceirizadoUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </a>
-              <a [routerLink]="['/gerente/editar-terceirizado/2']">
+              <a [routerLink]="['/gerente/editar-terceirizado', item.terceirizadoUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
               <i class="fa fa-trash-alt" aria-hidden="true"></i>
