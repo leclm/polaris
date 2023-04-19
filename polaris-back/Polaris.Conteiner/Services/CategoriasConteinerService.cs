@@ -34,7 +34,7 @@ namespace Polaris.Conteiner.Services
 
             if (categoria is null)
             {
-                throw new CategoriaConteinerNaoEncontradaException("Não há categorias cadastradas.");
+                throw new CategoriaConteinerNaoEncontradaException("Categoria não existe.");
             }
             var servicoDto = _mapper.Map<RetornoCategoriaConteinerViewModel>(categoria);
             return servicoDto;

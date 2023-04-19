@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Polaris.Conteiner.ViewModels;
 
 namespace Polaris.Conteiner.ViewModels.Mappings
 {

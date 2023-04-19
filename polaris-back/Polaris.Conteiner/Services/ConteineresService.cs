@@ -100,11 +100,41 @@ namespace Polaris.Conteiner.Services
             StringUtils.ClassToUpper(conteiner);
             conteiner.ConteinerUuid = Guid.NewGuid();
 
-            var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria);
-            conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
+            if (conteinerDto.Categoria != Guid.Empty)
+            {
+                var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria); 
+                if (categoria != null && categoria.Status != false)
+                {
+                    conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
+                }
+                else
+                {
+                    throw new CadastrarConteinerException("Categoria inválida. Erro ao cadastrar o conteiner.");
+                }
 
-            var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
-            conteiner.TipoConteinerId = tipo.TipoConteineroId;
+            }
+            else
+            {
+                throw new CadastrarConteinerException("Categoria inválida. Erro ao cadastrar o conteiner.");
+            }
+
+
+            if (conteinerDto.Tipo != Guid.Empty)
+            {
+                var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
+                if (tipo != null && tipo.Status != false)
+                {
+                    conteiner.TipoConteinerId = tipo.TipoConteineroId;
+                }
+                else
+                {
+                    throw new CadastrarConteinerException("Tipo inválido. Erro ao cadastrar o conteiner.");
+                }
+            }
+            else
+            {
+                throw new CadastrarConteinerException("Tipo inválido. Erro ao cadastrar o conteiner.");
+            }
 
             conteiner.Disponivel = true;
             conteiner.Status = true;
@@ -123,6 +153,7 @@ namespace Polaris.Conteiner.Services
             }
 
             var conteiner = await _context.ConteinerRepository.GetByParameter(p => p.ConteinerUuid == conteinerDto.ConteinerUuid);
+            StringUtils.ClassToUpper(conteiner);
 
             if (conteiner == null)
             {
@@ -132,7 +163,7 @@ namespace Polaris.Conteiner.Services
             if (conteinerDto.Categoria != Guid.Empty)
             {
                 var categoria = await _context.CategoriaConteinerRepository.GetByParameter(x => x.CategoriaConteinerUuid == conteinerDto.Categoria);
-                if (categoria != null)
+                if (categoria != null && categoria.Status != false )
                 {
                     conteiner.CategoriaConteinerId = categoria.CategoriaConteinerId;
                 }
@@ -147,7 +178,7 @@ namespace Polaris.Conteiner.Services
             if (conteinerDto.Tipo != Guid.Empty)
             {
                 var tipo = await _context.TipoConteinerRepository.GetByParameter(x => x.TipoConteinerUuid == conteinerDto.Tipo);
-                if (tipo != null)
+                if (tipo != null && tipo.Status != false)
                 {
                     conteiner.TipoConteinerId = tipo.TipoConteineroId;
                 }

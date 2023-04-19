@@ -170,17 +170,13 @@ namespace Polaris.Conteiner.Controllers
         /// <remarks>
         /// Exemplo: <br />
         /// { <br />
-        /// "codigo": 0, <br />
+        /// "codigo": 100, <br />
         /// "fabricacao": "2023-04-13", <br />
         /// "fabricante": "Volvo", <br />
         ///  "material": "Metal", <br />
         ///  "cor": "Cinza", <br />
-        ///  "listaCategorias": [    <br />
-        ///   ""3fa85f64-5717-4562-b3fc-2c963f66afa6"<br />
-        ///   ], <br />
-        /// "listaTipos": [ <br />
-        /// "3fa85f64-5717-4562-b3fc-2c963f66afa6" <br />
-        /// ] <br />
+        ///  "categoria": "3fa85f64-5717-4562-b3fc-2c963f66afa6", <br />
+        ///  "tipo": "3fa85f64-5717-4562-b3fc-2c963f66afa6" <br />
         /// } <br />
         /// </remarks>
         /// <returns>
@@ -217,17 +213,12 @@ namespace Polaris.Conteiner.Controllers
         /// Exemplo: <br />
         /// { <br />
         ///  "conteinerUuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",  <br />
-        /// "codigo": 0, <br />
         /// "fabricacao": "2023-04-13", <br />
         /// "fabricante": "Volvo", <br />
         ///  "material": "Metal", <br />
         ///  "cor": "Cinza", <br />
-        ///  "listaCategorias": [    <br />
-        ///   ""3fa85f64-5717-4562-b3fc-2c963f66afa6"<br />
-        ///   ], <br />
-        /// "listaTipos": [ <br />
-        /// "3fa85f64-5717-4562-b3fc-2c963f66afa6" <br />
-        /// ] <br />
+        ///  "categoria": "3fa85f64-5717-4562-b3fc-2c963f66afa6", <br />
+        ///  "tipo": "3fa85f64-5717-4562-b3fc-2c963f66afa6" <br />
         /// } <br />
         /// </remarks>
         /// <returns>
