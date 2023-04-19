@@ -1,6 +1,6 @@
 <div class="visualizar-tipos container-fluid mt-4 mb-4">
   <div class="container-content p-4">
-    <h1 class="mb-4">Categorias Cadastradas</h1>
+    <h1 class="mb-4">Tipos de Contêineres Cadastrados</h1>
 
     <div class="table-responsive">
       <table class="table align-middle text-center">
@@ -28,7 +28,7 @@
             <td>{{ item.valorDiaria }}</td>
             <td>{{ item.valorMes }}</td>
             <td>
-              <a href="/gerente/editar-tipo/2">
+              <a  [routerLink]="['/gerente/editar-tipo/2']">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
               <i class="fa fa-trash-alt" aria-hidden="true"></i>
@@ -37,8 +37,7 @@
         </tbody>
       </table>
       <div class="ctn-btn d-flex justify-content-evenly mt-5">
-        <a href="/gerente/manter-tipo">Adicionar Tipo</a>
-        <!--<a href="#" routerLink="/gerente/manter-tipo">Adicionar Tipo</a>-->
+        <a  [routerLink]="['/gerente/manter-tipo']">Adicionar Tipo</a>
       </div>
     </div>
   </div>

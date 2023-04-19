@@ -32,6 +32,22 @@
             <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj">
           </div>
 
+         <!-- <div class="col-md-4">
+            <label for="inputNome" class="form-label">Tipo de Empresa</label>
+            <div class="dropdown">
+              <button class="btn btn-secondary btn-sm dropdown-toggle form-select" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Selecione
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="inputNome">
+                <li name="nome" [(ngModel)]="servico.servicoUuid">
+                  <a class="dropdown-item" *ngFor="let item of servicosCadastrados">
+                    <input type="checkbox" [(ngModel)]="item.checked" name="nome"> {{item.nome}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>-->         
+
           <div class="col-md-4">         
             <label for="inputNome" class="form-label">Tipo de Empresa</label>
             <select class="form-select" id="inputNome" aria-label="Tipo de empresa" name="nome" [(ngModel)]="servico.servicoUuid">
@@ -76,7 +92,7 @@
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
             <button type="submit">Cadastrar</button>
-            <a href="/gerente/visualizar-terceirizados">Voltar</a>
+            <a [routerLink]="['/gerente/visualizar-terceirizados']">Voltar</a>
             <!--<a href="#" routerLink="/gerente/visualizar-clientes">Voltar</a>-->
           </div>
         </form>

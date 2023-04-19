@@ -18,6 +18,8 @@ import { ManterTipoComponent } from './manter-tipo/manter-tipo.component';
 import { EditarTipoComponent } from './editar-tipo/editar-tipo.component';
 import { VisualizarTiposComponent } from './visualizar-tipos/visualizar-tipos.component';
 import { CapitalizacaoPipe } from '../shared/pipes';
+import { RouterModule } from '@angular/router';
+import { GerenteService } from './services';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,11 @@ import { CapitalizacaoPipe } from '../shared/pipes';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule
+  ],
+  providers: [
+    GerenteService
   ]
 })
 export class GerenteModule { }
