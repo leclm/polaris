@@ -21,15 +21,10 @@
             <td>{{ item.procedimento }}</td>
             <td>{{ item.dataProcedimento }}</td>
           </tr>
-          <!--
-            <a [routerLink]="['/gerente/visualizar-detalhes-cliente', item.id]" href="#">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-            </a>-->
         </tbody>
       </table>
       <div class="ctn-btn d-flex justify-content-evenly mt-5">
-        <a href="/gerente/visualizar-detalhes-terceirizado/2">Voltar</a>
-        <!--<a href="#" routerLink="/gerente/manter-cliente">Cadastrar Cliente</a>-->
+        <a [routerLink]="['/gerente/visualizar-detalhes-terceirizado/2']">Voltar</a>
       </div>
     </div>
   </div>

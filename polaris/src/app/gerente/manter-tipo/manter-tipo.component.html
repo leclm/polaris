@@ -67,8 +67,7 @@
           
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
             <button type="submit" (click)="cadastrar()">Cadastrar</button>
-            <a href="/gerente/visualizar-tipos">Voltar</a>
-            <!--<a href="#" routerLink="/gerente/visualizar-tipos">Voltar</a>-->
+            <a [routerLink]="['/gerente/visualizar-tipos']">Voltar</a>
           </div>
         </form>
       </div>
