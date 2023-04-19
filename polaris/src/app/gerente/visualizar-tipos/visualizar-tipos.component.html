@@ -6,27 +6,23 @@
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th [appSort]="tipos.content" data-order="desc" data-name="id">ID <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="categoria">Categoria <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="tipo">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="dimensoes">Dimensões (CxAxL) <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="volume">Volume <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="pesoMaximo">Peso Máximo <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="valorDiaria">Diária <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="tipos.content" data-order="desc" data-name="valorMes">Mensal <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="tipoData" data-order="desc" data-name="nome">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="tipoData" data-order="desc" data-name="dimensoes">Dimensões (CxAxL) <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="tipoData" data-order="desc" data-name="volume">Volume <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="tipoData" data-order="desc" data-name="pesoMaximo">Peso Máximo <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="tipoData" data-order="desc" data-name="valorDiaria">Diária <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="tipoData" data-order="desc" data-name="valorMes">Mensal <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th>Opções</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of tipos.content">
-            <td>{{ item.id }}</td>
-            <td>{{ item.categoria }}</td>
-            <td>{{ item.tipo }}</td>
-            <td>{{ item.comprimento }}x{{ item.altura }}x{{ item.largura }}</td>
-            <td>{{ item.volume }}</td>
-            <td>{{ item.pesoMaximo }}</td>
+          <tr *ngFor="let item of tipoData">
+            <td>{{ item.nome }}</td>
+            <td>{{ item.comprimento }}x{{ item.altura }}x{{ item.largura }}m</td>
+            <td>{{ item.volume }}m³</td>
+            <td>{{ item.pesoMaximo }}kg</td>
             <td>{{ item.valorDiaria }}</td>
-            <td>{{ item.valorMes }}</td>
+            <td>{{ item.valorMensal }}</td>
             <td>
               <a  [routerLink]="['/gerente/editar-tipo/2']">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>

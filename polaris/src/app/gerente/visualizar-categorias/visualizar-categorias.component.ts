@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
 
 @Component({
   selector: 'app-visualizar-categorias',
@@ -6,30 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visualizar-categorias.component.scss']
 })
 export class VisualizarCategoriasComponent implements OnInit {
-  categorias = {
-    content: [
-      {
-        'id': '1',
-        'nome': 'Construção Civil'
-      },
-      {
-        'id': '2',
-        'nome': 'Moradia'
-      },
-      {
-        'id': '3',
-        'nome': 'Comércio'
-      },
-      {
-        'id': '4',
-        'nome': 'Banheiro'
-      }
-    ]
-  }
+  public categoriaData: any;
 
-  constructor() { }
+  constructor( private gerenteServiceAPI: GerenteService ) { }
 
   ngOnInit(): void {
+    this.gerenteServiceAPI.getAllCategorias().subscribe( (res: any) => {
+        this.categoriaData = res;
+      }
+    )
   }
-
 }

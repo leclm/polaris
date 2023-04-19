@@ -6,17 +6,15 @@
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th [appSort]="categorias.content" data-order="desc" data-name="id">ID <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="categorias.content" data-order="desc" data-name="nome">Nome <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="categoriaData" data-order="desc" data-name="nome">Nome <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th>Opções</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of categorias.content">
-            <td>{{ item.id }}</td>
+          <tr *ngFor="let item of categoriaData">
             <td>{{ item.nome }}</td>
             <td>
-              <a [routerLink]="['/gerente/editar-categoria/2']">
+              <a [routerLink]="['/gerente/editar-categoria', item.categoriaConteinerUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
               <i class="fa fa-trash-alt" aria-hidden="true"></i>
