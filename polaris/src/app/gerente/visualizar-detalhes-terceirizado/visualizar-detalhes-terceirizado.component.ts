@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-visualizar-detalhes-terceirizado',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visualizar-detalhes-terceirizado.component.scss']
 })
 export class VisualizarDetalhesTerceirizadoComponent implements OnInit {
+  public terceirizadoUuid: any;
+  public terceirizadoData: any;
 
-  constructor() { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.terceirizadoUuid = this.activatedRoute.snapshot.params['id'];
+    
+    this.gerenteService.getAllTerceirizados().subscribe( (res: any) => {
+        this.terceirizadoData = res;
+      }
+    )
   }
-
 }
