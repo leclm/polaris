@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DetalhesAluguelComponent } from './detalhes-aluguel';
 import { VisualizarAluguelComponent } from './visualizar-aluguel';
 

@@ -16,7 +16,7 @@
             <td>{{ item.id }}</td>
             <td>{{ item.nome }}</td>
             <td>
-              <a href="/gerente/editar-categoria/2">
+              <a [routerLink]="['/gerente/editar-categoria/2']">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
               <i class="fa fa-trash-alt" aria-hidden="true"></i>
@@ -25,8 +25,7 @@
         </tbody>
       </table>
       <div class="ctn-btn d-flex justify-content-evenly mt-5">
-        <a href="/gerente/manter-categoria">Adicionar Categoria</a>
-        <!--<a href="#" routerLink="/gerente/manter-categoria">AdicionarCategoria</a>-->
+        <a [routerLink]="['/gerente/manter-categoria']">Adicionar Categoria</a>
       </div>
     </div>
   </div>

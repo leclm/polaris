@@ -4,6 +4,7 @@ import { ClienteService } from './services/cliente.service';
 import { VisualizarAluguelComponent } from './visualizar-aluguel/visualizar-aluguel.component';
 import { DetalhesAluguelComponent } from './detalhes-aluguel/detalhes-aluguel.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { CepPipe, CpfPipe, PhonePipe } from '../shared/pipes';
 
@@ -23,6 +24,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     NgxPayPalModule, NgxMaskModule.forRoot(), 
     CurrencyMaskModule
   ],

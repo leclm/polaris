@@ -20,10 +20,10 @@
             <td>{{ item.cpf }}</td>
             <td>{{ item.endereco }}</td>
             <td>
-              <a href="/gerente/visualizar-detalhes-cliente/2">
+              <a [routerLink]="['/gerente/visualizar-detalhes-cliente/2']">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </a>
-              <a href="/gerente/editar-cliente/2">
+              <a [routerLink]="['/gerente/editar-cliente/2']">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
               <i class="fa fa-trash-alt" aria-hidden="true"></i>
@@ -36,8 +36,7 @@
         </tbody>
       </table>
       <div class="ctn-btn d-flex justify-content-evenly mt-5">
-        <a href="/gerente/manter-cliente">Cadastrar Cliente</a>
-        <!--<a href="#" routerLink="/gerente/manter-cliente">Cadastrar Cliente</a>-->
+        <a [routerLink]="['/gerente/manter-cliente']">Cadastrar Cliente</a>
       </div>
     </div>
   </div>

@@ -30,8 +30,7 @@
           
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
             <button type="submit" (click)="editar()">Salvar Alterações</button>
-            <a href="/gerente/visualizar-categorias">Voltar</a>
-            <!--<a href="#" routerLink="/gerente/visualizar-categorias">Voltar</a>-->
+            <a [routerLink]="['/gerente/visualizar-categorias']">Voltar</a>
           </div>
         </form>
       </div>
