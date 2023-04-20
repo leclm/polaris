@@ -14,7 +14,6 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 export class ManterTerceirizadoComponent implements OnInit {
   public statusMsg!: string;
-  public terceirizadosCadastrados: Terceirizado[] = [];
   public servicosCadastrados: Servico[] = [];
 
   public servico: Servico = {
@@ -44,7 +43,6 @@ export class ManterTerceirizadoComponent implements OnInit {
   constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.getAllTerceirizados();
     this.getAllServicos();
   }
 
@@ -74,12 +72,6 @@ export class ManterTerceirizadoComponent implements OnInit {
     });
   }
   
-  getAllTerceirizados() {
-    this.gerenteService.getAllTerceirizados()
-    .subscribe( response => {
-      this.terceirizadosCadastrados = response;
-    })
-  }
 
   getAllServicos() {
     this.gerenteService.getAllServicos()

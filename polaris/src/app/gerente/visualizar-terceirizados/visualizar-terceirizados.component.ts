@@ -10,15 +10,15 @@ export class VisualizarTerceirizadosComponent implements OnInit {
   public servicoData: any;
   public terceirizadoData: any;
 
-  constructor( private _gerenteServiceAPI: GerenteService ) { }
+  constructor( private gerenteServiceAPI: GerenteService ) { }
 
   ngOnInit(): void {
-    this._gerenteServiceAPI.getAllServicos().subscribe( (res: any) => {
+    this.gerenteServiceAPI.getAllServicos().subscribe( (res: any) => {
         this.servicoData = res;
       }
     )
 
-    this._gerenteServiceAPI.getAllTerceirizados().subscribe( (res: any) => {
+    this.gerenteServiceAPI.getAllTerceirizadosAtivos().subscribe( (res: any) => {
         this.terceirizadoData = res;
       }
     )
