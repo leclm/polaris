@@ -12,6 +12,7 @@
 
 <h2 align="center">How to Run</h2>
 
+   ### Front-End
    ```
    - Clone this repository:
    $ git clone https://github.com/leclm/polaris.git
@@ -29,7 +30,17 @@
    - Open your browser in:
    http://localhost:4200/
    ```
-
+   
+   ### Back-End
+   ```
+   - Create Alias using PowerShell for "run-multiple-solutions.bat" file found inside back-end directory
+   
+   $ Set-Alias run-solutions C:\caminho\para\run-multiple-solutions.bat
+   $run-solutions
+   
+   - That will run all projects solution files
+   
+   ```
 --- 
 
 <h2 align="center">How to Reach Us</h2>
