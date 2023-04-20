@@ -16,7 +16,7 @@ export class VisualizarDetalhesTerceirizadoComponent implements OnInit {
   ngOnInit(): void {
     this.terceirizadoUuid = this.activatedRoute.snapshot.params['id'];
     
-    this.gerenteService.getAllTerceirizados().subscribe( (res: any) => {
+    this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => {
         this.terceirizadoData = res;
       }
     )

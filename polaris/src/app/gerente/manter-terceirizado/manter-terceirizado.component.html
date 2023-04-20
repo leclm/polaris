@@ -22,7 +22,7 @@
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex ms-3">
-        <form class="row g-3" #f="ngForm" (ngSubmit)="cadastrar()">
+        <form class="row g-3" #formTerceirizado="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-4">
             <label for="inputEmpresa" class="form-label">Nome da Empresa</label>
             <input type="text" class="form-control" id="inputEmpresa" [(ngModel)]="terceirizado.empresa" name="empresa">
@@ -93,7 +93,6 @@
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
             <button type="submit">Cadastrar</button>
             <a [routerLink]="['/gerente/visualizar-terceirizados']">Voltar</a>
-            <!--<a href="#" routerLink="/gerente/visualizar-clientes">Voltar</a>-->
           </div>
         </form>
       </div>
