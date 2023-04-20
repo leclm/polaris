@@ -144,7 +144,7 @@ namespace Polaris.Servico.Controllers
         /// </returns>
         // POST: api/Terceirizados
         [HttpPost]
-        public async Task<ActionResult> PostTerceirizadoo(CadastroTerceirizadoViewModel terceirizadoDto)
+        public async Task<ActionResult> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto)
         {
             try
             {
@@ -195,11 +195,11 @@ namespace Polaris.Servico.Controllers
         /// </returns>
         // PUT: api/Terceirizados
         [HttpPut]
-        public async Task<IActionResult> PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadooDto)
+        public async Task<IActionResult> PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
         {
             try
             {
-                await _service.PutTerceirizado(terceirizadooDto);
+                await _service.PutTerceirizado(terceirizadoDto);
                 return Ok();
             }
             catch (AtualizarTerceirizadoException ex)

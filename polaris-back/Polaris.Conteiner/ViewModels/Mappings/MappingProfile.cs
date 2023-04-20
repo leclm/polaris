@@ -19,6 +19,10 @@ namespace Polaris.Conteiner.ViewModels.Mappings
             CreateMap<Models.Conteiner, CadastroConteinerViewModel>().ReverseMap();
             CreateMap<Models.Conteiner, AtualizaConteinerViewModel>().ReverseMap();
             CreateMap<Models.Conteiner, RetornoConteinerViewModel>().ReverseMap();
+
+            CreateMap<Models.PrestacaoDeServico, CadastroPrestacaoDeServicoViewModel>().ReverseMap();
+            CreateMap<Models.PrestacaoDeServico, AtualizaPrestacaoDeServicoViewModel>().ReverseMap();
+            CreateMap<Models.PrestacaoDeServico, RetornoPrestacaoDeServicoViewModel>().ReverseMap();
         }
     }
 }
