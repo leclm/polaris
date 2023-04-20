@@ -70,5 +70,27 @@
             public AtualizarConteinerException(string message)
                 : base(message) { }
         }
+
+        public class PrestacaoServicoNaoEncontradaException : Exception
+        {
+            public PrestacaoServicoNaoEncontradaException() { }
+
+            public PrestacaoServicoNaoEncontradaException(string message)
+                : base(message) { }
+        }
+        public class CadastrarPrestacaoServicoException : Exception
+        {
+            public CadastrarPrestacaoServicoException() { }
+
+            public CadastrarPrestacaoServicoException(string message)
+                : base(message) { }
+        }
+        public class AtualizarPrestacaoServicoException : Exception
+        {
+            public AtualizarPrestacaoServicoException() { }
+
+            public AtualizarPrestacaoServicoException(string message)
+                : base(message) { }
+        }
     }
 }

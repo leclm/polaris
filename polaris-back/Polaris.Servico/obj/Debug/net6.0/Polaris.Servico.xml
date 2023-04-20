@@ -123,7 +123,7 @@
             Retorna um terceirizado cadastrado
             </returns>
         </member>
-        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.PostTerceirizadoo(Polaris.Servico.ViewModels.CadastroTerceirizadoViewModel)">
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.PostTerceirizado(Polaris.Servico.ViewModels.CadastroTerceirizadoViewModel)">
             <summary>
             Este endpoint deve cadastrar um terceirizado
             </summary>
