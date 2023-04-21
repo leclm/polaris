@@ -1,4 +1,5 @@
 export interface Tipo {
+    tipoConteinerUuid: string;
     nome: string;
     largura: number;
     comprimento: number;

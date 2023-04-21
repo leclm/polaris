@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
+import { HttpResponse } from '@angular/common/http';
+import { Tipo } from 'src/app/models/tipo.model';
 
 @Component({
   selector: 'app-manter-tipo',
@@ -6,20 +9,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manter-tipo.component.scss']
 })
 export class ManterTipoComponent implements OnInit {
-  public status!: string;
+  public statusMsg!: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public tipo: Tipo = {
+    tipoConteinerUuid: '',
+    nome: '',
+    largura: 0,
+    comprimento: 0,
+    volume: 0,
+    pesoMaximo: 0,
+    altura: 0,
+    valorDiaria: 0,
+    valorMensal: 0,
+    status: true
   }
 
-  // mock para mensagem
-  cadastrar(): any {
-    var code = "200";
-    if ( code == "200") {
-      this.status = 'success';
-    } else {
-      this.status = 'fail';
-    }
+  constructor( private gerenteService: GerenteService ) { }
+
+  ngOnInit(): void { }
+
+  cadastrar() {
+    this.gerenteService.addTipo(this.tipo).subscribe(
+      (response: HttpResponse<Tipo>) => {   
+        if (response.status === 200 || response.status === 201) {
+          this.statusMsg = 'success';
+          console.log('Post request successful');
+        } else {
+          console.log('Post request failed');
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.statusMsg = 'fail';
+      }
+    );
   }
 }
