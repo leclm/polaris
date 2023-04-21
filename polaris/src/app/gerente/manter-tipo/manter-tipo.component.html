@@ -4,7 +4,7 @@
 
     <div class="line mb-5"></div>
     
-    <div [ngSwitch]="status">
+    <div [ngSwitch]="statusMsg">
       <div *ngSwitchCase="'success'">
         <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
           Cadastro realizado com sucesso!
@@ -22,51 +22,42 @@
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex ms-3">
-        <form class="row g-3">
-          <div class="col-md-4">
-            <label for="inputCategoria" class="form-label">Categoria de Contêiner</label>
-            <select class="form-select" id="inputCategoria" aria-label="Categoria">
-              <option value="1" selected>Construção Civil</option>
-              <option value="2">Comércio</option>
-              <option value="3">Banheiro</option>
-              <option value="2">Moradia</option>
-            </select>
-          </div>
+        <form class="row g-3" #formTipo="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-4">
             <label for="inputTipo" class="form-label">Tipo</label>
-            <input type="text" class="form-control" id="inputTipo" placeholder="Pequeno, Médio, Grande...">
+            <input type="text" class="form-control" id="inputTipo" placeholder="Pequeno, Médio, Grande..." [(ngModel)]="tipo.nome" name="nome">
           </div>
           <div class="col-md-4">
             <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
-            <input type="number" class="form-control" id="inputPesoMaximo">
+            <input type="number" class="form-control" id="inputPesoMaximo" [(ngModel)]="tipo.pesoMaximo" name="pesoMaximo">
           </div>
           <div class="col-md-4">
             <label for="inputComprimento" class="form-label">Comprimento</label>
-            <input type="number" class="form-control" id="inputComprimento">
+            <input type="number" class="form-control" id="inputComprimento" [(ngModel)]="tipo.comprimento" name="comprimento">
           </div>
           <div class="col-md-4">
             <label for="inputLargura" class="form-label">Largura</label>
-            <input type="number" class="form-control" id="inputLargura">
+            <input type="number" class="form-control" id="inputLargura" [(ngModel)]="tipo.largura" name="largura">
           </div>
           <div class="col-md-4">
             <label for="inputAltura" class="form-label">Altura</label>
-            <input type="number" class="form-control" id="inputAltura">
+            <input type="number" class="form-control" id="inputAltura" [(ngModel)]="tipo.altura" name="altura">
           </div>
           <div class="col-md-4">
             <label for="inputVolume" class="form-label">Volume</label>
-            <input type="number" class="form-control" id="inputVolume">
+            <input type="number" class="form-control" id="inputVolume" [(ngModel)]="tipo.volume" name="volume">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
-            <input type="text" class="form-control" id="inputValorDiaria" value="R$ ">
+            <input type="text" class="form-control" id="inputValorDiaria" value="R$ " [(ngModel)]="tipo.valorDiaria" name="valorDiaria">
           </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-6 mb-3">
             <label for="inputValorMes" class="form-label">Valor por Mês</label>
-            <input type="text" class="form-control" id="inputValorMes" value="R$ ">
+            <input type="text" class="form-control" id="inputValorMes" value="R$ " [(ngModel)]="tipo.valorMensal" name="valorMensal">
           </div>
           
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <button type="submit" (click)="cadastrar()">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
             <a [routerLink]="['/gerente/visualizar-tipos']">Voltar</a>
           </div>
         </form>
