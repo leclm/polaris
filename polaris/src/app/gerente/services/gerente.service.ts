@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angul
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria.model';
+import { Conteiner } from 'src/app/models/conteiner.model';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Tipo } from 'src/app/models/tipo.model';
@@ -17,7 +18,10 @@ export class GerenteService {
   servicoURL = 'http://localhost:44352/servicos';
   allCategoriasURL = 'http://localhost:44387/CategoriasConteineres';
   allTiposURL = 'http://localhost:44387/TiposConteineres';
-  conteinerURL = 'https://localhost:44387/Conteineres';
+
+  // confirmar se é https ou http, quando resolver problema de CORS
+  allConteineresURL = 'http://localhost:44387/Conteineres';
+  allConteineresAtivosURL = 'http://localhost:44387/Conteineres/conteineres-ativos';
 
   constructor( private http: HttpClient ) { } 
   
@@ -74,6 +78,14 @@ export class GerenteService {
     return this.http.post<Tipo>(url, tipo, { headers, observe: 'response' });
   }
 
+  // Contêiner
+  getAllConteineres(): Observable<Conteiner[]> {
+    return this.http.get<Conteiner[]>(this.allConteineresURL);
+  }
+
+  getAllConteineresAtivos(): Observable<Conteiner[]> {
+    return this.http.get<Conteiner[]>(this.allConteineresAtivosURL);
+  }
 
   // Serviço
   getAllServicos(): Observable<Servico[]> {

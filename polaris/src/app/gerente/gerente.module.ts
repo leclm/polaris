@@ -20,6 +20,8 @@ import { VisualizarTiposComponent } from './visualizar-tipos/visualizar-tipos.co
 import { CapitalizacaoPipe } from '../shared/pipes';
 import { RouterModule } from '@angular/router';
 import { GerenteService } from './services';
+import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-conteineres/visualizar-estoque-conteineres.component';
+import { VisualizarConteinerComponent } from './visualizar-conteiner/visualizar-conteiner.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { GerenteService } from './services';
     ManterTipoComponent,
     EditarTipoComponent,
     VisualizarTiposComponent,
-    CapitalizacaoPipe    
+    CapitalizacaoPipe,
+    VisualizarEstoqueConteineresComponent,
+    VisualizarConteinerComponent    
   ],
   imports: [
     CommonModule,

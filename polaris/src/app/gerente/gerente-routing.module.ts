@@ -14,6 +14,8 @@ import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-t
 import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
 import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados';
 import { VisualizarTiposComponent } from './visualizar-tipos';
+import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-conteineres';
+import { VisualizarConteinerComponent } from './visualizar-conteiner';
 
 export const GerenteRoutes: Routes = [
   // Cliente
@@ -79,5 +81,14 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-tipos',
     component: VisualizarTiposComponent
+  },
+  // Contêiner
+  {
+    path: 'gerente/visualizar-estoque-conteineres',
+    component: VisualizarEstoqueConteineresComponent
+  },
+  {
+    path: 'gerente/visualizar-conteiner/:id',
+    component: VisualizarConteinerComponent
   }
 ];
