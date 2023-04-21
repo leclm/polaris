@@ -1,0 +1,75 @@
+<div class="visualizar-conteiner container-fluid mt-4 mb-4">
+    <div *ngFor="let item of conteineresData">
+      <div *ngIf="item.conteinerUuid == conteinerUuid">
+        <div class="container-content mb-4 p-4">
+          <h1>Visualizar Detalhes do Contêiner</h1>
+  
+          <div class="line mb-5"></div>
+  
+          <div class="mb-3">
+            <p class="title">Dados cadastrais</p>
+            <div class="content d-flex justify-content-start ms-3">
+              <form class="row g-3">
+                <div class="col-md-3">
+                  <label for="inputEmpresa" class="form-label">Ano de Fabricação</label>
+                  <p class="form-control"> {{ item.fabricacao }} </p>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputCnpj" class="form-label">Fabricante</label>
+                  <p class="form-control"> {{ item.fabricante }} </p>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputTipo" class="form-label">Cor</label>
+                  <p class="form-control"> {{ item.cor }} </p>
+                </div>
+                <div class="col-md-3">
+                  <label for="inputTelefone" class="form-label">Material</label>
+                  <p class="form-control"> {{ item.material }} </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputEmail" class="form-label">Categoria</label>
+                  <p class="form-control"> {{ item.categoriaConteiner.nome }} </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputCep" class="form-label">Tipo</label>
+                  <p class="form-control"> {{ item.tipoConteiner.nome }} </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputEstado" class="form-label">Peso Máximo</label>
+                  <p class="form-control"> {{ item.tipoConteiner.pesoMaximo }}kg </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputCidade" class="form-label">Largura</label>
+                  <p class="form-control"> {{ item.tipoConteiner.largura }}m </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputEndereco" class="form-label">Comprimento</label>
+                  <p class="form-control"> {{ item.tipoConteiner.comprimento }}m </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputNumero" class="form-label">Altura</label>
+                  <p class="form-control"> {{ item.tipoConteiner.altura }}m </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputEndereco" class="form-label">Volume</label>
+                  <p class="form-control"> {{ item.tipoConteiner.volume }}m³ </p>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputNumero" class="form-label">Valor Diária</label>
+                  <p class="form-control"> {{ item.tipoConteiner.valorDiaria }} </p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="inputComplemento" class="form-label">Valor Mensal</label>
+                  <p class="form-control"> {{ item.tipoConteiner.valorMensal }} </p>
+                </div>             
+  
+                <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                  <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

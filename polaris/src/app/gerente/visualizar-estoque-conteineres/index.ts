@@ -1,0 +1,1 @@
+export * from './visualizar-estoque-conteineres.component';
