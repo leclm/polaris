@@ -11,80 +11,97 @@ import { Tipo } from 'src/app/models/tipo.model';
   providedIn: 'root'
 })
 export class GerenteService {
-  allTerceirizadosURL = 'http://localhost:44352/Terceirizados';
-  terceirizadoAtivosURL = 'http://localhost:44352/Terceirizados/terceirizados-ativos';
-  inativaTerceririzado = 'http://localhost:44352/Terceirizados/alterar-status/';
-  
+  terceirizadoURL = 'http://localhost:44352/terceirizados';
   servicoURL = 'http://localhost:44352/servicos';
-  allCategoriasURL = 'http://localhost:44387/CategoriasConteineres';
-  allTiposURL = 'http://localhost:44387/TiposConteineres';
-
-  // confirmar se é https ou http, quando resolver problema de CORS
-  allConteineresURL = 'http://localhost:44387/Conteineres';
-  allConteineresAtivosURL = 'http://localhost:44387/Conteineres/conteineres-ativos';
+  categoriaURL = 'http://localhost:44387/categoriasconteineres';
+  tipoURL = 'http://localhost:44387/tiposconteineres';
+  conteinerURL = 'http://localhost:44387/conteineres';
 
   constructor( private http: HttpClient ) { } 
   
   // Terceirizado
-  getAllTerceirizadosAtivos(): Observable<Terceirizado[]> {
-    return this.http.get<Terceirizado[]>(this.terceirizadoAtivosURL);
+  getAllTerceirizados(): Observable<Terceirizado[]> {
+    return this.http.get<Terceirizado[]>(this.terceirizadoURL);
   }
 
-  getAllTerceirizados(): Observable<Terceirizado[]> {
-    return this.http.get<Terceirizado[]>(this.allTerceirizadosURL);
-  }
+  getAllTerceirizadosAtivos(): Observable<Terceirizado[]> {
+    const url = `${this.terceirizadoURL}/terceirizados-ativos`;
+    return this.http.get<Terceirizado[]>(url);
+  }  
 
   getTerceirizadoById(id: string): Observable<Terceirizado> {
-    const terceirizadoByIdURL = `${this.allTerceirizadosURL}/${id}`;
-    return this.http.get<Terceirizado>(terceirizadoByIdURL);
+    const url = `${this.terceirizadoURL}/${id}`;
+    return this.http.get<Terceirizado>(url);
   }
 
   putTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
-    const url = this.allTerceirizadosURL;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Terceirizado>(url, terceirizado, { headers, observe: 'response' });
+    return this.http.put<Terceirizado>(this.terceirizadoURL, terceirizado, { headers, observe: 'response' });
   }
   
   addTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
-    const url = this.allTerceirizadosURL;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Terceirizado>(url, terceirizado, { headers, observe: 'response' });
+    return this.http.post<Terceirizado>(this.terceirizadoURL, terceirizado, { headers, observe: 'response' });
   }
 
   deleteTerceirizado(id: string, status: string): Observable<Terceirizado> {
-    const inativaTerceririzado = `${this.inativaTerceririzado}/${id}/${status}`;
-    return this.http.delete<Terceirizado>(inativaTerceririzado);
+    const url = `${this.terceirizadoURL}/alterar-status/${id}/${status}`;
+    return this.http.delete<Terceirizado>(url);
   }
 
   // Categoria
   getAllCategorias(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.allCategoriasURL);
+    return this.http.get<Categoria[]>(this.categoriaURL);
+  }
+
+  getAllCategoriasAtivas(): Observable<Categoria[]> {
+    const url = `${this.categoriaURL}/categorias-ativas`;
+    return this.http.get<Categoria[]>(url);
   }
 
   addCategoria(categoria: Categoria): Observable<HttpResponse<Categoria>> {
-    const url = this.allCategoriasURL;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Categoria>(url, categoria, { headers, observe: 'response' });
+    return this.http.post<Categoria>(this.categoriaURL, categoria, { headers, observe: 'response' });
   }
 
   // Tipo
   getAllTipos(): Observable<Tipo[]> {
-    return this.http.get<Tipo[]>(this.allTiposURL);
+    return this.http.get<Tipo[]>(this.tipoURL);
+  }
+
+  getAllTiposAtivos(): Observable<Tipo[]> {
+    const url = `${this.tipoURL}/tipos-ativos`;
+    return this.http.get<Tipo[]>(url);
   }
 
   addTipo(tipo: Tipo): Observable<HttpResponse<Tipo>> {
-    const url = this.allTiposURL;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Tipo>(url, tipo, { headers, observe: 'response' });
+    return this.http.post<Tipo>(this.tipoURL, tipo, { headers, observe: 'response' });
   }
 
   // Contêiner
   getAllConteineres(): Observable<Conteiner[]> {
-    return this.http.get<Conteiner[]>(this.allConteineresURL);
+    return this.http.get<Conteiner[]>(this.conteinerURL);
   }
 
   getAllConteineresAtivos(): Observable<Conteiner[]> {
-    return this.http.get<Conteiner[]>(this.allConteineresAtivosURL);
+    const url = `${this.conteinerURL}/conteineres-ativos`;
+    return this.http.get<Conteiner[]>(url);
+  }
+
+  getConteinerById(id: string): Observable<Conteiner> {
+    const url = `${this.conteinerURL}/${id}`;
+    return this.http.get<Conteiner>(url);
+  }
+
+  addConteiner(conteiner: Conteiner): Observable<HttpResponse<Conteiner>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Conteiner>(this.conteinerURL, conteiner, { headers, observe: 'response' });
+  }
+
+  putConteiner(conteiner: Conteiner): Observable<HttpResponse<Conteiner>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Conteiner>(this.conteinerURL, conteiner, { headers, observe: 'response' });
   }
 
   // Serviço
@@ -100,9 +117,4 @@ export class GerenteService {
   getAluguelData() {
     return this.http.get('http://localhost:8180/aluguel');
   }
-  
-  /*updateTerceirizado(terceirizado: Terceirizado): Observable<Terceirizado> {
-    const url = `${this.allTerceirizadosURL}`;
-    return this.http.put<Terceirizado>(url, terceirizado);
-  }*/
 }

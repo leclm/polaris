@@ -18,3 +18,8 @@ export * from './editar-categoria';
 export * from './manter-tipo';
 export * from './editar-tipo';
 export * from './visualizar-tipos';
+
+export * from './manter-conteiner';
+export * from './editar-conteiner';
+export * from './visualizar-conteiner';
+export * from './visualizar-estoque-conteineres';

@@ -71,7 +71,6 @@ export class ManterTerceirizadoComponent implements OnInit {
       this.endereco.logradouro = data.logradouro;
     });
   }
-  
 
   getAllServicos() {
     this.gerenteService.getAllServicos()

@@ -11,11 +11,13 @@ import { VisualizarCategoriasComponent } from './visualizar-categorias';
 import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
 import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-terceirizado';
-import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
+import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado';
 import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados';
 import { VisualizarTiposComponent } from './visualizar-tipos';
 import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-conteineres';
 import { VisualizarConteinerComponent } from './visualizar-conteiner';
+import { ManterConteinerComponent } from './manter-conteiner';
+import { EditarConteinerComponent } from './editar-conteiner';
 
 export const GerenteRoutes: Routes = [
   // Cliente
@@ -90,5 +92,13 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-conteiner/:id',
     component: VisualizarConteinerComponent
+  },
+  {
+    path: 'gerente/manter-conteiner',
+    component: ManterConteinerComponent
+  },
+  {
+    path: 'gerente/editar-conteiner/:id',
+    component: EditarConteinerComponent
   }
 ];
