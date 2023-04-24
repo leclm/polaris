@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Polaris.Conteiner.Context;
+using Polaris.Conteiner.Enums;
 using Polaris.Conteiner.Pagination;
 
 namespace Polaris.Conteiner.Repository
@@ -28,7 +29,7 @@ namespace Polaris.Conteiner.Repository
 
         public IEnumerable<Models.Conteiner> GetConteineresAtivosDisponiveis()
         {
-            return GetAllByParameter(x => x.Status == true && x.Disponivel == true)
+            return GetAllByParameter(x => x.Status == true && x.Estado == EstadoConteiner.Disponível)
                 .Include(x => x.CategoriaConteiner)
                 .Include(x => x.TipoConteiner);
         }

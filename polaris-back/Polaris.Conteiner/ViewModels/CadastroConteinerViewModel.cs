@@ -1,4 +1,5 @@
-﻿using Polaris.Conteiner.Models;
+﻿using Polaris.Conteiner.Enums;
+using Polaris.Conteiner.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 

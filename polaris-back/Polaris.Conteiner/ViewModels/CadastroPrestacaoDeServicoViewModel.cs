@@ -10,7 +10,7 @@ namespace Polaris.Conteiner.ViewModels
     {
         [NotNull]
         [Required]
-        public ServicoStatus Status { get; set; }
+        public EstadoConteiner Status { get; set; }
         [NotNull]
         [Required]
         public DateTime DataProcedimento { get; set; }

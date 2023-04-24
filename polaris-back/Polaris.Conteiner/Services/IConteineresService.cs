@@ -1,4 +1,5 @@
-﻿using Polaris.Conteiner.ViewModels;
+﻿using Polaris.Conteiner.Enums;
+using Polaris.Conteiner.ViewModels;
 
 namespace Polaris.Conteiner.Services
 {
@@ -12,7 +13,7 @@ namespace Polaris.Conteiner.Services
         Task<Guid> PostConteiner(CadastroConteinerViewModel conteinerDto);
         Task PutConteiner(AtualizaConteinerViewModel conteinerDto);
         Task AlterarStatus(Guid uuid, bool status);
-        Task AlterarDisponibilidade(Guid uuid, bool disponibilidade);
+        Task AlterarDisponibilidade(Guid uuid, EstadoConteiner estado);
         Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveis();
     }
 }
