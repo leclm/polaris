@@ -29,6 +29,7 @@
 
 
 	<ItemGroup>
+		<Folder Include="ExternalServices\" />
 		<Folder Include="Migrations\" />
 	</ItemGroup>
 

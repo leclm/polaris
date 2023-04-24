@@ -7,6 +7,7 @@ namespace Polaris.Conteiner.Repository
         private TipoConteinerRepository _tipoConteinerRepository;
         private CategoriaConteinerRepository _categoriaConteinerRepository;
         private ConteinerRepository _conteinerRepository;
+        private PrestacaoServicoRepository _prestacaoDeServicoRepository;
         public AppDbContext _context;
 
         public UnityOfWork(AppDbContext context)
@@ -35,6 +36,14 @@ namespace Polaris.Conteiner.Repository
             get
             {
                 return _conteinerRepository = _conteinerRepository ?? new ConteinerRepository(_context);
+            }
+        }
+        
+        public IPrestacaoServicoRepository PrestacaDeServicoRepository
+        {
+            get
+            {
+                return _prestacaoDeServicoRepository = _prestacaoDeServicoRepository ?? new PrestacaoServicoRepository(_context);
             }
         }
 

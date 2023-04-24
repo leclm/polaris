@@ -26,19 +26,6 @@ namespace Polaris.Endereco.Services
                 throw new EnderecoNaoEncontradoException("Não há endereços cadastrados.");
             }
             return _mapper.Map<IEnumerable<RetornoEnderecoViewModel>>(enderecos);
-
-            //List<RetornoEnderecoViewModel> enderecosDto = new ();
-            //foreach (var endereco in enderecos)
-            //{
-            //    if (endereco.Status == true)
-            //    {
-            //         enderecosDto.Append(_mapper.Map<RetornoEnderecoViewModel>(endereco));
-            //    }
-            //}
-            //return enderecosDto;
-
-            //var enderecosDto = _mapper.Map<List<RetornoEnderecoViewModel>>(enderecos);
-            // return enderecosDto;
         }
 
         public async Task<RetornoEnderecoViewModel> GetEndereco(Guid uuid)

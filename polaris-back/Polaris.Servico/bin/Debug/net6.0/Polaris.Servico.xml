@@ -193,6 +193,16 @@
             Retorna 500 caso erro interno         
             </returns>
         </member>
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.BuscarVinculoEnderecoTerceirizado(System.Guid)">
+            <summary>
+            Este endpoint deve buscar qual terceirizado está vinculado com a prestação de serviço buscada
+            </summary>
+            <returns>
+            Retorna 201 caso sucesso
+            Retorna 404 caso uuid não encontrado
+            Retorna 500 caso erro interno         
+            </returns>
+        </member>
         <member name="T:Polaris.Servico.Migrations.PrimeiraMigration">
             <inheritdoc />
         </member>

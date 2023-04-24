@@ -11,8 +11,8 @@ using Polaris.Conteiner.Context;
 namespace Polaris.Conteiner.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230420011250_Adiciona_Prestacao_Servico")]
-    partial class Adiciona_Prestacao_Servico
+    [Migration("20230424014621_PrimeiraMigration")]
+    partial class PrimeiraMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,7 +172,7 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("TercerizadoId")
+                    b.Property<int>("TerceirizadoId")
                         .HasColumnType("int");
 
                     b.HasKey("PrestacaoDeServicoId");
@@ -181,7 +181,7 @@ namespace Polaris.Conteiner.Migrations
 
                     b.HasIndex("ServicoId");
 
-                    b.HasIndex("TercerizadoId");
+                    b.HasIndex("TerceirizadoId");
 
                     b.ToTable("PrestacaoDeServico");
                 });
@@ -314,7 +314,10 @@ namespace Polaris.Conteiner.Migrations
 
                     b.HasIndex("TerceirizadosTerceirizadoId");
 
-                    b.ToTable("ServicoTerceirizado");
+                    b.ToTable("ServicoTerceirizado", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
             modelBuilder.Entity("Polaris.Conteiner.Models.Conteiner", b =>
@@ -350,9 +353,9 @@ namespace Polaris.Conteiner.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Polaris.Conteiner.Models.Terceirizado", "Tercerizado")
+                    b.HasOne("Polaris.Conteiner.Models.Terceirizado", "Terceirizado")
                         .WithMany()
-                        .HasForeignKey("TercerizadoId")
+                        .HasForeignKey("TerceirizadoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -360,7 +363,7 @@ namespace Polaris.Conteiner.Migrations
 
                     b.Navigation("Servico");
 
-                    b.Navigation("Tercerizado");
+                    b.Navigation("Terceirizado");
                 });
 
             modelBuilder.Entity("Polaris.Conteiner.Models.Terceirizado", b =>

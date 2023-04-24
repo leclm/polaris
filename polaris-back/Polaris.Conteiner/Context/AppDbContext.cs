@@ -37,6 +37,7 @@ namespace Polaris.Conteiner.Context
             modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Terceirizado>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Servico>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity("ServicoTerceirizado").Metadata.SetIsTableExcludedFromMigrations(true);
         }
     }
 }

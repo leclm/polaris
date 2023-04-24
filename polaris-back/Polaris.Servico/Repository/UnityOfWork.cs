@@ -28,7 +28,6 @@ namespace Polaris.Servico.Repository
             }
         }
 
-
         public async Task Commit()
         {
             await _context.SaveChangesAsync();

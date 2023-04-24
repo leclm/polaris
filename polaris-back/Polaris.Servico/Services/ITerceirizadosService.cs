@@ -13,5 +13,6 @@ namespace Polaris.Servico.Services
         Task<Guid> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto);
         Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto);
         Task AlterarStatus(Guid uuid, bool status);
+        Task<RetornoTerceirizadoViewModel> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico);
     }
 }
