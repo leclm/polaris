@@ -17,17 +17,19 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of tipoData">
-            <td>{{ item.nome }}</td>
+            <td>{{ item.nome! | capitalizacao }}</td>
             <td>{{ item.comprimento }}x{{ item.altura }}x{{ item.largura }}m</td>
             <td>{{ item.volume }}m³</td>
             <td>{{ item.pesoMaximo }}kg</td>
-            <td>{{ item.valorDiaria }}</td>
-            <td>{{ item.valorMensal }}</td>
+            <td>{{ item.valorDiaria! | currency }}</td>
+            <td>{{ item.valorMensal! | currency }}</td>
             <td>
               <a  [routerLink]="['/gerente/editar-tipo/2']">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
-              <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              <a (click)="didTapOnDelete(item.tipoConteinerUuid)">
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>   
             </td>
           </tr>
         </tbody>

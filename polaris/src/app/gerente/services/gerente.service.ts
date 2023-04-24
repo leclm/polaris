@@ -65,6 +65,12 @@ export class GerenteService {
     return this.http.post<Categoria>(this.categoriaURL, categoria, { headers, observe: 'response' });
   }
 
+  deleteCategoria(uuid: string): Observable<HttpResponse<Categoria>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.categoriaURL}/alterar-status/${uuid}/false`;
+    return this.http.put<Categoria>(url, null, { headers, observe: 'response' });
+  }
+
   // Tipo
   getAllTipos(): Observable<Tipo[]> {
     return this.http.get<Tipo[]>(this.tipoURL);
@@ -78,6 +84,12 @@ export class GerenteService {
   addTipo(tipo: Tipo): Observable<HttpResponse<Tipo>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Tipo>(this.tipoURL, tipo, { headers, observe: 'response' });
+  }
+
+  deleteTipo(uuid: string): Observable<HttpResponse<Tipo>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.tipoURL}/alterar-status/${uuid}/false`;
+    return this.http.put<Tipo>(url, null, { headers, observe: 'response' });
   }
 
   // Contêiner

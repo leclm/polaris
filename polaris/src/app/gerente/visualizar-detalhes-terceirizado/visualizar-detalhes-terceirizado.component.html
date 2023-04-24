@@ -10,17 +10,21 @@
           <p class="title">Dados cadastrais</p>
           <div class="content d-flex justify-content-start ms-3">
             <form class="row g-3">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label for="inputEmpresa" class="form-label">Empresa</label>
-                <p class="form-control"> {{ item.empresa }} </p>
+                <p class="form-control"> {{ item.empresa! | capitalizacao }} </p>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label for="inputCnpj" class="form-label">CNPJ</label>
                 <p class="form-control"> {{ item.cnpj }} </p>
               </div>
-              <div class="col-md-4">
-                <label for="inputTipo" class="form-label">Tipo da Empresa</label>
-                <p class="form-control"> {{ item.servicos[0].nome }} </p>
+              <div class="col-md-12">
+                <label for="inputTipo" class="form-label">Serviços Prestados</label>
+                <div class="ctn-servicos">
+                  <p class="form-control" *ngFor="let childItem of item.servicos">
+                    {{ childItem.nome! | capitalizacao }}
+                  </p>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
@@ -40,11 +44,11 @@
               </div>
               <div class="col-md-4">
                 <label for="inputCidade" class="form-label">Cidade</label>
-                <p class="form-control"> {{ item.endereco.cidade }} </p>
+                <p class="form-control"> {{ item.endereco.cidade! | capitalizacao }} </p>
               </div>
               <div class="col-md-6">
                 <label for="inputEndereco" class="form-label">Endereço</label>
-                <p class="form-control"> {{ item.endereco.logradouro }} </p>
+                <p class="form-control"> {{ item.endereco.logradouro! | capitalizacao }} </p>
               </div>
               <div class="col-md-3">
                 <label for="inputNumero" class="form-label">Número</label>
@@ -52,7 +56,7 @@
               </div>
               <div class="col-md-3 mb-3">
                 <label for="inputComplemento" class="form-label">Complemento</label>
-                <p class="form-control"> {{ item.endereco.complemento }} </p>
+                <p class="form-control"> {{ item.endereco.complemento! | capitalizacao }} </p>
               </div>             
 
               <div class="ctn-btn d-flex justify-content-evenly mt-5">

@@ -12,12 +12,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of categoriaData">
-            <td>{{ item.nome }}</td>
+            <td>{{ item.nome! | capitalizacao }}</td>
             <td>
               <a [routerLink]="['/gerente/editar-categoria', item.categoriaConteinerUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
-              </a>              
-              <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>      
+              <a (click)="didTapOnDelete(item.categoriaConteinerUuid)">
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>   
             </td>
           </tr>
         </tbody>
