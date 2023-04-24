@@ -24,20 +24,25 @@
               <td>{{ item.dataDevolucao }}</td>
               <td>{{ item.cliente }}</td>
               <td>
-                <a [routerLink]="['/gerente/visualizar-conteiner', item.conteinerUuid]">
+                <a [routerLink]="['/gerente/editar-terceirizado', item.conteinerUuid]" alt="Histórico de aluguéis" title="Histórico de aluguéis">
+                  <i class="fa fa-align-justify" aria-hidden="true"></i>
+                </a>
+                <a [routerLink]="['/gerente/visualizar-conteiner', item.conteinerUuid]" alt="Visualizar Detalhes" title="Visualizar Detalhes">
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
-                <a [routerLink]="['/gerente/editar-terceirizado', item.conteinerUuid]">
+                <a [routerLink]="['/gerente/editar-conteiner', item.conteinerUuid]" alt="Editar" title="Editar">
                   <i class="fa fa-user-edit" aria-hidden="true"></i>
-                </a>              
-                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                </a>
+                <a [routerLink]="['/gerente/editar-terceirizado', item.conteinerUuid]" alt="Excluir" title="Excluir">
+                  <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                </a>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="ctn-btn d-flex justify-content-evenly mt-5">
-          <a [routerLink]="['/gerente/manter-terceirizado']">Cadastrar Contêiner</a>
-        </div>
+      </div>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a [routerLink]="['/gerente/manter-conteiner']">Cadastrar Contêiner</a>
       </div>
     </div>
   </div>

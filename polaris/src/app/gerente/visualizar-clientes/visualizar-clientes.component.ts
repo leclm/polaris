@@ -69,15 +69,15 @@ export class VisualizarClientesComponent implements OnInit {
     ]
   }
 
-  constructor( private _gerenteServiceAPI: GerenteService ) { }
+  constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this._gerenteServiceAPI.getClienteData().subscribe( (res: any) => {
+    this.gerenteService.getClienteData().subscribe( (res: any) => {
         this.clienteData = res;
       }
     )
 
-    this._gerenteServiceAPI.getAluguelData().subscribe( (res: any) => {
+    this.gerenteService.getAluguelData().subscribe( (res: any) => {
         this.aluguelData = res;
       }
     )

@@ -1,0 +1,130 @@
+<div class="manter-conteiner container-fluid mt-4 mb-4">
+    <div class="container-content mb-4 p-4">
+      <h1>Cadastrar Novo Contêiner</h1>
+  
+      <div class="line-bottom mb-5"></div>
+  
+      <div [ngSwitch]="statusMsg">
+        <div *ngSwitchCase="'success'">
+          <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+            Cadastro realizado com sucesso!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+        <div *ngSwitchCase="'fail'">
+          <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+            Falha ao cadastrar, confira os dados e tente novamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <p class="title">Dados cadastrais</p>
+        <div class="content d-flex ms-3">
+          <form class="row g-3" #formConteiner="ngForm" (ngSubmit)="cadastrar()">
+            <div class="col-md-3">
+              <label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
+              <input class="form-control" placeholder="yyyy-mm-dd" name="fabricacao" [(ngModel)]="conteiner.fabricacao">
+            </div>
+
+            
+
+            <!--<div class="col-md-4">
+              <label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
+              <input type="text" class="form-control" id="fabricacao" name="fabricacao" bsDatepicker [(ngModel)]="conteiner.fabricacao" calendarWeeks required>
+              <div class="invalid-feedback">Date is required</div>
+            </div>-->
+            
+            <div class="col-md-3">
+              <label for="inputFabricante" class="form-label">Fabricante</label>
+              <input type="text" class="form-control" id="inputFabricante" [(ngModel)]="conteiner.fabricante" name="fabricante">
+            </div>
+            
+            <div class="col-md-3">
+              <label for="inputCor" class="form-label">Cor</label>
+              <input type="text" class="form-control" id="inputCor" [(ngModel)]="conteiner.cor" name="cor">
+            </div>
+                        
+            <div class="col-md-3">
+              <label for="inputMaterial" class="form-label">Material</label>
+              <input type="text" class="form-control" id="inputMaterial" [(ngModel)]="conteiner.material" name="material">
+            </div>     
+  
+            <div class="col-md-6">         
+              <label for="inputCategoria" class="form-label">Categoria</label>
+              <select class="form-select" id="inputCategoria" aria-label="categoria" name="categoria" [(ngModel)]="conteiner.categoria">
+                <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome}}</option>
+              </select>
+            </div>
+  
+            <div class="col-md-6">         
+              <label for="inputTipo" class="form-label">Tipo</label>
+              <select class="form-select" id="inputTipo" aria-label="tipo" name="tipo" [(ngModel)]="conteiner.tipo">
+                <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome}}</option>
+              </select>
+            </div>
+
+            <!--<div class="col-md-4">
+              <label for="inputLargura" class="form-label">Largura</label>
+              <p class="form-control"> {{ tiposCadastrados[0].largura }} </p>
+            </div>
+            <div class="col-md-4">
+              <label for="inputComprimento" class="form-label">Comprimento</label>
+              <p class="form-control"> {{ tiposCadastrados[0].comprimento }} </p>
+            </div>
+            <div class="col-md-4">
+              <label for="inputAltura" class="form-label">Altura</label>
+              <p class="form-control"> {{ tiposCadastrados[0].altura }} </p>
+            </div>
+            <div class="col-md-4">
+              <label for="inputVolume" class="form-label">Volume</label>
+              <p class="form-control"> {{ tiposCadastrados[0].volume }} </p>
+            </div>
+            <div class="col-md-4">
+              <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
+              <p class="form-control"> {{ tiposCadastrados[0].pesoMaximo }} </p>
+            </div>
+            <div class="col-md-4">
+              <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
+              <p class="form-control"> {{ tiposCadastrados[0].valorDiaria }} </p>
+            </div>
+            <div class="col-md-4">
+              <label for="inputValorMensal" class="form-label">Valor por Mês</label>
+              <p class="form-control"> {{ tiposCadastrados[0].valorMensal }} </p>
+            </div> -->
+
+            <div class="col-md-12"></div>
+
+            <div class="col-md-4">         
+              <label for="inputStatus" class="form-label">Status</label>
+              <select class="form-select" id="inputStatus" aria-label="status" name="status" [(ngModel)]="conteiner.conteinerUuid">
+                <option *ngFor="let item of status" [value]="item">{{item}}</option>
+              </select>
+            </div>
+
+
+            <div class="col-md-4">         
+              <label for="inputEmpresa" class="form-label">Empresa</label>
+              <select class="form-select" id="inputEmpresa" aria-label="empresa" name="empresa" [(ngModel)]="conteiner.conteinerUuid">
+                <option *ngFor="let item of terceirizadosCadastrados" [value]="item.empresa">{{item.empresa}}</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
+              <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" [(ngModel)]="conteiner.conteinerUuid">
+            </div>
+            <div class="col-md-12">
+              <label for="inputComentario" class="form-label">Comentário</label>
+              <textarea class="form-control" id="inputComentario" name="inputComentario" rows="4" cols="50"name="dataProcedimento" [(ngModel)]="conteiner.conteinerUuid"></textarea>
+            </div>
+  
+            <div class="ctn-btn d-flex justify-content-evenly mt-5">
+              <button type="submit">Cadastrar</button>
+              <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
+            </div>
+          </form>
+        </div>
+      </div>  
+  </div>

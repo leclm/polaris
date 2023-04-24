@@ -1,10 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ViaCepService } from 'src/app/shared';
 import { GerenteService } from '../services';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { Servico } from 'src/app/models/servico.model';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-manter-terceirizado',
@@ -15,12 +15,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 export class ManterTerceirizadoComponent implements OnInit {
   public statusMsg!: string;
   public servicosCadastrados: Servico[] = [];
-
-  public servico: Servico = {
-    servicoUuid: '',
-    nome: '',
-    checked: false
-  }
+  public selectedOptions: string[] = [];
   
   public endereco: Endereco = {
     cep: '',
@@ -46,8 +41,19 @@ export class ManterTerceirizadoComponent implements OnInit {
     this.getAllServicos();
   }
 
+  onCheckboxChange(item: any) {
+    this.selectedOptions = this.servicosCadastrados.filter((i: any) => i.checked).map((i: any) => i.servicoUuid);
+  }
+
+  getAllServicos() {
+    this.gerenteService.getAllServicos()
+    .subscribe( response => {
+      this.servicosCadastrados = response;
+    })
+  }
+
   cadastrar() {
-    this.terceirizado.listaServicos = [this.servico.servicoUuid];
+    this.terceirizado.listaServicos = this.selectedOptions;
     this.gerenteService.addTerceirizado(this.terceirizado).subscribe(
       (response: HttpResponse<Terceirizado>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -70,13 +76,5 @@ export class ManterTerceirizadoComponent implements OnInit {
       this.endereco.estado = data.uf;
       this.endereco.logradouro = data.logradouro;
     });
-  }
-  
-
-  getAllServicos() {
-    this.gerenteService.getAllServicos()
-    .subscribe( response => {
-      this.servicosCadastrados = response;
-    })
   }
 }

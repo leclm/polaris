@@ -1,0 +1,127 @@
+<div class="editar-conteiner container-fluid mt-4 mb-4">
+    <div *ngFor="let item of conteinerData">
+      <div *ngIf="item.conteinerUuid == item.conteinerUuid">
+        <div class="container-content mb-4 p-4">
+          <h1>Editar Contêiner</h1>
+  
+          <div class="line mb-5"></div>
+          
+          <div [ngSwitch]="statusMsg">
+            <div *ngSwitchCase="'success'">
+              <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+                Edição realizada com sucesso!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+            <div *ngSwitchCase="'fail'">
+              <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+                Falha ao editar, confira os dados e tente novamente.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <p class="title">Dados cadastrais</p>
+            <div class="content d-flex ms-3">
+              <form class="row g-3" #formConteiner="ngForm" (ngSubmit)="editar()">
+                <div class="col-md-3">
+									<label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
+                  <input class="form-control" type="text" id="inputFabricacao" name="fabricacao" [(ngModel)]="conteinerById.fabricacao" empresa="ngModel">
+                </div>
+
+								<div class="col-md-3">
+									<label for="inputFabricante" class="form-label">Fabricante</label>
+                  <input class="form-control" type="text" id="inputFabricante" name="fabricante" [(ngModel)]="conteinerById.fabricante" empresa="ngModel">
+                </div>
+
+								<div class="col-md-3">
+									<label for="inputCor" class="form-label">Cor</label>
+                  <input class="form-control" type="text" id="inputCor" name="cor" [(ngModel)]="conteinerById.cor" empresa="ngModel">
+                </div>
+
+								<div class="col-md-3">
+									<label for="inputMaterial" class="form-label">Material</label>
+                  <input class="form-control" type="text" id="inputMaterial" name="material" [(ngModel)]="conteinerById.material" empresa="ngModel">
+                </div>
+
+								<div class="col-md-4">         
+                  <label for="inputCategoria" class="form-label">Categoria</label>
+                  <select class="form-select" id="inputCategoria" aria-label="Categoria" [(ngModel)]="conteinerById.categoria" name="categoria">
+                    <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome}}</option>
+                  </select>
+                </div>
+
+								<div class="col-md-4">         
+                  <label for="inputTipo" class="form-label">Tipo</label>
+                  <select class="form-select" id="inputTipo" aria-label="tipo" [(ngModel)]="conteinerById.tipo" name="tipo">
+                    <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome}}</option>
+                  </select>
+                </div>
+
+								<div class="col-md-4">         
+                  <label for="inputStatus" class="form-label">Status</label>
+                  <select class="form-select" id="inputStatus" aria-label="status" [(ngModel)]="conteinerById.fabricante" name="status">
+                    <option *ngFor="let item of status" [value]="item">{{item}}</option>
+                  </select>
+                </div>
+
+
+                <!--<div class="col-md-4">
+                  <label for="inputCnpj" class="form-label">CNPJ</label>
+                  <input type="text" class="form-control" id="inputCnpj" value="{{item.cnpj}}" >
+                </div>
+  
+                <div class="col-md-4">         
+                  <label for="inputNome" class="form-label">Tipo de Empresa</label>
+                  <select class="form-select" id="inputNome" aria-label="Tipo de empresa" [(ngModel)]="conteinerById.listaServicos" name="listaServicos">
+                    <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.nome}}</option>
+                  </select>
+                </div>
+      
+                <div class="col-md-6">
+                  <label for="inputTelefone" class="form-label">Telefone</label>
+                  <input type="tel" class="form-control" id="inputTelefone" value="{{terceirizadoById.telefone}}" [(ngModel)]="terceirizadoById.telefone" name="telefone">
+                </div>
+  
+                <div class="col-md-6">
+                  <label for="inputEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="inputEmail" value="{{terceirizadoById.email}}" [(ngModel)]="terceirizadoById.email" name="email">
+                </div>
+          
+                <div class="col-md-4">
+                  <label for="inputCep" class="form-label">CEP</label>
+                  <input type="text" class="form-control" id="inputCep" value="{{terceirizadoById.endereco.cep}}" [(ngModel)]="terceirizadoById.endereco.cep" name="cep">
+                </div>
+                <div class="col-md-4">
+                  <label for="inputEstado" class="form-label">Estado</label>
+                  <input type="text" class="form-control" id="inputEstado" value="{{terceirizadoById.endereco.estado}}" [(ngModel)]="terceirizadoById.endereco.estado" name="estado">
+                </div>
+                <div class="col-md-4">
+                  <label for="inputCidade" class="form-label">Cidade</label>
+                  <input type="text" class="form-control" id="inputCidade" value="{{terceirizadoById.endereco.cidade}}" [(ngModel)]="terceirizadoById.endereco.cidade" name="cidade">
+                </div>
+                <div class="col-md-6">
+                  <label for="inputEndereco" class="form-label">Endereço</label>
+                  <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso" value="{{terceirizadoById.endereco.logradouro}}" [(ngModel)]="terceirizadoById.endereco.logradouro" name="logradouro">
+                </div>
+                <div class="col-md-3">
+                  <label for="inputNumero" class="form-label">Número</label>
+                  <input type="number" class="form-control" id="inputNumero" placeholder="123" value="{{terceirizadoById.endereco.numero}}" [(ngModel)]="terceirizadoById.endereco.numero" name="numero">
+                </div>
+               <div class="col-md-3 mb-3">
+                  <label for="inputComplemento" class="form-label">Complemento</label>
+                  <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" value="{{terceirizadoById.endereco.complemento}}" [(ngModel)]="terceirizadoById.endereco.complemento" name="complemento">
+                </div> -->
+  
+                <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                  <button type="submit">Salvar Alterações</button>
+                  <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
+                </div>
+              </form>
+            </div>
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>

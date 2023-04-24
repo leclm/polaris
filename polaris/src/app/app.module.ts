@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
@@ -23,6 +22,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   suffix: "",
   thousands: "."
 };
+
 registerLocaleData(localePt, 'pt');
 
 @NgModule({

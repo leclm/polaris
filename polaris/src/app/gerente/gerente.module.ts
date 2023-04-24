@@ -22,6 +22,8 @@ import { RouterModule } from '@angular/router';
 import { GerenteService } from './services';
 import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-conteineres/visualizar-estoque-conteineres.component';
 import { VisualizarConteinerComponent } from './visualizar-conteiner/visualizar-conteiner.component';
+import { ManterConteinerComponent } from './manter-conteiner/manter-conteiner.component';
+import { EditarConteinerComponent } from './editar-conteiner/editar-conteiner.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { VisualizarConteinerComponent } from './visualizar-conteiner/visualizar-
     VisualizarTiposComponent,
     CapitalizacaoPipe,
     VisualizarEstoqueConteineresComponent,
-    VisualizarConteinerComponent    
+    VisualizarConteinerComponent,
+    ManterConteinerComponent,
+    EditarConteinerComponent    
   ],
   imports: [
     CommonModule,

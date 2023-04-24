@@ -9,10 +9,10 @@ import { GerenteService } from '../services';
 export class VisualizarCategoriasComponent implements OnInit {
   public categoriaData: any;
 
-  constructor( private gerenteServiceAPI: GerenteService ) { }
+  constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.gerenteServiceAPI.getAllCategorias().subscribe( (res: any) => {
+    this.gerenteService.getAllCategorias().subscribe( (res: any) => {
         this.categoriaData = res;
       }
     )
