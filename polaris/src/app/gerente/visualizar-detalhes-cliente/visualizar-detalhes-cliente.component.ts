@@ -11,12 +11,12 @@ export class VisualizarDetalhesClienteComponent implements OnInit {
   //public clienteData: any;
   public clienteId: any;
 
-  constructor( private _gerenteServiceAPI: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.clienteId = this.activatedRoute.snapshot.params['id'];
     
-    /*this._gerenteServiceAPI.getClienteData().subscribe( (res: any) => {
+    /*this.gerenteService.getClienteData().subscribe( (res: any) => {
         this.clienteData = res;
       }
     )*/

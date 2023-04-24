@@ -10,9 +10,7 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { GerenteModule } from './gerente/gerente.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FormsModule } from '@angular/forms';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -40,10 +38,7 @@ registerLocaleData(localePt, 'pt');
     NgxMaskModule.forRoot(),
     CurrencyMaskModule,
     GerenteModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    FormsModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CURRENCY_MASK_CONFIG },

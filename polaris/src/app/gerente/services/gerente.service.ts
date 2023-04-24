@@ -33,20 +33,21 @@ export class GerenteService {
     const url = `${this.terceirizadoURL}/${id}`;
     return this.http.get<Terceirizado>(url);
   }
-
-  putTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Terceirizado>(this.terceirizadoURL, terceirizado, { headers, observe: 'response' });
-  }
   
   addTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Terceirizado>(this.terceirizadoURL, terceirizado, { headers, observe: 'response' });
   }
+  
+  editarTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Terceirizado>(this.terceirizadoURL, terceirizado, { headers, observe: 'response' });
+  }
 
-  deleteTerceirizado(id: string, status: string): Observable<Terceirizado> {
-    const url = `${this.terceirizadoURL}/alterar-status/${id}/${status}`;
-    return this.http.delete<Terceirizado>(url);
+  deleteTerceirizado(uuid: string): Observable<HttpResponse<Terceirizado>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.terceirizadoURL}/alterar-status/${uuid}/false`;
+    return this.http.put<Terceirizado>(url, null, { headers, observe: 'response' });
   }
 
   // Categoria
@@ -108,7 +109,7 @@ export class GerenteService {
   getAllServicos(): Observable<Servico[]> {
     return this.http.get<Servico[]>(this.servicoURL);
   }
-
+  
   // old
   getClienteData() {
     return this.http.get('http://localhost:8283/cliente');

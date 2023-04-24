@@ -9,18 +9,28 @@ import { GerenteService } from '../services';
 export class VisualizarTerceirizadosComponent implements OnInit {
   public servicoData: any;
   public terceirizadoData: any;
+  public terceirizadoUuid!: string;
 
-  constructor( private gerenteServiceAPI: GerenteService ) { }
+  constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.gerenteServiceAPI.getAllServicos().subscribe( (res: any) => {
+    this.gerenteService.getAllServicos().subscribe( (res: any) => {
         this.servicoData = res;
       }
-    )
-
-    this.gerenteServiceAPI.getAllTerceirizadosAtivos().subscribe( (res: any) => {
-        this.terceirizadoData = res;
-      }
-    )
+    );
+    this.loadData();
   }
+
+  loadData() {
+    this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => {
+      this.terceirizadoData = res;
+    })
+  };
+
+  didTapOnDelete(uuid: string) {
+    this.gerenteService.deleteTerceirizado(uuid).subscribe(
+      response => this.loadData(),
+      error => console.error(error)
+    )
+  };
 }

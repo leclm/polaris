@@ -33,14 +33,12 @@
               </a>
               <a [routerLink]="['/gerente/editar-terceirizado', item.terceirizadoUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
-              </a>              
-              <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>      
+              <a (click)="didTapOnDelete(item.terceirizadoUuid)">
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>             
             </td>
           </tr>
-          <!--
-            <a [routerLink]="['/gerente/visualizar-detalhes-cliente', item.id]" href="#">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-            </a>-->
         </tbody>
       </table>
       <div class="ctn-btn d-flex justify-content-evenly mt-5">

@@ -40,6 +40,12 @@ $white: #fff;
       height: 37px;
       margin: 0;
     }
+    .ctn-servicos {
+      display: flex;
+      div {
+        margin-left: 20px;
+      }
+    }
     .ctn-btn {
       flex-direction: column;
       align-items: center;

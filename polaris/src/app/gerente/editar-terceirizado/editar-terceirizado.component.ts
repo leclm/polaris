@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GerenteService } from '../services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { NgForm } from '@angular/forms';
 import { Servico } from 'src/app/models/servico.model';
@@ -15,23 +15,43 @@ import { Endereco } from 'src/app/models/endereco.model';
 export class EditarTerceirizadoComponent implements OnInit {
   public terceirizadoUuid: any;
   public terceirizadoById!: Terceirizado;
-  public servicosCadastrados: Servico[] = [];  
+  public servicosCadastrados: Servico[] = []; 
+  public servicosAtuaisTerceirizado: Servico[] = [];  
   public terceirizadoData: any;
   public statusMsg!: string;
+  public selectedOptions: string[] = [];
+  
+  public endereco: Endereco = {
+    cep: '',
+    cidade: '',
+    estado: '',
+    logradouro: '',
+    complemento: '',
+    numero: NaN
+  }
+
+  public terceirizado: Terceirizado = {
+    terceirizadoUuid: '',
+    empresa: '',
+    cnpj: '',
+    email: '',
+    telefone: '',
+    endereco: this.endereco,
+    listaServicos: []
+  }
 
   public servico: Servico = {
     servicoUuid: '',
     nome: '',
-    checked: false
+    checked: true
   }
-  
+
   @ViewChild("formTerceirizado") formTerceirizado!: NgForm;
 
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private router: Router ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.terceirizadoUuid = this.activatedRoute.snapshot.params['id']; 
-
     this.gerenteService.getAllTerceirizados().subscribe( (res: any) => {
         this.terceirizadoData = res;
       }
@@ -39,20 +59,49 @@ export class EditarTerceirizadoComponent implements OnInit {
 
     this.gerenteService.getTerceirizadoById(this.terceirizadoUuid).subscribe( (res: any) => {
         this.terceirizadoById = res;
-        console.log(this.terceirizadoById);
+        this.terceirizado.terceirizadoUuid = this.terceirizadoUuid;
+        this.terceirizado.empresa = this.terceirizadoById.empresa;
+        this.terceirizado.cnpj = this.terceirizadoById.cnpj;
+        this.terceirizado.email = this.terceirizadoById.email;
+        this.terceirizado.telefone = this.terceirizadoById.telefone;
+        this.terceirizado.endereco = this.terceirizadoById.endereco;
+        
+        this.servicosAtuaisTerceirizado = res.servicos;
+        for (let i = 0; i < this.servicosAtuaisTerceirizado.length; i++) {
+          this.servicosAtuaisTerceirizado[i].checked = true;
+        }
+        //console.log(this.servicosAtuaisTerceirizado);
+      
+
+        this.terceirizado.listaServicos = res.servicos.map((i: any) => i.servicoUuid);
+       // console.log(this.terceirizado.listaServicos);
+        
+        //console.log(this.terceirizadoById);
       }
     )
 
     this.gerenteService.getAllServicos().subscribe( (res: any) => {
         this.servicosCadastrados = res;
+        //console.log(this.servicosCadastrados);
       }
     )
   }
 
+  onCheckboxChange(item: any) {
+    this.selectedOptions = this.servicosCadastrados.filter((i: any) => i.checked).map((i: any) => i.servicoUuid);
+    this.terceirizado.listaServicos = this.selectedOptions;
+    //console.log(this.terceirizado.listaServicos);
+    //console.log(this.selectedOptions);
+  }
+
+  getCheckedItems() {
+    return this.servicosAtuaisTerceirizado.filter(item => item.checked);
+  }
+  
   editar() {
-    this.terceirizadoById.listaServicos = [this.servico.servicoUuid];
-    console.log(this.terceirizadoById);
-    this.gerenteService.putTerceirizado(this.terceirizadoById).subscribe(
+    //this.terceirizado.listaServicos = this.selectedOptions;
+    //console.log(this.terceirizado);
+    this.gerenteService.editarTerceirizado(this.terceirizado).subscribe(
       (response: HttpResponse<Terceirizado>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';

@@ -25,55 +25,57 @@
           <p class="title">Dados cadastrais</p>
           <div class="content d-flex ms-3">
             <form class="row g-3" #formTerceirizado="ngForm" (ngSubmit)="editar()">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label for="inputEmpresa" class="form-label">Nome da Empresa</label>
-                <input type="text" class="form-control" id="inputEmpresa" name="empresa" [(ngModel)]="terceirizadoById.empresa" #empresa="ngModel">
+                <input type="text" class="form-control" id="inputEmpresa" name="empresa" [(ngModel)]="terceirizado.empresa" #empresa="ngModel">
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label for="inputCnpj" class="form-label">CNPJ</label>
                 <input type="text" class="form-control" id="inputCnpj" value="{{item.cnpj}}" >
-              </div>
+              </div>       
 
-              <div class="col-md-4">         
-                <label for="inputNome" class="form-label">Tipo de Empresa</label>
-                <select class="form-select" id="inputNome" aria-label="Tipo de empresa" [(ngModel)]="terceirizadoById.listaServicos" name="listaServicos">
-                  <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.nome}}</option>
-                </select>
+              <div class="col-md-12 mt-4 ctn-servicos">
+                <label>Serviço Prestado: </label>
+                <div *ngFor="let item of servicosCadastrados">
+                  <label>
+                    <input type="checkbox" name="nome" [(ngModel)]="item.checked"  (change)="onCheckboxChange(item)"> {{item.nome}}
+                  </label>
+                </div>
               </div>
     
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
-                <input type="tel" class="form-control" id="inputTelefone" value="{{terceirizadoById.telefone}}" [(ngModel)]="terceirizadoById.telefone" name="telefone">
+                <input type="tel" class="form-control" id="inputTelefone" value="{{terceirizado.telefone}}" [(ngModel)]="terceirizado.telefone" name="telefone">
               </div>
 
               <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail" value="{{terceirizadoById.email}}" [(ngModel)]="terceirizadoById.email" name="email">
+                <input type="email" class="form-control" id="inputEmail" value="{{terceirizado.email}}" [(ngModel)]="terceirizado.email" name="email">
               </div>
         
               <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="inputCep" value="{{terceirizadoById.endereco.cep}}" [(ngModel)]="terceirizadoById.endereco.cep" name="cep">
+                <input type="text" class="form-control" id="inputCep" value="{{terceirizado.endereco.cep}}" [(ngModel)]="terceirizado.endereco.cep" name="cep">
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="inputEstado" value="{{terceirizadoById.endereco.estado}}" [(ngModel)]="terceirizadoById.endereco.estado" name="estado">
+                <input type="text" class="form-control" id="inputEstado" value="{{terceirizado.endereco.estado}}" [(ngModel)]="terceirizado.endereco.estado" name="estado">
               </div>
               <div class="col-md-4">
                 <label for="inputCidade" class="form-label">Cidade</label>
-                <input type="text" class="form-control" id="inputCidade" value="{{terceirizadoById.endereco.cidade}}" [(ngModel)]="terceirizadoById.endereco.cidade" name="cidade">
+                <input type="text" class="form-control" id="inputCidade" value="{{terceirizado.endereco.cidade}}" [(ngModel)]="terceirizado.endereco.cidade" name="cidade">
               </div>
               <div class="col-md-6">
                 <label for="inputEndereco" class="form-label">Endereço</label>
-                <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso" value="{{terceirizadoById.endereco.logradouro}}" [(ngModel)]="terceirizadoById.endereco.logradouro" name="logradouro">
+                <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso" value="{{terceirizado.endereco.logradouro}}" [(ngModel)]="terceirizado.endereco.logradouro" name="logradouro">
               </div>
               <div class="col-md-3">
                 <label for="inputNumero" class="form-label">Número</label>
-                <input type="number" class="form-control" id="inputNumero" placeholder="123" value="{{terceirizadoById.endereco.numero}}" [(ngModel)]="terceirizadoById.endereco.numero" name="numero">
+                <input type="number" class="form-control" id="inputNumero" placeholder="123" value="{{terceirizado.endereco.numero}}" [(ngModel)]="terceirizado.endereco.numero" name="numero">
               </div>
              <div class="col-md-3 mb-3">
                 <label for="inputComplemento" class="form-label">Complemento</label>
-                <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" value="{{terceirizadoById.endereco.complemento}}" [(ngModel)]="terceirizadoById.endereco.complemento" name="complemento">
+                <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" value="{{terceirizado.endereco.complemento}}" [(ngModel)]="terceirizado.endereco.complemento" name="complemento">
               </div>
 
               <div class="ctn-btn d-flex justify-content-evenly mt-5">

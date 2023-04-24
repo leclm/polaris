@@ -9,10 +9,10 @@ import { GerenteService } from '../services';
 export class VisualizarTiposComponent implements OnInit {
   public tipoData: any;
 
-  constructor( private gerenteServiceAPI: GerenteService ) { }
+  constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.gerenteServiceAPI.getAllTipos().subscribe( (res: any) => {
+    this.gerenteService.getAllTipos().subscribe( (res: any) => {
         this.tipoData = res;
       }
     )
