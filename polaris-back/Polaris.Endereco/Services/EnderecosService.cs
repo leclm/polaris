@@ -67,16 +67,17 @@ namespace Polaris.Endereco.Services
 
             var endereco = await _context.EnderecoRepository.GetByParameter(p => p.EnderecoUuid == enderecoDto.EnderecoUuid);
 
-            if (endereco.EnderecoId != 0)
+            if (endereco != null && endereco.EnderecoId != 0)
             {
-                var enderecoMap = _mapper.Map<Models.Endereco>(enderecoDto);
-                var enderecoBase = await _context.EnderecoRepository.GetByParameter(p => p.EnderecoUuid == enderecoMap.EnderecoUuid);
-                enderecoMap.Status = enderecoBase.Status;
+                endereco.Cep = enderecoDto.Cep;
+                endereco.Cidade = enderecoDto.Cidade;
+                endereco.Estado = enderecoDto.Estado;
+                endereco.Logradouro = enderecoDto.Logradouro;
+                endereco.Complemento = enderecoDto.Complemento;
+                endereco.Numero = enderecoDto.Numero;
+                StringUtils.ClassToUpper(endereco);
 
-                StringUtils.ClassToUpper(enderecoMap);
-                enderecoMap.EnderecoId = endereco.EnderecoId;
-
-                _context.EnderecoRepository.Update(enderecoMap);
+                _context.EnderecoRepository.Update(endereco);
                 await _context.Commit();
             }
             else
