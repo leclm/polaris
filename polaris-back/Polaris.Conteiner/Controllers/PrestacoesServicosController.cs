@@ -203,7 +203,7 @@ namespace Polaris.Conteiner.Controllers
         /// </returns>
         // ALTERAR STATUS: api/PrestacoesServico/uuid/status
         [HttpPut("alterar-status/{uuid}/{status}")]
-        public async Task<ActionResult> AlterarStatus(Guid uuid, ServicoStatus status)
+        public async Task<ActionResult> AlterarStatus(Guid uuid, EstadoConteiner status)
         {
             try
             {

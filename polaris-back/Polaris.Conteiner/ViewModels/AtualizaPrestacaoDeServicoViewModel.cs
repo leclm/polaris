@@ -9,7 +9,7 @@ namespace Polaris.Conteiner.ViewModels
         public Guid PrestacaoDeServicoUuid { get; set; }
         [NotNull]
         [Required]
-        public ServicoStatus Status { get; set; }
+        public EstadoConteiner Status { get; set; }
         [NotNull]
         [Required]
         public DateTime DataProcedimento { get; set; }

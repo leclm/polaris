@@ -71,7 +71,7 @@ namespace Polaris.Conteiner.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Cor = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Disponivel = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CategoriaConteinerId = table.Column<int>(type: "int", nullable: false),
                     TipoConteinerId = table.Column<int>(type: "int", nullable: false)

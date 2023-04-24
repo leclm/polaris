@@ -11,7 +11,7 @@ using Polaris.Conteiner.Context;
 namespace Polaris.Conteiner.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230424014621_PrimeiraMigration")]
+    [Migration("20230424174441_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -67,8 +67,8 @@ namespace Polaris.Conteiner.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<bool>("Disponivel")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fabricacao")
                         .HasColumnType("datetime(6)");

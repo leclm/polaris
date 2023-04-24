@@ -64,8 +64,8 @@ namespace Polaris.Conteiner.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<bool>("Disponivel")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fabricacao")
                         .HasColumnType("datetime(6)");

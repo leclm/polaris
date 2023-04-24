@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Polaris.Conteiner.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Conteiner.ViewModels
@@ -17,6 +18,7 @@ namespace Polaris.Conteiner.ViewModels
         [NotNull]
         [Required]
         public string? Material { get; set; }
+        public EstadoConteiner Estado { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite uma cor.")]
         [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]

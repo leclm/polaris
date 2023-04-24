@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Polaris.Conteiner.Enums;
 using Polaris.Conteiner.Services;
 using Polaris.Conteiner.ViewModels;
 using static Polaris.Conteiner.Exceptions.CustomExceptions;
@@ -215,6 +216,7 @@ namespace Polaris.Conteiner.Controllers
         ///  "conteinerUuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",  <br />
         /// "fabricacao": "2023-04-13", <br />
         /// "fabricante": "Volvo", <br />
+        /// "estado": 1-8, <br />
         ///  "material": "Metal", <br />
         ///  "cor": "Cinza", <br />
         ///  "categoria": "3fa85f64-5717-4562-b3fc-2c963f66afa6", <br />
@@ -273,7 +275,7 @@ namespace Polaris.Conteiner.Controllers
         }
 
         /// <summary>
-        /// Este endpoint deve alterar para disponivel ou indisponivel para locação um conteiner via Guid
+        /// Este endpoint deve alteraro estado de disponibilidade de um conteiner para locação via Guid
         /// </summary>
         /// <returns>
         /// Retorna 201 caso sucesso
@@ -281,12 +283,12 @@ namespace Polaris.Conteiner.Controllers
         /// Retorna 500 caso erro interno         
         /// </returns>
         // ALTERAR STATUS: api/Conteineres/uuid/status
-        [HttpPut("alterar-disponibilidade/{uuid}/{disponibilidade}")]
-        public async Task<ActionResult> AlterarDisponibilidade(Guid uuid, bool disponibilidade)
+        [HttpPut("alterar-disponibilidade/{uuid}/{estado}")]
+        public async Task<ActionResult> AlterarDisponibilidade(Guid uuid, EstadoConteiner estado)
         {
             try
             {
-                await _service.AlterarDisponibilidade(uuid, disponibilidade);
+                await _service.AlterarDisponibilidade(uuid, estado);
                 return Ok();
             }
             catch (ConteinerNaoEncontradoException ex)

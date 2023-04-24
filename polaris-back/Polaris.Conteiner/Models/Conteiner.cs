@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Polaris.Conteiner.Enums;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -29,7 +30,7 @@ namespace Polaris.Conteiner.Models
         [NotNull]
         [Required]
         public string? Cor { get; set; }
-        public bool Disponivel { get; set; }
+        public EstadoConteiner Estado { get; set; }
         public bool Status { get; set; }
 
         [ForeignKey("CategoriaConteiner")]
