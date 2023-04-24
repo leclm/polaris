@@ -119,8 +119,6 @@ namespace Polaris.Servico.Services
 
         public async Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
         {
-            //StringUtils.ClassToUpper(terceirizadoDto);
-
             if (terceirizadoDto.TerceirizadoUuid == Guid.Empty)
             {
                 throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
@@ -128,7 +126,7 @@ namespace Polaris.Servico.Services
 
             var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoDto.TerceirizadoUuid);
 
-            if (terceirizado == null)
+            if (terceirizado == null || terceirizado.TerceirizadoId == 0)
             {
                 throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
             }
@@ -166,13 +164,13 @@ namespace Polaris.Servico.Services
 
             if (terceirizado.TerceirizadoId != 0)
             {
-                var terceirizadoMap = _mapper.Map<Terceirizado>(terceirizadoDto);
-                var terceirizadoBase = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoMap.TerceirizadoUuid);
-                terceirizadoMap.Status = terceirizadoBase.Status;
-                terceirizadoMap.TerceirizadoId = terceirizado.TerceirizadoId;
-                terceirizadoMap.EnderecoId = terceirizado.EnderecoId;
-                terceirizadoMap.Servicos = servicos;
-                _context.TerceirizadoRepository.Update(terceirizadoMap);
+                terceirizado.Cnpj = terceirizadoDto.Cnpj;
+                terceirizado.Empresa = terceirizadoDto.Empresa;
+                terceirizado.Email = terceirizadoDto.Email;
+                terceirizado.Telefone = terceirizadoDto.Telefone;
+                StringUtils.ClassToUpper(terceirizado);
+                terceirizado.Servicos = servicos;
+                _context.TerceirizadoRepository.Update(terceirizado);
                 await _context.Commit();
             }
             else
