@@ -12,9 +12,17 @@ export class VisualizarTiposComponent implements OnInit {
   constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.gerenteService.getAllTipos().subscribe( (res: any) => {
-        this.tipoData = res;
-      }
-    )
+    this.loadData();
   }
+
+  loadData() {
+    this.gerenteService.getAllTiposAtivos().subscribe( (res: any) => { this.tipoData = res; })
+  };
+
+  didTapOnDelete(uuid: string) {
+    this.gerenteService.deleteTipo(uuid).subscribe(
+      response => this.loadData(),
+      error => console.error(error)
+    )
+  };
 }

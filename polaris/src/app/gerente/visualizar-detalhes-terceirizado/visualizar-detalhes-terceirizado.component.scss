@@ -35,6 +35,12 @@ $white: #fff;
   
   .content {
     flex-direction: column;
+    .ctn-servicos {
+      display: flex;
+      p {
+        margin-right: 20px;
+      }
+    }
     .form-control {
       background-color: $border-gray;
     }

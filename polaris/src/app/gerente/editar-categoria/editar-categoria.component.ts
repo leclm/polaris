@@ -19,7 +19,6 @@ export class EditarCategoriaComponent implements OnInit {
     
     this.gerenteService.getAllCategorias().subscribe( (res: any) => {
         this.categoriaData = res;
-        console.log(this.categoriaData);
       }
     )
   }
