@@ -42,7 +42,6 @@ namespace Polaris.Conteiner.Models
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
         public bool Status { get; set; }
-        [System.Text.Json.Serialization.JsonIgnore]
-        public IEnumerable<Servico>? Servicos { get; set; }
+        public virtual IEnumerable<Servico>? Servicos { get; set; }
     }
 }

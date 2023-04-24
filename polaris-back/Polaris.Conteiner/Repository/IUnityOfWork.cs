@@ -5,6 +5,7 @@
         ITipoConteinerRepository TipoConteinerRepository { get; }
         ICategoriaConteinerRepository CategoriaConteinerRepository { get; }
         IConteinerRepository ConteinerRepository { get; }
+        IPrestacaoServicoRepository PrestacaDeServicoRepository { get; }
         Task Commit();
     }
 }

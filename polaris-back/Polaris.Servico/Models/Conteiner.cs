@@ -1,11 +1,16 @@
-﻿using Polaris.Conteiner.Models;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Conteiner.ViewModels
+namespace Polaris.Servico.Models
 {
-    public class RetornoConteinerViewModel
+    [Table("Conteiner")]
+
+    public class Conteiner
     {
+        [Key]
+        public int ConteinerId { get; set; }
         public Guid ConteinerUuid { get; set; }
         public int Codigo { get; set; }
         public DateTime Fabricacao { get; set; }
@@ -26,8 +31,15 @@ namespace Polaris.Conteiner.ViewModels
         public string? Cor { get; set; }
         public bool Disponivel { get; set; }
         public bool Status { get; set; }
-        public RetornoCategoriaConteinerViewModel CategoriaConteiner { get; set; }
-        public RetornoTipoConteinerViewModel TipoConteiner { get; set; }
 
+        [ForeignKey("CategoriaConteiner")]
+        public int CategoriaConteinerId { get; set; }
+        public virtual CategoriaConteiner? CategoriaConteiner { get; set; }
+
+        [ForeignKey("TipoConteiner")]
+        public int TipoConteinerId { get; set; }
+
+        public virtual TipoConteiner? TipoConteiner { get; set; }
     }
+
 }

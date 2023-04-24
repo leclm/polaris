@@ -94,6 +94,45 @@ namespace Polaris.Conteiner.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "PrestacaoDeServico",
+                columns: table => new
+                {
+                    PrestacaoDeServicoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PrestacaoDeServicoUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    DataProcedimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Comentario = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ConteinerId = table.Column<int>(type: "int", nullable: false),
+                    TerceirizadoId = table.Column<int>(type: "int", nullable: false),
+                    ServicoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrestacaoDeServico", x => x.PrestacaoDeServicoId);
+                    table.ForeignKey(
+                        name: "FK_PrestacaoDeServico_Conteiner_ConteinerId",
+                        column: x => x.ConteinerId,
+                        principalTable: "Conteiner",
+                        principalColumn: "ConteinerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PrestacaoDeServico_Servicos_ServicoId",
+                        column: x => x.ServicoId,
+                        principalTable: "Servicos",
+                        principalColumn: "ServicoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PrestacaoDeServico_Terceirizado_TerceirizadoId",
+                        column: x => x.TerceirizadoId,
+                        principalTable: "Terceirizado",
+                        principalColumn: "TerceirizadoId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_CategoriasConteineres_Nome",
                 table: "CategoriasConteineres",
@@ -117,6 +156,21 @@ namespace Polaris.Conteiner.Migrations
                 column: "TipoConteinerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PrestacaoDeServico_ConteinerId",
+                table: "PrestacaoDeServico",
+                column: "ConteinerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrestacaoDeServico_ServicoId",
+                table: "PrestacaoDeServico",
+                column: "ServicoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrestacaoDeServico_TerceirizadoId",
+                table: "PrestacaoDeServico",
+                column: "TerceirizadoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TiposConteineres_Nome",
                 table: "TiposConteineres",
                 column: "Nome",
@@ -126,6 +180,9 @@ namespace Polaris.Conteiner.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "PrestacaoDeServico");
+
             migrationBuilder.DropTable(
                 name: "Conteiner");
 

@@ -1,4 +1,4 @@
-﻿namespace Polaris.Conteiner.Enums
+﻿namespace Polaris.Servico.Enums
 {
     public enum ServicoStatus
     {

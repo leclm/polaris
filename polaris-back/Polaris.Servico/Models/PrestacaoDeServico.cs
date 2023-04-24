@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using Polaris.Conteiner.Enums;
 
-namespace Polaris.Conteiner.Models
+namespace Polaris.Servico.Models
 {
     [Table("PrestacaoDeServico")]
     public class PrestacaoDeServico
@@ -26,9 +26,9 @@ namespace Polaris.Conteiner.Models
         public virtual Conteiner Conteiner { get; set; }
         [Required]
         [NotNull]
-        [ForeignKey("Terceirizado")]
+        [ForeignKey("Tercerizado")]
         public int TerceirizadoId { get; set; }
-        public virtual Terceirizado Terceirizado { get; set; }
+        public virtual Terceirizado Tercerizado { get; set; }
         [Required]
         [NotNull]
         [ForeignKey("Servico")]

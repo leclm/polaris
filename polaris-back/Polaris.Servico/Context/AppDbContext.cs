@@ -13,6 +13,7 @@ namespace Polaris.Servico.Context
         public DbSet<Models.Servico>? Servicos { get; set; }
         public DbSet<Models.Terceirizado>? Terceirizados { get; set; }
         public DbSet<Models.Endereco>? Enderecos { get; set; }
+        public DbSet<Models.PrestacaoDeServico>? PrestacoesDeServicos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,7 @@ namespace Polaris.Servico.Context
             .IsUnique();
 
             modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<PrestacaoDeServico>().Metadata.SetIsTableExcludedFromMigrations(true);
         }
     }
 }

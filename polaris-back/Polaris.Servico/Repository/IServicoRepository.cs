@@ -1,4 +1,5 @@
-﻿using Polaris.Servico.Pagination;
+﻿using Polaris.Servico.Models;
+using Polaris.Servico.Pagination;
 
 namespace Polaris.Servico.Repository
 {

@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Polaris.Servico.ExternalServices;
 using Polaris.Servico.Models;
 using Polaris.Servico.Repository;
 using Polaris.Servico.Utils;
 using Polaris.Servico.Validation;
 using Polaris.Servico.ViewModels;
-using System;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
 namespace Polaris.Servico.Services
@@ -209,6 +207,18 @@ namespace Polaris.Servico.Services
                 terceirizadosDto.Add(_mapper.Map<RetornoTerceirizadoViewModel>(terceirizado));
             }
             return terceirizadosDto;
+        }
+
+        public async Task<RetornoTerceirizadoViewModel> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
+        {
+            var terceirizado = await _context.TerceirizadoRepository.GetTerceirizadoByPrestacaoDeServico(uuidPrestacaoDeServico);
+
+            if (terceirizado is null)
+            {
+                throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado.");
+            }
+            var terceirizadoDto = _mapper.Map<RetornoTerceirizadoViewModel>(terceirizado);
+            return terceirizadoDto;
         }
     }
 }

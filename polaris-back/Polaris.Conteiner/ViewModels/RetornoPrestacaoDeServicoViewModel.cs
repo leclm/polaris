@@ -17,12 +17,12 @@ namespace Polaris.Conteiner.ViewModels
         public string? Comentario { get; set; }
         [NotNull]
         [Required]
-        public Guid Conteiner { get; set; }
+        public RetornoConteinerViewModel Conteiner { get; set; }
         [NotNull]
         [Required]
-        public Guid Tercerizado { get; set; }
+        public Models.Terceirizado Tercerizado { get; set; }
         [NotNull]
         [Required]
-        public Guid Servico { get; set; }
+        public Models.Servico Servico { get; set; }
     }
 }

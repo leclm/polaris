@@ -43,5 +43,26 @@ namespace Polaris.Servico.Repository
         {
             return await _context.Set<Terceirizado>().AsNoTracking().Where(x => x.TerceirizadoUuid == uuid).Include(x => x.Servicos).FirstOrDefaultAsync();
         }
+
+        public async Task<Models.Terceirizado?> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
+        {
+            using (_context)
+            {
+                var query = (from t in _context.Terceirizados
+                             join p in _context.PrestacoesDeServicos
+                             on t.TerceirizadoId equals p.TerceirizadoId
+                             where p.PrestacaoDeServicoUuid == uuidPrestacaoDeServico
+                             select t);
+
+                if (query is not null && query.Any())
+                {
+                    return query.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
