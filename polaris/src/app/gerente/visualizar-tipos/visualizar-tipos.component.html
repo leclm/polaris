@@ -24,7 +24,7 @@
             <td>{{ item.valorDiaria! | currency }}</td>
             <td>{{ item.valorMensal! | currency }}</td>
             <td>
-              <a  [routerLink]="['/gerente/editar-tipo/2']">
+              <a  [routerLink]="['/gerente/editar-tipo', item.tipoConteinerUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
               <a (click)="didTapOnDelete(item.tipoConteinerUuid)">
