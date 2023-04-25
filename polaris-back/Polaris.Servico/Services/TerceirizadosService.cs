@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Servico.ExternalServices;
 using Polaris.Servico.Models;
 using Polaris.Servico.Repository;
 using Polaris.Servico.Utils;
 using Polaris.Servico.Validation;
 using Polaris.Servico.ViewModels;
+using System.Collections.ObjectModel;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
 namespace Polaris.Servico.Services
@@ -124,7 +126,7 @@ namespace Polaris.Servico.Services
                 throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
             }
 
-            var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == terceirizadoDto.TerceirizadoUuid);
+            var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(terceirizadoDto.TerceirizadoUuid);
 
             if (terceirizado == null || terceirizado.TerceirizadoId == 0)
             {
@@ -162,21 +164,20 @@ namespace Polaris.Servico.Services
                 throw new AtualizarTerceirizadoException("Serviço Inválido. Erro ao atualizar o terceirizado.");
             }
 
-            if (terceirizado.TerceirizadoId != 0)
-            {
-                terceirizado.Cnpj = terceirizadoDto.Cnpj;
-                terceirizado.Empresa = terceirizadoDto.Empresa;
-                terceirizado.Email = terceirizadoDto.Email;
-                terceirizado.Telefone = terceirizadoDto.Telefone;
-                StringUtils.ClassToUpper(terceirizado);
-                terceirizado.Servicos = servicos;
-                _context.TerceirizadoRepository.Update(terceirizado);
-                await _context.Commit();
-            }
-            else
-            {
-                throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
-            }
+           
+            terceirizado.Cnpj = terceirizadoDto.Cnpj;
+            terceirizado.Empresa = terceirizadoDto.Empresa;
+            terceirizado.Email = terceirizadoDto.Email;
+            terceirizado.Telefone = terceirizadoDto.Telefone;
+            StringUtils.ClassToUpper(terceirizado);
+            _context.TerceirizadoRepository.Update(terceirizado);
+            await _context.Commit();
+
+            _context.TerceirizadoRepository.LimpaServicos(terceirizado);
+
+            terceirizado.Servicos = servicos;
+            await _context.Commit();
+
         }
 
         public async Task AlterarStatus(Guid uuid, bool status)

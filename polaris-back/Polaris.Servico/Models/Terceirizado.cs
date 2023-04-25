@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
@@ -10,7 +9,7 @@ namespace Polaris.Servico.Models
     {
         public Terceirizado()
         {
-            Servicos = new Collection<Servico>();
+            Servicos = new List<Servico>();
         }
 
         [Key]

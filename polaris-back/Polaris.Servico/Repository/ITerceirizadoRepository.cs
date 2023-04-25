@@ -11,5 +11,6 @@ namespace Polaris.Servico.Repository
         IEnumerable<Terceirizado> GetTerceirizadosCompleto();
         IEnumerable<Models.Terceirizado> GetTerceirizadosPorServico(string servico);
         Task<Terceirizado> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico);
+        void LimpaServicos(Terceirizado terceirizado);
     }
 }
