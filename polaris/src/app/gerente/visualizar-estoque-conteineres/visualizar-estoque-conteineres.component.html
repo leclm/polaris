@@ -6,9 +6,10 @@
         <table class="table align-middle text-center">
           <thead class="table-light">
             <tr>
-              <th [appSort]="conteinerData" data-order="desc" data-name="categoria">Categoria <i class="fa fa-sort" aria-hidden="true"></i></th>
-              <th [appSort]="conteinerData" data-order="desc" data-name="tipo">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
-              <th [appSort]="conteinerData" data-order="desc" data-name="status">Status <i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th [appSort]="conteinerData" data-order="desc" data-name="codigo">Cód <i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th [appSort]="conteinerData" data-order="desc" data-name="categoriaConteiner.nome">Categoria <i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th [appSort]="conteinerData" data-order="desc" data-name="tipoConteiner.nome">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
+              <th [appSort]="conteinerData" data-order="desc" data-name="estado">Estado <i class="fa fa-sort" aria-hidden="true"></i></th>
               <th [appSort]="conteinerData" data-order="desc" data-name="dataSaida">Data de Saída <i class="fa fa-sort" aria-hidden="true"></i></th>
               <th [appSort]="conteinerData" data-order="desc" data-name="dataDevolucao">Data de Devolução <i class="fa fa-sort" aria-hidden="true"></i></th>
               <th [appSort]="conteinerData" data-order="desc" data-name="cliente">Cliente <i class="fa fa-sort" aria-hidden="true"></i></th>
@@ -17,14 +18,15 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of conteinerData">
+              <td>#{{ item.codigo }}</td>
               <td>{{ item.categoriaConteiner.nome }}</td>
               <td>{{ item.tipoConteiner.nome }}</td>
-              <td>{{ item.status }}</td>
+              <td>{{ item.estado }}</td>
               <td>{{ item.dataSaida }}</td>
               <td>{{ item.dataDevolucao }}</td>
               <td>{{ item.cliente }}</td>
               <td>
-                <a [routerLink]="['/gerente/editar-terceirizado', item.conteinerUuid]" alt="Histórico de aluguéis" title="Histórico de aluguéis">
+                <a [routerLink]="['/gerente/editar-conteiner', item.conteinerUuid]" alt="Histórico de Contêineres" title="Histórico de Contêineres">
                   <i class="fa fa-align-justify" aria-hidden="true"></i>
                 </a>
                 <a [routerLink]="['/gerente/visualizar-conteiner', item.conteinerUuid]" alt="Visualizar Detalhes" title="Visualizar Detalhes">
@@ -32,8 +34,8 @@
                 </a>
                 <a [routerLink]="['/gerente/editar-conteiner', item.conteinerUuid]" alt="Editar" title="Editar">
                   <i class="fa fa-user-edit" aria-hidden="true"></i>
-                </a>
-                <a [routerLink]="['/gerente/editar-terceirizado', item.conteinerUuid]" alt="Excluir" title="Excluir">
+                </a>     
+                <a (click)="didTapOnDelete(item.conteinerUuid)">
                   <i class="fa fa-trash-alt" aria-hidden="true"></i>
                 </a>
               </td>

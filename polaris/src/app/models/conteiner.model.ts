@@ -1,6 +1,6 @@
 export interface Conteiner {
     conteinerUuid: string;
-    codigo?: number;
+    codigo: number;
     fabricacao: string;
     fabricante: string;
     material: string;

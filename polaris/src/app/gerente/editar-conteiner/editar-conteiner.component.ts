@@ -7,8 +7,18 @@ import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { HttpResponse } from '@angular/common/http';
-import { Servico } from 'src/app/models/servico.model';
-import { Endereco } from 'src/app/models/endereco.model';
+
+enum EstadoConteiner {
+  Cancelado = 0,
+  Disponível = 1,
+  Manutenção = 2,
+  Limpeza = 3,
+  Locado = 4,
+  Atrasado = 5,
+  Reservado = 6,
+  Indisponível = 7,
+  Vistoria = 8
+};
 
 @Component({
   selector: 'app-editar-conteiner',
@@ -17,7 +27,6 @@ import { Endereco } from 'src/app/models/endereco.model';
 })
 export class EditarConteinerComponent implements OnInit {
   public conteinerUuid: any;
-  public conteinerById!: Conteiner;
   public conteinerData: any;
   public statusMsg!: string;
   public tiposCadastrados: Tipo[] = []; 
@@ -30,60 +39,38 @@ export class EditarConteinerComponent implements OnInit {
 
   status = ['Em manutenção', 'Limpeza', 'Disponível', 'Locado', 'Atrasado', 'Reservado', 'Indisponível', 'Em vistoria']
 
-  public categoria: Categoria = {
-    categoriaConteinerUuid: '',
-    nome: '',
-    status: true
-  }
-
-  public servico: Servico = {
-    servicoUuid: '',
-    nome: '',
-    checked: false
-  }
-  
-  public endereco: Endereco = {
-    cep: '',
-    cidade: '',
-    estado: '',
-    logradouro: '',
-    complemento: '',
-    numero: NaN
-  }
-  
-  public terceirizado: Terceirizado = {
-    empresa: '',
-    cnpj: '',
-    email: '',
-    telefone: '',
-    endereco: this.endereco,
-    listaServicos: []
-  }
-
-  public tipo: Tipo = {
-    tipoConteinerUuid: '',
-    nome: '',
-    largura: 0,
-    comprimento: 0,
-    volume: 0,
-    pesoMaximo: 0,
-    altura: 0,
-    valorDiaria: 0,
-    valorMensal: 0,
-    status: true
+  public conteiner: Conteiner = {
+    conteinerUuid: '',
+    codigo: 0,
+    fabricacao: '',
+    fabricante: '',
+    material: '',
+    cor: '',
+    categoria: '',
+    tipo: ''    
   }
 
   ngOnInit(): void {
     this.conteinerUuid = this.activatedRoute.snapshot.params['id']; 
     this.gerenteService.getAllConteineres().subscribe( (res: any) => { this.conteinerData = res; });
-    this.gerenteService.getConteinerById(this.conteinerUuid).subscribe( (res: any) => { this.conteinerById = res; console.log(this.conteinerById); });
-    this.gerenteService.getAllTipos().subscribe( (res: any) => { this.tiposCadastrados = res; });
-    this.gerenteService.getAllCategorias().subscribe( (res: any) => { this.categoriasCadastradas = res; });
-    this.gerenteService.getAllTerceirizados().subscribe( (res: any) => { this.terceirizadosCadastrados = res;});  }
+    this.gerenteService.getAllTiposAtivos().subscribe( (res: any) => { this.tiposCadastrados = res; });
+    this.gerenteService.getAllCategoriasAtivas().subscribe( (res: any) => { this.categoriasCadastradas = res; });
+    this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => { this.terceirizadosCadastrados = res;});  
+    this.gerenteService.getConteinerById(this.conteinerUuid).subscribe( (res: any) => { 
+      this.conteiner.conteinerUuid = res.conteinerUuid;
+      this.conteiner.codigo = res.codigo;
+      this.conteiner.fabricacao = res.fabricacao;
+      this.conteiner.fabricante = res.fabricante;
+      this.conteiner.material = res.material;
+      this.conteiner.cor = res.cor;
+      this.conteiner.categoria = res.categoriaConteiner.categoriaConteinerUuid;
+      this.conteiner.tipo = res.tipoConteiner.tipoConteinerUuid;
+    });
+  }
 
   editar() {
-    console.log(this.conteinerById);
-    this.gerenteService.putConteiner(this.conteinerById).subscribe(
+    console.log(this.conteiner);
+    this.gerenteService.putConteiner(this.conteiner).subscribe(
       (response: HttpResponse<Conteiner>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';

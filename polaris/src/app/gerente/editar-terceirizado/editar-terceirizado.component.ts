@@ -70,19 +70,13 @@ export class EditarTerceirizadoComponent implements OnInit {
         for (let i = 0; i < this.servicosAtuaisTerceirizado.length; i++) {
           this.servicosAtuaisTerceirizado[i].checked = true;
         }
-        //console.log(this.servicosAtuaisTerceirizado);
-      
 
         this.terceirizado.listaServicos = res.servicos.map((i: any) => i.servicoUuid);
-       // console.log(this.terceirizado.listaServicos);
-        
-        //console.log(this.terceirizadoById);
       }
     )
 
     this.gerenteService.getAllServicos().subscribe( (res: any) => {
         this.servicosCadastrados = res;
-        //console.log(this.servicosCadastrados);
       }
     )
   }
@@ -90,8 +84,6 @@ export class EditarTerceirizadoComponent implements OnInit {
   onCheckboxChange(item: any) {
     this.selectedOptions = this.servicosCadastrados.filter((i: any) => i.checked).map((i: any) => i.servicoUuid);
     this.terceirizado.listaServicos = this.selectedOptions;
-    //console.log(this.terceirizado.listaServicos);
-    //console.log(this.selectedOptions);
   }
 
   getCheckedItems() {
@@ -99,8 +91,6 @@ export class EditarTerceirizadoComponent implements OnInit {
   }
   
   editar() {
-    //this.terceirizado.listaServicos = this.selectedOptions;
-    //console.log(this.terceirizado);
     this.gerenteService.editarTerceirizado(this.terceirizado).subscribe(
       (response: HttpResponse<Terceirizado>) => {   
         if (response.status === 200 || response.status === 201) {
