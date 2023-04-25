@@ -27,14 +27,6 @@
               <label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
               <input class="form-control" placeholder="yyyy-mm-dd" name="fabricacao" [(ngModel)]="conteiner.fabricacao">
             </div>
-
-            
-
-            <!--<div class="col-md-4">
-              <label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
-              <input type="text" class="form-control" id="fabricacao" name="fabricacao" bsDatepicker [(ngModel)]="conteiner.fabricacao" calendarWeeks required>
-              <div class="invalid-feedback">Date is required</div>
-            </div>-->
             
             <div class="col-md-3">
               <label for="inputFabricante" class="form-label">Fabricante</label>
@@ -65,37 +57,6 @@
               </select>
             </div>
 
-            <!--<div class="col-md-4">
-              <label for="inputLargura" class="form-label">Largura</label>
-              <p class="form-control"> {{ tiposCadastrados[0].largura }} </p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputComprimento" class="form-label">Comprimento</label>
-              <p class="form-control"> {{ tiposCadastrados[0].comprimento }} </p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputAltura" class="form-label">Altura</label>
-              <p class="form-control"> {{ tiposCadastrados[0].altura }} </p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputVolume" class="form-label">Volume</label>
-              <p class="form-control"> {{ tiposCadastrados[0].volume }} </p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
-              <p class="form-control"> {{ tiposCadastrados[0].pesoMaximo }} </p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
-              <p class="form-control"> {{ tiposCadastrados[0].valorDiaria }} </p>
-            </div>
-            <div class="col-md-4">
-              <label for="inputValorMensal" class="form-label">Valor por Mês</label>
-              <p class="form-control"> {{ tiposCadastrados[0].valorMensal }} </p>
-            </div> -->
-
-            <div class="col-md-12"></div>
-
             <div class="col-md-4">         
               <label for="inputStatus" class="form-label">Status</label>
               <select class="form-select" id="inputStatus" aria-label="status" name="status" [(ngModel)]="conteiner.conteinerUuid">
@@ -118,7 +79,7 @@
             <div class="col-md-12">
               <label for="inputComentario" class="form-label">Comentário</label>
               <textarea class="form-control" id="inputComentario" name="inputComentario" rows="4" cols="50"name="dataProcedimento" [(ngModel)]="conteiner.conteinerUuid"></textarea>
-            </div>
+            </div><!---->
   
             <div class="ctn-btn d-flex justify-content-evenly mt-5">
               <button type="submit">Cadastrar</button>

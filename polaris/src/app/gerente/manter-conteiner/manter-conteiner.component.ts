@@ -6,6 +6,18 @@ import { Tipo } from 'src/app/models/tipo.model';
 import { GerenteService } from '../services';
 import { HttpResponse } from '@angular/common/http';
 
+enum EstadoConteiner {
+  Cancelado = 0,
+  Disponível = 1,
+  Manutenção = 2,
+  Limpeza = 3,
+  Locado = 4,
+  Atrasado = 5,
+  Reservado = 6,
+  Indisponível = 7,
+  Vistoria = 8
+};
+
 @Component({
   selector: 'app-manter-conteiner',
   templateUrl: './manter-conteiner.component.html',
@@ -19,7 +31,7 @@ export class ManterConteinerComponent implements OnInit {
 
   public conteiner: Conteiner = {
     conteinerUuid: '',
-    codigo: NaN,
+    codigo: 0,
     fabricacao: '',
     fabricante: '',
     material: '',
@@ -55,11 +67,10 @@ export class ManterConteinerComponent implements OnInit {
     this.getAllCategoriasAtivas(); 
     this.getAllTiposAtivos(); 
     this.getAllTerceirizadosAtivos();
-    console.log(this.conteiner.fabricacao);
   }
 
   cadastrar() {
-    console.log(this.conteiner);
+    this.conteiner.codigo += 1;
     this.gerenteService.addConteiner(this.conteiner).subscribe(
       (response: HttpResponse<Conteiner>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -96,5 +107,4 @@ export class ManterConteinerComponent implements OnInit {
       this.terceirizadosCadastrados = response;
     })
   }
-
 }

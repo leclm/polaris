@@ -15,7 +15,7 @@ export class GerenteService {
   servicoURL = 'http://localhost:44352/servicos';
   categoriaURL = 'http://localhost:44387/categoriasconteineres';
   tipoURL = 'http://localhost:44387/tiposconteineres';
-  conteinerURL = 'http://localhost:44387/conteineres';
+  conteinerURL = 'http://localhost:44387/Conteineres';
 
   constructor( private http: HttpClient ) { } 
   
@@ -135,6 +135,12 @@ export class GerenteService {
   putConteiner(conteiner: Conteiner): Observable<HttpResponse<Conteiner>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<Conteiner>(this.conteinerURL, conteiner, { headers, observe: 'response' });
+  }
+
+  deleteConteiner(uuid: string): Observable<HttpResponse<Conteiner>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.conteinerURL}/alterar-status/${uuid}/false`;
+    return this.http.put<Conteiner>(url, null, { headers, observe: 'response' });
   }
 
   // Serviço
