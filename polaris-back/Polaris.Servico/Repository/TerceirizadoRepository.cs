@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Polaris.Servico.Context;
 using Polaris.Servico.Models;
 using Polaris.Servico.Pagination;
 using System;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
 
 namespace Polaris.Servico.Repository
@@ -63,6 +66,14 @@ namespace Polaris.Servico.Repository
                     return null;
                 }
             }
+        }
+
+        public void LimpaServicos(Terceirizado terceirizado)
+        {
+            _context.Database.ExecuteSqlRaw($@"
+                DELETE FROM polaris.servicoterceirizado
+                WHERE TerceirizadosTerceirizadoId = {terceirizado.TerceirizadoId} 
+            ");    
         }
     }
 }

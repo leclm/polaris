@@ -7,8 +7,11 @@ namespace Polaris.Servico.Repository
 {
     public class ServicoRepository : Repository<Models.Servico>, IServicoRepository
     {
+        private readonly AppDbContext _context;
+
         public ServicoRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public IEnumerable<Models.Servico> GetServicos(ServicosParameters servicosParameters)

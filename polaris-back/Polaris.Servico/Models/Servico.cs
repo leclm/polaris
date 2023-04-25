@@ -2,11 +2,17 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
+
 namespace Polaris.Servico.Models
 {
     [Table("Servicos")]
     public class Servico
     {
+        public Servico()
+        {
+            Terceirizados = new List<Terceirizado>();
+        }
+
         [Key]
         public int ServicoId { get; set; }
         public Guid ServicoUuid { get; set; }
