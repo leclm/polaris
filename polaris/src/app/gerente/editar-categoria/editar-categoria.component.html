@@ -1,12 +1,12 @@
 <div class="editar-categoria container-fluid mt-4 mb-4">
   <div *ngFor="let item of categoriaData">
-    <div *ngIf="item.categoriaConteinerUuid == categoriaUuid">
+    <div *ngIf="item.categoriaConteinerUuid == categoriaConteinerUuid">
       <div class="container-content mb-4 p-4">
         <h1>Editar Categoria</h1>
 
         <div class="line mb-5"></div>
       
-        <div [ngSwitch]="status">
+        <div [ngSwitch]="statusMsg">
           <div *ngSwitchCase="'success'">
             <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
               Edição realizada com sucesso!
@@ -24,14 +24,14 @@
         <div class="mb-3">
           <p class="title">Informação cadastral</p>
           <div class="content ms-3">
-            <form class="row g-3">
+            <form class="row g-3" #formCategoria="ngForm" (ngSubmit)="editar()">
               <div class="col-md-6">
                 <label for="inputNome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNome" value="{{item.nome}}"> 
+                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="categoria.nome" value="{{categoria.nome}}" #nome="ngModel">
               </div>
-              
+
               <div class="ctn-btn d-flex justify-content-evenly mt-5">
-                <button type="submit" (click)="editar()">Salvar Alterações</button>
+                <button type="submit">Salvar Alterações</button>
                 <a [routerLink]="['/gerente/visualizar-categorias']">Voltar</a>
               </div>
             </form>

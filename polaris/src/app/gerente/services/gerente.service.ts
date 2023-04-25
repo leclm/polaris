@@ -60,9 +60,19 @@ export class GerenteService {
     return this.http.get<Categoria[]>(url);
   }
 
+  getCategoriaById(id: string): Observable<Categoria> {
+    const url = `${this.categoriaURL}/${id}`;
+    return this.http.get<Categoria>(url);
+  }
+
   addCategoria(categoria: Categoria): Observable<HttpResponse<Categoria>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Categoria>(this.categoriaURL, categoria, { headers, observe: 'response' });
+  }
+
+  editarCategoria(categoria: Categoria): Observable<HttpResponse<Categoria>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Categoria>(this.categoriaURL, categoria, { headers, observe: 'response' });
   }
 
   deleteCategoria(uuid: string): Observable<HttpResponse<Categoria>> {
@@ -81,9 +91,19 @@ export class GerenteService {
     return this.http.get<Tipo[]>(url);
   }
 
+  getTipoById(id: string): Observable<Tipo> {
+    const url = `${this.tipoURL}/${id}`;
+    return this.http.get<Tipo>(url);
+  }
+
   addTipo(tipo: Tipo): Observable<HttpResponse<Tipo>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Tipo>(this.tipoURL, tipo, { headers, observe: 'response' });
+  }
+
+  editarTipo(tipo: Tipo): Observable<HttpResponse<Tipo>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Tipo>(this.tipoURL, tipo, { headers, observe: 'response' });
   }
 
   deleteTipo(uuid: string): Observable<HttpResponse<Tipo>> {
