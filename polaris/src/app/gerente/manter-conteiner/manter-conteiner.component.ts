@@ -6,18 +6,6 @@ import { Tipo } from 'src/app/models/tipo.model';
 import { GerenteService } from '../services';
 import { HttpResponse } from '@angular/common/http';
 
-enum EstadoConteiner {
-  Cancelado = 0,
-  Disponível = 1,
-  Manutenção = 2,
-  Limpeza = 3,
-  Locado = 4,
-  Atrasado = 5,
-  Reservado = 6,
-  Indisponível = 7,
-  Vistoria = 8
-};
-
 @Component({
   selector: 'app-manter-conteiner',
   templateUrl: './manter-conteiner.component.html',
@@ -28,7 +16,7 @@ export class ManterConteinerComponent implements OnInit {
   public terceirizadosCadastrados: Terceirizado[] = [];
   public categoriasCadastradas: Categoria[] = [];  
   public tiposCadastrados: Tipo[] = [];
-
+  
   public conteiner: Conteiner = {
     conteinerUuid: '',
     codigo: 0,
@@ -40,27 +28,6 @@ export class ManterConteinerComponent implements OnInit {
     tipo: ''
   }
 
-  public tipo: Tipo = {
-    tipoConteinerUuid: '',
-    nome: '',
-    largura: 0,
-    comprimento: 0,
-    volume: 0,
-    pesoMaximo: 0,
-    altura: 0,
-    valorDiaria: 0,
-    valorMensal: 0,
-    status: true
-  }
-
-  public categoria: Categoria = {
-    categoriaConteinerUuid: '',
-    nome: '',
-    status: true
-  }
-
-  status = ['Em manutenção', 'Limpeza', 'Disponível', 'Locado', 'Atrasado', 'Reservado', 'Indisponível', 'Em vistoria']
-
   constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
@@ -70,7 +37,7 @@ export class ManterConteinerComponent implements OnInit {
   }
 
   cadastrar() {
-    this.conteiner.codigo += 1;
+    this.generateRandomCod();
     this.gerenteService.addConteiner(this.conteiner).subscribe(
       (response: HttpResponse<Conteiner>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -85,6 +52,21 @@ export class ManterConteinerComponent implements OnInit {
         this.statusMsg = 'fail';
       }
     );
+  }
+
+  generateRandomCod() {
+    let arr: number[] = [1, 2, 3, 99999, 99998, 99997, 99996, 99995];
+    let num: number;
+
+    do {
+      num = Math.floor(Math.random() * 999999) + 1; // generates a random number between 1 and 999999
+    } while (arr.includes(num) && arr.length < 100); // repeat until a unique number is found or the array is full
+
+    if (!arr.includes(num)) {
+      arr.push(num);
+      this.conteiner.codigo += num;
+    }
+    return this.conteiner.codigo;
   }
 
   getAllCategoriasAtivas() {

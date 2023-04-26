@@ -31,7 +31,6 @@ export class VisualizarEstoqueConteineresComponent implements OnInit {
     this.gerenteService.getAllConteineresAtivos().subscribe( (res: any) => {
       this.conteinerData = res;
       this.getEstadoText(this.conteinerData);
-      console.log(this.conteinerData);
     });
   };
   

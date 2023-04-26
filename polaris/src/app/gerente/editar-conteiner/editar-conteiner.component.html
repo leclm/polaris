@@ -45,26 +45,44 @@
                   <input class="form-control" type="text" id="inputMaterial" name="material" [(ngModel)]="conteiner.material" #material="ngModel">
                 </div>
 
-								<div class="col-md-4">         
+								<div class="col-md-6">         
                   <label for="inputCategoria" class="form-label">Categoria</label>
-                  <select class="form-select" id="inputCategoria" aria-label="Categoria" [(ngModel)]="conteiner.categoria" name="categoria">
+                  <select class="form-select" id="inputCategoria" aria-label="categoria" [(ngModel)]="conteiner.categoria" name="categoria">
                     <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome}}</option>
                   </select>
                 </div>
 
-								<div class="col-md-4">         
+								<div class="col-md-6">         
                   <label for="inputTipo" class="form-label">Tipo</label>
                   <select class="form-select" id="inputTipo" aria-label="tipo" [(ngModel)]="conteiner.tipo" name="tipo">
                     <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome}}</option>
                   </select>
                 </div>
 
-								<div class="col-md-4">         
-                  <label for="inputStatus" class="form-label">Status</label>
-                  <select class="form-select" id="inputStatus" aria-label="status" [(ngModel)]="conteiner.fabricante" name="status">
-                    <option *ngFor="let item of status" [value]="item">{{item}}</option>
+             <!--
+                <div class="col-md-4">         
+                  <label for="inputEstadoConteiner" class="form-label">Estado do Contêiner</label>
+                  <select class="form-select" id="inputEstadoConteiner" aria-label="estadoConteiner" [(ngModel)]="conteiner.fabricacao" name="conteiner.fabricacao">
+                    <option *ngFor="let a of fakeArray; let index = index" [value]="estadoConteiner[index]">{{estadoConteiner[index]}}</option>
+                  </select>
+                </div> 
+            
+                <div class="col-md-4">         
+                  <label for="inputEmpresa" class="form-label">Empresa</label>
+                  <select class="form-select" id="inputEmpresa" aria-label="empresa" name="empresa" [(ngModel)]="prestacaoServico.terceirizado">
+                    <option *ngFor="let item of terceirizadosCadastrados" [value]="item.empresa">{{item.empresa}}</option>
                   </select>
                 </div>
+    
+                <div class="col-md-4">
+                  <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
+                  <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" [(ngModel)]="prestacaoServico.dataProcedimento" #dataProcedimento="ngModel">
+                </div>
+
+                <div class="col-md-12">
+                  <label for="inputComentario" class="form-label">Comentário</label>
+                  <textarea class="form-control" id="inputComentario" rows="4" cols="50" name="comentario" [(ngModel)]="prestacaoServico.comentario" #comentario="ngModel"></textarea>
+                </div>-->
   
                 <div class="ctn-btn d-flex justify-content-evenly mt-5">
                   <button type="submit">Salvar Alterações</button>
