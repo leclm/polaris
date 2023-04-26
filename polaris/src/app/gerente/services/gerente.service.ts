@@ -143,6 +143,12 @@ export class GerenteService {
     return this.http.put<Conteiner>(url, null, { headers, observe: 'response' });
   }
 
+  alteraDisponibilidadeConteiner(uuid: string, estado: number): Observable<HttpResponse<Conteiner>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.conteinerURL}/alterar-disponibilidade/${uuid}/${estado}`;
+    return this.http.put<Conteiner>(url, null, { headers, observe: 'response' });
+  }
+
   // Serviço
   getAllServicos(): Observable<Servico[]> {
     return this.http.get<Servico[]>(this.servicoURL);

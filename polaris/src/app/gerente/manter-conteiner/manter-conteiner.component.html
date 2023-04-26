@@ -56,30 +56,6 @@
                 <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome}}</option>
               </select>
             </div>
-
-            <div class="col-md-4">         
-              <label for="inputStatus" class="form-label">Status</label>
-              <select class="form-select" id="inputStatus" aria-label="status" name="status" [(ngModel)]="conteiner.conteinerUuid">
-                <option *ngFor="let item of status" [value]="item">{{item}}</option>
-              </select>
-            </div>
-
-
-            <div class="col-md-4">         
-              <label for="inputEmpresa" class="form-label">Empresa</label>
-              <select class="form-select" id="inputEmpresa" aria-label="empresa" name="empresa" [(ngModel)]="conteiner.conteinerUuid">
-                <option *ngFor="let item of terceirizadosCadastrados" [value]="item.empresa">{{item.empresa}}</option>
-              </select>
-            </div>
-
-            <div class="col-md-4">
-              <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
-              <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" [(ngModel)]="conteiner.conteinerUuid">
-            </div>
-            <div class="col-md-12">
-              <label for="inputComentario" class="form-label">Comentário</label>
-              <textarea class="form-control" id="inputComentario" name="inputComentario" rows="4" cols="50"name="dataProcedimento" [(ngModel)]="conteiner.conteinerUuid"></textarea>
-            </div><!---->
   
             <div class="ctn-btn d-flex justify-content-evenly mt-5">
               <button type="submit">Cadastrar</button>

@@ -7,6 +7,7 @@ import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { HttpResponse } from '@angular/common/http';
+import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 
 enum EstadoConteiner {
   Cancelado = 0,
@@ -32,12 +33,12 @@ export class EditarConteinerComponent implements OnInit {
   public tiposCadastrados: Tipo[] = []; 
   public categoriasCadastradas: Categoria[] = []; 
   public terceirizadosCadastrados: Terceirizado[] = [];  
-
+  public estadoConteiner = EstadoConteiner;
+  public estadoSelecionado = 0;
+  
   @ViewChild("formConteiner") formConteiner!: NgForm;
   
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private router: Router ) { }
-
-  status = ['Em manutenção', 'Limpeza', 'Disponível', 'Locado', 'Atrasado', 'Reservado', 'Indisponível', 'Em vistoria']
 
   public conteiner: Conteiner = {
     conteinerUuid: '',
@@ -48,6 +49,14 @@ export class EditarConteinerComponent implements OnInit {
     cor: '',
     categoria: '',
     tipo: ''    
+  }
+
+  public prestacaoServico: PrestacaoServico = {
+    dataProcedimento: '',
+    comentario: '',
+    conteiner: '',
+    terceirizado: '',
+    servico: ''
   }
 
   ngOnInit(): void {
@@ -65,11 +74,14 @@ export class EditarConteinerComponent implements OnInit {
       this.conteiner.cor = res.cor;
       this.conteiner.categoria = res.categoriaConteiner.categoriaConteinerUuid;
       this.conteiner.tipo = res.tipoConteiner.tipoConteinerUuid;
-    });
+    });    
+  }
+
+  alteraDisponibilidadeConteiner() {
+    this.gerenteService.alteraDisponibilidadeConteiner(this.conteinerUuid, this.estadoSelecionado);
   }
 
   editar() {
-    console.log(this.conteiner);
     this.gerenteService.putConteiner(this.conteiner).subscribe(
       (response: HttpResponse<Conteiner>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -85,4 +97,12 @@ export class EditarConteinerComponent implements OnInit {
       }
     );
   }
+  
+  // Popula Estado Contêiner dropdown
+  createRange(num: number){
+    return new Array(num).fill(0).map((n, index) => index + 1);
+  }
+
+  public enumLength = Object.keys(this.estadoConteiner).length / 2;
+  fakeArray = new Array(this.enumLength);
 }
