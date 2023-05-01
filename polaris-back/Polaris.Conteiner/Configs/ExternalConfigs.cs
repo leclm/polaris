@@ -13,7 +13,9 @@
 
     public class Endpoints
     {
-        public string Servico { get; set; }
-        public string GetServicoConteiner { get; set; }
+        public string Terceirizados { get; set; }
+        public string Servicos { get; set; }
+        public string BuscarTerceirizadoPrestacaoServico { get; set; }
+        public string BuscarServicoPrestacaoServico { get; set; }
     }
 }

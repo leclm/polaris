@@ -6,6 +6,7 @@ using Polaris.Servico.Repository;
 using Polaris.Servico.Utils;
 using Polaris.Servico.Validation;
 using Polaris.Servico.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using static Polaris.Servico.Exceptions.CustomExceptions;
 
@@ -211,6 +212,7 @@ namespace Polaris.Servico.Services
         public async Task<RetornoTerceirizadoViewModel> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
         {
             var terceirizado = await _context.TerceirizadoRepository.GetTerceirizadoByPrestacaoDeServico(uuidPrestacaoDeServico);
+            terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid);
 
             if (terceirizado is null)
             {

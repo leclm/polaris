@@ -6,6 +6,7 @@
         ICategoriaConteinerRepository CategoriaConteinerRepository { get; }
         IConteinerRepository ConteinerRepository { get; }
         IPrestacaoServicoRepository PrestacaDeServicoRepository { get; }
+        ITerceirizadoRepository TerceirizadoRepository { get; }
         Task Commit();
     }
 }

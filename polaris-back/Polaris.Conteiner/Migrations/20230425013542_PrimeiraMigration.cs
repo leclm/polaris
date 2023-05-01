@@ -101,7 +101,6 @@ namespace Polaris.Conteiner.Migrations
                     PrestacaoDeServicoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PrestacaoDeServicoUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Status = table.Column<int>(type: "int", nullable: false),
                     DataProcedimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Comentario = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),

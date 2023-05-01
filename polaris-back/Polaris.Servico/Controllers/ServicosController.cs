@@ -227,5 +227,31 @@ namespace Polaris.Servico.Controllers
                 return ReturnError();
             }
         }
+
+        /// <summary>
+        /// Este endpoint deve buscar qual serviço está vinculado com a prestação de serviço buscada
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Servicos/buscar-servico-prestacaoServico/uuid
+        [HttpGet("buscar-servico-prestacaoServico/{uuidPrestacaoDeServico}")]
+        public async Task<IActionResult> GetServicoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
+        {
+            try
+            {
+                return Ok(await _service.GetServicoByPrestacaoDeServico(uuidPrestacaoDeServico));
+            }
+            catch (ServicoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
     }
 }

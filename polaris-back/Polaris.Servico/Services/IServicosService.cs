@@ -11,5 +11,6 @@ namespace Polaris.Servico.Services
         Task<Guid> PostServico(CadastroServicoViewModel servicoDto);
         Task PutServico(AtualizaServicoViewModel servicoDto);
         Task AlterarStatus(Guid uuid, bool status);
+        Task<BuscaServicoViewModel> GetServicoByPrestacaoDeServico(Guid uuidPrestacaoDeServico);
     }
 }

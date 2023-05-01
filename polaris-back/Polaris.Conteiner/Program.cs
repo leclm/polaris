@@ -7,6 +7,7 @@ using Polaris.Conteiner.Services;
 using AutoMapper;
 using Polaris.Conteiner.ViewModels.Mappings;
 using Polaris.Conteiner.ExternalServices;
+using Polaris.Conteiner.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,10 @@ builder.Services.AddScoped<ITiposConteineresService, TiposConteineresService>();
 builder.Services.AddScoped<IPrestacaoServicoRepository, PrestacaoServicoRepository>();
 builder.Services.AddScoped<IPrestacoesServicosService, PrestacoesServicosService>();
 builder.Services.AddScoped<IServicoExternalService, ServicoExternalService>();
+builder.Services.AddScoped<ITerceirizadoRepository, TerceirizadoRepository>();
+builder.Services.AddScoped<IServicoRepository, ServicoRepository>();
 
+builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection("ExternalConfigs"));
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
