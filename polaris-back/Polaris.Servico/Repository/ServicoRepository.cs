@@ -26,5 +26,26 @@ namespace Polaris.Servico.Repository
         {
             return GetAllByParameter(t => t.Terceirizados.Any(s => s.Cnpj == cnpj)).Include(x => x.Terceirizados);
         }
+
+        public async Task<Models.Servico?> GetServicoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
+        {
+            using (_context)
+            {
+                var query = (from s in _context.Servicos
+                             join p in _context.PrestacoesDeServicos
+                             on s.ServicoId equals p.ServicoId
+                             where p.PrestacaoDeServicoUuid == uuidPrestacaoDeServico
+                             select s);
+
+                if (query is not null && query.Any())
+                {
+                    return query.Include(x => x.Terceirizados).First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

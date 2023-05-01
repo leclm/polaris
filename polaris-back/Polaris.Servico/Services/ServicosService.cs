@@ -104,7 +104,7 @@ namespace Polaris.Servico.Services
                 var servicoMap = _mapper.Map<Models.Servico>(servicoDto);
                 var servicoBase = await _context.ServicoRepository.GetByParameter(p => p.ServicoUuid == servicoMap.ServicoUuid);
                 servicoMap.Status = servicoBase.Status;
-                StringUtils.ClassToUpper(servico);
+                StringUtils.ClassToUpper(servicoMap);
                 servicoMap.ServicoId = servico.ServicoId;
 
                 _context.ServicoRepository.Update(servicoMap);
@@ -131,6 +131,17 @@ namespace Polaris.Servico.Services
             await _context.Commit();
 
             var enderecoDto = _mapper.Map<AtualizaServicoViewModel>(servico);
+        }
+
+        public async Task<BuscaServicoViewModel> GetServicoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
+        {
+            var servico = await _context.ServicoRepository.GetServicoByPrestacaoDeServico(uuidPrestacaoDeServico);
+
+            if (servico is null)
+            {
+                throw new ServicoNaoEncontradoException("Serviço não encontrado.");
+            }
+            return _mapper.Map<BuscaServicoViewModel>(servico);
         }
     }
 }

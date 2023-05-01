@@ -16,7 +16,6 @@ namespace Polaris.Conteiner.Controllers
             _service = service;
         } 
         
-        
         /// <summary>
         /// Este endpoint deve consultar as categorias cadastradas
         /// </summary>

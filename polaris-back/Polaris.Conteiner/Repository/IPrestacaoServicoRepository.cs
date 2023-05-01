@@ -2,8 +2,9 @@
 
 namespace Polaris.Conteiner.Repository
 {
-    public interface IPrestacaoServicoRepository
+    public interface IPrestacaoServicoRepository : IRepository<Models.PrestacaoDeServico>
     {
+        IEnumerable<PrestacaoDeServico> GetPrestacaoCompleta();
         Task<PrestacaoDeServico> GetPrestacaoDeServico(Guid uuid);
     }
 }

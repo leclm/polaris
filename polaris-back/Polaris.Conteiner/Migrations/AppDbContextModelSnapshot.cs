@@ -166,9 +166,6 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<int>("ServicoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<int>("TerceirizadoId")
                         .HasColumnType("int");
 

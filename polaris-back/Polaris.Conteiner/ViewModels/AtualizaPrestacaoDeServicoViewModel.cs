@@ -9,9 +9,6 @@ namespace Polaris.Conteiner.ViewModels
         public Guid PrestacaoDeServicoUuid { get; set; }
         [NotNull]
         [Required]
-        public EstadoConteiner Status { get; set; }
-        [NotNull]
-        [Required]
         public DateTime DataProcedimento { get; set; }
         [MaxLength(200, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         public string? Comentario { get; set; }
@@ -20,7 +17,7 @@ namespace Polaris.Conteiner.ViewModels
         public Guid Conteiner { get; set; }
         [NotNull]
         [Required]
-        public Guid Tercerizado { get; set; }
+        public Guid Terceirizado { get; set; }
         [NotNull]
         [Required]
         public Guid Servico { get; set; }

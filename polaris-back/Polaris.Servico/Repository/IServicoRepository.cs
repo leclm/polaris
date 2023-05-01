@@ -7,5 +7,6 @@ namespace Polaris.Servico.Repository
     {
         IEnumerable<Models.Servico> GetServicos(ServicosParameters servicosParameters);
         IEnumerable<Models.Servico> GetServicosPorTerceirizado(string cnpj);
+        Task<Models.Servico?> GetServicoByPrestacaoDeServico(Guid uuidPrestacaoDeServico);
     }
 }

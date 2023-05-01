@@ -12,6 +12,11 @@
             categoriaConteiner.Nome = categoriaConteiner.Nome.ToUpper();
         }
 
+        public static void ClassToUpper(Models.PrestacaoDeServico prestacao)
+        {
+            prestacao.Comentario = prestacao.Comentario.ToUpper();
+        }
+
         public static void ClassToUpper(Models.Conteiner conteiner)
         {
             conteiner.Cor = conteiner.Cor.ToUpper();

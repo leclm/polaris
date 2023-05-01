@@ -3,6 +3,7 @@ using Polaris.Conteiner.Enums;
 using Polaris.Conteiner.Models;
 using Polaris.Conteiner.Services;
 using Polaris.Conteiner.ViewModels;
+using System;
 using static Polaris.Conteiner.Exceptions.CustomExceptions;
 
 namespace Polaris.Conteiner.Controllers
@@ -27,12 +28,37 @@ namespace Polaris.Conteiner.Controllers
         /// Retorna a lista com todas as prestações de serviços realizadas por um terceirizado
         /// </returns>
         /// GET: api/PrestacoesServico/terceirizado
-        [HttpGet("PrestacoesServico")]
+        [HttpGet("Terceirizado/{terceirizado}")]
         public async Task<ActionResult> GetPrestacoesServicosPorTerceirizado(string terceirizado)
         {
             try
             {
                 //return Ok(await _service.GetTerceirizadosPorServico(servico));
+                return Ok();
+            }
+            catch (PrestacaoServicoNaoEncontradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
+
+        /// <summary>
+        /// Este endpoint deve consultar as prestações de serviços realizadas em um conteiner
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todas as prestações de serviços realizadas em um conteiner
+        /// </returns>
+        /// GET: api/PrestacoesServico/conteiner
+        [HttpGet("Conteiner/{conteiner}")]
+        public async Task<ActionResult> GetPrestacoesServicosPorConteiner(string conteiner)
+        {
+            try
+            {
+                //return Ok(await _service.GetPrestacoesServicosPorConteiner(conteiner));
                 return Ok();
             }
             catch (PrestacaoServicoNaoEncontradaException ex)
@@ -53,18 +79,17 @@ namespace Polaris.Conteiner.Controllers
         /// </returns>
         // GET: api/PrestacoesServico
         [HttpGet]
-        public async Task<ActionResult> GetPrestacoesServicos()
+        public async Task<ActionResult> GetPrestacaoDeServicos()
         {
             try
             {
-                //return Ok(await _service.GetTerceirizados());
-                return Ok();
+                return Ok(await _service.GetPrestacaoDeServicos());
             }
             catch (PrestacaoServicoNaoEncontradaException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return ReturnError();
             }
@@ -101,21 +126,11 @@ namespace Polaris.Conteiner.Controllers
         /// <remarks>
         /// Exemplo: <br />
         /// { <br />
-        ///   "cnpj":"32.738.811/0001-80",<br />
-        ///   "empresa": "Empresa Exemplo", <br />
-        ///   "email": "exemplo@email.com", <br />
-        ///   "telefone": "(XX)XXXXX-XXXX",   <br />
-        ///   "endereco": { <br />
-        ///   "cep": "80 220 000", <br />
-        ///   "cidade": "Curitiba", <br />
-        ///   "estado": "Paraná",  <br />
-        ///   "logradouro": "Rua Exemplo",  <br />
-        ///   "complemento": "opcional",  <br />
-        ///   "numero": 100  <br />
-        ///   },  <br />
-        ///   "listaServicos": [  <br />
-        ///   "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
-        ///   ]<br />}
+        ///   "dataProcedimento":  "2023-04-25T01:25:14.191Z",, <br />
+        ///   "comentario": "Ficou perfeito!", <br />
+        ///  "conteiner": "0eaeb76b-4b80-4aea-a953-391ac183f7f3",   <br />
+        ///    "terceriizado": "5e80c929-4bb2-4375-8082-c6ca3172a278", <br />
+        ///    "servico": "146325cf-0c25-4396-8c99-92f62a654cad" <br />
         /// </remarks>
         /// <returns>
         /// Retorna 201 caso sucesso
@@ -128,8 +143,7 @@ namespace Polaris.Conteiner.Controllers
         {
             try
             {
-                //return StatusCode(StatusCodes.Status201Created, await _service.PostTerceirizado(prestacaoServicoDto));
-                return Ok();
+                return StatusCode(StatusCodes.Status201Created, await _service.PostPrestacaoDeServico(prestacaoServicoDto));
             }
             catch (PrestacaoServicoNaoEncontradaException ex)
             {
@@ -180,7 +194,7 @@ namespace Polaris.Conteiner.Controllers
         {
             try
             {
-                //await _service.PutTerceirizado(prestacaoServicoDto);
+                //await _service.PutPrestacaoServico(prestacaoServicoDto);
                 return Ok();
             }
             catch (AtualizarPrestacaoServicoException ex)

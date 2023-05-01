@@ -90,6 +90,16 @@
             Retorna 500 caso erro interno 
             </returns>
         </member>
+        <member name="M:Polaris.Servico.Controllers.ServicosController.GetServicoByPrestacaoDeServico(System.Guid)">
+            <summary>
+            Este endpoint deve buscar qual serviço está vinculado com a prestação de serviço buscada
+            </summary>
+            <returns>
+            Retorna 201 caso sucesso
+            Retorna 404 caso uuid não encontrado
+            Retorna 500 caso erro interno         
+            </returns>
+        </member>
         <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadosPorServico(System.String)">
             <summary>
             Este endpoint deve consultar os terceirizados que prestam o serviço buscado
@@ -193,7 +203,7 @@
             Retorna 500 caso erro interno         
             </returns>
         </member>
-        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.BuscarVinculoEnderecoTerceirizado(System.Guid)">
+        <member name="M:Polaris.Servico.Controllers.TerceirizadosController.GetTerceirizadoByPrestacaoDeServico(System.Guid)">
             <summary>
             Este endpoint deve buscar qual terceirizado está vinculado com a prestação de serviço buscada
             </summary>

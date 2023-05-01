@@ -12,6 +12,11 @@ namespace Polaris.Conteiner.Repository
             _context = context;
         }
 
+        public IEnumerable<Models.PrestacaoDeServico> GetPrestacaoCompleta()
+        {
+            return Get().Include(x => x.Conteiner);
+        }
+
         public async Task<Models.PrestacaoDeServico> GetPrestacaoDeServico(Guid uuid)
         {
             return await _context.Set<Models.PrestacaoDeServico>()

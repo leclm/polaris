@@ -250,7 +250,7 @@ namespace Polaris.Servico.Controllers
         /// </returns>
         // ALTERAR STATUS: api/Terceirizados/buscar-terceirizado-prestacaoServico/uuid
         [HttpGet("buscar-terceirizado-prestacaoServico/{uuidPrestacaoDeServico}")]
-        public async Task<IActionResult> BuscarVinculoEnderecoTerceirizado(Guid uuidPrestacaoDeServico)
+        public async Task<IActionResult> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
         {
             try
             {
