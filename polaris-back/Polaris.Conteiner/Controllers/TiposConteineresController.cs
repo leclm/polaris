@@ -96,14 +96,14 @@ namespace Polaris.Conteiner.Controllers
         /// <remarks>
         /// Exemplo:<br />
         ///     {<br />
-        ///        "nome": "pequeno", <br />
-        ///        "largura": 2.20 <br />
-        ///        "comprimento": 2.20 <br />
-        ///        "volume": 2.20 <br />
-        ///        "pesoMaximo": 2.20 <br />
-        ///        "altura": 2.20 <br />
-        ///        "valorDiaria": 200.00 <br />
-        ///        "valorMensal": 2200.00 <br />
+        ///          "nome": "pequeno",
+        ///          "largura": 10,
+        ///          "comprimento": 10,
+        ///          "volume": 10,
+        ///          "pesoMaximo": 10,
+        ///          "altura": 10,
+        ///          "valorDiaria": 10,
+        ///          "valorMensal": 10
         ///     }<br />
         /// </remarks>
         /// <returns>

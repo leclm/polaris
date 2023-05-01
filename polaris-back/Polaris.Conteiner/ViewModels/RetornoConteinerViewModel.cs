@@ -26,7 +26,6 @@ namespace Polaris.Conteiner.ViewModels
         [NotNull]
         [Required]
         public string? Cor { get; set; }
-        public bool Disponivel { get; set; }
         public bool Status { get; set; }
         public RetornoCategoriaConteinerViewModel CategoriaConteiner { get; set; }
         public RetornoTipoConteinerViewModel TipoConteiner { get; set; }

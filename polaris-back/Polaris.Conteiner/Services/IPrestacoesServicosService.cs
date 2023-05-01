@@ -7,5 +7,6 @@ namespace Polaris.Conteiner.Services
         Task<RetornoPrestacaoDeServicoViewModel> GetPrestacaoDeServico(Guid uuid);
         Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacaoDeServicos();
         Task<Guid> PostPrestacaoDeServico(CadastroPrestacaoDeServicoViewModel prestacaoDto);
+        Task PutEstadoPrestacaoDeServico(AlteraEstadoPrestacaoServico estado);
     }
 }
