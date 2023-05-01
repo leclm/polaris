@@ -12,12 +12,6 @@ namespace Polaris.Conteiner.Repository
             _context = context;
         }
 
-        public async Task<Guid> GetTerceirizadoUuid(int id)
-        {
-            var terceirizado = await _context.Set<Terceirizado>().AsNoTracking().Where(x => x.TerceirizadoId == id).FirstOrDefaultAsync();
-            return terceirizado.TerceirizadoUuid;
-        }
-
-      
+        public int GetTerceirizadoId(Guid uuid) => _context.Set<Terceirizado>().AsNoTracking().Where(x => x.TerceirizadoUuid == uuid).FirstOrDefault().TerceirizadoId;
     }
 }

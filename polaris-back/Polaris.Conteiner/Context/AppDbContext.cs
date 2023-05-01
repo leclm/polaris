@@ -34,6 +34,10 @@ namespace Polaris.Conteiner.Context
                .HasIndex(p => new { p.Codigo })
                .IsUnique();
 
+            modelBuilder.Entity<Models.PrestacaoDeServico>()
+               .HasIndex(p => new { p.DataProcedimento, p.ConteinerId, p.TerceirizadoId })
+               .IsUnique();
+
             modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Terceirizado>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Servico>().Metadata.SetIsTableExcludedFromMigrations(true);

@@ -3,8 +3,8 @@ using Polaris.Conteiner.Pagination;
 
 namespace Polaris.Conteiner.Repository
 {
-    public interface ITerceirizadoRepository
+    public interface ITerceirizadoRepository : IRepository<Terceirizado>
     {
-        Task<Guid> GetTerceirizadoUuid(int id);
+        int GetTerceirizadoId(Guid uuid);
     }
 }

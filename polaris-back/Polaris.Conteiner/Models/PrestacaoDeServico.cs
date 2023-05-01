@@ -20,16 +20,16 @@ namespace Polaris.Conteiner.Models
         [NotNull]
         [ForeignKey("Conteiner")]
         public int ConteinerId { get; set; }
-        public virtual Conteiner Conteiner { get; set; }
+        public virtual Conteiner? Conteiner { get; set; }
         [Required]
         [NotNull]
         [ForeignKey("Terceirizado")]
         public int TerceirizadoId { get; set; }
-        public virtual Terceirizado Terceirizado { get; set; }
+        public virtual Terceirizado? Terceirizado { get; set; }
         [Required]
         [NotNull]
         [ForeignKey("Servico")]
         public int ServicoId { get; set; }
-        public virtual Servico Servico { get; set; }
+        public virtual Servico? Servico { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Polaris.Conteiner.ViewModels
         public Guid Conteiner { get; set; }
         [NotNull]
         [Required]
-        public Guid Tercerizado { get; set; }
+        public Guid Terceirizado { get; set; }
         [NotNull]
         [Required]
         public Guid Servico { get; set; }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Polaris.Conteiner.Enums;
 using Polaris.Conteiner.ExternalServices;
 using Polaris.Conteiner.Models;
 using Polaris.Conteiner.Repository;
@@ -16,16 +15,18 @@ namespace Polaris.Conteiner.Services
         private readonly IServicoExternalService _servicoExternalService;
         private readonly ITerceirizadoRepository _terceirizadoRepository;
         private readonly IServicoRepository _servicoRepository;
+        private readonly IConteinerRepository _conteinerRepository;
         private readonly PrestacaoServicoRepository _prestacaoServicoRepository;
 
 
-        public PrestacoesServicosService(IUnityOfWork context, IMapper mapper, IServicoExternalService servicoExternalService, ITerceirizadoRepository terceirizadoRepository, IServicoRepository servicoRepository)
+        public PrestacoesServicosService(IUnityOfWork context, IMapper mapper, IServicoExternalService servicoExternalService, ITerceirizadoRepository terceirizadoRepository, IServicoRepository servicoRepository, IConteinerRepository conteinerRepository)
         {
             _context = context;
             _mapper = mapper;
             _servicoExternalService = servicoExternalService;
             _terceirizadoRepository = terceirizadoRepository;
             _servicoRepository = servicoRepository;
+            _conteinerRepository = conteinerRepository;
         }
 
         public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacaoDeServicos()
@@ -59,77 +60,54 @@ namespace Polaris.Conteiner.Services
 
         public async Task<Guid> PostPrestacaoDeServico(CadastroPrestacaoDeServicoViewModel prestacaoDto)
         {
-            return Guid.NewGuid();
-            //if (await _context.PrestacaDeServicoRepository.GetByParameter(x => x.DataProcedimento == prestacaoDto.DataProcedimento
-            //&& x.Conteiner.Equals(prestacaoDto.Conteiner)
-            //&& x.Terceirizado.Equals(prestacaoDto.Tercerizado)) is not null)
-            //{
-            //    throw new CadastrarPrestacaoServicoException("Prestação de serviço já existe. Erro ao cadastrar a prestação.");
-            //};
+            if (prestacaoDto.Conteiner == Guid.Empty || prestacaoDto.Conteiner == Guid.Empty || prestacaoDto.Servico == Guid.Empty)
+            {
+                throw new CadastrarPrestacaoServicoException("Dados inválidos. Erro ao cadastrar a prestação de serviço.");
+            }
 
-            //var prestacao = _mapper.Map<Models.PrestacaoDeServico>(prestacaoDto);
-            //StringUtils.ClassToUpper(prestacao);
-            //prestacao.PrestacaoDeServicoUuid = Guid.NewGuid();
+            if (await _context.PrestacaDeServicoRepository.GetByParameter(
+                x => x.DataProcedimento == prestacaoDto.DataProcedimento && 
+                x.Conteiner!.ConteinerUuid == prestacaoDto.Conteiner && 
+                x.Terceirizado!.TerceirizadoUuid == prestacaoDto.Terceirizado &&
+                x.Servico!.ServicoUuid == prestacaoDto.Servico) is not null)
+            {
+                throw new CadastrarPrestacaoServicoException("Prestação de serviço já existe. Erro ao cadastrar a prestação de serviço.");
+            };
 
-            //if (prestacaoDto.Conteiner != Guid.Empty)
-            //{
-            //    var conteiner = await _context.ConteinerRepository.GetByParameter(x => x.ConteinerUuid == prestacaoDto.Conteiner);
-            //    if (conteiner != null && conteiner.Status != false)
-            //    {
-            //        prestacao.ConteinerId = conteiner.ConteinerId;
-            //    }
-            //    else
-            //    {
-            //        throw new CadastrarPrestacaoServicoException("Conteiner inválido. Erro ao cadastrar o conteiner.");
-            //    }
-            //}
-            //else
-            //{
-            //    throw new CadastrarPrestacaoServicoException("Conteiner inválido. Erro ao cadastrar o conteiner.");
-            //}
+            var conteiner = await _conteinerRepository.GetByParameter(x => x.ConteinerUuid == prestacaoDto.Conteiner);
+            var prestacao = new PrestacaoDeServico
+            {
+                PrestacaoDeServicoUuid = Guid.NewGuid(),
+                Comentario = prestacaoDto.Comentario,
+                DataProcedimento = prestacaoDto.DataProcedimento,
+                ConteinerId = conteiner.ConteinerId,
+                TerceirizadoId = _terceirizadoRepository.GetTerceirizadoId(prestacaoDto.Terceirizado), 
+                ServicoId = _servicoRepository.GetServicoId(prestacaoDto.Servico),
+                Conteiner = null,
+                Servico = null,
+                Terceirizado = null
+            };
+            StringUtils.ClassToUpper(prestacao);
 
+            if (prestacao.ConteinerId == 0)
+            {
+                throw new CadastrarPrestacaoServicoException("Conteiner inválido.  Erro ao cadastrar a prestação de serviço.");
+            }
 
-            //if (prestacaoDto.Tercerizado != Guid.Empty)
-            //{
-            //    var terceirizado = await _context.TerceirizadoRepository. (x => x.TerceirizadoUuid == prestacaoDto.Tercerizado);
-            //    if (terceirizado != null && terceirizado.Status != false)
-            //    {
-            //        prestacao.TipoConteinerId = terceirizado.TipoConteineroId;
-            //    }
-            //    else
-            //    {
-            //        throw new CadastrarConteinerException("Tipo inválido. Erro ao cadastrar o conteiner.");
-            //    }
-            //}
-            //else
-            //{
-            //    throw new CadastrarConteinerException("Tipo inválido. Erro ao cadastrar o conteiner.");
-            //}
+            if (prestacao.TerceirizadoId == 0)
+            {
+                throw new CadastrarPrestacaoServicoException("Terceirizado inválido.  Erro ao cadastrar a prestação de serviço.");
+            }
 
-            //if (prestacaoDto.Servico != Guid.Empty)
-            //{
-            //    var terceirizado = await _context.TerceirizadoRepository. (x => x.TerceirizadoUuid == prestacaoDto.Tercerizado);
-            //    if (terceirizado != null && terceirizado.Status != false)
-            //    {
-            //        prestacao.TipoConteinerId = terceirizado.TipoConteineroId;
-            //    }
-            //    else
-            //    {
-            //        throw new CadastrarConteinerException("Tipo inválido. Erro ao cadastrar o conteiner.");
-            //    }
-            //}
-            //else
-            //{
-            //    throw new CadastrarConteinerException("Tipo inválido. Erro ao cadastrar o conteiner.");
-            //}
+            if (prestacao.ServicoId == 0)
+            {
+                throw new CadastrarPrestacaoServicoException("Serviço inválido.  Erro ao cadastrar a prestação de serviço.");
+            }
 
-            //prestacao.Estado = EstadoConteiner.Disponível;
-            //prestacao.Status = true;
+            _context.PrestacaDeServicoRepository.Add(prestacao);
+            await _context.Commit();
 
-            //_context.ConteinerRepository.Add(prestacao);
-            //await _context.Commit();
-
-            //return prestacao.ConteinerUuid;
+            return prestacao.PrestacaoDeServicoUuid;
         }
     }
 }

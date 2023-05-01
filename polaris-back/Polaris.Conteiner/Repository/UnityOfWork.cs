@@ -9,6 +9,7 @@ namespace Polaris.Conteiner.Repository
         private ConteinerRepository _conteinerRepository;
         private PrestacaoServicoRepository _prestacaoDeServicoRepository;
         private TerceirizadoRepository _terceirizadoRepo;
+        private ServicoRepository _servicoRepository;
         public AppDbContext _context;
 
         public UnityOfWork(AppDbContext context)
@@ -53,6 +54,14 @@ namespace Polaris.Conteiner.Repository
             get
             {
                 return _terceirizadoRepo = _terceirizadoRepo ?? new TerceirizadoRepository(_context);
+            }
+        }
+
+        public IServicoRepository ServicoRepository
+        {
+            get
+            {
+                return _servicoRepository = _servicoRepository ?? new ServicoRepository(_context);
             }
         }
 

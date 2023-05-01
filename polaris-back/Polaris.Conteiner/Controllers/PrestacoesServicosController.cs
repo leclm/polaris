@@ -28,7 +28,7 @@ namespace Polaris.Conteiner.Controllers
         /// Retorna a lista com todas as prestações de serviços realizadas por um terceirizado
         /// </returns>
         /// GET: api/PrestacoesServico/terceirizado
-        [HttpGet("PrestacoesServico/Tercerizado/{tercerizado}")]
+        [HttpGet("Terceirizado/{terceirizado}")]
         public async Task<ActionResult> GetPrestacoesServicosPorTerceirizado(string terceirizado)
         {
             try
@@ -53,7 +53,7 @@ namespace Polaris.Conteiner.Controllers
         /// Retorna a lista com todas as prestações de serviços realizadas em um conteiner
         /// </returns>
         /// GET: api/PrestacoesServico/conteiner
-        [HttpGet("PrestacoesServico")]
+        [HttpGet("Conteiner/{conteiner}")]
         public async Task<ActionResult> GetPrestacoesServicosPorConteiner(string conteiner)
         {
             try
@@ -129,7 +129,7 @@ namespace Polaris.Conteiner.Controllers
         ///   "dataProcedimento":  "2023-04-25T01:25:14.191Z",, <br />
         ///   "comentario": "Ficou perfeito!", <br />
         ///  "conteiner": "0eaeb76b-4b80-4aea-a953-391ac183f7f3",   <br />
-        ///    "tercerizado": "5e80c929-4bb2-4375-8082-c6ca3172a278", <br />
+        ///    "terceriizado": "5e80c929-4bb2-4375-8082-c6ca3172a278", <br />
         ///    "servico": "146325cf-0c25-4396-8c99-92f62a654cad" <br />
         /// </remarks>
         /// <returns>
