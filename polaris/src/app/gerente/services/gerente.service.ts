@@ -11,11 +11,11 @@ import { Tipo } from 'src/app/models/tipo.model';
   providedIn: 'root'
 })
 export class GerenteService {
-  terceirizadoURL = 'http://localhost:44352/terceirizados';
-  servicoURL = 'http://localhost:44352/servicos';
-  categoriaURL = 'http://localhost:44387/categoriasconteineres';
-  tipoURL = 'http://localhost:44387/tiposconteineres';
-  conteinerURL = 'http://localhost:44387/Conteineres';
+  terceirizadoURL = 'https://localhost:44352/Terceirizados';
+  servicoURL = 'https://localhost:44352/servicos';
+  categoriaURL = 'https://localhost:44387/categoriasconteineres';
+  tipoURL = 'https://localhost:44387/tiposconteineres';
+  conteinerURL = 'https://localhost:44387/Conteineres';
 
   constructor( private http: HttpClient ) { } 
   
@@ -48,6 +48,33 @@ export class GerenteService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.terceirizadoURL}/alterar-status/${uuid}/false`;
     return this.http.put<Terceirizado>(url, null, { headers, observe: 'response' });
+  }
+
+  // Serviços Prestados
+  addServico(servico: Servico): Observable<HttpResponse<Servico>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Servico>(this.servicoURL, servico, { headers, observe: 'response' });
+  }
+
+  getAllServicosAtivos(): Observable<Servico[]> {
+    const url = `${this.servicoURL}/servicos-ativos`;
+    return this.http.get<Servico[]>(url);
+  }
+
+  getServicoById(id: string): Observable<Servico> {
+    const url = `${this.servicoURL}/${id}`;
+    return this.http.get<Servico>(url);
+  }
+
+  editarServico(servico: Servico): Observable<HttpResponse<Servico>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Servico>(this.servicoURL, servico, { headers, observe: 'response' });
+  }
+
+  deleteServico(uuid: string): Observable<HttpResponse<Servico>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.servicoURL}/alterar-status/${uuid}/false`;
+    return this.http.put<Servico>(url, null, { headers, observe: 'response' });
   }
 
   // Categoria

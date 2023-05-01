@@ -18,6 +18,9 @@ import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-cont
 import { VisualizarConteinerComponent } from './visualizar-conteiner';
 import { ManterConteinerComponent } from './manter-conteiner';
 import { EditarConteinerComponent } from './editar-conteiner';
+import { ManterServicoComponent } from './manter-servico';
+import { VisualizarServicosComponent } from './visualizar-servicos';
+import { EditarServicoComponent } from './editar-servico';
 
 export const GerenteRoutes: Routes = [
   // Cliente
@@ -57,6 +60,19 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-historico-terceirizado/:id',
     component: VisualizarHistoricoTerceirizadoComponent
+  },
+  // Serviços Prestados pelos Terceirizados
+  {
+    path: 'gerente/manter-servico',
+    component: ManterServicoComponent
+  },
+  {
+    path: 'gerente/editar-servico/:id',
+    component: EditarServicoComponent
+  },
+  {
+    path: 'gerente/visualizar-servicos',
+    component: VisualizarServicosComponent
   },
   // Categoria de Contêiner
   {
