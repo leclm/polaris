@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { Servico } from 'src/app/models/servico.model';
