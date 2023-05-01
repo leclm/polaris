@@ -67,8 +67,9 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Fabricacao")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Fabricacao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Fabricante")
                         .IsRequired()
@@ -160,6 +161,9 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<DateTime>("DataProcedimento")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("EstadoPrestacaoServico")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("PrestacaoDeServicoUuid")
                         .HasColumnType("char(36)");
 
@@ -176,6 +180,9 @@ namespace Polaris.Conteiner.Migrations
                     b.HasIndex("ServicoId");
 
                     b.HasIndex("TerceirizadoId");
+
+                    b.HasIndex("DataProcedimento", "ConteinerId", "TerceirizadoId")
+                        .IsUnique();
 
                     b.ToTable("PrestacaoDeServico");
                 });

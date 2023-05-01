@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Conteiner.ViewModels
 {
-    public class AtualizaPrestacaoDeServicoViewModel
+    public class AlteraEstadoPrestacaoServico
     {
         public Guid PrestacaoDeServicoUuid { get; set; }
         [NotNull]
@@ -15,14 +15,5 @@ namespace Polaris.Conteiner.ViewModels
         public EstadoPrestacaoServico EstadoPrestacaoServico { get; set; }
         [MaxLength(200, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         public string? Comentario { get; set; }
-        [NotNull]
-        [Required]
-        public Guid Conteiner { get; set; }
-        [NotNull]
-        [Required]
-        public Guid Terceirizado { get; set; }
-        [NotNull]
-        [Required]
-        public Guid Servico { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Polaris.Conteiner.ViewModels
     public class AtualizaConteinerViewModel
     {
         public Guid ConteinerUuid { get; set; }
-        public DateTime Fabricacao { get; set; }
+        public String Fabricacao { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um fabricante.")]
         [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]

@@ -80,6 +80,7 @@ namespace Polaris.Conteiner.Services
                 PrestacaoDeServicoUuid = Guid.NewGuid(),
                 Comentario = prestacaoDto.Comentario,
                 DataProcedimento = prestacaoDto.DataProcedimento,
+                EstadoPrestacaoServico = Enums.EstadoPrestacaoServico.Andamento,
                 ConteinerId = conteiner.ConteinerId,
                 TerceirizadoId = _terceirizadoRepository.GetTerceirizadoId(prestacaoDto.Terceirizado), 
                 ServicoId = _servicoRepository.GetServicoId(prestacaoDto.Servico),
@@ -108,6 +109,29 @@ namespace Polaris.Conteiner.Services
             await _context.Commit();
 
             return prestacao.PrestacaoDeServicoUuid;
+        }
+
+        public async Task PutEstadoPrestacaoDeServico(AlteraEstadoPrestacaoServico estado)
+        {
+            if (estado.PrestacaoDeServicoUuid == Guid.Empty)
+            {
+                throw new AtualizarPrestacaoServicoException("Prestação de Serviço inválida. Erro ao atualizar a prestação.");
+            }
+
+            var prestacao = await _context.PrestacaDeServicoRepository.GetPrestacaoDeServico(estado.PrestacaoDeServicoUuid);
+
+            if (prestacao == null || prestacao.PrestacaoDeServicoId == 0)
+            {
+                throw new AtualizarPrestacaoServicoException("Prestação de Serviço inválida. Erro ao atualizar a prestação.");
+            }
+
+            prestacao.Comentario = estado.Comentario;
+            prestacao.DataProcedimento = estado.DataProcedimento;
+            prestacao.EstadoPrestacaoServico = estado.EstadoPrestacaoServico;
+            StringUtils.ClassToUpper(prestacao);
+            _context.PrestacaDeServicoRepository.Update(prestacao);
+
+            await _context.Commit();
         }
     }
 }
