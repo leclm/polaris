@@ -24,6 +24,9 @@ import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-cont
 import { VisualizarConteinerComponent } from './visualizar-conteiner/visualizar-conteiner.component';
 import { ManterConteinerComponent } from './manter-conteiner/manter-conteiner.component';
 import { EditarConteinerComponent } from './editar-conteiner/editar-conteiner.component';
+import { ManterServicoComponent } from './manter-servico/manter-servico.component';
+import { VisualizarServicosComponent } from './visualizar-servicos/visualizar-servicos.component';
+import { EditarServicoComponent } from './editar-servico/editar-servico.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { EditarConteinerComponent } from './editar-conteiner/editar-conteiner.co
     VisualizarEstoqueConteineresComponent,
     VisualizarConteinerComponent,
     ManterConteinerComponent,
-    EditarConteinerComponent    
+    EditarConteinerComponent,
+    ManterServicoComponent,
+    VisualizarServicosComponent,
+    EditarServicoComponent    
   ],
   imports: [
     CommonModule,
