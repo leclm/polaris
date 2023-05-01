@@ -64,7 +64,8 @@ namespace Polaris.Conteiner.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ConteinerUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Codigo = table.Column<int>(type: "int", nullable: false),
-                    Fabricacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Fabricacao = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Fabricante = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Material = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
@@ -102,6 +103,7 @@ namespace Polaris.Conteiner.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PrestacaoDeServicoUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     DataProcedimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EstadoPrestacaoServico = table.Column<int>(type: "int", nullable: false),
                     Comentario = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ConteinerId = table.Column<int>(type: "int", nullable: false),
@@ -158,6 +160,12 @@ namespace Polaris.Conteiner.Migrations
                 name: "IX_PrestacaoDeServico_ConteinerId",
                 table: "PrestacaoDeServico",
                 column: "ConteinerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrestacaoDeServico_DataProcedimento_ConteinerId_Terceirizado~",
+                table: "PrestacaoDeServico",
+                columns: new[] { "DataProcedimento", "ConteinerId", "TerceirizadoId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrestacaoDeServico_ServicoId",
