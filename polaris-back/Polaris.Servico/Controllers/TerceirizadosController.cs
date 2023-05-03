@@ -260,7 +260,7 @@ namespace Polaris.Servico.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return ReturnError();
             }

@@ -6,5 +6,6 @@ namespace Polaris.Conteiner.Repository
     {
         IEnumerable<PrestacaoDeServico> GetPrestacaoCompleta();
         Task<PrestacaoDeServico> GetPrestacaoDeServico(Guid uuid);
+        IEnumerable<Models.PrestacaoDeServico> GetPrestacoesServicosPorConteiner(Guid uuidConteiner);
     }
 }
