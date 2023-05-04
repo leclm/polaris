@@ -19,12 +19,6 @@ enum EstadoConteiner {
   "Em Vistoria" = 8
 };
 
-enum EstadoPrestacaoServico {
-  Cancelado = 0,
-  Finalizado = 1,
-  "Em Andamento" = 2
-};
-
 @Component({
   selector: 'app-manter-prestacao-servico',
   templateUrl: './manter-prestacao-servico.component.html',
@@ -37,7 +31,6 @@ export class ManterPrestacaoServicoComponent implements OnInit {
   public servicosCadastrados: Servico[] = [];
   public conteinerUuid: any;
   public estadoConteiner = EstadoConteiner;
-  public estadoPrestacaoServico = EstadoPrestacaoServico;
   public estadoConteinerSelecionado = 0;
   public conteinerData: any;
 
@@ -62,7 +55,7 @@ export class ManterPrestacaoServicoComponent implements OnInit {
   }
 
   cadastrar() {
-    this.alterarDisponibilidadeConteiner();
+    this.alteraDisponibilidadeConteiner();
     this.gerenteService.addPrestacaoServico(this.prestacaoServico).subscribe(
       (response: HttpResponse<PrestacaoServico>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -79,8 +72,8 @@ export class ManterPrestacaoServicoComponent implements OnInit {
     );
   }
   
-  alterarDisponibilidadeConteiner() {
-    this.gerenteService.alteraDisponibilidadeConteiner(this.conteinerUuid, 5);
+  alteraDisponibilidadeConteiner() {
+    this.gerenteService.alteraDisponibilidadeConteiner(this.conteinerUuid, this.estadoConteinerSelecionado).subscribe();
   }
 
   getAllConteineresAtivos() {
@@ -108,13 +101,11 @@ export class ManterPrestacaoServicoComponent implements OnInit {
     this.gerenteService.getConteinerById(this.conteinerUuid)
     .subscribe( response => {
       this.conteinerData = response;
+      this.estadoConteinerSelecionado = this.conteinerData.estado;
     })
   }
 
-  // Popula EstadoConteiner e EstadoPrestacaoServico dropdown
-  public enumPrestacaoServicoLength = Object.keys(this.estadoPrestacaoServico).length / 2;
-  fakeArrayPrestacaoServico = new Array(this.enumPrestacaoServicoLength);
-
+  // Popula EstadoConteiner dropdown
   public enumConteinerLength = Object.keys(this.estadoConteiner).length / 2;
   fakeArrayConteiner = new Array(this.enumConteinerLength);
 }
