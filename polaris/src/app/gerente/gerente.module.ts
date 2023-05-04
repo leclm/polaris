@@ -31,6 +31,7 @@ import { VisualizarHistoricoPrestacaoServicoComponent } from './visualizar-histo
 import { VisualizarHistoricoAluguelConteinerComponent } from './visualizar-historico-aluguel-conteiner/visualizar-historico-aluguel-conteiner.component';
 import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/manter-prestacao-servico.component';
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
+import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/edit
     VisualizarHistoricoPrestacaoServicoComponent,
     VisualizarHistoricoAluguelConteinerComponent,
     ManterPrestacaoServicoComponent,
-    EditarPrestacaoServicoComponent    
+    EditarPrestacaoServicoComponent,
+    EditarDisponibilidadeConteinerComponent    
   ],
   imports: [
     CommonModule,

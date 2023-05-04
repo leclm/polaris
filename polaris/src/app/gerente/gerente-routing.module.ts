@@ -25,6 +25,7 @@ import { VisualizarHistoricoPrestacaoServicoComponent } from './visualizar-histo
 import { VisualizarHistoricoAluguelConteinerComponent } from './visualizar-historico-aluguel-conteiner';
 import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/manter-prestacao-servico.component';
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico';
+import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner';
 
 export const GerenteRoutes: Routes = [
   // Cliente
@@ -120,6 +121,10 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/editar-conteiner/:id',
     component: EditarConteinerComponent
+  },
+  {
+    path: 'gerente/editar-disponibilidade-conteiner/:id',
+    component: EditarDisponibilidadeConteinerComponent
   },
   {
     path: 'gerente/visualizar-historico-prestacao-servico/:id',

@@ -25,27 +25,27 @@
             <p class="title">Dados cadastrais</p>
             <div class="content d-flex ms-3">
               <form class="row g-3" #formConteiner="ngForm" (ngSubmit)="editar()">
-                <div class="col-md-3">
+                <div class="col-md-6">
 									<label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
                   <input class="form-control" type="text" id="inputFabricacao" name="fabricacao" [(ngModel)]="conteiner.fabricacao" #fabricacao="ngModel">
                 </div>
 
-								<div class="col-md-3">
+								<div class="col-md-6">
 									<label for="inputFabricante" class="form-label">Fabricante</label>
                   <input class="form-control" type="text" id="inputFabricante" name="fabricante" [(ngModel)]="conteiner.fabricante" #fabricante="ngModel">
                 </div>
 
-								<div class="col-md-3">
+								<div class="col-md-6">
 									<label for="inputCor" class="form-label">Cor</label>
                   <input class="form-control" type="text" id="inputCor" name="cor" [(ngModel)]="conteiner.cor" #cor="ngModel">
                 </div>
 
-								<div class="col-md-3">
+								<div class="col-md-6">
 									<label for="inputMaterial" class="form-label">Material</label>
                   <input class="form-control" type="text" id="inputMaterial" name="material" [(ngModel)]="conteiner.material" #material="ngModel">
                 </div>
 
-								<div class="col-md-6">         
+                <div class="col-md-6">         
                   <label for="inputCategoria" class="form-label">Categoria</label>
                   <select class="form-select" id="inputCategoria" aria-label="categoria" [(ngModel)]="conteiner.categoria" name="categoria">
                     <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome}}</option>
@@ -61,6 +61,7 @@
   
                 <div class="ctn-btn d-flex justify-content-evenly mt-5">
                   <button type="submit">Salvar Alterações</button>
+                  <a [routerLink]="['/gerente/editar-disponibilidade-conteiner', item.conteinerUuid]">Editar Disponibilidade</a>
                   <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
                 </div>
               </form>
