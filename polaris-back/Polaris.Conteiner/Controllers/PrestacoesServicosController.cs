@@ -46,30 +46,29 @@ namespace Polaris.Conteiner.Controllers
         //    }
         //}
 
-        ///// <summary>
-        ///// Este endpoint deve consultar as prestações de serviços realizadas em um conteiner
-        ///// </summary>
-        ///// <returns>
-        ///// Retorna a lista com todas as prestações de serviços realizadas em um conteiner
-        ///// </returns>
-        ///// GET: api/PrestacoesServico/conteiner
-        //[HttpGet("Conteiner/{conteiner}")]
-        //public async Task<ActionResult> GetPrestacoesServicosPorConteiner(string conteiner)
-        //{
-        //    try
-        //    {
-        //        //return Ok(await _service.GetPrestacoesServicosPorConteiner(conteiner));
-        //        return Ok();
-        //    }
-        //    catch (PrestacaoServicoNaoEncontradaException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return ReturnError();
-        //    }
-        //}
+        /// <summary>
+        /// Este endpoint deve consultar as prestações de serviços realizadas em um conteiner
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todas as prestações de serviços realizadas em um conteiner
+        /// </returns>
+        /// GET: api/PrestacoesServico/conteiner
+        [HttpGet("Conteiner/{uuidConteiner}")]
+        public async Task<ActionResult> GetPrestacoesServicosPorConteiner(Guid uuidConteiner)
+        {
+            try
+            {
+                return Ok(await _service.GetPrestacoesServicosPorConteiner(uuidConteiner));
+            }
+            catch (PrestacaoServicoNaoEncontradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
+        }
 
         /// <summary>
         /// Este endpoint deve consultar as prestações de serviço cadastradas
