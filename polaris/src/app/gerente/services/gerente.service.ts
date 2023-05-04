@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
+import { ConteinerEstado } from 'src/app/models/conteinerEstado.model';
 import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtualizacao.model';
+import { PrestacaoServicoEstado } from 'src/app/models/prestacaoServicoEstado.model';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Tipo } from 'src/app/models/tipo.model';
@@ -90,10 +92,15 @@ export class GerenteService {
     return this.http.post<PrestacaoServico>(this.prestacaoServicoURL, prestacaoServico, { headers, observe: 'response' });
   }
   
-  alterarEstadoPrestacaoServico(prestacaoServico: PrestacaoServicoAtualizacao): Observable<HttpResponse<PrestacaoServicoAtualizacao>> {
+  alterarEstadoPrestacaoServico(prestacaoServicoAtualizacao: PrestacaoServicoAtualizacao): Observable<HttpResponse<PrestacaoServicoAtualizacao>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.prestacaoServicoURL}/alterar-estado`;
-    return this.http.put<PrestacaoServicoAtualizacao>(url, prestacaoServico, { headers, observe: 'response' });
+    return this.http.put<PrestacaoServicoAtualizacao>(url, prestacaoServicoAtualizacao, { headers, observe: 'response' });
+  }
+
+  getPrestacaoServicoById(id: string): Observable<PrestacaoServicoEstado> {
+    const url = `${this.prestacaoServicoURL}/${id}`;
+    return this.http.get<PrestacaoServicoEstado>(url);
   }
 
   // Categoria
@@ -189,10 +196,10 @@ export class GerenteService {
     return this.http.put<Conteiner>(url, null, { headers, observe: 'response' });
   }
 
-  alteraDisponibilidadeConteiner(uuid: string, estado: any): Observable<HttpResponse<Conteiner>> {
+  alteraDisponibilidadeConteiner(uuid: string, estado: any): Observable<HttpResponse<ConteinerEstado>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.conteinerURL}/alterar-disponibilidade/${uuid}/${estado}`;
-    return this.http.put<Conteiner>(url, estado, { headers, observe: 'response' });
+    return this.http.put<ConteinerEstado>(url, estado, { headers, observe: 'response' });
   }
 
   // Serviço

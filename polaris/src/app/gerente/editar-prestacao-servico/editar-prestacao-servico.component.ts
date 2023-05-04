@@ -1,7 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtualizacao.model';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
@@ -24,15 +23,16 @@ enum EstadoPrestacaoServico {
   Finalizado = 1,
   "Em Andamento" = 2
 };
-
 @Component({
   selector: 'app-editar-prestacao-servico',
   templateUrl: './editar-prestacao-servico.component.html',
   styleUrls: ['./editar-prestacao-servico.component.scss']
 })
+
 export class EditarPrestacaoServicoComponent implements OnInit {
   public prestacaoDeServicoUuid: any;
   public prestacaoDeServicoData: any;
+  public conteinerUuid!: string;
   public statusMsg!: string;
   public terceirizadosCadastrados: Terceirizado[] = [];
   public servicosCadastrados: Servico[] = [];
@@ -41,31 +41,26 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   public estadoPrestacaoServico = EstadoPrestacaoServico;
   public estadoConteinerSelecionado = 0;
   public estadoPrestacaoServicoSelecionada = 0;
-
-  public prestacaoServico: PrestacaoServico = {
-    dataProcedimento: '',
-    comentario: '',
-    conteiner: '',
-    terceirizado: '',
-    servico: ''
-  }
-
+  
   public prestacaoServicoAtualizacao: PrestacaoServicoAtualizacao ={
     prestacaoDeServicoUuid: '',
     dataProcedimento: '',
     estadoPrestacaoServico: 0,
     comentario: '',
   }
-  
+    
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.prestacaoDeServicoUuid = this.activatedRoute.snapshot.params['id']; 
     this.getAllPrestacaoServicos();
+    this.getPrestacaoServicoById();    
   }
 
   editar() {
-    console.log(this.prestacaoServicoAtualizacao);
+    this.prestacaoServicoAtualizacao.prestacaoDeServicoUuid = this.prestacaoDeServicoUuid;
+    this.prestacaoServicoAtualizacao.estadoPrestacaoServico = parseInt(this.estadoPrestacaoServicoSelecionada.toString());
+    this.alteraDisponibilidadeConteiner();
     this.gerenteService.alterarEstadoPrestacaoServico(this.prestacaoServicoAtualizacao).subscribe(
       (response: HttpResponse<PrestacaoServicoAtualizacao>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -85,8 +80,27 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   getAllPrestacaoServicos() {
     this.gerenteService.getAllPrestacaoServicos().subscribe( response => {
       this.prestacaoDeServicoData = response;
-      console.log(this.prestacaoDeServicoData);
     })
+  }
+
+  getPrestacaoServicoById() {
+    this.gerenteService.getPrestacaoServicoById(this.prestacaoDeServicoUuid).subscribe( response => {
+      this.prestacaoServicoAtualizacao.estadoPrestacaoServico = response.estadoPrestacaoServico;
+      this.conteinerUuid = response.conteiner.conteinerUuid;
+      this.prestacaoServicoAtualizacao.comentario = response.comentario;
+      this.prestacaoServicoAtualizacao.dataProcedimento = response.dataProcedimento;
+      this.estadoPrestacaoServicoSelecionada = this.prestacaoServicoAtualizacao.estadoPrestacaoServico;      
+      this.estadoConteinerSelecionado = response.conteiner.estado;  
+      this.getConteinerUuid(this.conteinerUuid);
+    })
+  } 
+
+  getConteinerUuid(conteinerUuid: string) {
+    return this.conteinerUuid = conteinerUuid;
+  }
+
+  alteraDisponibilidadeConteiner() {
+    this.gerenteService.alteraDisponibilidadeConteiner(this.conteinerUuid, this.estadoConteinerSelecionado).subscribe();
   }
 
   // Popula EstadoConteiner e EstadoPrestacaoServico dropdown

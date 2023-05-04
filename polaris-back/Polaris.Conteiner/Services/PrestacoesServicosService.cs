@@ -29,6 +29,26 @@ namespace Polaris.Conteiner.Services
             _conteinerRepository = conteinerRepository;
         }
 
+        public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacoesServicosPorConteiner(Guid uuidConteiner)
+        {
+            var prestacoes = _context.PrestacaDeServicoRepository.GetPrestacoesServicosPorConteiner(uuidConteiner);
+            if (!prestacoes.Any())
+            {
+                throw new PrestacaoServicoNaoEncontradaException("Não há prestações de serviço cadastradas.");
+            }
+
+            var listaPrestacoes = new List<RetornoPrestacaoDeServicoViewModel>();
+            foreach (var prestacao in prestacoes)
+            {
+                var prestacaoMap = _mapper.Map<RetornoPrestacaoDeServicoViewModel>(prestacao);
+                prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid);
+                prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid);
+                listaPrestacoes.Add(prestacaoMap);
+            }
+
+            return listaPrestacoes;
+        }
+
         public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacaoDeServicos()
         {
             var prestacoes = _context.PrestacaDeServicoRepository.GetPrestacaoCompleta();
