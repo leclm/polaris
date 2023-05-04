@@ -21,6 +21,10 @@ import { EditarConteinerComponent } from './editar-conteiner';
 import { ManterServicoComponent } from './manter-servico';
 import { VisualizarServicosComponent } from './visualizar-servicos';
 import { EditarServicoComponent } from './editar-servico';
+import { VisualizarHistoricoPrestacaoServicoComponent } from './visualizar-historico-prestacao-servico';
+import { VisualizarHistoricoAluguelConteinerComponent } from './visualizar-historico-aluguel-conteiner';
+import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/manter-prestacao-servico.component';
+import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico';
 
 export const GerenteRoutes: Routes = [
   // Cliente
@@ -116,5 +120,21 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/editar-conteiner/:id',
     component: EditarConteinerComponent
-  }
+  },
+  {
+    path: 'gerente/visualizar-historico-prestacao-servico/:id',
+    component: VisualizarHistoricoPrestacaoServicoComponent
+  },
+  {
+    path: 'gerente/visualizar-historico-aluguel-conteiner/:id',
+    component: VisualizarHistoricoAluguelConteinerComponent
+  },
+  {
+    path: 'gerente/manter-prestacao-servico/:id',
+    component: ManterPrestacaoServicoComponent
+  },
+  {
+    path: 'gerente/editar-prestacao-servico/:id',
+    component: EditarPrestacaoServicoComponent
+  },
 ];

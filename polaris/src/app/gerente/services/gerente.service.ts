@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
+import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
+import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtualizacao.model';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Tipo } from 'src/app/models/tipo.model';
@@ -16,6 +18,7 @@ export class GerenteService {
   categoriaURL = 'https://localhost:44387/categoriasconteineres';
   tipoURL = 'https://localhost:44387/tiposconteineres';
   conteinerURL = 'https://localhost:44387/Conteineres';
+  prestacaoServicoURL = 'https://localhost:44387/PrestacoesServicos';
 
   constructor( private http: HttpClient ) { } 
   
@@ -50,7 +53,7 @@ export class GerenteService {
     return this.http.put<Terceirizado>(url, null, { headers, observe: 'response' });
   }
 
-  // Serviços Prestados
+  // Serviços
   addServico(servico: Servico): Observable<HttpResponse<Servico>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Servico>(this.servicoURL, servico, { headers, observe: 'response' });
@@ -75,6 +78,22 @@ export class GerenteService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.servicoURL}/alterar-status/${uuid}/false`;
     return this.http.put<Servico>(url, null, { headers, observe: 'response' });
+  }
+
+  // Prestação de Serviços
+  getAllPrestacaoServicos(): Observable<PrestacaoServico[]> {
+    return this.http.get<PrestacaoServico[]>(this.prestacaoServicoURL);
+  }
+  
+  addPrestacaoServico(prestacaoServico: PrestacaoServico): Observable<HttpResponse<PrestacaoServico>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<PrestacaoServico>(this.prestacaoServicoURL, prestacaoServico, { headers, observe: 'response' });
+  }
+  
+  alterarEstadoPrestacaoServico(prestacaoServico: PrestacaoServicoAtualizacao): Observable<HttpResponse<PrestacaoServicoAtualizacao>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.prestacaoServicoURL}/alterar-estado`;
+    return this.http.put<PrestacaoServicoAtualizacao>(url, prestacaoServico, { headers, observe: 'response' });
   }
 
   // Categoria
@@ -170,10 +189,10 @@ export class GerenteService {
     return this.http.put<Conteiner>(url, null, { headers, observe: 'response' });
   }
 
-  alteraDisponibilidadeConteiner(uuid: string, estado: number): Observable<HttpResponse<Conteiner>> {
+  alteraDisponibilidadeConteiner(uuid: string, estado: any): Observable<HttpResponse<Conteiner>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.conteinerURL}/alterar-disponibilidade/${uuid}/${estado}`;
-    return this.http.put<Conteiner>(url, null, { headers, observe: 'response' });
+    return this.http.put<Conteiner>(url, estado, { headers, observe: 'response' });
   }
 
   // Serviço

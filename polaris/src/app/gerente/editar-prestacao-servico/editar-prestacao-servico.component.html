@@ -1,0 +1,62 @@
+<div class="editar-prestacao-servico container-fluid mt-4 mb-4">
+  <div *ngFor="let item of prestacaoDeServicoData">
+    <div *ngIf="item.prestacaoDeServicoUuid == prestacaoDeServicoUuid">
+      <div class="container-content mb-4 p-4">
+        <h1>Editar Prestação de Serviço</h1>
+
+        <div class="line mb-5"></div>
+        
+        <div [ngSwitch]="statusMsg">
+          <div *ngSwitchCase="'success'">
+            <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+              Edição realizada com sucesso!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+          <div *ngSwitchCase="'fail'">
+            <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+              Falha ao editar, confira os dados e tente novamente.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <p class="title">Dados cadastrais</p>
+          <div class="content d-flex ms-3">
+            <form class="row g-3" #formPrestacaoDeServico="ngForm" (ngSubmit)="editar()">
+              <div class="col-md-4">         
+                <label for="inputEstadoConteiner" class="form-label">Estado do Contêiner</label>
+                <select class="form-select" id="inputEstadoConteiner" aria-label="estadoConteiner" [(ngModel)]="estadoConteinerSelecionado" name="estadoConteiner">
+                  <option *ngFor="let a of fakeArrayConteiner; let index = index" [value]="index">{{estadoConteiner[index]}}</option>
+                </select>
+              </div>
+              
+              <div class="col-md-4">         
+                <label for="inputEstadoPrestacaoServico" class="form-label">Estado do Serviço</label>
+                <select class="form-select" id="inputEstadoPrestacaoServico" aria-label="estadoPrestacaoServico" [(ngModel)]="estadoPrestacaoServicoSelecionada" name="prestacaoServico">
+                  <option *ngFor="let a of fakeArrayPrestacaoServico; let index = index" [value]="index">{{estadoPrestacaoServico[index]}}</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
+                <input class="form-control" type="text" id="inputDataProcedimento" name="dataProcedimento" value="{{prestacaoServico.dataProcedimento}}" [(ngModel)]="prestacaoServicoAtualizacao.dataProcedimento" #dataProcedimento="ngModel">
+              </div>
+
+              <div class="col-md-12">
+                <label for="inputComentario" class="form-label">Comentário</label>
+                <textarea class="form-control" id="inputComentario" rows="4" cols="50" name="comentario" [(ngModel)]="prestacaoServico.comentario" #comentario="ngModel" value="prestacaoServico.comentario"></textarea>
+              </div>
+
+              <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                <button type="submit">Salvar Alterações</button>
+                <a [routerLink]="['/gerente/visualizar-historico-prestacao-servico', item.conteiner.conteinerUuid]">Voltar</a>
+              </div>
+            </form>
+          </div>
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+</div>

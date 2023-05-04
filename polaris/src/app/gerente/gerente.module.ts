@@ -27,6 +27,10 @@ import { EditarConteinerComponent } from './editar-conteiner/editar-conteiner.co
 import { ManterServicoComponent } from './manter-servico/manter-servico.component';
 import { VisualizarServicosComponent } from './visualizar-servicos/visualizar-servicos.component';
 import { EditarServicoComponent } from './editar-servico/editar-servico.component';
+import { VisualizarHistoricoPrestacaoServicoComponent } from './visualizar-historico-prestacao-servico/visualizar-historico-prestacao-servico.component';
+import { VisualizarHistoricoAluguelConteinerComponent } from './visualizar-historico-aluguel-conteiner/visualizar-historico-aluguel-conteiner.component';
+import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/manter-prestacao-servico.component';
+import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { EditarServicoComponent } from './editar-servico/editar-servico.componen
     EditarConteinerComponent,
     ManterServicoComponent,
     VisualizarServicosComponent,
-    EditarServicoComponent    
+    EditarServicoComponent,
+    VisualizarHistoricoPrestacaoServicoComponent,
+    VisualizarHistoricoAluguelConteinerComponent,
+    ManterPrestacaoServicoComponent,
+    EditarPrestacaoServicoComponent    
   ],
   imports: [
     CommonModule,

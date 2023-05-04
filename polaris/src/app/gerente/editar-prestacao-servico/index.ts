@@ -1,0 +1,1 @@
+export * from './editar-prestacao-servico.component';

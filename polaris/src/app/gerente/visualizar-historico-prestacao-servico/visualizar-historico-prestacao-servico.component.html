@@ -1,0 +1,39 @@
+<div class="visualizar-historico-prestacao-servico container-fluid mt-4 mb-4">
+  <div *ngFor="let item of conteineresData">
+    <div *ngIf="item.conteinerUuid == conteinerUuid">
+      <div class="container-content p-4">
+        <h1 class="mb-4">Visualizar Histórico de Serviços Realizados no Contêiner</h1>
+
+        <div class="table-responsive">
+         <table class="table align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th [appSort]="prestacaoServicosData" data-order="desc" data-name="terceirizado">Empresa <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicosData" data-order="desc" data-name="dataProcedimento">Data <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicosData" data-order="desc" data-name="estadoPrestacaoServico">Estado <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicosData" data-order="desc" data-name="comentario">Comentário <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th>Editar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of prestacaoServicosData">
+                <td>{{ item.terceirizado.empresa }}</td>
+                <td>{{ item.dataProcedimento }}</td>
+                <td>{{ item.estadoPrestacaoServico }}</td>
+                <td>{{ item.comentario }}</td>
+                <td>
+                  <a [routerLink]="['/gerente/editar-prestacao-servico', item.prestacaoDeServicoUuid]">
+                    <i class="fa fa-user-edit" aria-hidden="true"></i>
+                  </a>             
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ctn-btn d-flex justify-content-evenly mt-5">
+          <a [routerLink]="['/gerente/visualizar-conteiner', item.conteinerUuid]" alt="Visualizar Detalhes" title="Visualizar Detalhes">Voltar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

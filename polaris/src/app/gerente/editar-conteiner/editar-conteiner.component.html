@@ -58,31 +58,6 @@
                     <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome}}</option>
                   </select>
                 </div>
-
-             <!--
-                <div class="col-md-4">         
-                  <label for="inputEstadoConteiner" class="form-label">Estado do Contêiner</label>
-                  <select class="form-select" id="inputEstadoConteiner" aria-label="estadoConteiner" [(ngModel)]="conteiner.fabricacao" name="conteiner.fabricacao">
-                    <option *ngFor="let a of fakeArray; let index = index" [value]="estadoConteiner[index]">{{estadoConteiner[index]}}</option>
-                  </select>
-                </div> 
-            
-                <div class="col-md-4">         
-                  <label for="inputEmpresa" class="form-label">Empresa</label>
-                  <select class="form-select" id="inputEmpresa" aria-label="empresa" name="empresa" [(ngModel)]="prestacaoServico.terceirizado">
-                    <option *ngFor="let item of terceirizadosCadastrados" [value]="item.empresa">{{item.empresa}}</option>
-                  </select>
-                </div>
-    
-                <div class="col-md-4">
-                  <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
-                  <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" [(ngModel)]="prestacaoServico.dataProcedimento" #dataProcedimento="ngModel">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="inputComentario" class="form-label">Comentário</label>
-                  <textarea class="form-control" id="inputComentario" rows="4" cols="50" name="comentario" [(ngModel)]="prestacaoServico.comentario" #comentario="ngModel"></textarea>
-                </div>-->
   
                 <div class="ctn-btn d-flex justify-content-evenly mt-5">
                   <button type="submit">Salvar Alterações</button>
