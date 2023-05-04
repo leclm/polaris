@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthRoutes } from './auth/auth-routing.module';
 import { ClienteRoutes } from './cliente/cliente-routing.module';
 import { GerenteRoutes } from './gerente/gerente-routing.module';
+import { SistemaRoutes } from './sistema/sistema-routing.module';
 
 const routes: Routes = [
   { 
@@ -12,7 +13,8 @@ const routes: Routes = [
   },
   ...ClienteRoutes,
   ...GerenteRoutes,
-  ...AuthRoutes
+  ...AuthRoutes,
+  ...SistemaRoutes
 ];
 
 @NgModule({

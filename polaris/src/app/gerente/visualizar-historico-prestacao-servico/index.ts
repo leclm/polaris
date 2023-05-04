@@ -1,0 +1,1 @@
+export * from './visualizar-historico-prestacao-servico.component';

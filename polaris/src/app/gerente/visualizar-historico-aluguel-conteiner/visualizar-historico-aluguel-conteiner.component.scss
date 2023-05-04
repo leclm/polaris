@@ -3,7 +3,7 @@ $white: #fff;
 $aqua: #0fbda3;
 $border-gray: #dee2e6;
 
-.visualizar-estoque-conteineres {
+.visualizar-historico-alugueis {
   .container-content {
     border: 1px solid $border-gray;
     border-radius: 15px;
@@ -46,11 +46,11 @@ $border-gray: #dee2e6;
         }
       }    
     }
-    .fa-eye, .fa-user-edit, .fa-trash-alt, .fa-sort, .fa-hammer {
+    .fa-eye, .fa-user-edit, .fa-trash-alt, .fa-sort, .fa-align-justify {
       color: $dark-blue;
       margin: 0 10px;
     }
-    .fa-eye:hover, .fa-user-edit:hover, .fa-trash-alt:hover, .fa-sort:hover, .fa-hammer:hover {
+    .fa-eye:hover, .fa-user-edit:hover, .fa-trash-alt:hover, .fa-sort:hover, .fa-align-justify:hover {
       color: $aqua;
     }
     .ctn-btn {

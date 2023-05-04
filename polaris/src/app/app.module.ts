@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { GerenteModule } from './gerente/gerente.module';
 import { FormsModule } from '@angular/forms';
+import { SistemaModule } from './sistema';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -33,12 +34,13 @@ registerLocaleData(localePt, 'pt');
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    AuthModule,
-    ClienteModule,
     NgxMaskModule.forRoot(),
     CurrencyMaskModule,
+    FormsModule,
+    SistemaModule,
     GerenteModule,
-    FormsModule
+    AuthModule,
+    ClienteModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CURRENCY_MASK_CONFIG },

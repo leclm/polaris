@@ -27,3 +27,8 @@ export * from './visualizar-estoque-conteineres';
 export * from './manter-servico';
 export * from './editar-servico';
 export * from './visualizar-servicos';
+
+export * from './visualizar-historico-prestacao-servico';
+export * from './visualizar-historico-aluguel-conteiner';
+export * from './manter-prestacao-servico';
+export * from './editar-prestacao-servico';

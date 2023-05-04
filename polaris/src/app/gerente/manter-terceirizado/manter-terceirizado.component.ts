@@ -38,15 +38,15 @@ export class ManterTerceirizadoComponent implements OnInit {
   constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.getAllServicos();
+    this.getAllServicosAtivos();
   }
 
   onCheckboxChange(item: any) {
     this.selectedOptions = this.servicosCadastrados.filter((i: any) => i.checked).map((i: any) => i.servicoUuid);
   }
 
-  getAllServicos() {
-    this.gerenteService.getAllServicos()
+  getAllServicosAtivos() {
+    this.gerenteService.getAllServicosAtivos()
     .subscribe( response => {
       this.servicosCadastrados = response;
     })

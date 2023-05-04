@@ -64,6 +64,8 @@
                 </div>             
   
                 <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                  <a [routerLink]="['/gerente/visualizar-historico-prestacao-servico', item.conteinerUuid]" alt="Histórico de Serviços" title="Histórico de Serviços">Histórico de Serviços</a>
+                  <a [routerLink]="['/gerente/visualizar-historico-aluguel-conteiner', item.conteinerUuid]" alt="Histórico de Aluguéis" title="Histórico de Aluguéis">Histórico de Aluguéis</a>
                   <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
                 </div>
               </form>
