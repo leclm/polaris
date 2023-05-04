@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GerenteService } from '../services';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Tipo } from 'src/app/models/tipo.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { HttpResponse } from '@angular/common/http';
-import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 @Component({
   selector: 'app-editar-conteiner',
   templateUrl: './editar-conteiner.component.html',
@@ -23,7 +22,7 @@ export class EditarConteinerComponent implements OnInit {
   
   @ViewChild("formConteiner") formConteiner!: NgForm;
   
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private router: Router ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   public conteiner: Conteiner = {
     conteinerUuid: '',
@@ -33,25 +32,16 @@ export class EditarConteinerComponent implements OnInit {
     material: '',
     cor: '',
     categoria: '',
-    tipo: ''    
+    tipo: ''
   }
 
   ngOnInit(): void {
     this.conteinerUuid = this.activatedRoute.snapshot.params['id']; 
-    this.gerenteService.getAllConteineres().subscribe( (res: any) => { this.conteinerData = res; });
-    this.gerenteService.getAllTiposAtivos().subscribe( (res: any) => { this.tiposCadastrados = res; });
-    this.gerenteService.getAllCategoriasAtivas().subscribe( (res: any) => { this.categoriasCadastradas = res; });
-    this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => { this.terceirizadosCadastrados = res;});  
-    this.gerenteService.getConteinerById(this.conteinerUuid).subscribe( (res: any) => { 
-      this.conteiner.conteinerUuid = res.conteinerUuid;
-      this.conteiner.codigo = res.codigo;
-      this.conteiner.fabricacao = res.fabricacao;
-      this.conteiner.fabricante = res.fabricante;
-      this.conteiner.material = res.material;
-      this.conteiner.cor = res.cor;
-      this.conteiner.categoria = res.categoriaConteiner.categoriaConteinerUuid;
-      this.conteiner.tipo = res.tipoConteiner.tipoConteinerUuid;
-    });    
+    this.getAllConteineres();
+    this.getAllTiposAtivos();
+    this.getAllCategoriasAtivas();
+    this.getAllTerceirizadosAtivos();    
+    this.getConteinerById();
   }
 
   editar() {
@@ -69,5 +59,34 @@ export class EditarConteinerComponent implements OnInit {
         this.statusMsg = 'fail';
       }
     );
+    
+  }
+
+  getAllConteineres() {
+    this.gerenteService.getAllConteineres().subscribe( (res: any) => { this.conteinerData = res; }); 
+  }
+
+  getAllTiposAtivos() {
+    this.gerenteService.getAllTiposAtivos().subscribe( (res: any) => { this.tiposCadastrados = res; });
+  }
+  
+  getAllCategoriasAtivas() {
+    this.gerenteService.getAllCategoriasAtivas().subscribe( (res: any) => { this.categoriasCadastradas = res; });
+  }
+  getAllTerceirizadosAtivos() {
+    this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => { this.terceirizadosCadastrados = res;}); 
+  }     
+
+  getConteinerById() {
+    this.gerenteService.getConteinerById(this.conteinerUuid).subscribe( (res: any) => { 
+      this.conteiner.conteinerUuid = res.conteinerUuid;
+      this.conteiner.codigo = res.codigo;
+      this.conteiner.fabricacao = res.fabricacao;
+      this.conteiner.fabricante = res.fabricante;
+      this.conteiner.material = res.material;
+      this.conteiner.cor = res.cor;
+      this.conteiner.categoria = res.categoriaConteiner.categoriaConteinerUuid;
+      this.conteiner.tipo = res.tipoConteiner.tipoConteinerUuid;
+    });   
   }
 }

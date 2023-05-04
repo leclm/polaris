@@ -23,6 +23,7 @@ export * from './manter-conteiner';
 export * from './editar-conteiner';
 export * from './visualizar-conteiner';
 export * from './visualizar-estoque-conteineres';
+export * from './editar-disponibilidade-conteiner';
 
 export * from './manter-servico';
 export * from './editar-servico';
