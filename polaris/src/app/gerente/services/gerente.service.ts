@@ -99,6 +99,11 @@ export class GerenteService {
   }
 
   getPrestacaoServicoById(id: string): Observable<PrestacaoServicoEstado> {
+    const url = `${this.prestacaoServicoURL}/Conteiner/${id}`;
+    return this.http.get<PrestacaoServicoEstado>(url);
+  }
+
+  getPrestacaoServicoByConteiner(id: string): Observable<PrestacaoServicoEstado> {
     const url = `${this.prestacaoServicoURL}/${id}`;
     return this.http.get<PrestacaoServicoEstado>(url);
   }

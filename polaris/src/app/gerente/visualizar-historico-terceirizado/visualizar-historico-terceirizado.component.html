@@ -1,6 +1,6 @@
 <div class="visualizar-historico-terceirizado container-fluid mt-4 mb-4">
-  <div *ngFor="let item of terceirizadoData">
-    <div *ngIf="item.terceirizadoUuid == terceirizadoUuid">
+  <div *ngFor="let item of prestacaoServicoData">
+    <div *ngIf="item.terceirizado.terceirizadoUuid == terceirizadoUuid">
       <div class="container-content p-4">
         <h1 class="mb-4">Histórico de Serviços do Terceirizado: </h1>
 
@@ -8,23 +8,25 @@
           <table class="table align-middle text-center">
             <thead class="table-light">
               <tr>
-                <!--<th [appSort]="terceirizadoData" data-order="desc" data-name="empresa">Empresa <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="terceirizadoData" data-order="desc" data-name="cnpj">CNPJ <i class="fa fa-sort" aria-hidden="true"></i></th>-->
-                <th [appSort]="terceirizadoData" data-order="desc" data-name="conteiner">Contêiner <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="terceirizadoData" data-order="desc" data-name="procedimento">Procedimento <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="terceirizadoData" data-order="desc" data-name="dataProcedimento">Data do Procedimento <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicoData" data-order="desc" data-name="conteiner">Contêiner <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicoData" data-order="desc" data-name="procedimento">Procedimento <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicoData" data-order="desc" data-name="dataProcedimento">Data do Procedimento <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicoData" data-order="desc" data-name="estado">Estado <i class="fa fa-sort" aria-hidden="true"></i></th>
+                <th [appSort]="prestacaoServicoData" data-order="desc" data-name="comentari">Comentário <i class="fa fa-sort" aria-hidden="true"></i></th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of terceirizadoData">
-                <td>#CCM - construção civil - médio</td>
-                <td>Limpeza</td>
-                <td>10/02/2023</td>
+              <tr>
+                <td>{{item.conteiner.codigo}}</td>
+                <td>{{item.servico.nome}}</td>
+                <td>{{item.dataProcedimento}}</td>
+                <td>{{item.estadoPrestacaoServico}}</td>
+                <td>{{item.comentario}}</td>
               </tr>
             </tbody>
           </table>
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <a [routerLink]="['/gerente/visualizar-detalhes-terceirizado', item.terceirizadoUuid]">Voltar</a>
+            <!--<a [routerLink]="['/gerente/visualizar-detalhes-terceirizado', item.terceirizadoUuid]">Voltar</a>-->
           </div>
         </div>
       </div>

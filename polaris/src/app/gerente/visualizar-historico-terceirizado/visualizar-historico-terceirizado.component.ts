@@ -9,17 +9,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VisualizarHistoricoTerceirizadoComponent implements OnInit {
   public terceirizadoUuid: any;
-  public terceirizadoData: any;
+  public prestacaoServicoData: any;
 
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.terceirizadoUuid = this.activatedRoute.snapshot.params['id'];
+    this.getAllPrestacaoServicos();
     
-    this.gerenteService.getAllTerceirizados().subscribe( (res: any) => {
-        this.terceirizadoData = res;
+  }
+
+  getAllPrestacaoServicos() {
+    this.gerenteService.getAllPrestacaoServicos().subscribe( (res: any) => {
+        this.prestacaoServicoData = res;
+        console.log(this.prestacaoServicoData)
       }
     )
   }
-
 }

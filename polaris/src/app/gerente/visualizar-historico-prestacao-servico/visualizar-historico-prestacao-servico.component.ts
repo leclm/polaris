@@ -30,7 +30,7 @@ export class VisualizarHistoricoPrestacaoServicoComponent implements OnInit {
       }
     );
 
-    this.gerenteService.getAllPrestacaoServicos().subscribe( (res: any) => {
+    this.gerenteService.getPrestacaoServicoById(this.conteinerUuid).subscribe( (res: any) => {
         this.prestacaoServicosData = res;
         this.getEstadoText(this.prestacaoServicosData);
       }
