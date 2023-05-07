@@ -21,6 +21,11 @@ namespace Polaris.Usuario.Controllers
         /// Este endpoint é utilizado para logar
         /// </summary>
         /// <remarks>
+        /// Exemplo: <br />
+        /// {<br />
+        /// "usuario": "usuario", <br />
+        /// "senha": "senha" <br />
+        /// }
         /// </remarks>
         /// <returns>
         /// Retorna 200 caso sucesso
@@ -50,6 +55,11 @@ namespace Polaris.Usuario.Controllers
         /// Este endpoint deve cadastrar um login
         /// </summary>
         /// <remarks>
+        /// Exemplo: <br />
+        /// {<br />
+        /// "usuario": "usuario", <br />
+        /// "senha": "senha" <br />
+        /// }
         /// </remarks>
         /// <returns>
         /// Retorna 201 caso sucesso
@@ -78,6 +88,12 @@ namespace Polaris.Usuario.Controllers
         /// Este endpoint deve atualizar um usuario e/ou senha
         /// </summary>
         /// <remarks>
+        ///  Exemplo: <br />
+        /// {<br />
+        /// "loginUuid": "14ed02ac-c05d-48c8-be3d-3cf84dc2b146", <br />
+        /// "usuario": "usuario", <br />
+        /// "senha": "senha" <br />
+        /// }
         /// </remarks>
         /// <returns>
         /// Retorna 201 caso sucesso
