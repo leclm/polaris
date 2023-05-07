@@ -32,6 +32,7 @@ import { VisualizarHistoricoAluguelConteinerComponent } from './visualizar-histo
 import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/manter-prestacao-servico.component';
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -63,12 +64,13 @@ import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidad
     VisualizarHistoricoAluguelConteinerComponent,
     ManterPrestacaoServicoComponent,
     EditarPrestacaoServicoComponent,
-    EditarDisponibilidadeConteinerComponent    
+    EditarDisponibilidadeConteinerComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgbCarouselModule
   ],
   providers: [
     GerenteService

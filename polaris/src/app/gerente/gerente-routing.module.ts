@@ -141,5 +141,5 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/editar-prestacao-servico/:id',
     component: EditarPrestacaoServicoComponent
-  },
+  }
 ];
