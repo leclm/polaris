@@ -13,7 +13,7 @@
         }
         public static void ClassToUpper(Models.Login login)
         {
-            //servico.Nome = servico.Nome.ToUpper();
+            login.Usuario = login.Usuario.ToUpper();
         }
     }
 }

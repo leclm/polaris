@@ -32,6 +32,7 @@ namespace Polaris.Usuario.Models
         [Required]
         public string Telefone { get; set; }
         public bool Status { get; set; }
+        public bool JaContatado { get; set; }
 
         [Required]
         [NotNull]

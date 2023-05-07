@@ -2,6 +2,7 @@
 {
     public interface IUnityOfWork
     {
+        ILoginRepository LoginRepository { get; }
         Task Commit();
     }
 }

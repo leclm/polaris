@@ -1,5 +1,11 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 using Polaris.Usuario.Context;
+using Polaris.Usuario.ExternalServices;
+using Polaris.Usuario.Repository;
+using Polaris.Usuario.Services;
+using Polaris.Usuario.ViewModels.Mappings;
 using System;
 using System.Reflection;
 
@@ -22,6 +28,20 @@ string mySqlConnection = builder.Configuration.GetConnectionString("DefaultConne
 builder.Services.AddDbContext<AppDbContext>(options =>
                     options.UseMySql(mySqlConnection,
                     ServerVersion.AutoDetect(mySqlConnection)));
+
+builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
+builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+
+var mappingConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+
+IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 
 builder.Services.AddCors();
 
