@@ -25,7 +25,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     CommonModule,
     RouterModule,
     FormsModule,
-    NgxPayPalModule, NgxMaskModule.forRoot(), 
+    NgxPayPalModule,
+    NgxMaskModule.forRoot(), 
     CurrencyMaskModule
   ],
   providers: [

@@ -1,1 +1,25 @@
-<p>pagina-inicial works!</p>
+<div class="pagina-inicial container-fluid mt-4 mb-4">
+  <div class="container-content mb-4 p-4">
+    <h1>Somos uma empresa curitibana de aluguel de contêineres</h1>
+
+    <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide *ngFor="let item of images">
+        <div class="img-wrapper">
+          <img [src]="item.path" width="item.width" height="item.height" alt="item.altText" />
+        </div>
+        <div class="description">
+          <h3>{{item.type}}</h3>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+
+    <p class="mt-5">
+      Gostaria de saber mais sobre nosso aluguel de contêineres? Cadastre-se aqui e entraremos em contato
+    </p>
+    
+    <div class="ctn-btn d-flex justify-content-evenly mt-1">
+      <a [routerLink]="['/auth/login']">Entrar</a>
+      <a href="#">Cadastre-se</a>
+    </div>
+  </div>
+</div>

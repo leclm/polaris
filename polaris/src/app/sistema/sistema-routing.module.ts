@@ -3,7 +3,6 @@ import { PaginaInicialComponent } from './pagina-inicial';
 import { SolicitarContatoComponent } from './solicitar-contato';
 
 export const SistemaRoutes: Routes = [
-  // Sistema
   {
     path: 'sistema',
     component: PaginaInicialComponent
