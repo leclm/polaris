@@ -4,29 +4,21 @@ namespace Polaris.Usuario.Repository
 {
     public class UnityOfWork : IUnityOfWork
     {
-        //private ServicoRepository _servicoRepo;
-        //private TerceirizadoRepository _terceirizadoRepo;
+        private LoginRepository _loginRepo;
         public AppDbContext _context;
 
         public UnityOfWork(AppDbContext contexto)
         {
             _context = contexto;
         }
-        //public IServicoRepository ServicoRepository
-        //{
-        //    get
-        //    {
-        //        return _servicoRepo = _servicoRepo ?? new ServicoRepository(_context);
-        //    }
-        //}
 
-        //public ITerceirizadoRepository TerceirizadoRepository
-        //{
-        //    get
-        //    {
-        //        return _terceirizadoRepo = _terceirizadoRepo ?? new TerceirizadoRepository(_context);
-        //    }
-        //}
+        public ILoginRepository LoginRepository
+        {
+            get
+            {
+                return _loginRepo = _loginRepo ?? new LoginRepository(_context);
+            }
+        }
 
         public async Task Commit()
         {
