@@ -14,6 +14,7 @@
     public class Endpoints
     {
         public string Endereco { get; set; }
-        //public string GetEnderecoTerceirizado { get; set; }
+        public string GetEnderecoCliente { get; set; }
+        public string GetEnderecoGerente { get; set; }
     }
 }

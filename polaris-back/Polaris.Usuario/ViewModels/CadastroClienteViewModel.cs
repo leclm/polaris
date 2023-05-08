@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Usuario.ViewModels
 {
-    public class EditaClienteViewModel
+    public class CadastroClienteViewModel
     {
         [MinLength(1, ErrorMessage = "Erro. Digite um CPF.")]
         [MaxLength(11, ErrorMessage = " Erro. CPF inválido.")]
@@ -38,6 +38,6 @@ namespace Polaris.Usuario.ViewModels
 
         [Required]
         [NotNull]
-        public CadastroEnderecoViewModel Endereco { get; set; }
+        public CadastroEnderecoViewModel Endereco { get; set; }    
     }
 }

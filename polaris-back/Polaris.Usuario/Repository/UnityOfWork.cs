@@ -5,6 +5,7 @@ namespace Polaris.Usuario.Repository
     public class UnityOfWork : IUnityOfWork
     {
         private LoginRepository _loginRepo;
+        private ClienteRepository _clienteRepo;
         public AppDbContext _context;
 
         public UnityOfWork(AppDbContext contexto)
@@ -17,6 +18,14 @@ namespace Polaris.Usuario.Repository
             get
             {
                 return _loginRepo = _loginRepo ?? new LoginRepository(_context);
+            }
+        }
+
+        public IClienteRepository ClienteRepository
+        {
+            get
+            {
+                return _clienteRepo = _clienteRepo ?? new ClienteRepository(_context);
             }
         }
 

@@ -194,5 +194,57 @@ namespace Polaris.Endereco.Controllers
                 return ReturnError();
             }
         }
+
+        /// <summary>
+        /// Este endpoint deve buscar qual endereço está vinculado com o cliente buscado
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Enderecos/buscar-endereco-cliente/uuid
+        [HttpGet("buscar-endereco-cliente/{uuidCliente}")]
+        public async Task<IActionResult> BuscarVinculoEnderecoCliente(Guid uuidCliente)
+        {
+            try
+            {
+                return Ok(await _service.BuscarVinculoEnderecoCliente(uuidCliente));
+            }
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
+
+        /// <summary>
+        /// Este endpoint deve buscar qual endereço está vinculado com o gerente buscado
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Enderecos/buscar-endereco-gerente/uuid
+        [HttpGet("buscar-endereco-gerente/{uuidGerente}")]
+        public async Task<IActionResult> BuscarVinculoEnderecoGerente(Guid uuidGerente)
+        {
+            try
+            {
+                return Ok(await _service.BuscarVinculoEnderecoGerente(uuidGerente));
+            }
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
     }
 }

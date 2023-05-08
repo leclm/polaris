@@ -114,5 +114,29 @@ namespace Polaris.Endereco.Services
             var enderecoDto = _mapper.Map<RetornoEnderecoViewModel>(endereco);
             return enderecoDto;
         }
+
+        public async Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoCliente(Guid uuidCliente)
+        {
+            var endereco = await _context.EnderecoRepository.GetEnderecoByCliente(uuidCliente);
+
+            if (endereco is null)
+            {
+                throw new EnderecoNaoEncontradoException("Endereço não encontrado.");
+            }
+            var enderecoDto = _mapper.Map<RetornoEnderecoViewModel>(endereco);
+            return enderecoDto;
+        }
+
+        public async Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoGerente(Guid uuidGerente)
+        {
+            var endereco = await _context.EnderecoRepository.GetEnderecoByGerente(uuidGerente);
+
+            if (endereco is null)
+            {
+                throw new EnderecoNaoEncontradoException("Endereço não encontrado.");
+            }
+            var enderecoDto = _mapper.Map<RetornoEnderecoViewModel>(endereco);
+            return enderecoDto;
+        }
     }
 }

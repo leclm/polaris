@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Polaris.Endereco.Context;
-using System;
-using System.Linq;
+﻿using Polaris.Endereco.Context;
 
 namespace Polaris.Endereco.Repository
 {
@@ -22,6 +19,48 @@ namespace Polaris.Endereco.Repository
                             on e.EnderecoId equals t.EnderecoId
                             where t.TerceirizadoUuid == uuidTerceirizado
                             select e);
+
+                if (query is not null && query.Any())
+                {
+                    return query.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public async Task<Models.Endereco?> GetEnderecoByCliente(Guid uuidCliente)
+        {
+            using (_context)
+            {
+                var query = (from e in _context.Enderecos
+                             join t in _context.Clientes
+                             on e.EnderecoId equals t.EnderecoId
+                             where t.ClienteUuid == uuidCliente
+                             select e);
+
+                if (query is not null && query.Any())
+                {
+                    return query.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public async Task<Models.Endereco?> GetEnderecoByGerente(Guid uuidGerente)
+        {
+            using (_context)
+            {
+                var query = (from e in _context.Enderecos
+                             join t in _context.Gerentes
+                             on e.EnderecoId equals t.EnderecoId
+                             where t.GerenteUuid == uuidGerente
+                             select e);
 
                 if (query is not null && query.Any())
                 {
