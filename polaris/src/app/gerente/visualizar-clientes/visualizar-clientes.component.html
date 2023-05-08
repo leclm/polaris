@@ -15,7 +15,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of clienteData">
-            <td>{{ item.nome }}</td>
+            <td>{{ item.nome! | capitalizacaoGerente }} {{ item.sobrenome! | capitalizacaoGerente }}</td>
             <td>{{ item.telefone! | phoneGerente }}</td>
             <td>{{ item.cpf! | cpfGerente }}</td>
             <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}</td>
@@ -23,10 +23,12 @@
               <a [routerLink]="['/gerente/visualizar-detalhes-cliente', item.clienteUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </a>
-              <a [routerLink]="['/gerente/editar-cliente/2']">
+              <a [routerLink]="['/gerente/editar-cliente', item.clienteUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
-              <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              <a (click)="didTapOnDelete(item.clienteUuid)">
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>  
             </td>
           </tr>
         </tbody>
