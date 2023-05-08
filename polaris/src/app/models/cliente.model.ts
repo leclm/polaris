@@ -1,12 +1,13 @@
 import { Endereco } from "./endereco.model";
+import { Login } from "./login.model";
 
 export interface Cliente {
-    clienteUuid: string;
     nome: string;
     sobrenome: string;
     cpf: string;
     dataNascimento: string;
     email: string;
     telefone: string;
-    endereco: Endereco
+    endereco: Endereco,
+    login: Login
 }

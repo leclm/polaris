@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SolicitarContatoComponent } from './solicitar-contato.component';
+import { AlterarSenhaComponent } from './alterar-senha.component';
 
-describe('SolicitarContatoComponent', () => {
-  let component: SolicitarContatoComponent;
-  let fixture: ComponentFixture<SolicitarContatoComponent>;
+describe('AlterarSenhaComponent', () => {
+  let component: AlterarSenhaComponent;
+  let fixture: ComponentFixture<AlterarSenhaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SolicitarContatoComponent ]
+      declarations: [ AlterarSenhaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SolicitarContatoComponent);
+    fixture = TestBed.createComponent(AlterarSenhaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
