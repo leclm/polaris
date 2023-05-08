@@ -1,4 +1,6 @@
-﻿using Polaris.Usuario.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Polaris.Usuario.Context;
+using Polaris.Usuario.Models;
 
 namespace Polaris.Usuario.Repository
 {
@@ -14,6 +16,12 @@ namespace Polaris.Usuario.Repository
         {
             var login = await GetByParameter(x => x.LoginUuid == uuid);
             return login.LoginId;
+        }
+
+        public async Task<Models.Login> GetLogin(Guid uuid)
+        {
+            return await _context.Set<Login>().AsNoTracking().Where(x => x.LoginUuid == uuid)
+                .FirstOrDefaultAsync();
         }
     }
 }
