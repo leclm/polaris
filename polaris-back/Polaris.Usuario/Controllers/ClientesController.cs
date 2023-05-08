@@ -95,6 +95,23 @@ namespace Polaris.Usuario.Controllers
         /// Este endpoint deve cadastrar um cliente
         /// </summary>
         /// <remarks>
+        /// Exemplo: <br />
+        /// {<br />
+        ///"cpf": "555.843.410-45",<br />
+        ///"nome": "Maria",<br />
+        ///"sobrenome": "Polaris",<br />
+        ///"dataNascimento": "2023-05-08",<br />
+        /// "email": "email@email.com",<br />
+        /// "telefone": "41999999999",<br />
+        /// "endereco": {<br />
+        /// "cep": "85660000",<br />
+        /// "cidade": "Curitiba",<br />
+        /// "estado": "PR",<br />
+        /// "logradouro": "Rua do Teste",<br />
+        /// "complemento": "Apt 1",<br />
+        /// "numero": 10<br />
+        ///}<br />
+        /// }
         /// </remarks>
         /// <returns>
         /// Retorna 201 caso sucesso
