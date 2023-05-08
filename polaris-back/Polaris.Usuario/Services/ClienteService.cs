@@ -103,66 +103,36 @@ namespace Polaris.Usuario.Services
             return cliente.ClienteUuid;
         }
 
-        //public async Task PutCliente(AtualizaClienteViewModel terceirizadoDto)
-        //{
-        //    if (terceirizadoDto.TerceirizadoUuid == Guid.Empty)
-        //    {
-        //        throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
-        //    }
+        public async Task PutCliente(AtualizaClienteViewModel clienteDto)
+        {
+            if (clienteDto.ClienteUuid == Guid.Empty)
+            {
+                throw new AtualizarClienteException("Cliente inválido. Erro ao atualizar.");
+            }
 
-        //    var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(terceirizadoDto.TerceirizadoUuid);
+            //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
+            //{
+            //    throw new CadastrarClienteException("Telefone inválido. Erro ao cadastrar um terceirizado.");
+            //};
 
-        //    if (terceirizado == null || terceirizado.TerceirizadoId == 0)
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
-        //    }
+            var cliente = await _context.ClienteRepository.GetCliente(clienteDto.ClienteUuid);
 
-        //    await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco);
-        //    terceirizadoDto.Endereco = null;
+            if (cliente == null || cliente.ClienteId == 0)
+            {
+                throw new AtualizarClienteException("Cliente não encontrado. Erro ao atualizar.");
+            }
 
-        //    if (ValidaCnpj.IsCnpj(terceirizadoDto.Cnpj) is false)
-        //    {
-        //        throw new AtualizarTerceirizadoException("Cnpj inválido. Erro ao editar um terceirizado.");
-        //    };
-
-        //    //if (ValidaTelefone.IsTelefone(terceirizadoDto.Telefone) is false)
-        //    //{
-        //    //    throw new AtualizarTerceirizadoException("Telefone inválido. Erro ao editar um terceirizado.");
-        //    //};
-
-        //    if (ValidaEmail.IsValidEmail(terceirizadoDto.Email) is false)
-        //    {
-        //        throw new AtualizarTerceirizadoException("E-mail inválido. Erro ao editar um terceirizado.");
-        //    }
-
-        //    List<Models.Servico> servicos = new();
-        //    if (terceirizadoDto.ListaServicos is not null || terceirizadoDto.ListaServicos!.Any())
-        //    {
-        //        foreach (var servicoUuid in terceirizadoDto.ListaServicos!)
-        //        {
-        //            servicos.Add(await _servicoRepository.GetByParameter(x => x.ServicoUuid == servicoUuid));
-        //        }
-        //    }
-        //    else
-        //    {
-        //        throw new AtualizarTerceirizadoException("Serviço Inválido. Erro ao atualizar o terceirizado.");
-        //    }
-
-
-        //    terceirizado.Cnpj = terceirizadoDto.Cnpj;
-        //    terceirizado.Empresa = terceirizadoDto.Empresa;
-        //    terceirizado.Email = terceirizadoDto.Email;
-        //    terceirizado.Telefone = terceirizadoDto.Telefone;
-        //    StringUtils.ClassToUpper(terceirizado);
-        //    _context.TerceirizadoRepository.Update(terceirizado);
-        //    await _context.Commit();
-
-        //    _context.TerceirizadoRepository.LimpaServicos(terceirizado);
-
-        //    terceirizado.Servicos = servicos;
-        //    await _context.Commit();
-
-        //}
+            await _enderecoExternalService.PutEnderecos(clienteDto.Endereco);
+            clienteDto.Endereco = null;
+          
+            var clienteBase = await _context.ClienteRepository.GetByParameter(p => p.ClienteUuid == clienteDto.ClienteUuid);
+            clienteBase.Nome = clienteDto.Nome;
+            clienteBase.Sobrenome = clienteDto.Sobrenome;
+            clienteBase.Telefone = clienteDto.Telefone;
+            StringUtils.ClassToUpper(clienteBase);
+            _context.ClienteRepository.Update(clienteBase);
+            await _context.Commit();
+        }
 
         public async Task AlterarStatus(Guid uuid, bool status)
         {

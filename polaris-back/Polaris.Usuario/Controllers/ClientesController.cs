@@ -141,52 +141,33 @@ namespace Polaris.Usuario.Controllers
         }
 
         /// <summary>
-        /// Este endpoint deve atualizar um terceirizado cadastrado
+        /// Este endpoint deve atualizar um cliente cadastrado
         /// </summary>
         /// <remarks>
-        /// Exemplo: <br />
-        /// { <br />
-        ///   "terceirizadoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722, <br />
-        ///   "cnpj":"32.738.811/0001-80",<br />
-        ///   "empresa": "Empresa Exemplo", <br />
-        ///   "email": "exemplo@email.com", <br />
-        ///   "telefone": "(XX)XXXXX-XXXX",   <br />
-        ///   "endereco": { <br />
-        ///   "enderecooUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722,<br />
-        ///   "cep": "80220000", <br />
-        ///   "cidade": "Curitiba", <br />
-        ///   "estado": "Paraná",  <br />
-        ///   "logradouro": "Rua Exemplo",  <br />
-        ///   "complemento": "opcional",  <br />
-        ///   "numero": 100  <br />
-        ///   },  <br />
-        ///   "listaServicos": [  <br />
-        ///   "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
-        ///   ]<br />}
         /// </remarks>
         /// <returns>
         /// Retorna 201 caso sucesso
         /// Retorna 400 caso erro, retorna a mensagem especificando
         /// Retorna 500 caso erro interno         
         /// </returns>
-        //// PUT: api/Terceirizados
-        //[HttpPut]
-        //public async Task<IActionResult> PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
-        //{
-        //    try
-        //    {
-        //        await _service.PutTerceirizado(terceirizadoDto);
-        //        return Ok();
-        //    }
-        //    catch (AtualizarTerceirizadoException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ReturnError();
-        //    }
-        //}
+        // PUT: api/Clientes
+        [HttpPut]
+        public async Task<IActionResult> PutCliente(AtualizaClienteViewModel clienteDto)
+        {
+            try
+            {
+                await _service.PutCliente(clienteDto);
+                return Ok();
+            }
+            catch (AtualizarClienteException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
+        }
 
         /// <summary>
         /// Este endpoint deve alterar para ativado ou desativado o status de um cliente via Guid

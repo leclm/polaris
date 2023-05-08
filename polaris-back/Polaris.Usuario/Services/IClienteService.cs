@@ -9,5 +9,6 @@ namespace Polaris.Usuario.Services
         Task<IEnumerable<RetornoClienteViewModel>> GetClientes();
         Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos();
         Task<Guid> PostCliente(CadastroClienteViewModel clienteDto);
+        Task PutCliente(AtualizaClienteViewModel clienteDto);
     }
 }
