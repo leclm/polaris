@@ -22,6 +22,11 @@ export class ManterClienteComponent implements OnInit {
     });
   }
 
+  /*
+  * ENVIAR SENHA COMO DATA DE NASCIMENTO: 03091995
+  */
+
+
   // mock para mensagem
   cadastrar(): any {
     var code = "200";

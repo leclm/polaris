@@ -11,6 +11,7 @@ import { CepPipe, CpfPipe, PhonePipe } from '../shared/pipes';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     DetalhesAluguelComponent,
     CpfPipe,
     CepPipe,
-    PhonePipe
+    PhonePipe,
+    AlterarSenhaComponent
   ],
   imports: [
     CommonModule,

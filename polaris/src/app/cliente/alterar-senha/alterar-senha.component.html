@@ -1,0 +1,49 @@
+<div class="alterar-senha container-fluid mt-4 mb-4">
+  <div class="container-content mb-4 p-4">
+    <h1>Alterar Senha</h1>
+
+    <div class="line mb-5"></div>
+  
+    <div [ngSwitch]="statusMsg">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Senha alterada com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao alterar senha, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="title">Digite sua nova senha</p>
+      <div class="content ms-3">
+        <form class="row g-3" #formAlterarSenha="ngForm" (ngSubmit)="editar()">
+          <div class="col-md-12">
+            <label for="inputSenhaAntiga" class="form-label">Senha antiga</label>
+            <input type="text" class="form-control" id="inputSenhaAntiga" name="senhaAntiga" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #nome="ngModel">
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputNovaSenha" class="form-label">Nova senha</label>
+            <input type="text" class="form-control" id="inputNovaSenha" name="novaSenha" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #nome="ngModel">
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputConfirmacaoSenha" class="form-label">Confirme sua nova senha</label>
+            <input type="text" class="form-control" id="inputConfirmacaoSenha" name="confirmacaoSenha" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #nome="ngModel">
+          </div>
+
+          <div class="ctn-btn d-flex justify-content-evenly mt-5">
+            <button type="submit">Salvar Alterações</button>
+            <a [routerLink]="['/cliente/visualizar-aluguel']">Voltar</a>
+          </div>
+        </form>
+      </div>
+    </div>  
+  </div>  
+</div>
