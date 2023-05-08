@@ -10,14 +10,12 @@ namespace Polaris.Usuario.Services
     public class LoginService : ILoginService
     {
         private readonly IUnityOfWork _context;
-        //private readonly IClienteService _clienteService;
         private readonly IMapper _mapper;
 
         public LoginService(IUnityOfWork context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            //_clienteService = clienteService;
         }
 
         public async Task Logar(CadastroLoginViewModel loginDto)
@@ -58,7 +56,6 @@ namespace Polaris.Usuario.Services
             _context.LoginRepository.Add(login);
             await _context.Commit();
 
-           // var clienteUuid = await _clienteService.PostCliente(new CadastroClienteViewModel(), login.LoginId);
             return login.LoginUuid;
         }
 
@@ -107,6 +104,26 @@ namespace Polaris.Usuario.Services
             await _context.Commit();
 
             var enderecoDto = _mapper.Map<AtualizaLoginViewModel>(login);
+        }
+
+        public async Task AlterarSenha(AlteraSenha loginDto)
+        {
+            if (loginDto.LoginUuid == Guid.Empty)
+            {
+                throw new AtualizarLoginException("Login inválido. Erro ao atualizar.");
+            }
+
+            var login = await _context.LoginRepository.GetLogin(loginDto.LoginUuid);
+
+            if (login == null || login.LoginId == 0)
+            {
+                throw new AtualizarLoginException("Login não encontrado. Erro ao atualizar.");
+            }
+
+            var loginBase = await _context.LoginRepository.GetByParameter(p => p.LoginUuid == loginDto.LoginUuid);
+            loginBase.Senha = loginDto.Senha;
+            _context.LoginRepository.Update(loginBase);
+            await _context.Commit();
         }
     }
 }

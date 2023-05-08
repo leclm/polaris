@@ -145,5 +145,32 @@ namespace Polaris.Usuario.Controllers
                 return ReturnError();
             }
         }
+
+        /// <summary>
+        /// Este endpoint deve alterar a senha de um usuario
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Logins/alterar-senha
+        [HttpPut("alterar-senha")]
+        public async Task<IActionResult> AlterarSenha(AlteraSenha alteraSenha)
+        {
+            try
+            {
+                await _loginService.AlterarSenha(alteraSenha);
+                return Ok();
+            }
+            catch (AtualizarLoginException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
     }
 }
