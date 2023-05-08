@@ -17,7 +17,6 @@ import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.co
 import { ManterTipoComponent } from './manter-tipo/manter-tipo.component';
 import { EditarTipoComponent } from './editar-tipo/editar-tipo.component';
 import { VisualizarTiposComponent } from './visualizar-tipos/visualizar-tipos.component';
-import { CapitalizacaoPipe } from '../shared/pipes';
 import { RouterModule } from '@angular/router';
 import { GerenteService } from './services';
 import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-conteineres/visualizar-estoque-conteineres.component';
@@ -33,6 +32,7 @@ import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/mant
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,6 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     ManterTipoComponent,
     EditarTipoComponent,
     VisualizarTiposComponent,
-    CapitalizacaoPipe,
     VisualizarEstoqueConteineresComponent,
     VisualizarConteinerComponent,
     ManterConteinerComponent,
@@ -64,7 +63,10 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     VisualizarHistoricoAluguelConteinerComponent,
     ManterPrestacaoServicoComponent,
     EditarPrestacaoServicoComponent,
-    EditarDisponibilidadeConteinerComponent
+    EditarDisponibilidadeConteinerComponent,
+    CapitalizacaoGerentePipe,
+    PhoneGerentePipe,
+    CpfGerentePipe
   ],
   imports: [
     CommonModule,

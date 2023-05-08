@@ -18,10 +18,10 @@ import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
   declarations: [
     VisualizarAluguelComponent,
     DetalhesAluguelComponent,
+    AlterarSenhaComponent,
     CpfPipe,
     CepPipe,
-    PhonePipe,
-    AlterarSenhaComponent
+    PhonePipe
   ],
   imports: [
     CommonModule,

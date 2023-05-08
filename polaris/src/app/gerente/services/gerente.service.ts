@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria.model';
+import { Cliente } from 'src/app/models/cliente.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { ConteinerEstado } from 'src/app/models/conteinerEstado.model';
 import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
@@ -21,9 +22,24 @@ export class GerenteService {
   tipoURL = 'https://localhost:44387/tiposconteineres';
   conteinerURL = 'https://localhost:44387/Conteineres';
   prestacaoServicoURL = 'https://localhost:44387/PrestacoesServicos';
+  clienteURL = 'https://localhost:57361/Clientes';
 
   constructor( private http: HttpClient ) { } 
-  
+  // Cliente
+  addCliente(cliente: Cliente): Observable<HttpResponse<Cliente>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Cliente>(this.clienteURL, cliente, { headers, observe: 'response' });
+  }
+
+  getAllClientes(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(this.clienteURL);
+  }
+
+  getAllClientesAtivos(): Observable<Cliente[]> {
+    const url = `${this.clienteURL}/clientes-ativos`;
+    return this.http.get<Cliente[]>(url);
+  } 
+
   // Terceirizado
   getAllTerceirizados(): Observable<Terceirizado[]> {
     return this.http.get<Terceirizado[]>(this.terceirizadoURL);

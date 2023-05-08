@@ -19,14 +19,14 @@
             <td>
               <table>
                 <tr *ngFor="let childItem of item.servicos">
-                  <td>{{ childItem.nome! | capitalizacao }}</td>
+                  <td>{{ childItem.nome! | capitalizacaoGerente }}</td>
                 </tr>
               </table>
             </td>
-            <td>{{ item.empresa! | capitalizacao }}</td>
+            <td>{{ item.empresa! | capitalizacaoGerente }}</td>
             <td>{{ item.telefone }}</td>
             <td>{{ item.cnpj }}</td>
-            <td>{{ item.endereco.logradouro! | capitalizacao }}</td>
+            <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}</td>
             <td>
               <a [routerLink]="['/gerente/visualizar-detalhes-terceirizado', item.terceirizadoUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>

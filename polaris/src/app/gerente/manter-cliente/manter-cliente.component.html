@@ -4,7 +4,7 @@
 
     <div class="line mb-5"></div>
     
-    <div [ngSwitch]="status">
+    <div [ngSwitch]="statusMsg">
       <div *ngSwitchCase="'success'">
         <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
           Cadastro realizado com sucesso!
@@ -22,59 +22,59 @@
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex ms-3">
-        <form class="row g-3">
+        <form class="row g-3" #formCliente="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="inputNome">
+            <input type="text" class="form-control" id="inputNome" [(ngModel)]="cliente.nome" name="nome">
           </div>
           <div class="col-md-6">
             <label for="inputSobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" id="inputSobrenome">
+            <input type="text" class="form-control" id="inputSobrenome" [(ngModel)]="cliente.sobrenome" name="sobrenome">
           </div>
           <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
-            <input type="text" class="form-control" id="inputDataNascimento">
+            <input type="text" class="form-control" id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento" name="dataNascimento" placeholder="AAAA-MM-DD">
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="inputCpf">
+            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf">
           </div>
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone">
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail">
+            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="cliente.email" name="email">
           </div>
      
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep" name="cep" (input)="searchAddress($event)" [(ngModel)]="cep">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)">
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-            <p class="form-control" id="inputEstado">{{ address.uf }}</p>
+           <p class="form-control" id="inputEstado">{{ endereco.estado }}</p> 
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <p class="form-control" id="inputCidade">{{ address.localidade }}</p>
+            <p class="form-control" id="inputCidade">{{ endereco.cidade }}</p>
           </div>
           <div class="col-md-6">
             <label for="inputLogradouro" class="form-label">Endereço</label>
-            <p class="form-control" id="inputLogradouro">{{ address.logradouro }}</p>
+            <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p>
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123">
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
-            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2">
+            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="endereco.complemento" name="complemento">
           </div>
           
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <button type="submit" (click)="cadastrar()">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
             <a [routerLink]="['/gerente/visualizar-clientes']">Voltar</a>
           </div>
         </form>

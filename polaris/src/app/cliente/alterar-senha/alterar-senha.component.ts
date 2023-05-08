@@ -34,8 +34,7 @@ export class AlterarSenhaComponent implements OnInit {
     dataNascimento: '',
     email: '',
     telefone: '',
-    endereco: this.endereco,
-    login: this.login
+    endereco: this.endereco
   }
 
   @ViewChild("formAlterarSenha") formCategoria!: NgForm;

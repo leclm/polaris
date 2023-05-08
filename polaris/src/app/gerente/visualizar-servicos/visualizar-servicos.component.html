@@ -12,7 +12,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of servicoData">
-            <td>{{ item.nome! | capitalizacao }}</td>
+            <td>{{ item.nome! | capitalizacaoGerente }}</td>
             <td>
               <a [routerLink]="['/gerente/editar-servico', item.servicoUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>

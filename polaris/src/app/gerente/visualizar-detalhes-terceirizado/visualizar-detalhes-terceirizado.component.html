@@ -12,7 +12,7 @@
             <form class="row g-3">
               <div class="col-md-6">
                 <label for="inputEmpresa" class="form-label">Empresa</label>
-                <p class="form-control"> {{ item.empresa! | capitalizacao }} </p>
+                <p class="form-control"> {{ item.empresa! | capitalizacaoGerente }} </p>
               </div>
               <div class="col-md-6">
                 <label for="inputCnpj" class="form-label">CNPJ</label>
@@ -22,7 +22,7 @@
                 <label for="inputTipo" class="form-label">Serviços Prestados</label>
                 <div class="ctn-servicos">
                   <p class="form-control" *ngFor="let childItem of item.servicos">
-                    {{ childItem.nome! | capitalizacao }}
+                    {{ childItem.nome! | capitalizacaoGerente }}
                   </p>
                 </div>
               </div>
@@ -44,11 +44,11 @@
               </div>
               <div class="col-md-4">
                 <label for="inputCidade" class="form-label">Cidade</label>
-                <p class="form-control"> {{ item.endereco.cidade! | capitalizacao }} </p>
+                <p class="form-control"> {{ item.endereco.cidade! | capitalizacaoGerente }} </p>
               </div>
               <div class="col-md-6">
                 <label for="inputEndereco" class="form-label">Endereço</label>
-                <p class="form-control"> {{ item.endereco.logradouro! | capitalizacao }} </p>
+                <p class="form-control"> {{ item.endereco.logradouro! | capitalizacaoGerente }} </p>
               </div>
               <div class="col-md-3">
                 <label for="inputNumero" class="form-label">Número</label>
@@ -56,7 +56,7 @@
               </div>
               <div class="col-md-3 mb-3">
                 <label for="inputComplemento" class="form-label">Complemento</label>
-                <p class="form-control"> {{ item.endereco.complemento! | capitalizacao }} </p>
+                <p class="form-control"> {{ item.endereco.complemento! | capitalizacaoGerente }} </p>
               </div>             
 
               <div class="ctn-btn d-flex justify-content-evenly mt-5">
