@@ -33,10 +33,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IGerenteRepository, GerenteRepository>();
 builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IGerenteService, GerenteService>();
 
 builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection("ExternalConfigs"));
 

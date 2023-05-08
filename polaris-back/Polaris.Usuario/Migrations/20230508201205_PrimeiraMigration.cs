@@ -90,7 +90,6 @@ namespace Polaris.Usuario.Migrations
                     Telefone = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    JaContatado = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     EnderecoId = table.Column<int>(type: "int", nullable: false),
                     LoginId = table.Column<int>(type: "int", nullable: false)
                 },

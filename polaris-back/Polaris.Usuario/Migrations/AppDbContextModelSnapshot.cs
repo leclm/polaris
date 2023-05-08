@@ -150,9 +150,6 @@ namespace Polaris.Usuario.Migrations
                     b.Property<Guid>("GerenteUuid")
                         .HasColumnType("char(36)");
 
-                    b.Property<bool>("JaContatado")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("LoginId")
                         .HasColumnType("int");
 

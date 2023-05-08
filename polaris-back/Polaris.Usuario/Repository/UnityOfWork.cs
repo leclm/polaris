@@ -6,6 +6,7 @@ namespace Polaris.Usuario.Repository
     {
         private LoginRepository _loginRepo;
         private ClienteRepository _clienteRepo;
+        private GerenteRepository _gerenteRepo;
         public AppDbContext _context;
 
         public UnityOfWork(AppDbContext contexto)
@@ -26,6 +27,14 @@ namespace Polaris.Usuario.Repository
             get
             {
                 return _clienteRepo = _clienteRepo ?? new ClienteRepository(_context);
+            }
+        }
+
+        public IGerenteRepository GerenteRepository
+        {
+            get
+            {
+                return _gerenteRepo = _gerenteRepo ?? new GerenteRepository(_context);
             }
         }
 
