@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
+using Polaris.Usuario.Configs;
 using Polaris.Usuario.Context;
 using Polaris.Usuario.ExternalServices;
 using Polaris.Usuario.Repository;
@@ -31,8 +32,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+
+builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection("ExternalConfigs"));
 
 var mappingConfig = new MapperConfiguration(mc =>
 {

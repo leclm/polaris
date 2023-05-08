@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Polaris.Usuario.ExternalServices;
+using Polaris.Usuario.Models;
 using Polaris.Usuario.Repository;
 using Polaris.Usuario.Utils;
 using Polaris.Usuario.Validation;
 using Polaris.Usuario.ViewModels;
+using static Polaris.Usuario.Exceptions.CustomExceptions;
 
 namespace Polaris.Usuario.Services
 {
@@ -12,97 +14,94 @@ namespace Polaris.Usuario.Services
         private readonly IUnityOfWork _context;
         private readonly IMapper _mapper;
         private readonly IEnderecoExternalService _enderecoExternalService;
+        private readonly ILoginService _loginService;
         private readonly IEnderecoRepository _enderecoRepository;
         private readonly ILoginRepository _loginRepository;
 
-        public ClienteService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository, ILoginRepository loginRepository)
+        public ClienteService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository, ILoginRepository loginRepository, ILoginService loginService)
         {
             _context = context;
             _mapper = mapper;
             _enderecoExternalService = enderecoExternalService;
             _enderecoRepository = enderecoRepository;
             _loginRepository = loginRepository;
+            _loginService = loginService;
         }
 
-        //public async Task<IEnumerable<RetornoClienteViewModel>> GetClientes()
-        //{
-        //    var terceirizados = _context.ClienteRepository.GetTerceirizadosCompleto();
-        //    if (!terceirizados.Any())
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
-        //    }
+        public async Task<IEnumerable<RetornoClienteViewModel>> GetClientes()
+        {
+            var clientes = _context.ClienteRepository.GetClientesCompleto();
+            if (!clientes.Any())
+            {
+                throw new ClienteNaoEncontradoException("Não há clientes cadastrados.");
+            }
 
-        //    return await ConsultaEnderecosTerceirizados(terceirizados);
-        //}
+            return await ConsultaEnderecosClientes(clientes);
+        }
 
-        //public async Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos()
-        //{
-        //    var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosAtivosCompleto();
-        //    if (!terceirizados.Any())
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Não há terceirizados ativos.");
-        //    }
-        //    return await ConsultaEnderecosTerceirizados(terceirizados);
-        //}
+        public async Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos()
+        {
+            var clientes = _context.ClienteRepository.GetClientesAtivosCompleto();
+            if (!clientes.Any())
+            {
+                throw new ClienteNaoEncontradoException("Não há clientes ativos.");
+            }
+            return await ConsultaEnderecosClientes(clientes);
+        }
 
-        //public async Task<RetornoClienteViewModel> GetCliente(Guid uuid)
-        //{
-        //    var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(uuid);
-        //    terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(uuid);
+        public async Task<RetornoClienteViewModel> GetCliente(Guid uuid)
+        {
+            var cliente = await _context.ClienteRepository.GetCliente(uuid);
+            cliente.Endereco = await _enderecoExternalService.GetEnderecoCliente(uuid);
 
-        //    if (terceirizado is null)
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
-        //    }
-        //    var terceirizadoDto = _mapper.Map<RetornoTerceirizadoViewModel>(terceirizado);
-        //    return terceirizadoDto;
-        //}
+            if (cliente is null)
+            {
+                throw new ClienteNaoEncontradoException("Não há clientes cadastrados.");
+            }
+            var clienteDto = _mapper.Map<RetornoClienteViewModel>(cliente);
+            return clienteDto;
+        }
 
-        //public async Task<Guid> Postcliente(EditaClienteViewModel terceirizadoDto)
-        //{
-        //    if (await _context.TerceirizadoRepository.GetByParameter(x => x.Empresa == terceirizadoDto.Empresa
-        //    || x.Cnpj == terceirizadoDto.Cnpj
-        //    || x.Email == terceirizadoDto.Email) is not null)
-        //    {
-        //        throw new CadastrarTerceirizadoException("Terceirizado já existe. Erro ao cadastrar um terceirizado.");
-        //    };
+        public async Task<Guid> PostCliente(CadastroClienteViewModel clienteDto)
+        {
+            if (await _context.ClienteRepository.GetByParameter(x => x.Cpf == clienteDto.Cpf
+            || x.Email == clienteDto.Email) is not null)
+            {
+                throw new CadastrarClienteException("Cliente já existe. Erro ao cadastrar um cliente.");
+            }
 
-        //    var enderecoUuid = await _enderecoExternalService.PostEnderecos(terceirizadoDto.Endereco);
-        //    terceirizadoDto.Endereco = null;
+            var enderecoUuid = await _enderecoExternalService.PostEnderecos(clienteDto.Endereco);
+            clienteDto.Endereco = null;
 
-        //    var terceirizado = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
-        //    StringUtils.ClassToUpper(terceirizado);
-        //    terceirizado.TerceirizadoUuid = Guid.NewGuid();
-        //    terceirizado.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
-        //    terceirizado.Status = true;
+            var loginUuid = await _loginService.CadastrarLogin(new CadastroLoginViewModel(clienteDto));
 
-        //    if (ValidaCnpj.IsCnpj(terceirizado.Cnpj) is false)
-        //    {
-        //        throw new CadastrarTerceirizadoException("Cnpj inválido. Erro ao cadastrar um terceirizado.");
-        //    };
+            var cliente = _mapper.Map<Cliente>(clienteDto);
+            StringUtils.ClassToUpper(cliente);
+            cliente.ClienteUuid = Guid.NewGuid();
+            cliente.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
+            cliente.LoginId = await _loginRepository.GetLoginId(loginUuid);
+            cliente.Status = true;
 
-        //    //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
-        //    //{
-        //    //    throw new CadastrarTerceirizadoException("Telefone inválido. Erro ao cadastrar um terceirizado.");
-        //    //};
+            if (ValidaCpf.IsCpf(cliente.Cpf) is false)
+            {
+                throw new CadastrarClienteException("CPF inválido. Erro ao cadastrar um cliente.");
+            };
 
-        //    if (ValidaEmail.IsValidEmail(terceirizado.Email) is false)
-        //    {
-        //        throw new CadastrarTerceirizadoException("E-mail inválido. Erro ao cadastrar um terceirizado.");
-        //    }
+            //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
+            //{
+            //    throw new CadastrarClienteException("Telefone inválido. Erro ao cadastrar um terceirizado.");
+            //};
 
-        //    _context.TerceirizadoRepository.Add(terceirizado);
-        //    await _context.Commit();
+            if (ValidaEmail.IsValidEmail(cliente.Email) is false)
+            {
+                throw new CadastrarClienteException("E-mail inválido. Erro ao cadastrar um cliente.");
+            }
 
-        //    foreach (var servicoUuid in terceirizadoDto!.ListaServicos!)
-        //    {
-        //        var servico = await _context.ServicoRepository.GetByParameter(x => x.ServicoUuid == servicoUuid);
-        //        terceirizado!.Servicos!.Add(servico);
-        //    }
-
-        //    await _context.Commit();
-        //    return terceirizado.TerceirizadoUuid;
-        //}
+            _context.ClienteRepository.Add(cliente);
+          
+            await _context.Commit();
+            return cliente.ClienteUuid;
+        }
 
         //public async Task PutCliente(AtualizaClienteViewModel terceirizadoDto)
         //{
@@ -165,32 +164,32 @@ namespace Polaris.Usuario.Services
 
         //}
 
-        //public async Task AlterarStatus(Guid uuid, bool status)
-        //{
-        //    var terceirizado = await _context.TerceirizadoRepository.GetByParameter(p => p.TerceirizadoUuid == uuid);
+        public async Task AlterarStatus(Guid uuid, bool status)
+        {
+            var cliente = await _context.ClienteRepository.GetByParameter(p => p.ClienteUuid == uuid);
 
-        //    if (terceirizado == null)
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado.");
-        //    }
+            if (cliente == null)
+            {
+                throw new ClienteNaoEncontradoException("Cliente não encontrado.");
+            }
 
-        //    terceirizado.Status = status;
+            cliente.Status = status;
 
-        //    _context.TerceirizadoRepository.Update(terceirizado);
-        //    await _context.Commit();
+            _context.ClienteRepository.Update(cliente);
+            await _context.Commit();
 
-        //    var enderecoDto = _mapper.Map<AtualizaTerceirizadoViewModel>(terceirizado);
-        //}
+            var enderecoDto = _mapper.Map<AtualizaClienteViewModel>(cliente);
+        }
 
-        //private async Task<IEnumerable<RetornoClienteViewModel>> ConsultaEnderecosClientes(IEnumerable<Terceirizado> terceirizados)
-        //{
-        //    List<RetornoTerceirizadoViewModel> terceirizadosDto = new();
-        //    foreach (var terceirizado in terceirizados)
-        //    {
-        //        terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid);
-        //        terceirizadosDto.Add(_mapper.Map<RetornoTerceirizadoViewModel>(terceirizado));
-        //    }
-        //    return terceirizadosDto;
-        //}
+        private async Task<IEnumerable<RetornoClienteViewModel>> ConsultaEnderecosClientes(IEnumerable<Cliente> clientes)
+        {
+            List<RetornoClienteViewModel> clientesDto = new();
+            foreach (var cliente in clientes)
+            {
+                cliente.Endereco = await _enderecoExternalService.GetEnderecoCliente(cliente.ClienteUuid);
+                clientesDto.Add(_mapper.Map<RetornoClienteViewModel>(cliente));
+            }
+            return clientesDto;
+        }
     }
 }

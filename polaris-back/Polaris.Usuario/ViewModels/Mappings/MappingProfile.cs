@@ -10,7 +10,7 @@ namespace Polaris.Usuario.ViewModels.Mappings
             CreateMap<Models.Endereco, RetornoEnderecoViewModel>().ReverseMap();
             CreateMap<Models.Endereco, AtualizaEnderecoViewModel>().ReverseMap();
 
-            CreateMap<Models.Cliente, EditaClienteViewModel>().ReverseMap();
+            CreateMap<Models.Cliente, CadastroClienteViewModel>().ReverseMap();
             CreateMap<Models.Cliente, RetornoClienteViewModel>().ReverseMap();
             CreateMap<Models.Cliente, AtualizaClienteViewModel>().ReverseMap();
 

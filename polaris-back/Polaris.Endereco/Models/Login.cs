@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Usuario.ViewModels
+namespace Polaris.Endereco.Models
 {
-    public class CadastroLoginViewModel
+    [Table("Login")]
+    public class Login
     {
-        public CadastroLoginViewModel(CadastroClienteViewModel clienteDto)
-        {
-            Usuario = clienteDto.Email;
-            Senha = clienteDto.DataNascimento.ToString("ddMMyyyy");
-        }
-
+        [Key]
+        public int LoginId { get; set; }
+        public Guid LoginUuid { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um usuário válido.")]
         [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
@@ -21,5 +20,6 @@ namespace Polaris.Usuario.ViewModels
         [NotNull]
         [Required]
         public string? Senha { get; set; }
+        public bool Status { get; set; }
     }
 }

@@ -9,5 +9,11 @@ namespace Polaris.Usuario.Repository
         {
             _context = context;
         }
+
+        public async Task<int> GetLoginId(Guid uuid)
+        {
+            var login = await GetByParameter(x => x.LoginUuid == uuid);
+            return login.LoginId;
+        }
     }
 }

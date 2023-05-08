@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Polaris.Usuario.Models;
 using Polaris.Usuario.Repository;
 using Polaris.Usuario.Utils;
 using Polaris.Usuario.ViewModels;
@@ -9,12 +10,14 @@ namespace Polaris.Usuario.Services
     public class LoginService : ILoginService
     {
         private readonly IUnityOfWork _context;
+        //private readonly IClienteService _clienteService;
         private readonly IMapper _mapper;
 
         public LoginService(IUnityOfWork context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            //_clienteService = clienteService;
         }
 
         public async Task Logar(CadastroLoginViewModel loginDto)
@@ -54,6 +57,8 @@ namespace Polaris.Usuario.Services
 
             _context.LoginRepository.Add(login);
             await _context.Commit();
+
+           // var clienteUuid = await _clienteService.PostCliente(new CadastroClienteViewModel(), login.LoginId);
             return login.LoginUuid;
         }
 

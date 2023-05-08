@@ -32,5 +32,28 @@
             public LogarException(string message)
                 : base(message) { }
         }
+
+
+        public class ClienteNaoEncontradoException : Exception
+        {
+            public ClienteNaoEncontradoException() { }
+
+            public ClienteNaoEncontradoException(string message)
+                : base(message) { }
+        }
+        public class CadastrarClienteException : Exception
+        {
+            public CadastrarClienteException() { }
+
+            public CadastrarClienteException(string message)
+                : base(message) { }
+        }
+        public class AtualizarClienteException : Exception
+        {
+            public AtualizarClienteException() { }
+
+            public AtualizarClienteException(string message)
+                : base(message) { }
+        }
     }
 }

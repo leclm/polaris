@@ -22,15 +22,15 @@ namespace Polaris.Usuario.ExternalServices
                 .AppendPathSegment(uuid)
                 .GetJsonAsync<Endereco>();
         }
-        
-        //public async Task<Endereco> GetEnderecoTerceirizado(Guid uuid)
-        //{
-        //    return await _config.PolarisEnderecoConfig.Url
-        //        .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
-        //        .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEnderecoTerceirizado)
-        //        .AppendPathSegment(uuid)
-        //        .GetJsonAsync<Endereco>();
-        //}
+
+        public async Task<Endereco> GetEnderecoCliente(Guid uuid)
+        {
+            return await _config.PolarisEnderecoConfig.Url
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
+                .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEnderecoCliente)
+                .AppendPathSegment(uuid)
+                .GetJsonAsync<Endereco>();
+        }
 
         public async Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco)
         {

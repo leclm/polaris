@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Usuario.ViewModels
+namespace Polaris.Endereco.Models
 {
-    public class AtualizaClienteViewModel
+    [Table("Cliente")]
+
+    public class Cliente
     {
+        [Key]
+        public int ClienteId { get; set; }
         public Guid ClienteUuid { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um CPF.")]
         [MaxLength(11, ErrorMessage = " Erro. CPF inválido.")]
@@ -35,11 +40,15 @@ namespace Polaris.Usuario.ViewModels
         [Required]
         public string? Telefone { get; set; }
         public bool Status { get; set; }
-        [NotNull]
+
         [Required]
-        public AtualizaEnderecoViewModel Endereco { get; set; }
         [NotNull]
-        [Required]
-        public AtualizaLoginViewModel Login { get; set; }
+        [ForeignKey("Endereco")]
+        public int EnderecoId { get; set; }
+        public virtual Endereco Endereco { get; set; }
+
+        [ForeignKey("Login")]
+        public int LoginId { get; set; }
+        public virtual Login? Login { get; set; }
     }
 }
