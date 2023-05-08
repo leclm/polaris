@@ -40,6 +40,22 @@ export class GerenteService {
     return this.http.get<Cliente[]>(url);
   } 
 
+  getClienteById(id: string): Observable<Cliente> {
+    const url = `${this.clienteURL}/${id}`;
+    return this.http.get<Cliente>(url);
+  }
+
+  editarCliente(cliente: Cliente): Observable<HttpResponse<Cliente>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Cliente>(this.clienteURL, cliente, { headers, observe: 'response' });
+  }
+
+  deleteCliente(uuid: string): Observable<HttpResponse<Cliente>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.clienteURL}/alterar-status/${uuid}/false`;
+    return this.http.put<Cliente>(url, null, { headers, observe: 'response' });
+  }
+
   // Terceirizado
   getAllTerceirizados(): Observable<Terceirizado[]> {
     return this.http.get<Terceirizado[]>(this.terceirizadoURL);

@@ -1,83 +1,88 @@
 <div class="editar-cliente container-fluid mt-4 mb-4">
-  <div class="container-content mb-4 p-4">
-    <h1>Editar Cliente</h1>
+  <div *ngFor="let item of clienteData">
+    <div *ngIf="item.clienteUuid == clienteUuid">
+      <div class="container-content mb-4 p-4">
+        <h1>Editar Cliente</h1>
 
-    <div class="line mb-5"></div>
-    
-    <div [ngSwitch]="status">
-      <div *ngSwitchCase="'success'">
-        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-          Edição realizada com sucesso!
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="line mb-5"></div>
+        
+        <div [ngSwitch]="statusMsg">
+          <div *ngSwitchCase="'success'">
+            <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+              Edição realizada com sucesso!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+          <div *ngSwitchCase="'fail'">
+            <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+              Falha ao editar, confira os dados e tente novamente.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div *ngSwitchCase="'fail'">
-        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
-          Falha ao editar, confira os dados e tente novamente.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      </div>
-    </div>
 
-    <div class="mb-3">
-      <p class="title">Dados cadastrais</p>
-      <div class="content d-flex ms-3">
-        <form class="row g-3">
-          <div class="col-md-6">
-            <label for="inputNome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="inputNome">
-          </div>
-          <div class="col-md-6">
-            <label for="inputSobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" id="inputSobrenome">
-          </div>
-          <div class="col-md-6">
-            <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
-            <input type="text" class="form-control" id="inputDataNascimento">
-          </div>
-          <div class="col-md-6">
-            <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="inputCpf">
-          </div>
-          <div class="col-md-6">
-            <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone">
-          </div>
-          <div class="col-md-6">
-            <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail">
-          </div>
-     
-          <div class="col-md-4">
-            <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep">
-          </div>
-          <div class="col-md-4">
-            <label for="inputEstado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="inputEstado">
-          </div>
-          <div class="col-md-4">
-            <label for="inputCidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="inputCidade">
-          </div>
-          <div class="col-md-6">
-            <label for="inputEndereco" class="form-label">Endereço</label>
-            <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso">
-          </div>
-          <div class="col-md-3">
-            <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123">
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="inputComplemento" class="form-label">Complemento</label>
-            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2">
-          </div>
+        <div class="mb-3">
+          <p class="title">Dados cadastrais</p>
+          <div class="content d-flex ms-3">
+            <form class="row g-3" #formCliente="ngForm" (ngSubmit)="editar()">
+              <div class="col-md-6">
+                <label for="inputNome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel">
+              </div>
+              <div class="col-md-6">
+                <label for="inputSobrenome" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" id="inputSobrenome" name="sobrenome" [(ngModel)]="cliente.sobrenome" #sobrenome="ngModel">
+              </div>
+              <div class="col-md-6">
+                <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="text" class="form-control" id="inputDataNascimento" name="dataNascimento" [(ngModel)]="cliente.dataNascimento" #dataNascimento="ngModel">
+              </div>
+              <div class="col-md-6">
+                <label for="inputCpf" class="form-label">CPF</label>
+                <p class="form-control disabled"> {{ item.cpf }} </p>
+              </div>
+              <div class="col-md-6">
+                <label for="inputTelefone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="inputTelefone" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel">
+              </div>
+              <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Email</label>
+                <p class="form-control disabled"> {{ item.email! | capitalizacaoGerente }} </p>
+              </div>
+        
+              <div class="col-md-4">
+                <label for="inputCep" class="form-label">CEP</label>
+                <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel">
+              </div>
+              <div class="col-md-4">
+                <label for="inputEstado" class="form-label">Estado</label>
+                <input type="text" class="form-control" id="inputEstado" name="estado" [(ngModel)]="cliente.endereco.estado" #estado="ngModel">
+              </div>
+              <div class="col-md-4">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="inputCidade" name="cidade" [(ngModel)]="cliente.endereco.cidade" #cidade="ngModel">
+              </div>
+              <div class="col-md-6">
+                <label for="inputEndereco" class="form-label">Endereço</label>
+                <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso" name="logradouro" [(ngModel)]="cliente.endereco.logradouro" #logradouro="ngModel">
+              </div>
+              <div class="col-md-3">
+                <label for="inputNumero" class="form-label">Número</label>
+                <input type="number" class="form-control" id="inputNumero" placeholder="123" name="numero" [(ngModel)]="cliente.endereco.numero" #numero="ngModel">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="inputComplemento" class="form-label">Complemento</label>
+                <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" name="complemento" [(ngModel)]="cliente.endereco.complemento" #complemento="ngModel">
+              </div>
 
-          <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <button type="submit" (click)="editar()">Salvar Alterações</button>
-            <a [routerLink]="['/gerente/visualizar-clientes']">Voltar</a>
+              <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                <button type="submit">Salvar Alterações</button>
+                <a [routerLink]="['/gerente/visualizar-clientes']">Voltar</a>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
+        </div> 
+      </div> 
     </div>  
+  </div> 
 </div>

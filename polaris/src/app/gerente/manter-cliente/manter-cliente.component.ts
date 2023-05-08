@@ -23,6 +23,7 @@ export class ManterClienteComponent implements OnInit {
   }
 
   public cliente: Cliente = {
+    clienteUuid: '',
     nome: '',
     sobrenome: '',
     cpf: '',
