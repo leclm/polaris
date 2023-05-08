@@ -1,7 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
+import { ViaCepService } from 'src/app/shared';
 import { Component, OnInit } from '@angular/core';
 import { GerenteService } from 'src/app/gerente/services';
-import { NovoCliente } from 'src/app/models/novoCliente.model';
+import { Cliente } from 'src/app/models/cliente.model';
+import { Endereco } from 'src/app/models/endereco.model';
 
 @Component({
   selector: 'app-solicitar-contato',
@@ -11,12 +13,26 @@ import { NovoCliente } from 'src/app/models/novoCliente.model';
 export class SolicitarContatoComponent implements OnInit {
   public statusMsg!: string;
 
-  constructor( private gerenteService: GerenteService ) { }
+  constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
 
-  public novoCliente: NovoCliente = {
+  public endereco: Endereco = {
+    cep: '',
+    cidade: '',
+    estado: '',
+    logradouro: '',
+    complemento: '',
+    numero: NaN
+  }
+  
+  public cliente: Cliente = {
+    clienteUuid: '',
     nome: '',
+    sobrenome: '',
+    cpf: '',
+    dataNascimento: '',
     email: '',
-    telefone: ''
+    telefone: '',
+    endereco: this.endereco
   }
 
   ngOnInit(): void {
@@ -24,6 +40,14 @@ export class SolicitarContatoComponent implements OnInit {
 
   cadastrar() {
     console.log('cadastrar');
+  }
+
+  searchAddress(event: any) {
+    this.viaCepService.getAddressByCep(this.endereco.cep).subscribe(data => {
+      this.endereco.cidade = data.localidade;
+      this.endereco.estado = data.uf;
+      this.endereco.logradouro = data.logradouro;
+    });
   }
 
 /*  cadastrar() {

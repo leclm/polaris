@@ -23,17 +23,29 @@
       <p class="title">Dados cadastrais</p>
       <div class="content ms-3">
         <form class="row g-3" #formSolicitacao="ngForm" (ngSubmit)="cadastrar()">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="inputNome" [(ngModel)]="novoCliente.nome" name="nome">
+            <input type="text" class="form-control" id="inputNome" [(ngModel)]="cliente.nome" name="nome">
           </div>
-          <div class="col-md-12">
+          <div class="col-md-6">
+            <label for="inputSobrenome" class="form-label">Sobrenome</label>
+            <input type="text" class="form-control" id="inputSobrenome" [(ngModel)]="cliente.sobrenome" name="sobrenome">
+          </div>
+          <div class="col-md-6">
+            <label for="inputCpf" class="form-label">CPF</label>
+            <input type="tel" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf">
+          </div> 
+          <div class="col-md-6">
+            <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
+            <input type="tel" class="form-control" id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento" name="dataNascimento">
+          </div>
+          <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="novoCliente.telefone" name="telefone">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone">
           </div>
-          <div class="col-md-12">
+          <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="novoCliente.email" name="email">
+            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="cliente.email" name="email">
           </div>  
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
