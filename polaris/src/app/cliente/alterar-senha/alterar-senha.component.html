@@ -18,24 +18,24 @@
         </div>
       </div>
     </div>
-<!--
+
     <div class="mb-3">
       <p class="title">Digite sua nova senha</p>
       <div class="content ms-3">
         <form class="row g-3" #formAlterarSenha="ngForm" (ngSubmit)="editar()">
           <div class="col-md-12">
             <label for="inputSenhaAntiga" class="form-label">Senha antiga</label>
-            <input type="text" class="form-control" id="inputSenhaAntiga" name="senhaAntiga" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #nome="ngModel">
+            <input type="text" class="form-control" id="inputSenhaAntiga" name="senhaAntiga" [(ngModel)]="senhaAntiga" value="{{senhaAntiga}}" #senhaAntiga="ngModel">
           </div>
 
           <div class="col-md-12">
-            <label for="inputNovaSenha" class="form-label">Nova senha</label>
-            <input type="text" class="form-control" id="inputNovaSenha" name="novaSenha" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #nome="ngModel">
+            <label for="inputSenha" class="form-label">Nova senha</label>
+            <input type="text" class="form-control" id="inputSenha" name="senha" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #senha="ngModel">
           </div>
 
           <div class="col-md-12">
             <label for="inputConfirmacaoSenha" class="form-label">Confirme sua nova senha</label>
-            <input type="text" class="form-control" id="inputConfirmacaoSenha" name="confirmacaoSenha" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #nome="ngModel">
+            <input type="text" class="form-control" id="inputConfirmacaoSenha" name="confirmacaoSenha" [(ngModel)]="confirmacaoSenha" value="{{confirmacaoSenha}}" #confirmacaoSenha="ngModel">
           </div>
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
@@ -44,6 +44,6 @@
           </div>
         </form>
       </div>
-    </div>  -->
+    </div> 
   </div>  
 </div>

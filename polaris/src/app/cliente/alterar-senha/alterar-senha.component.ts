@@ -12,6 +12,8 @@ import { Login } from 'src/app/models/login.model';
 })
 export class AlterarSenhaComponent implements OnInit {
   public statusMsg!: string;
+  public senhaAntiga!: string;
+  public confirmacaoSenha!: string;
 
   public endereco: Endereco = {
     cep: '',
@@ -23,6 +25,7 @@ export class AlterarSenhaComponent implements OnInit {
   }
 
   public login: Login = {
+    loginUuid: '',
     usuario: '',
     senha: ''
   }
