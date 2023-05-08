@@ -1,20 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Polaris.Usuario.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Usuario.Models
+namespace Polaris.Usuario.ViewModels
 {
-    [Table("Gerente")]
-
-    public class Gerente
+    public class CadastroGerenteViewModel
     {
-        [Key]
-        public int GerenteId { get; set; }
-        public Guid GerenteUuid { get; set; }
-        [MinLength(1, ErrorMessage = "Erro. Digite um CNPJ.")]
-        [MaxLength(18, ErrorMessage = " Erro. CNPJ inválido.")]
-        [NotNull]
-        [Required]
         public string Cnpj { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite uma empresa.")]
         [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
@@ -31,15 +23,9 @@ namespace Polaris.Usuario.Models
         [NotNull]
         [Required]
         public string Telefone { get; set; }
-        public bool Status { get; set; }
+
         [Required]
         [NotNull]
-        [ForeignKey("Endereco")]
-        public int EnderecoId { get; set; }
-        public virtual Endereco Endereco { get; set; }
-
-        [ForeignKey("Login")]
-        public int LoginId { get; set; }
-        public virtual Login? Login { get; set; }
+        public CadastroEnderecoViewModel Endereco { get; set; }
     }
 }

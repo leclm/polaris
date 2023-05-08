@@ -55,5 +55,28 @@
             public AtualizarClienteException(string message)
                 : base(message) { }
         }
+
+
+        public class GerenteNaoEncontradoException : Exception
+        {
+            public GerenteNaoEncontradoException() { }
+
+            public GerenteNaoEncontradoException(string message)
+                : base(message) { }
+        }
+        public class CadastrarGerenteException : Exception
+        {
+            public CadastrarGerenteException() { }
+
+            public CadastrarGerenteException(string message)
+                : base(message) { }
+        }
+        public class AtualizarGerenteException : Exception
+        {
+            public AtualizarGerenteException() { }
+
+            public AtualizarGerenteException(string message)
+                : base(message) { }
+        }
     }
 }

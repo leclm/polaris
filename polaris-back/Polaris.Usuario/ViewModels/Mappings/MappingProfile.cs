@@ -19,6 +19,10 @@ namespace Polaris.Usuario.ViewModels.Mappings
             CreateMap<Models.Login, AtualizaLoginViewModel>().ReverseMap();
 
             CreateMap<Models.Login, AlteraSenha>().ReverseMap();
+
+            CreateMap<Models.Gerente, CadastroGerenteViewModel>().ReverseMap();
+            CreateMap<Models.Gerente, RetornoGerenteViewModel>().ReverseMap();
+            CreateMap<Models.Gerente, AtualizaGerenteViewModel>().ReverseMap();
         }
     }
 }

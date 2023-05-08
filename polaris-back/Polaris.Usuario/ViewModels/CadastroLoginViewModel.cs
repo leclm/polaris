@@ -11,6 +11,12 @@ namespace Polaris.Usuario.ViewModels
             Senha = clienteDto.DataNascimento.ToString("ddMMyyyy");
         }
 
+        public CadastroLoginViewModel(CadastroGerenteViewModel gerenteDto)
+        {
+            Usuario = gerenteDto.Email;
+            Senha = gerenteDto.Cnpj;
+        }
+
         [MinLength(1, ErrorMessage = "Erro. Digite um usuário válido.")]
         [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]

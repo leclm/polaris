@@ -11,7 +11,7 @@ using Polaris.Usuario.Context;
 namespace Polaris.Usuario.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230507214619_PrimeiraMigration")]
+    [Migration("20230508201205_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -152,9 +152,6 @@ namespace Polaris.Usuario.Migrations
 
                     b.Property<Guid>("GerenteUuid")
                         .HasColumnType("char(36)");
-
-                    b.Property<bool>("JaContatado")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("LoginId")
                         .HasColumnType("int");
