@@ -1,5 +1,4 @@
 import { Endereco } from "./endereco.model";
-import { Login } from "./login.model";
 
 export interface Cliente {
     nome: string;
@@ -8,6 +7,5 @@ export interface Cliente {
     dataNascimento: string;
     email: string;
     telefone: string;
-    endereco: Endereco,
-    login: Login
+    endereco: Endereco
 }
