@@ -19,7 +19,7 @@ import { Tipo } from 'src/app/models/tipo.model';
   providedIn: 'root'
 })
 export class GerenteService {
-  servicoURL = 'https://localhost:44352';
+  servicosURL = 'https://localhost:44352';
   conteinerURL = 'https://localhost:44387';
   loginURL = 'https://localhost:57361';
 
@@ -78,69 +78,69 @@ export class GerenteService {
 
   // Terceirizado
   getAllTerceirizados(): Observable<Terceirizado[]> {
-    const url = `${this.servicoURL}/Terceirizados`;
+    const url = `${this.servicosURL}/Terceirizados`;
     return this.http.get<Terceirizado[]>(url);
   }
 
   getAllTerceirizadosAtivos(): Observable<Terceirizado[]> {
-    const url = `${this.servicoURL}/Terceirizados/terceirizados-ativos`;
+    const url = `${this.servicosURL}/Terceirizados/terceirizados-ativos`;
     return this.http.get<Terceirizado[]>(url);
   }  
 
   getTerceirizadoById(id: string): Observable<Terceirizado> {
-    const url = `${this.servicoURL}/Terceirizados/${id}`;
+    const url = `${this.servicosURL}/Terceirizados/${id}`;
     return this.http.get<Terceirizado>(url);
   }
   
   addTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.servicoURL}/Terceirizados`;
+    const url = `${this.servicosURL}/Terceirizados`;
     return this.http.post<Terceirizado>(url, terceirizado, { headers, observe: 'response' });
   }
   
   editarTerceirizado(terceirizado: Terceirizado): Observable<HttpResponse<Terceirizado>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.servicoURL}/Terceirizados`;
+    const url = `${this.servicosURL}/Terceirizados`;
     return this.http.put<Terceirizado>(url, terceirizado, { headers, observe: 'response' });
   }
 
   deleteTerceirizado(uuid: string): Observable<HttpResponse<Terceirizado>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.servicoURL}/Terceirizados/alterar-status/${uuid}/false`;
+    const url = `${this.servicosURL}/Terceirizados/alterar-status/${uuid}/false`;
     return this.http.put<Terceirizado>(url, null, { headers, observe: 'response' });
   }
 
   // Serviços
   addServico(servico: Servico): Observable<HttpResponse<Servico>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.servicoURL}/servicos`;
+    const url = `${this.servicosURL}/servicos`;
     return this.http.post<Servico>(url, servico, { headers, observe: 'response' });
   }
 
   getAllServicosAtivos(): Observable<Servico[]> {
-    const url = `${this.servicoURL}/servicos/servicos-ativos`;
+    const url = `${this.servicosURL}/servicos/servicos-ativos`;
     return this.http.get<Servico[]>(url);
   }
 
   getAllServicos(): Observable<Servico[]> {
-    const url = `${this.servicoURL}/servicos`;
+    const url = `${this.servicosURL}/servicos`;
     return this.http.get<Servico[]>(url);
   }
 
   getServicoById(id: string): Observable<Servico> {
-    const url = `${this.servicoURL}/servicos/${id}`;
+    const url = `${this.servicosURL}/servicos/${id}`;
     return this.http.get<Servico>(url);
   }
 
   editarServico(servico: Servico): Observable<HttpResponse<Servico>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.servicoURL}/servicos`;
+    const url = `${this.servicosURL}/servicos`;
     return this.http.put<Servico>(url, servico, { headers, observe: 'response' });
   }
 
   deleteServico(uuid: string): Observable<HttpResponse<Servico>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.servicoURL}/servicos/alterar-status/${uuid}/false`;
+    const url = `${this.servicosURL}/servicos/alterar-status/${uuid}/false`;
     return this.http.put<Servico>(url, null, { headers, observe: 'response' });
   }
 
