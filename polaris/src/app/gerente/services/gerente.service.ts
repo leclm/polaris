@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Cliente } from 'src/app/models/cliente.model';
+import { ClienteLogin } from 'src/app/models/clienteLogin.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { ConteinerEstado } from 'src/app/models/conteinerEstado.model';
+import { Login } from 'src/app/models/login.model';
 import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtualizacao.model';
 import { PrestacaoServicoEstado } from 'src/app/models/prestacaoServicoEstado.model';
@@ -23,8 +25,16 @@ export class GerenteService {
   conteinerURL = 'https://localhost:44387/Conteineres';
   prestacaoServicoURL = 'https://localhost:44387/PrestacoesServicos';
   clienteURL = 'https://localhost:57361/Clientes';
+  loginURL = 'https://localhost:57361/Logins';
 
   constructor( private http: HttpClient ) { } 
+  // Login 
+  alterarSenha(login: Login): Observable<HttpResponse<Login>> {
+    const url = `${this.loginURL}/alterar-senha`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Login>(url, login, { headers, observe: 'response' });
+  }
+
   // Cliente
   addCliente(cliente: Cliente): Observable<HttpResponse<Cliente>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -43,6 +53,11 @@ export class GerenteService {
   getClienteById(id: string): Observable<Cliente> {
     const url = `${this.clienteURL}/${id}`;
     return this.http.get<Cliente>(url);
+  }
+  
+  getClienteByIdLogin(id: string): Observable<ClienteLogin> {
+    const url = `${this.clienteURL}/${id}`;
+    return this.http.get<ClienteLogin>(url);
   }
 
   editarCliente(cliente: Cliente): Observable<HttpResponse<Cliente>> {
