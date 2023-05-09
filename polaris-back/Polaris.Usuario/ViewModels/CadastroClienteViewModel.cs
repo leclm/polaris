@@ -38,6 +38,6 @@ namespace Polaris.Usuario.ViewModels
 
         [Required]
         [NotNull]
-        public CadastroEnderecoViewModel Endereco { get; set; }    
+        public CadastroEnderecoViewModel Endereco { get; set; }  
     }
 }

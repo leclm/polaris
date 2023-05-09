@@ -18,21 +18,34 @@ namespace Polaris.Usuario.Services
             _mapper = mapper;
         }
 
-        public async Task Logar(CadastroLoginViewModel loginDto)
+        public async Task<RetornoLoginViewModel> Logar(CadastroLoginViewModel loginDto)
         {
-            if (await _context.LoginRepository.GetByParameter(x => x.Usuario == loginDto.Usuario && x.Senha == loginDto.Senha) is null)
-            {
-                throw new LoginNaoEncontradoException("Usuário/senha inválidos. Erro ao logar.");
-            }
+            var login = await _context.LoginRepository.GetByParameter(x => x.Usuario == loginDto.Usuario && x.Senha == loginDto.Senha);
 
-            var login = _mapper.Map<Models.Login>(loginDto);
-
-            if (login is null)
+            if (login == null || login.LoginId == 0)
             {
                 throw new LoginNaoEncontradoException("Usuário/senha inválidos. Erro ao logar.");
             }
 
             StringUtils.ClassToUpper(login);
+
+            return new RetornoLoginViewModel()
+            {
+                Usuario = loginDto.Usuario,
+                IsGerente = await IsGerente(login.LoginId),
+                LoginUuid = login.LoginUuid,
+                Status = login.Status
+            };
+        }
+
+        private async Task<bool> IsGerente(int idLogin)
+        {
+            var gerente = await _context.GerenteRepository.GetByParameter(p => p.LoginId == idLogin);
+            if (gerente == null || gerente.GerenteId == 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<Guid> CadastrarLogin(CadastroLoginViewModel loginDto)
@@ -65,11 +78,6 @@ namespace Polaris.Usuario.Services
             if (loginDto.LoginUuid == Guid.Empty || String.IsNullOrEmpty(loginDto.ToString()))
             {
                 throw new AtualizarLoginException("Login inválido. Erro ao atualizar.");
-            }
-
-            if (await _context.LoginRepository.GetByParameter(x => x.Usuario == loginDto.Usuario) is not null)
-            {
-                throw new CadastrarLoginException("Usuário já existe. Erro ao atualizar.");
             }
 
             var login = await _context.LoginRepository.GetByParameter(p => p.LoginUuid == loginDto.LoginUuid);
