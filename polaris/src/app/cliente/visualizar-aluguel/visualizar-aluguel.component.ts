@@ -12,11 +12,6 @@ export class VisualizarAluguelComponent implements OnInit {
   constructor( private _clienteServiceAPI: ClienteService ) { }
 
   ngOnInit(): void {
-    this._clienteServiceAPI.getAuthData().subscribe( (res: any) => {
-        this.authData = res;
-      }
-    )
-
     this._clienteServiceAPI.getAluguelData().subscribe( (res: any) => {
         this.aluguelData = res;
       }
