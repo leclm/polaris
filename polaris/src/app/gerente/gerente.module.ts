@@ -33,6 +33,7 @@ import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/edit
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../s
     EditarDisponibilidadeConteinerComponent,
     CapitalizacaoGerentePipe,
     PhoneGerentePipe,
-    CpfGerentePipe
+    CpfGerentePipe,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

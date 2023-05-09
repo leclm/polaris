@@ -26,8 +26,14 @@ import { VisualizarHistoricoAluguelConteinerComponent } from './visualizar-histo
 import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/manter-prestacao-servico.component';
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner';
+import { DashboardComponent } from './dashboard';
 
 export const GerenteRoutes: Routes = [
+  // Dashboard
+  {
+    path: 'gerente/dashboard',
+    component: DashboardComponent
+  },
   // Cliente
   {
     path: 'gerente/manter-cliente',

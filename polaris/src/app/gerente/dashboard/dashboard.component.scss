@@ -1,0 +1,16 @@
+$dark-blue: #0f2b46;
+$white: #fff;
+$aqua: #0fbda3;
+$border-gray: #dee2e6;
+
+.dashboard {
+  .container-content {
+    border: 1px solid $border-gray;
+    border-radius: 15px;
+    background-color: $white;
+    h1 {
+      margin: 10px 0;
+      font-size: 20px;
+    }
+  }
+}
