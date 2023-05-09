@@ -21,7 +21,7 @@ export class AlterarSenhaComponent implements OnInit {
     senha: ''
   }  
 
-  @ViewChild("formAlterarSenha") formCategoria!: NgForm;
+  @ViewChild("formAlterarSenha") formAlterarSenha!: NgForm;
   constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {

@@ -7,6 +7,7 @@ import { ClienteLogin } from 'src/app/models/clienteLogin.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { ConteinerEstado } from 'src/app/models/conteinerEstado.model';
 import { Login } from 'src/app/models/login.model';
+import { LoginAcesso } from 'src/app/models/loginAcesso.model';
 import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtualizacao.model';
 import { PrestacaoServicoEstado } from 'src/app/models/prestacaoServicoEstado.model';
@@ -33,6 +34,12 @@ export class GerenteService {
     const url = `${this.loginURL}/alterar-senha`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<Login>(url, login, { headers, observe: 'response' });
+  }
+
+  efetuarLogin(login: LoginAcesso): Observable<HttpResponse<LoginAcesso>> {
+    const url = `${this.loginURL}/logar`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<LoginAcesso>(url, login, { headers, observe: 'response' });
   }
 
   // Cliente
