@@ -28,7 +28,6 @@ namespace Polaris.Usuario.Services
             _loginRepository = loginRepository;
         }
 
-
         public async Task<IEnumerable<RetornoGerenteViewModel>> GetGerentes()
         {
             var gerentes = _context.GerenteRepository.GenteGerentesCompleto();

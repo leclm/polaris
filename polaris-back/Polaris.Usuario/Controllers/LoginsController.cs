@@ -38,8 +38,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                await _loginService.Logar(loginDto);
-                return Ok();
+                return Ok(await _loginService.Logar(loginDto));
             }
             catch (LoginNaoEncontradoException ex)
             {
@@ -51,38 +50,38 @@ namespace Polaris.Usuario.Controllers
             }
         }
 
-        /// <summary>
-        /// Este endpoint deve cadastrar um login
-        /// </summary>
-        /// <remarks>
-        /// Exemplo: <br />
-        /// {<br />
-        /// "usuario": "usuario", <br />
-        /// "senha": "senha" <br />
-        /// }
-        /// </remarks>
-        /// <returns>
-        /// Retorna 201 caso sucesso
-        /// Retorna 400 caso erro em algum campo com a mensagem
-        /// Retorna 500 caso erro interno 
-        /// </returns>
-        // POST: api/Logins
-        [HttpPost]
-        public async Task<IActionResult> CadastrarLogin(CadastroLoginViewModel loginDto)
-        {
-            try
-            {
-                return StatusCode(StatusCodes.Status201Created, await _loginService.CadastrarLogin(loginDto));
-            }
-            catch (CadastrarLoginException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception)
-            {
-                return ReturnError();
-            }
-        }
+        ///// <summary>
+        ///// Este endpoint deve cadastrar um login
+        ///// </summary>
+        ///// <remarks>
+        ///// Exemplo: <br />
+        ///// {<br />
+        ///// "usuario": "usuario", <br />
+        ///// "senha": "senha" <br />
+        ///// }
+        ///// </remarks>
+        ///// <returns>
+        ///// Retorna 201 caso sucesso
+        ///// Retorna 400 caso erro em algum campo com a mensagem
+        ///// Retorna 500 caso erro interno 
+        ///// </returns>
+        //// POST: api/Logins
+        //[HttpPost]
+        //public async Task<IActionResult> CadastrarLogin(CadastroLoginViewModel loginDto)
+        //{
+        //    try
+        //    {
+        //        return StatusCode(StatusCodes.Status201Created, await _loginService.CadastrarLogin(loginDto));
+        //    }
+        //    catch (CadastrarLoginException ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return ReturnError();
+        //    }
+        //}
 
         /// <summary>
         /// Este endpoint deve atualizar um usuario e/ou senha
