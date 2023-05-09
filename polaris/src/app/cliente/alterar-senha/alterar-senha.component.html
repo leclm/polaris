@@ -13,7 +13,7 @@
       </div>
       <div *ngSwitchCase="'fail'">
         <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
-          Falha ao alterar senha, confira os dados e tente novamente.
+          Falha ao alterar, as senhas precisam ser idênticas!
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       </div>
@@ -22,28 +22,21 @@
     <div class="mb-3">
       <p class="title">Digite sua nova senha</p>
       <div class="content ms-3">
-       <!-- <form class="row g-3" #formAlterarSenha="ngForm" (ngSubmit)="editar()">
-          
+        <form class="row g-3" #formAlterarSenha="ngForm" (ngSubmit)="changePassword()">
           <div class="col-md-12">
-            <label for="inputSenhaAntiga" class="form-label">Senha antiga</label>
-            <input type="text" class="form-control" id="inputSenhaAntiga" name="senhaAntiga" [(ngModel)]="senhaAntiga" value="{{senhaAntiga}}" #senhaAntiga="ngModel">
+            <label class="form-label" for="newPassword">Nova senha:</label>
+            <input class="form-control" type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword">
           </div>
-
           <div class="col-md-12">
-            <label for="inputSenha" class="form-label">Nova senha</label>
-            <input type="text" class="form-control" id="inputSenha" name="senha" [(ngModel)]="cliente.login.senha" value="{{cliente.login.senha}}" #senha="ngModel">
-          </div>
-
-          <div class="col-md-12">
-            <label for="inputConfirmacaoSenha" class="form-label">Confirme sua nova senha</label>
-            <input type="text" class="form-control" id="inputConfirmacaoSenha" name="confirmacaoSenha" [(ngModel)]="confirmacaoSenha" value="{{confirmacaoSenha}}" #confirmacaoSenha="ngModel">
-          </div>
+            <label class="form-label" for="confirmPassword">Confirme sua nova senha:</label>
+            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword">
+          </div> 
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
             <button type="submit">Salvar Alterações</button>
             <a [routerLink]="['/cliente/visualizar-aluguel']">Voltar</a>
-          </div
-        </form>>-->
+          </div>
+        </form>
       </div>
     </div> 
   </div>  

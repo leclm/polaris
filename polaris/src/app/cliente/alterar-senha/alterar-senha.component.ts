@@ -1,8 +1,7 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GerenteService } from 'src/app/gerente/services';
-import { Cliente } from 'src/app/models/cliente.model';
-import { Endereco } from 'src/app/models/endereco.model';
 import { Login } from 'src/app/models/login.model';
 
 @Component({
@@ -12,44 +11,45 @@ import { Login } from 'src/app/models/login.model';
 })
 export class AlterarSenhaComponent implements OnInit {
   public statusMsg!: string;
-  public senhaAntiga!: string;
-  public confirmacaoSenha!: string;
-
-  public endereco: Endereco = {
-    cep: '',
-    cidade: '',
-    estado: '',
-    logradouro: '',
-    complemento: '',
-    numero: NaN
-  }
+  newPassword: string = '';
+  confirmPassword: string = '';
+  passwordsMatch: boolean = true;
 
   public login: Login = {
     loginUuid: '',
     usuario: '',
     senha: ''
-  }
-
-  public cliente: Cliente = {
-    nome: '',
-    sobrenome: '',
-    cpf: '',
-    dataNascimento: '',
-    email: '',
-    telefone: '',
-    endereco: this.endereco
-  }
+  }  
 
   @ViewChild("formAlterarSenha") formCategoria!: NgForm;
   constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
+    // ajustar para pegar o usuario logado
+    this.getClienteById('aa392264-ec06-4ab4-af59-f97f1c37bca7');
+  }
+
+  getClienteById(id: string) {
+    this.gerenteService.getClienteByIdLogin(id).subscribe( res => {
+        this.login.loginUuid = res.login.loginUuid;
+        this.login.usuario = res.login.usuario;
+      }      
+    );
+  }
+  
+  changePassword(): void {
+    if (this.newPassword === this.confirmPassword) {
+      this.login.senha = this.newPassword;
+      this.editar();
+    } else {
+      this.passwordsMatch = false;
+      this.statusMsg = 'fail';
+    }
   }
 
   editar() {
-    console.log('saasd');
-    /*this.gerenteService.editarCategoria(this.categoria).subscribe(
-      (response: HttpResponse<Categoria>) => {   
+    this.gerenteService.alterarSenha(this.login).subscribe(
+      (response: HttpResponse<Login>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';
           console.log('Put request successful');
@@ -61,7 +61,6 @@ export class AlterarSenhaComponent implements OnInit {
         console.error('Error:', error);
         this.statusMsg = 'fail';
       }
-    );*/
+    );
   };
-
 }
