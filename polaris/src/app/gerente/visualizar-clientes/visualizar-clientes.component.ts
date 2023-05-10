@@ -8,32 +8,40 @@ import { GerenteService } from '../services';
 })
 export class VisualizarClientesComponent implements OnInit {
   public clienteData: any;
-  public terceirizadoUuid!: string;
+  public loginUuid!: string;
+  public loginStatusUuid!: string;
 
   constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.getAllClientes();
+    this.getAllClientesAtivos();
     this.loadData();
   }
 
-  getAllClientes() {
-    this.gerenteService.getAllClientes().subscribe( (res: any) => {
+  getAllClientesAtivos() {
+    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
         this.clienteData = res;
       }
     );
   }
-
+  
   loadData() {
     this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
       this.clienteData = res;
     })
   };
 
-  didTapOnDelete(uuid: string) {
-    this.gerenteService.deleteCliente(uuid).subscribe(
+  alterarStatusLoginCliente(uuid: string) {
+    this.gerenteService.alterarStatusLoginCliente(uuid).subscribe(
+      response => console.log("mudou"),
+      error => console.error(error)
+    );       
+  }
+
+  didTapOnDelete(clienteUuid: string) {
+    this.gerenteService.deleteCliente(clienteUuid).subscribe(
       response => this.loadData(),
       error => console.error(error)
-    )
+    );    
   };
 }

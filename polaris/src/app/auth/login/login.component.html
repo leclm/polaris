@@ -3,12 +3,6 @@
     <h1>Faça o login para entrar</h1>
 
     <div [ngSwitch]="statusMsg">
-      <div *ngSwitchCase="'success'">
-        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-          Senha alterada com sucesso!
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      </div>
       <div *ngSwitchCase="'fail'">
         <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
           E-mail e/ou senha incorretos, verifique e tente novamente!
@@ -22,7 +16,6 @@
         </div>
       </div>
     </div>
-
 
     <form class="mt-5" #formLogin="ngForm" (ngSubmit)="efetuarLogin()">
       <div class="form-group">

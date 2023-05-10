@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
     this.gerenteService.efetuarLogin(this.login).subscribe(
       (response: HttpResponse<LoginAcesso>) => {   
         if (response.status === 200 || response.status === 201) {
-          this.statusMsg = 'success';
           console.log('Put request successful');
         } else {
           console.log('Put request failed');

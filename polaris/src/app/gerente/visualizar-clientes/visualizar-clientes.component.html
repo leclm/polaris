@@ -26,7 +26,7 @@
               <a [routerLink]="['/gerente/editar-cliente', item.clienteUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
-              <a (click)="didTapOnDelete(item.clienteUuid)">
+              <a (click)="didTapOnDelete(item.clienteUuid)" (click)="alterarStatusLoginCliente(item.login.loginUuid)">
                 <i class="fa fa-trash-alt" aria-hidden="true"></i>
               </a>  
             </td>
