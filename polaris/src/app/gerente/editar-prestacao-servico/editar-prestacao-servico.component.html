@@ -27,14 +27,14 @@
             <form class="row g-3" #formPrestacaoDeServico="ngForm" (ngSubmit)="editar()">
               <div class="col-md-4">         
                 <label for="inputEstadoConteiner" class="form-label">Estado do Contêiner</label>
-                <select class="form-select" id="inputEstadoConteiner" aria-label="estadoConteiner" [(ngModel)]="estadoConteinerSelecionado" name="estadoConteiner">
+                <select class="form-select" id="inputEstadoConteiner" aria-label="estadoConteinerSelecionado" [(ngModel)]="estadoConteinerSelecionado" name="estadoConteinerSelecionado">
                   <option *ngFor="let a of fakeArrayConteiner; let index = index" [value]="index">{{estadoConteiner[index]}}</option>
                 </select>
               </div>
               
               <div class="col-md-4">         
                 <label for="inputEstadoPrestacaoServico" class="form-label">Estado do Serviço</label>
-                <select class="form-select" id="inputEstadoPrestacaoServico" aria-label="estadoPrestacaoServico" [(ngModel)]="estadoPrestacaoServicoSelecionada" name="prestacaoServico">
+                <select class="form-select" id="inputEstadoPrestacaoServico" aria-label="estadoPrestacaoServicoSelecionada" [(ngModel)]="estadoPrestacaoServicoSelecionada" name="estadoPrestacaoServicoSelecionada">
                   <option *ngFor="let a of fakeArrayPrestacaoServico; let index = index" [value]="index">{{estadoPrestacaoServico[index]}}</option>
                 </select>
               </div>

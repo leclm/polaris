@@ -42,7 +42,7 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   public estadoConteinerSelecionado = 0;
   public estadoPrestacaoServicoSelecionada = 0;
   
-  public prestacaoServicoAtualizacao: PrestacaoServicoAtualizacao ={
+  public prestacaoServicoAtualizacao: PrestacaoServicoAtualizacao = {
     prestacaoDeServicoUuid: '',
     dataProcedimento: '',
     estadoPrestacaoServico: 0,
@@ -85,12 +85,14 @@ export class EditarPrestacaoServicoComponent implements OnInit {
 
   getPrestacaoServicoById() {
     this.gerenteService.getPrestacaoServicoById(this.prestacaoDeServicoUuid).subscribe( response => {
-      this.prestacaoServicoAtualizacao.estadoPrestacaoServico = response.estadoPrestacaoServico;
-      this.conteinerUuid = response.conteiner.conteinerUuid;
-      this.prestacaoServicoAtualizacao.comentario = response.comentario;
       this.prestacaoServicoAtualizacao.dataProcedimento = response.dataProcedimento;
+      this.prestacaoServicoAtualizacao.estadoPrestacaoServico = response.estadoPrestacaoServico;
+      this.prestacaoServicoAtualizacao.comentario = response.comentario;
+      
       this.estadoPrestacaoServicoSelecionada = this.prestacaoServicoAtualizacao.estadoPrestacaoServico;      
-      this.estadoConteinerSelecionado = response.conteiner.estado;  
+      
+      this.estadoConteinerSelecionado = response.conteiner.estado;        
+      this.conteinerUuid = response.conteiner.conteinerUuid;
       this.getConteinerUuid(this.conteinerUuid);
     })
   } 
