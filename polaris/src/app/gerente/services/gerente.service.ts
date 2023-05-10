@@ -31,6 +31,12 @@ export class GerenteService {
     return this.http.put<Login>(url, login, { headers, observe: 'response' });
   }
 
+  alterarStatusLoginCliente(uuid: string): Observable<HttpResponse<Login>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.loginURL}/Logins/alterar-status/${uuid}/false`;
+    return this.http.put<Login>(url, null, { headers, observe: 'response' });
+  }
+
   efetuarLogin(login: LoginAcesso): Observable<HttpResponse<LoginAcesso>> {
     const url = `${this.loginURL}/Logins/logar`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
