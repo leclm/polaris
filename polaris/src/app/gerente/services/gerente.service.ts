@@ -155,6 +155,16 @@ export class GerenteService {
     const url = `${this.conteinerURL}/PrestacoesServicos`;
     return this.http.get<PrestacaoServico[]>(url);
   }
+
+  getPrestacaoServicoById(id: string): Observable<PrestacaoServicoEstado> {
+    const url = `${this.conteinerURL}/PrestacoesServicos/${id}`;
+    return this.http.get<PrestacaoServicoEstado>(url);
+  }
+
+  getPrestacaoServicoByConteiner(id: string): Observable<PrestacaoServicoEstado> {
+    const url = `${this.conteinerURL}/PrestacoesServicos/Conteiner/${id}`;
+    return this.http.get<PrestacaoServicoEstado>(url);
+  }
   
   addPrestacaoServico(prestacaoServico: PrestacaoServico): Observable<HttpResponse<PrestacaoServico>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -166,16 +176,6 @@ export class GerenteService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.conteinerURL}/PrestacoesServicos/alterar-estado`;
     return this.http.put<PrestacaoServicoAtualizacao>(url, prestacaoServicoAtualizacao, { headers, observe: 'response' });
-  }
-
-  getPrestacaoServicoById(id: string): Observable<PrestacaoServicoEstado> {
-    const url = `${this.conteinerURL}/PrestacoesServicos/Conteiner/${id}`;
-    return this.http.get<PrestacaoServicoEstado>(url);
-  }
-
-  getPrestacaoServicoByConteiner(id: string): Observable<PrestacaoServicoEstado> {
-    const url = `${this.conteinerURL}/PrestacoesServicos/${id}`;
-    return this.http.get<PrestacaoServicoEstado>(url);
   }
 
   // Categoria
