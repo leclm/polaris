@@ -1,9 +1,6 @@
-﻿using Polaris.Conteiner.Enums;
-using Polaris.Conteiner.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+﻿using Polaris.Aluguel.Enums;
 
-namespace Polaris.Conteiner.ViewModels
+namespace Polaris.Aluguel.ViewModels
 {
     public class RetornoConteinerViewModel
     {

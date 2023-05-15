@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Conteiner.ViewModels
+namespace Polaris.Aluguel.ViewModels
 {
     public class RetornoTipoConteinerViewModel
     {

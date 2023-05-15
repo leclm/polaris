@@ -1,6 +1,4 @@
-﻿using Polaris.Usuario.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Polaris.Usuario.ViewModels
