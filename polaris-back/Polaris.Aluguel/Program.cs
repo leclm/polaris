@@ -1,11 +1,9 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Polaris.Usuario.Configs;
-using Polaris.Usuario.Context;
-using Polaris.Usuario.ExternalServices;
-using Polaris.Usuario.Repository;
-using Polaris.Usuario.Services;
-using Polaris.Usuario.ViewModels.Mappings;
+using Polaris.Aluguel.Context;
+using Polaris.Aluguel.Repository;
+using Polaris.Aluguel.ViewModels.Mappings;
+using System;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,16 +27,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
                     ServerVersion.AutoDetect(mySqlConnection)));
 
 builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
-builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-builder.Services.AddScoped<IGerenteRepository, GerenteRepository>();
+builder.Services.AddScoped<IAluguelRepository, AluguelRepository>();
 builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
-builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
-builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IClienteService, ClienteService>();
-builder.Services.AddScoped<IGerenteService, GerenteService>();
-
-builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection("ExternalConfigs"));
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IConteinerRepository, ConteinerRepository>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
