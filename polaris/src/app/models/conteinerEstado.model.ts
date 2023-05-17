@@ -2,7 +2,7 @@ import { Categoria } from "./categoria.model";
 import { Tipo } from "./tipo.model";
 
 export interface ConteinerEstado {
-    categoria: Categoria;
+    categoriaConteiner: Categoria;
     codigo: number;
     conteinerUuid: string;
     cor: string;
@@ -11,5 +11,5 @@ export interface ConteinerEstado {
     fabricante: string;
     material: string;
     status: boolean;
-    tipo: Tipo;
+    tipoConteiner: Tipo;
 }

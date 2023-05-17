@@ -262,6 +262,11 @@ export class GerenteService {
     return this.http.get<Conteiner>(url);
   }
 
+  getConteinerByIdEstado(id: string): Observable<ConteinerEstado> {
+    const url = `${this.conteinerURL}/Conteineres/${id}`;
+    return this.http.get<ConteinerEstado>(url);
+  }
+
   addConteiner(conteiner: Conteiner): Observable<HttpResponse<Conteiner>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.conteinerURL}/Conteineres`;

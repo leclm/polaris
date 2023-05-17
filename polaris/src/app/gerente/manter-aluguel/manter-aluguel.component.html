@@ -1,0 +1,153 @@
+<div class="manter-aluguel container-fluid mt-4 mb-4">
+  <div class="container-content mb-4 p-4">
+    <h1>Novo Aluguel</h1>
+
+    <div class="line mb-5"></div>
+    
+    <div [ngSwitch]="statusMsg">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Novo aluguel realizado com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao criar novo aluguel, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="title">Dados cadastrais</p>
+      <div class="content d-flex ms-3">
+        <form class="row g-3" #formAluguel="ngForm" (ngSubmit)="cadastrar()">
+          <div class="col-md-6">         
+            <label for="inputCliente" class="form-label">Responsável pelo aluguel:</label>
+            <select class="form-select" id="inputCliente" aria-label="cliente" name="cliente" [(ngModel)]="clienteUuid" (change)="fillClientObject($event)">
+              <option *ngFor="let item of clientesCadastrados" [value]="item.clienteUuid" >{{item.nome}} {{item.sobrenome}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="inputCpf" class="form-label">CPF</label>
+            <p class="form-control disabled" id="inputCpf">{{ cliente.cpf! | cpfGerente }}</p> 
+          </div>
+
+          <p class="title mt-5">Período de locação</p>
+          <div class="col-md-6 mt-0">
+            <label for="inputDataInicio" class="form-label">Data de Início</label>
+            <input type="text" class="form-control" id="inputDataInicio" name="dataInicio" [(ngModel)]="aluguel.dataInicio"> 
+          </div>
+
+          <div class="col-md-6 mt-0">
+            <label for="inputDataDevolucao" class="form-label">Data de Devolução</label>
+            <input type="text" class="form-control" id="inputDataDevolucao" name="dataDevolucao" [(ngModel)]="aluguel.dataDevolucao"> 
+          </div>
+
+          <p class="title mt-5">Endereço de locação</p>
+          <div class="col-md-4 mt-0">
+            <label for="inputCep" class="form-label">CEP</label>
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="enderecoLocacao.cep" (input)="searchAddress($event)">
+          </div>
+          <div class="col-md-4 mt-0">
+            <label for="inputEstado" class="form-label">Estado</label>
+           <p class="form-control" id="inputEstado">{{ enderecoLocacao.estado }}</p> 
+          </div>
+          <div class="col-md-4 mt-0">
+            <label for="inputCidade" class="form-label">Cidade</label>
+            <p class="form-control" id="inputCidade">{{ enderecoLocacao.cidade }}</p>
+          </div>
+          <div class="col-md-6">
+            <label for="inputLogradouro" class="form-label">Endereço</label>
+            <p class="form-control" id="inputLogradouro">{{ enderecoLocacao.logradouro }}</p>
+          </div>
+          <div class="col-md-3">
+            <label for="inputNumero" class="form-label">Número</label>
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="enderecoLocacao.numero" name="numero">
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="inputComplemento" class="form-label">Complemento</label>
+            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="enderecoLocacao.complemento" name="complemento">
+          </div>
+
+          <div class="line mb-5"></div>
+          
+          <p class="title">Contêiner</p>
+          <div class="col-md-6 mt-0">         
+            <label for="inputCategoria" class="form-label">Categoria</label>
+            <select class="form-select" id="inputCategoria" aria-label="categoria" name="categoria" [(ngModel)]="conteiner.categoria">
+              <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome! | capitalizacaoGerente}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 mt-0">         
+            <label for="inputTipo" class="form-label">Tipo</label>
+            <select class="form-select" id="inputTipo" aria-label="tipo" name="tipo" [(ngModel)]="conteiner.tipo">
+              <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome! | capitalizacaoGerente}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-12">         
+            <label for="inputConteiner" class="form-label">Conteiner</label>
+            <select class="form-select" id="inputConteiner" aria-label="conteiner" name="conteiner" [(ngModel)]="conteinerUuid" >
+              <option *ngFor="let item of conteineresCadastrados" [value]="item.conteinerUuid">#{{item.codigo}} - {{item.material! | capitalizacaoGerente}} - {{item.cor! | capitalizacaoGerente}} - {{item.fabricante! | capitalizacaoGerente}} - {{item.fabricacao}}</option>
+            </select>
+          </div>
+
+          <div class="ctn-btn d-flex justify-content-evenly col-md-12">         
+            <button (click)="addConteiner($event)">Adicionar Contêiner</button>
+          </div>
+                    
+          <p class="title mt-5">Itens Selecionados</p>
+          <div class="col-md-12">         
+            <div class="table-responsive">
+              <table class="table align-middle text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>Cód</th>
+                    <th>Categoria</th>
+                    <th>Tipo</th>
+                    <th>Valor Diária</th>
+                    <th>Diárias</th>
+                    <th>Total</th>
+                    <th>Excluir</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of carrinho">
+                    <td>#{{ item.codigo }}</td>
+                    <td>{{ item.categoriaConteiner.nome! | capitalizacaoGerente }}</td>
+                    <td>{{ item.tipoConteiner.nome! | capitalizacaoGerente }}</td>
+                    <td>{{ item.tipoConteiner.valorDiaria }}</td>
+                    <td>{{ totalDays }}</td>
+                    <td>R${{ totalDays*item.tipoConteiner.valorDiaria }}</td>
+                    <td>
+                      <a (click)="removeConteiner(item.conteinerUuid)">
+                        <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+ 
+          <div class="pt-2 line-price">
+            <div class="price d-flex">
+              <p><span>Total da compra:</span> R${{ totalDays }} </p>
+              <p><span>Desconto:</span> desconto </p>
+              <p class="line-price pt-2"><span>Total com desconto:</span>R${{ totalDays }}</p>
+            </div>
+          </div>
+          
+          <div class="ctn-btn d-flex justify-content-evenly mt-5">
+            <button type="submit">Cadastrar</button>
+            <a [routerLink]="['/gerente/visualizar-clientes']">Gerar Contrato</a>
+            <a [routerLink]="['/gerente/visualizar-clientes']">Voltar</a>
+          </div>
+        </form>
+      </div>
+    </div> 
+</div>
