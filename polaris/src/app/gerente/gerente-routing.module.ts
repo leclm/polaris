@@ -27,6 +27,7 @@ import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/mant
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner';
 import { DashboardComponent } from './dashboard';
+import { ManterAluguelComponent } from './manter-aluguel';
 
 export const GerenteRoutes: Routes = [
   // Dashboard
@@ -147,5 +148,10 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/editar-prestacao-servico/:id',
     component: EditarPrestacaoServicoComponent
+  },
+  // Aluguel
+  {
+    path: 'gerente/manter-aluguel',
+    component: ManterAluguelComponent
   }
 ];

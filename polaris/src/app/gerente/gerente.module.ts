@@ -34,6 +34,7 @@ import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidad
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CapitalizacaoGerentePipe,
     PhoneGerentePipe,
     CpfGerentePipe,
-    DashboardComponent
+    DashboardComponent,
+    ManterAluguelComponent
   ],
   imports: [
     CommonModule,
