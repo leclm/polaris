@@ -23,7 +23,7 @@ namespace Polaris.Aluguel.Context
 
             modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Cliente>().Metadata.SetIsTableExcludedFromMigrations(true);
-            modelBuilder.Entity<Conteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Conteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<CategoriaConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<TipoConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
         }
