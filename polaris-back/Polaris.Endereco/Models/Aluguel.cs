@@ -25,20 +25,20 @@ namespace Polaris.Endereco.Models
         public double Longitude { get; set; }
         public bool Status { get; set; }
 
-        [ForeignKey("Cliente")]
-        public int ClienteId { get; set; }
-        public virtual Cliente? Cliente { get; set; }
+        //[ForeignKey("Cliente")]
+        //public int ClienteId { get; set; }
+        //public virtual Cliente? Cliente { get; set; }
 
-        [Required]
-        [NotNull]
-        [ForeignKey("Endereco")]
-        public int EnderecoId { get; set; }
-        public virtual Endereco Endereco { get; set; }
+        //[Required]
+        //[NotNull]
+        //[ForeignKey("Endereco")]
+        //public int EnderecoId { get; set; }
+        //public virtual Endereco Endereco { get; set; }
 
-        [Required]
-        [NotNull]
-        [ForeignKey("Conteiner")]
-        public int ConteinerId { get; set; }
+        //[Required]
+        //[NotNull]
+        //[ForeignKey("Conteiner")]
+        //public int ConteinerId { get; set; }
         //public virtual IEnumerable<Conteiner> Conteineres { get; set; }
     }
 }

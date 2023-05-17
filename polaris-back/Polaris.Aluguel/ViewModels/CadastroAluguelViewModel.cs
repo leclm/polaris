@@ -10,10 +10,10 @@ namespace Polaris.Aluguel.ViewModels
         public double Desconto { get; set; }
         public double ValorTotalAluguel { get; set; }
 
-        public RetornoClienteViewModel? Cliente { get; set; }
+        public Guid? Cliente { get; set; }
 
         public CadastroEnderecoViewModel? Endereco { get; set; }
 
-        public IEnumerable<RetornoConteinerViewModel>? Conteineres { get; set; }
+        public IEnumerable<Guid>? Conteineres { get; set; }
     }
 }
