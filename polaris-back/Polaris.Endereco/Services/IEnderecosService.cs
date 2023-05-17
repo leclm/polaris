@@ -12,5 +12,6 @@ namespace Polaris.Endereco.Services
         Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoTerceirizado(Guid uuidTerceirizado);
         Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoCliente(Guid uuidCliente);
         Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoGerente(Guid uuidGerente);
+        Task<RetornoEnderecoViewModel> BuscarVinculoEnderecoAluguel(Guid uuidAluguel);
     }
 }

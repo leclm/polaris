@@ -13,6 +13,7 @@ namespace Polaris.Endereco.Context
         public DbSet<Models.Terceirizado>? Terceirizados { get; set; }
         public DbSet<Models.Cliente>? Clientes { get; set; }
         public DbSet<Models.Gerente>? Gerentes { get; set; }
+        public DbSet<Models.Aluguel>? Alugueis { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,10 @@ namespace Polaris.Endereco.Context
             modelBuilder.Entity<Models.Terceirizado>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.Cliente>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.Gerente>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Aluguel>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Conteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.CategoriaConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.TipoConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
         }
 
     }

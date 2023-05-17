@@ -72,5 +72,26 @@ namespace Polaris.Endereco.Repository
                 }
             }
         }
+
+        public async Task<Models.Endereco?> GetEnderecoByAluguel(Guid uuidAluguel)
+        {
+            using (_context)
+            {
+                var query = (from e in _context.Enderecos
+                             join t in _context.Alugueis
+                             on e.EnderecoId equals t.EnderecoId
+                             where t.AluguelUuid == uuidAluguel
+                             select e);
+
+                if (query is not null && query.Any())
+                {
+                    return query.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

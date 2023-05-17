@@ -246,5 +246,31 @@ namespace Polaris.Endereco.Controllers
                 return ReturnError();
             }
         }
+
+        /// <summary>
+        /// Este endpoint deve buscar qual endereço está vinculado com o aluguel buscado
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // ALTERAR STATUS: api/Enderecos/buscar-endereco-aluguel/uuid
+        [HttpGet("buscar-endereco-aluguel/{uuidAluguel}")]
+        public async Task<IActionResult> BuscarVinculoEnderecoAluguel(Guid uuidAluguel)
+        {
+            try
+            {
+                return Ok(await _service.BuscarVinculoEnderecoAluguel(uuidAluguel));
+            }
+            catch (EnderecoNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
     }
 }
