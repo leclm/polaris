@@ -34,5 +34,7 @@ namespace Polaris.Endereco.Models
         public string? Complemento { get; set; }
         public int Numero { get; set; }
         public bool Status { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

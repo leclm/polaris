@@ -12,20 +12,29 @@ namespace Polaris.Aluguel.Models
         [Key]
         public int AluguelId { get; set; }
         public Guid AluguelUuid { get; set; }
+        [NotNull]
+        [Required]
         public EstadoAluguel EstadoAluguel { get; set; }
+        [NotNull]
+        [Required]
         public DateTime DataInicio { get; set; }
+        [NotNull]
+        [Required]
         public DateTime DataDevolucao { get; set; }
         [NotNull]
         [Required]
         public TipoLocacao TipoLocacao { get; set; }
+        [NotNull]
         public double Desconto { get; set; }
         [NotNull]
         [Required]
         public double ValorTotalAluguel { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        [NotNull]
+        [Required]
         public bool Status { get; set; }
 
+        [NotNull]
+        [Required]
         [ForeignKey("Cliente")]
         public int ClienteId { get; set; }
         public virtual Cliente? Cliente { get; set; }
