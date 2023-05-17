@@ -39,6 +39,6 @@ namespace Polaris.Endereco.Models
         [NotNull]
         [ForeignKey("Conteiner")]
         public int ConteinerId { get; set; }
-        public virtual IEnumerable<Conteiner> Conteineres { get; set; }
+        //public virtual IEnumerable<Conteiner> Conteineres { get; set; }
     }
 }

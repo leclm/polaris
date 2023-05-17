@@ -46,6 +46,8 @@ namespace Polaris.Endereco.Services
             StringUtils.ClassToUpper(endereco);
             endereco.EnderecoUuid = Guid.NewGuid();
             endereco.Status = true;
+            endereco.Latitude = 0;
+            endereco.Longitude = 0;
 
             if (endereco is null)
             {

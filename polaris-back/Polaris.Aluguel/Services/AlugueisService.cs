@@ -35,7 +35,7 @@ namespace Polaris.Aluguel.Services
                 throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
-            return await ConsultaEnderecosAlugueis(alugueis);
+            return await ConsultaInformacoesAlugueis(alugueis);
         }
 
         public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueis()
@@ -46,7 +46,7 @@ namespace Polaris.Aluguel.Services
                 throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
             }
 
-            return await ConsultaEnderecosAlugueis(alugueis);
+            return await ConsultaInformacoesAlugueis(alugueis);
         }
 
         //public async Task<IEnumerable<RetornoAluguelViewModel>> GetTerceirizadosAtivos()
@@ -188,37 +188,18 @@ namespace Polaris.Aluguel.Services
             await _context.Commit();
         }
 
-        private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaEnderecosAlugueis(IEnumerable<Models.Aluguel> alugueis)
+        private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaInformacoesAlugueis(IEnumerable<Models.Aluguel> alugueis)
         {
             List<RetornoAluguelViewModel> alugueisDto = new();
             foreach (var aluguel in alugueis)
             {
                 aluguel.Endereco = await _enderecoExternalService.GetEnderecoAluguel(aluguel.AluguelUuid);
-                alugueisDto.Add(_mapper.Map<RetornoAluguelViewModel>(aluguel));
-            }
-            return alugueisDto;
-        }
-
-        private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaClientesAlugueis(IEnumerable<Models.Aluguel> alugueis)
-        {
-            List<RetornoAluguelViewModel> alugueisDto = new();
-            foreach (var aluguel in alugueis)
-            {
                 aluguel.Cliente = await _clienteExternalService.GetClienteAluguel(aluguel.AluguelUuid);
-                alugueisDto.Add(_mapper.Map<RetornoAluguelViewModel>(aluguel));
-            }
-            return alugueisDto;
-        }
-
-        private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaConteineressAlugueis(IEnumerable<Models.Aluguel> alugueis)
-        {
-            List<RetornoAluguelViewModel> alugueisDto = new();
-            foreach (var aluguel in alugueis)
-            {
                 aluguel.Conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
                 alugueisDto.Add(_mapper.Map<RetornoAluguelViewModel>(aluguel));
             }
             return alugueisDto;
         }
+
     }
 }
