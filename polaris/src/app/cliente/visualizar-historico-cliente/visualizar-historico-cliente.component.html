@@ -1,1 +1,46 @@
-<p>visualizar-historico-cliente works!</p>
+<div class="visualizar-historico-cliente container-fluid mt-4 mb-4">
+  <div class="container-content p-4">
+    <h1 class="mb-4">Histórico de Aluguéis</h1>
+
+    <div class="table-responsive">
+      <!--<table class="table align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th [appSort]="aluguelData" data-order="desc" data-name="codigo">Cód Contêiner <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="dataInicio">Início <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="dataDevolucao">Fim <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="valorTotal">Valor <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="statusAluguel">Status Aluguel <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of aluguelData">
+            <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>#{{childItem.codigo}} - {{childItem.cor! | capitalizacaoGerente}} - {{childItem.fabricante! | capitalizacaoGerente}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>{{ item.dataInicio! | capitalizacaoGerente }}</td>
+            <td>{{ item.dataDevolucao }}</td>
+            <td>{{ item.valorTotal }}</td>
+            <td>{{ item.statusAluguel! | capitalizacaoGerente }}</td>
+            <td>
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a> 
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
+                Ver Contrato <i class="fa fa-eye" aria-hidden="true"></i>
+              </a> 
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
+                Renovar Contrato <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>           
+            </td>
+          </tr>
+        </tbody>
+      </table>-->
+    </div>
+  </div>
+</div>

@@ -55,6 +55,12 @@ $white: #fff;
     .price {
       flex-direction: column;
       align-items: flex-end;
+      .desconto {
+        display: flex;
+        .desconto-input {
+          width: 100px;
+        }
+      }
     }
     .ctn-btn {
       flex-direction: column;

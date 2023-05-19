@@ -137,8 +137,12 @@
           <div class="pt-2 line-price">
             <div class="price d-flex">
               <p><span>Total da compra:</span> R${{ totalDays }} </p>
-              <p><span>Desconto:</span> desconto </p>
-              <p class="line-price pt-2"><span>Total com desconto:</span>R${{ totalDays }}</p>
+              <div class="desconto mb-3">
+                <p class="me-2 mt-2"><span>Desconto:</span></p>
+                <input type="text" class="form-control desconto-input" id="inputDesconto" name="desconto" placeholder="R$" [(ngModel)]="aluguel.desconto"> 
+              </div>
+              
+              <p class="line-price pt-2"><span>Total com desconto:</span> R${{ totalDays }} - {{aluguel.desconto}}</p>
             </div>
           </div>
           
