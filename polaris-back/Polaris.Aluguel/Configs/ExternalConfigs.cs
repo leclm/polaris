@@ -24,6 +24,7 @@
         public string Url { get; set; }
         public Endpoints Endpoints { get; set; }
     }
+
     public class Endpoints
     {
         public string Endereco { get; set; }
@@ -32,7 +33,7 @@
         public string Cliente { get; set; }
         public string GetClienteAluguel { get; set; }
 
-        public IEnumerable<string> Conteineres { get; set; }
-        public IEnumerable<string> GetConteineresAluguel { get; set; }
+        public string Conteineres { get; set; }
+        public string GetConteineresAluguel { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IConteinerRepository : IRepository<Models.Conteiner>
     {
-        int GetConteinerID(Guid uuid);
+        (int, int, int) GetConteinerIds(Guid conteinerUuid, Guid categoriaUuid, Guid tipoUuid);
     }
 }

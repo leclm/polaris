@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.ExternalServices;
 using Polaris.Aluguel.Repository;
@@ -16,8 +17,10 @@ namespace Polaris.Aluguel.Services
         private readonly IClienteExternalService _clienteExternalService;
         private readonly IConteinerExternalService _conteinerExternalService;
         private readonly IEnderecoRepository _enderecoRepository;
+        private readonly IClienteRepository _clienteRepository;
+        private readonly IConteinerRepository _conteinerRepository;
 
-        public AlugueisService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository, IClienteExternalService clienteExternalService, IConteinerExternalService conteinerExternalService)
+        public AlugueisService(IUnityOfWork context, IMapper mapper, IEnderecoExternalService enderecoExternalService, IEnderecoRepository enderecoRepository, IClienteExternalService clienteExternalService, IConteinerExternalService conteinerExternalService, IClienteRepository clienteRepository, IConteinerRepository conteinerRepository)
         {
             _context = context;
             _mapper = mapper;
@@ -25,6 +28,8 @@ namespace Polaris.Aluguel.Services
             _enderecoRepository = enderecoRepository;
             _clienteExternalService = clienteExternalService;
             _conteinerExternalService = conteinerExternalService;
+            _clienteRepository = clienteRepository;
+            _conteinerRepository = conteinerRepository;
         }
 
         public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueisPorCpf(string cpf)
@@ -74,13 +79,11 @@ namespace Polaris.Aluguel.Services
 
         public async Task<Guid> PostAluguel(CadastroAluguelViewModel aluguelDto)
         {
-            if (await _context.AluguelRepository.GetByParameter(x => x.Endereco.Cep == aluguelDto.Endereco.Cep
-              || x.Endereco.Numero == aluguelDto.Endereco.Numero
-              || x.Endereco.Logradouro == aluguelDto.Endereco.Logradouro
-              || x.Conteineres == aluguelDto.Conteineres) is not null)
+
+            if (aluguelDto.DataInicio < DateTime.UtcNow || aluguelDto.DataDevolucao < DateTime.UtcNow || aluguelDto.DataDevolucao < aluguelDto.DataInicio)
             {
-                throw new CadastrarAluguelException("Aluguel já existe. Erro ao cadastrar um aluguel.");
-            };
+                throw new CadastrarAluguelException("Data inválida");
+            }
 
             var enderecoUuid = await _enderecoExternalService.PostEnderecos(aluguelDto.Endereco);
             aluguelDto.Endereco = null;
@@ -89,9 +92,39 @@ namespace Polaris.Aluguel.Services
             StringUtils.ClassToUpper(aluguel);
             aluguel.AluguelUuid = Guid.NewGuid();
             aluguel.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
+            aluguel.ClienteId = _clienteRepository.GetClienteId(aluguelDto.ClienteUuid.Value);
             aluguel.Status = true;
+            aluguel.EstadoAluguel = EstadoAluguel.Solicitado;
+
+            // calcular valor total baseado no tempo e na modalidade
+            //if (aluguelDto.TipoLocacao == TipoLocacao.Diaria)
+            //{
+            //    int diasLocacao = CalcularDiasEntreDatas(aluguelDto.DataInicio, aluguelDto.DataDevolucao);
+            //    aluguel.ValorTotalAluguel = ((double)diasLocacao * aluguel.Conteineres.Tipo.);
+
+            //}
+            //else
+            //{
+            //    int mesesLocacao = CalcularMesesEntreDatas(aluguelDto.DataInicio, aluguelDto.DataDevolucao);
+            //    aluguel.ValorTotalAluguel = ((double)mesesLocacao * );
+            //}
+          
+
 
             _context.AluguelRepository.Add(aluguel);
+            await _context.Commit();
+
+            aluguel.Conteineres = new List<Models.Conteiner>();
+            foreach (var conteinerUuid in aluguelDto.ConteineresUuid)
+            {
+                var conteiner = _mapper.Map<Models.Conteiner>(await _conteinerExternalService.GetConteineres(conteinerUuid));
+                (conteiner.ConteinerId, conteiner.CategoriaConteinerId, conteiner.TipoConteinerId) = 
+                    _conteinerRepository.GetConteinerIds(conteiner.ConteinerUuid, conteiner.CategoriaConteiner.CategoriaConteinerUuid, conteiner.TipoConteiner.TipoConteinerUuid);
+                conteiner.TipoConteiner = null;
+                conteiner.CategoriaConteiner = null;
+                aluguel.Conteineres.Add(conteiner);
+            }
+
             await _context.Commit();
             return aluguel.AluguelUuid;
         }
@@ -194,11 +227,27 @@ namespace Polaris.Aluguel.Services
             {
                 aluguel.Endereco = await _enderecoExternalService.GetEnderecoAluguel(aluguel.AluguelUuid);
                 aluguel.Cliente = await _clienteExternalService.GetClienteAluguel(aluguel.AluguelUuid);
-                aluguel.Conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
+                var conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
+                //aluguel.Conteineres = conteineres.ToList();
                 alugueisDto.Add(_mapper.Map<RetornoAluguelViewModel>(aluguel));
             }
             return alugueisDto;
         }
 
+        private static int CalcularDiasEntreDatas(DateTime dataInicial, DateTime dataFinal)
+        {
+            TimeSpan diferenca = dataFinal - dataInicial;
+            return diferenca.Days;
+        }
+
+        private static int CalcularMesesEntreDatas(DateTime dataInicial, DateTime dataFinal)
+        {
+            int meses = ((dataFinal.Year - dataInicial.Year) * 12) + dataFinal.Month - dataInicial.Month;
+
+            if (dataFinal.Day < dataInicial.Day)
+                meses--;
+
+            return meses;
+        }
     }
 }

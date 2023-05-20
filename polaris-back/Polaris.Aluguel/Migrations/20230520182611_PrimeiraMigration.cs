@@ -30,8 +30,7 @@ namespace Polaris.Aluguel.Migrations
                     ValorTotalAluguel = table.Column<double>(type: "double", nullable: false),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    EnderecoId = table.Column<int>(type: "int", nullable: false),
-                    ConteinerId = table.Column<int>(type: "int", nullable: false)
+                    EnderecoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

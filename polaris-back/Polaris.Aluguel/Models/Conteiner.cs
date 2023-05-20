@@ -41,10 +41,7 @@ namespace Polaris.Aluguel.Models
 
         public virtual TipoConteiner? TipoConteiner { get; set; }
 
-        [Required]
-        [NotNull]
-        [ForeignKey("Aluguel")]
-        public int AluguelId { get; set; }
-        public virtual IEnumerable<Aluguel> Alugueis { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public virtual ICollection<Aluguel>? Alugueis { get; set; }
     }
 }

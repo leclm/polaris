@@ -10,6 +10,11 @@ namespace Polaris.Conteiner.Models
 
     public class Conteiner
     {
+        public Conteiner()
+        {
+            Alugueis = new List<Aluguel>();        
+        }
+
         [Key]
         public int ConteinerId { get; set; }
         public Guid ConteinerUuid { get; set; }
@@ -42,11 +47,8 @@ namespace Polaris.Conteiner.Models
 
         public virtual TipoConteiner? TipoConteiner { get; set; }
 
-        [Required]
-        [NotNull]
-        [ForeignKey("Aluguel")]
-        public int AluguelId { get; set; }
-        public virtual IEnumerable<Aluguel> Alugueis { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public virtual ICollection<Aluguel>? Alugueis { get; set; }
     }
 
 }

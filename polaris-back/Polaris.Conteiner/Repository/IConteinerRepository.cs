@@ -12,6 +12,6 @@ namespace Polaris.Conteiner.Repository
         IEnumerable<Models.Conteiner> GetConteineresPorTipo(string tipo);
         Task<Models.Conteiner> GetConteiner(Guid uuid);
         IEnumerable<Models.Conteiner> GetConteineresAtivosDisponiveisPorCategoriaETipo(Guid categoria, Guid tipo);
-        Task<IEnumerable<Models.Conteiner?>> GetConteineresByAluguel(Guid uuidAluguel);
+        IEnumerable<Models.Conteiner?> GetConteineresByAluguel(Guid uuidAluguel);
     }
 }

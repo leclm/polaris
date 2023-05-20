@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Polaris.Aluguel.Configs;
 using Polaris.Aluguel.Context;
 using Polaris.Aluguel.ExternalServices;
 using Polaris.Aluguel.Repository;
@@ -37,6 +38,8 @@ builder.Services.AddScoped<IAlugueisService, AlugueisService>();
 builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
 builder.Services.AddScoped<IConteinerExternalService, ConteinerExternalService>();
 builder.Services.AddScoped<IClienteExternalService, ClienteExternalService>();
+
+builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection(nameof(ExternalConfigs)));
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
