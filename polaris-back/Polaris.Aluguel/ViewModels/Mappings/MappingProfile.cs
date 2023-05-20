@@ -16,7 +16,9 @@ namespace Polaris.Aluguel.ViewModels.Mappings
             CreateMap<Models.Endereco, AtualizaEnderecoViewModel>().ReverseMap();
 
             CreateMap<Models.Cliente, RetornoClienteViewModel>().ReverseMap();
+            CreateMap<Models.Cliente, BuscaClienteViewModel>().ReverseMap();
             CreateMap<Models.Conteiner, RetornoConteinerViewModel>().ReverseMap();   
+            CreateMap<Models.Conteiner, BuscaConteinerViewModel>().ReverseMap();   
             CreateMap<Models.CategoriaConteiner, RetornoCategoriaConteinerViewModel>().ReverseMap();
             CreateMap<Models.TipoConteiner, RetornoTipoConteinerViewModel>().ReverseMap();
         }

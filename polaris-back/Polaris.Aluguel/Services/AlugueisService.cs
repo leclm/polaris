@@ -74,8 +74,7 @@ namespace Polaris.Aluguel.Services
 
         public async Task<Guid> PostAluguel(CadastroAluguelViewModel aluguelDto)
         {
-            if (await _context.AluguelRepository.GetByParameter(x => x.Cliente.Cpf == aluguelDto.Cliente.Cpf
-              || x.Endereco.Cep == aluguelDto.Endereco.Cep
+            if (await _context.AluguelRepository.GetByParameter(x => x.Endereco.Cep == aluguelDto.Endereco.Cep
               || x.Endereco.Numero == aluguelDto.Endereco.Numero
               || x.Endereco.Logradouro == aluguelDto.Endereco.Logradouro
               || x.Conteineres == aluguelDto.Conteineres) is not null)
