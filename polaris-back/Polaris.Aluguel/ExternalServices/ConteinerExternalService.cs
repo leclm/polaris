@@ -2,7 +2,7 @@
 using Flurl.Http;
 using Microsoft.Extensions.Options;
 using Polaris.Aluguel.Configs;
-using Polaris.Aluguel.Models;
+using Polaris.Aluguel.ViewModels;
 
 namespace Polaris.Aluguel.ExternalServices
 {
@@ -14,21 +14,21 @@ namespace Polaris.Aluguel.ExternalServices
             _config = config.Value;
         }
 
-        public async Task<IEnumerable<Conteiner>> GetConteineres(Guid uuid)
+        public async Task<RetornoConteinerViewModel> GetConteineres(Guid uuid)
         {
             return await _config.PolarisConteinerConfig.Url
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.Conteineres)
                 .AppendPathSegment(uuid)
-                .GetJsonAsync<IEnumerable<Models.Conteiner>> ();
+                .GetJsonAsync<RetornoConteinerViewModel> ();
         }
 
-        public async Task<IEnumerable<Conteiner>> GetConteineresAluguel(Guid uuid)
+        public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAluguel(Guid uuid)
         {
             return await _config.PolarisConteinerConfig.Url
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.Conteineres)
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.GetConteineresAluguel)
                 .AppendPathSegment(uuid)
-                .GetJsonAsync<IEnumerable<Models.Conteiner>>();
+                .GetJsonAsync<IEnumerable<RetornoConteinerViewModel>>();
         }
     }
 }

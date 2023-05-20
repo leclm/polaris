@@ -1,10 +1,11 @@
 ﻿using Polaris.Aluguel.Models;
+using Polaris.Aluguel.ViewModels;
 
 namespace Polaris.Aluguel.ExternalServices
 {
     public interface IConteinerExternalService
     {
-        Task<IEnumerable<Conteiner>> GetConteineres(Guid uuid);
-        Task<IEnumerable<Conteiner>> GetConteineresAluguel(Guid uuid);
+        Task<RetornoConteinerViewModel> GetConteineres(Guid uuid);
+        Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAluguel(Guid uuid);
     }
 }

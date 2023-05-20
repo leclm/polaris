@@ -45,10 +45,8 @@ namespace Polaris.Aluguel.Models
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
 
-        [Required]
-        [NotNull]
-        [ForeignKey("Conteiner")]
-        public int ConteinerId { get; set; }
-        public virtual IEnumerable<Conteiner> Conteineres { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public virtual ICollection<Conteiner>? Conteineres { get; set; }
     }
 }

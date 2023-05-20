@@ -46,9 +46,6 @@ namespace Polaris.Conteiner.Migrations
                     b.Property<Guid>("AluguelUuid")
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("ConteinerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime(6)");
 
@@ -112,9 +109,6 @@ namespace Polaris.Conteiner.Migrations
                 {
                     b.Property<int>("ConteinerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AluguelId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoriaConteinerId")

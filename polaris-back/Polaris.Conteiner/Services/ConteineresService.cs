@@ -251,7 +251,7 @@ namespace Polaris.Conteiner.Services
 
         public async Task<RetornoConteinerViewModel> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
         {
-            var conteineres = await _context.ConteinerRepository.GetConteineresByAluguel(uuidAluguel);
+            var conteineres = _context.ConteinerRepository.GetConteineresByAluguel(uuidAluguel);
 
             if (conteineres is null)
             {
