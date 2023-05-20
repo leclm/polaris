@@ -41,6 +41,12 @@ namespace Polaris.Conteiner.Models
         public int TipoConteinerId { get; set; }
 
         public virtual TipoConteiner? TipoConteiner { get; set; }
+
+        [Required]
+        [NotNull]
+        [ForeignKey("Aluguel")]
+        public int AluguelId { get; set; }
+        public virtual IEnumerable<Aluguel> Alugueis { get; set; }
     }
 
 }

@@ -1,9 +1,9 @@
-﻿using Polaris.Endereco.Enums;
+﻿using Polaris.Servico.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Endereco.Models
+namespace Polaris.Servico.Models
 {
     [Table("Aluguel")]
     public class Aluguel

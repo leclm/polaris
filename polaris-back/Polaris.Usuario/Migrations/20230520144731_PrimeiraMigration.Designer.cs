@@ -2,17 +2,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Polaris.Aluguel.Context;
+using Polaris.Usuario.Context;
 
 #nullable disable
 
-namespace Polaris.Aluguel.Migrations
+namespace Polaris.Usuario.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230520144731_PrimeiraMigration")]
+    partial class PrimeiraMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,10 +34,13 @@ namespace Polaris.Aluguel.Migrations
 
                     b.HasIndex("ConteineresConteinerId");
 
-                    b.ToTable("AluguelConteiner");
+                    b.ToTable("AluguelConteiner", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Aluguel", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Aluguel", b =>
                 {
                     b.Property<int>("AluguelId")
                         .ValueGeneratedOnAdd()
@@ -44,9 +50,6 @@ namespace Polaris.Aluguel.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ConteinerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataDevolucao")
@@ -75,17 +78,17 @@ namespace Polaris.Aluguel.Migrations
 
                     b.HasKey("AluguelId");
 
-                    b.HasIndex("AluguelId")
-                        .IsUnique();
-
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Aluguel");
+                    b.ToTable("Aluguel", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.CategoriaConteiner", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.CategoriaConteiner", b =>
                 {
                     b.Property<int>("CategoriaConteinerId")
                         .ValueGeneratedOnAdd()
@@ -110,7 +113,7 @@ namespace Polaris.Aluguel.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Cliente", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Cliente", b =>
                 {
                     b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd()
@@ -135,6 +138,9 @@ namespace Polaris.Aluguel.Migrations
                     b.Property<int>("EnderecoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("LoginId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -155,21 +161,20 @@ namespace Polaris.Aluguel.Migrations
 
                     b.HasKey("ClienteId");
 
+                    b.HasIndex("Cpf")
+                        .IsUnique();
+
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Cliente", t =>
-                        {
-                            t.ExcludeFromMigrations();
-                        });
+                    b.HasIndex("LoginId");
+
+                    b.ToTable("Cliente");
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Conteiner", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Conteiner", b =>
                 {
                     b.Property<int>("ConteinerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AluguelId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoriaConteinerId")
@@ -221,7 +226,7 @@ namespace Polaris.Aluguel.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Endereco", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Endereco", b =>
                 {
                     b.Property<int>("EnderecoId")
                         .ValueGeneratedOnAdd()
@@ -267,7 +272,87 @@ namespace Polaris.Aluguel.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.TipoConteiner", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Gerente", b =>
+                {
+                    b.Property<int>("GerenteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasMaxLength(18)
+                        .HasColumnType("varchar(18)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<string>("Empresa")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("GerenteUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("LoginId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.HasKey("GerenteId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.HasIndex("LoginId");
+
+                    b.HasIndex("Cnpj", "Empresa", "Email", "Telefone")
+                        .IsUnique();
+
+                    b.ToTable("Gerente");
+                });
+
+            modelBuilder.Entity("Polaris.Usuario.Models.Login", b =>
+                {
+                    b.Property<int>("LoginId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LoginUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)");
+
+                    b.HasKey("LoginId");
+
+                    b.HasIndex("Usuario")
+                        .IsUnique();
+
+                    b.ToTable("Login");
+                });
+
+            modelBuilder.Entity("Polaris.Usuario.Models.TipoConteiner", b =>
                 {
                     b.Property<int>("TipoConteineroId")
                         .ValueGeneratedOnAdd()
@@ -315,28 +400,28 @@ namespace Polaris.Aluguel.Migrations
 
             modelBuilder.Entity("AluguelConteiner", b =>
                 {
-                    b.HasOne("Polaris.Aluguel.Models.Aluguel", null)
+                    b.HasOne("Polaris.Usuario.Models.Aluguel", null)
                         .WithMany()
                         .HasForeignKey("AlugueisAluguelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Polaris.Aluguel.Models.Conteiner", null)
+                    b.HasOne("Polaris.Usuario.Models.Conteiner", null)
                         .WithMany()
                         .HasForeignKey("ConteineresConteinerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Aluguel", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Aluguel", b =>
                 {
-                    b.HasOne("Polaris.Aluguel.Models.Cliente", "Cliente")
+                    b.HasOne("Polaris.Usuario.Models.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Polaris.Aluguel.Models.Endereco", "Endereco")
+                    b.HasOne("Polaris.Usuario.Models.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -347,26 +432,34 @@ namespace Polaris.Aluguel.Migrations
                     b.Navigation("Endereco");
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Cliente", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Cliente", b =>
                 {
-                    b.HasOne("Polaris.Aluguel.Models.Endereco", "Endereco")
+                    b.HasOne("Polaris.Usuario.Models.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Polaris.Usuario.Models.Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Endereco");
+
+                    b.Navigation("Login");
                 });
 
-            modelBuilder.Entity("Polaris.Aluguel.Models.Conteiner", b =>
+            modelBuilder.Entity("Polaris.Usuario.Models.Conteiner", b =>
                 {
-                    b.HasOne("Polaris.Aluguel.Models.CategoriaConteiner", "CategoriaConteiner")
+                    b.HasOne("Polaris.Usuario.Models.CategoriaConteiner", "CategoriaConteiner")
                         .WithMany()
                         .HasForeignKey("CategoriaConteinerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Polaris.Aluguel.Models.TipoConteiner", "TipoConteiner")
+                    b.HasOne("Polaris.Usuario.Models.TipoConteiner", "TipoConteiner")
                         .WithMany()
                         .HasForeignKey("TipoConteinerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -375,6 +468,25 @@ namespace Polaris.Aluguel.Migrations
                     b.Navigation("CategoriaConteiner");
 
                     b.Navigation("TipoConteiner");
+                });
+
+            modelBuilder.Entity("Polaris.Usuario.Models.Gerente", b =>
+                {
+                    b.HasOne("Polaris.Usuario.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Usuario.Models.Login", "Login")
+                        .WithMany()
+                        .HasForeignKey("LoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
+
+                    b.Navigation("Login");
                 });
 #pragma warning restore 612, 618
         }

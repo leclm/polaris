@@ -78,6 +78,17 @@ namespace Polaris.Conteiner.Services
             return conteineresDto;
         }
 
+        public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveisPorCategoriaETipo(Guid categoriaUUid, Guid tipoUuid)
+        {
+            var conteineres = _context.ConteinerRepository.GetConteineresAtivosDisponiveisPorCategoriaETipo(categoriaUUid, tipoUuid);
+            if (!conteineres.Any())
+            {
+                throw new ConteinerNaoEncontradoException("Não há conteineres ativos e/ou disponíveis.");
+            }
+            var conteineresDto = _mapper.Map<List<RetornoConteinerViewModel>>(conteineres);
+            return conteineresDto;
+        }
+
         public async Task<RetornoConteinerViewModel> GetConteiner(Guid uuid)
         {
             var conteiner = await _context.ConteinerRepository.GetConteiner(uuid);
@@ -237,5 +248,17 @@ namespace Polaris.Conteiner.Services
             _context.ConteinerRepository.Update(conteiner);
             await _context.Commit();
         }
+
+        //public async Task<RetornoConteinerViewModel> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
+        //{
+        //    var conteineres = await _context.ConteinerRepository.GetConteineresByAluguel(uuidAluguel);
+
+        //    if (conteineres is null)
+        //    {
+        //        throw new ConteinerNaoEncontradoException("Conteiner não encontrado.");
+        //    }
+        //    var conteineresDto = _mapper.Map<RetornoConteinerViewModel>(conteineres);
+        //    return conteineresDto;
+        //}
     }
 }

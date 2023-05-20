@@ -2,6 +2,7 @@
 using Polaris.Conteiner.Context;
 using Polaris.Conteiner.Enums;
 using Polaris.Conteiner.Pagination;
+using System.Collections.Generic;
 
 namespace Polaris.Conteiner.Repository
 {
@@ -34,6 +35,16 @@ namespace Polaris.Conteiner.Repository
                 .Include(x => x.TipoConteiner);
         }
 
+        public IEnumerable<Models.Conteiner> GetConteineresAtivosDisponiveisPorCategoriaETipo(Guid categoria, Guid tipo)
+        {
+            return GetAllByParameter(
+                x => x.Status == true && x.Estado == EstadoConteiner.Disponível
+                && x.CategoriaConteiner.CategoriaConteinerUuid == categoria
+                && x.TipoConteiner.TipoConteinerUuid == tipo)
+                .Include(x => x.CategoriaConteiner)
+                .Include(x => x.TipoConteiner);
+        }
+
         public IEnumerable<Models.Conteiner> GetConteineres(ConteinerParameters conteinerParameters)
         {
             return Get()
@@ -46,6 +57,7 @@ namespace Polaris.Conteiner.Repository
         public IEnumerable<Models.Conteiner> GetConteineresPorCategoria(string categoria)
         {
             return GetAllByParameter(s => s.CategoriaConteiner.Nome == categoria)
+                 .Where(x => x.Status == true)
                  .Include(x => x.CategoriaConteiner)
                  .Include(x => x.TipoConteiner);
         }
@@ -63,5 +75,28 @@ namespace Polaris.Conteiner.Repository
                  .Include(x => x.TipoConteiner)
                 .FirstOrDefaultAsync();
         }
+
+        //public async Task<IEnumerable<Models.Conteiner?>> GetConteineresByAluguel(Guid uuidAluguel)
+        //{
+
+        //    using (_context)
+        //    {
+        //        var query = (from e in _context.Conteineres
+        //                     join t in _context.Alugueis
+        //                     on e.ConteinerId equals t.ConteinerId
+        //                     where t.AluguelUuid == uuidAluguel
+        //                     select e);
+
+        //        if (query is not null && query.Any())
+        //        {
+        //            return query.FirstOrDefault();
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //}
+
     }
 }

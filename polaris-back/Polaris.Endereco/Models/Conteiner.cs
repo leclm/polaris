@@ -40,5 +40,9 @@ namespace Polaris.Endereco.Models
         public int TipoConteinerId { get; set; }
 
         public virtual TipoConteiner? TipoConteiner { get; set; }
+
+
+        [System.Text.Json.Serialization.JsonIgnore]
+        public virtual ICollection<Aluguel> Alugueis { get; set; }
     }
 }

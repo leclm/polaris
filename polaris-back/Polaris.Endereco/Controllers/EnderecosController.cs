@@ -177,7 +177,7 @@ namespace Polaris.Endereco.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Enderecos/buscar-endereco-terceirizado/uuid
+        // GET: api/Enderecos/buscar-endereco-terceirizado/uuid
         [HttpGet("buscar-endereco-terceirizado/{uuidTerceirizado}")]
         public async Task<IActionResult> BuscarVinculoEnderecoTerceirizado(Guid uuidTerceirizado)
         {
@@ -203,7 +203,7 @@ namespace Polaris.Endereco.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Enderecos/buscar-endereco-cliente/uuid
+        // GET: api/Enderecos/buscar-endereco-cliente/uuid
         [HttpGet("buscar-endereco-cliente/{uuidCliente}")]
         public async Task<IActionResult> BuscarVinculoEnderecoCliente(Guid uuidCliente)
         {
@@ -229,7 +229,7 @@ namespace Polaris.Endereco.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Enderecos/buscar-endereco-gerente/uuid
+        // GET: api/Enderecos/buscar-endereco-gerente/uuid
         [HttpGet("buscar-endereco-gerente/{uuidGerente}")]
         public async Task<IActionResult> BuscarVinculoEnderecoGerente(Guid uuidGerente)
         {
@@ -255,7 +255,7 @@ namespace Polaris.Endereco.Controllers
         /// Retorna 404 caso uuid não encontrado
         /// Retorna 500 caso erro interno         
         /// </returns>
-        // ALTERAR STATUS: api/Enderecos/buscar-endereco-aluguel/uuid
+        // AGET: api/Enderecos/buscar-endereco-aluguel/uuid
         [HttpGet("buscar-endereco-aluguel/{uuidAluguel}")]
         public async Task<IActionResult> BuscarVinculoEnderecoAluguel(Guid uuidAluguel)
         {

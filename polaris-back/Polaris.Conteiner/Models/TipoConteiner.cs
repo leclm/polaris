@@ -33,8 +33,6 @@ namespace Polaris.Conteiner.Models
         [NotNull]
         [Required]
         public double ValorDiaria { get; set; }
-        [NotNull]
-        [Required]
         public double ValorMensal { get; set; }
         public bool Status { get; set; }
     }

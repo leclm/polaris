@@ -75,7 +75,8 @@ namespace Polaris.Conteiner.Migrations
                     Estado = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CategoriaConteinerId = table.Column<int>(type: "int", nullable: false),
-                    TipoConteinerId = table.Column<int>(type: "int", nullable: false)
+                    TipoConteinerId = table.Column<int>(type: "int", nullable: false),
+                    AluguelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

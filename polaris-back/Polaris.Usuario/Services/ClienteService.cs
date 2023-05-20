@@ -161,5 +161,17 @@ namespace Polaris.Usuario.Services
             }
             return clientesDto;
         }
+
+        public async Task<RetornoClienteViewModel> BuscarVinculoClienteAluguel(Guid uuidAluguel)
+        {
+            var cliente = await _context.ClienteRepository.GetClienteByAluguel(uuidAluguel);
+
+            if (cliente is null)
+            {
+                throw new ClienteNaoEncontradoException("Cliente não encontrado.");
+            }
+            var clienteDto = _mapper.Map<RetornoClienteViewModel>(cliente);
+            return clienteDto;
+        }
     }
 }

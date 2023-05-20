@@ -195,5 +195,31 @@ namespace Polaris.Usuario.Controllers
                 return ReturnError();
             }
         }
+
+        /// <summary>
+        /// Este endpoint deve buscar qual cliente está vinculado com o aluguel buscado
+        /// </summary>
+        /// <returns>
+        /// Retorna 201 caso sucesso
+        /// Retorna 404 caso uuid não encontrado
+        /// Retorna 500 caso erro interno         
+        /// </returns>
+        // AGET: api/Enderecos/buscar-cliente-aluguel/uuid
+        [HttpGet("buscar-cliente-aluguel/{uuidAluguel}")]
+        public async Task<IActionResult> BuscarVinculoClienteAluguel(Guid uuidAluguel)
+        {
+            try
+            {
+                return Ok(await _service.BuscarVinculoClienteAluguel(uuidAluguel));
+            }
+            catch (ClienteNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+        }
     }
 }

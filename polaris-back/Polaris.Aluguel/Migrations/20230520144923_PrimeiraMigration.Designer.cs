@@ -11,7 +11,7 @@ using Polaris.Aluguel.Context;
 namespace Polaris.Aluguel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230517015611_PrimeiraMigration")]
+    [Migration("20230520144923_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -21,6 +21,21 @@ namespace Polaris.Aluguel.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("AluguelConteiner", b =>
+                {
+                    b.Property<int>("AlugueisAluguelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConteineresConteinerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlugueisAluguelId", "ConteineresConteinerId");
+
+                    b.HasIndex("ConteineresConteinerId");
+
+                    b.ToTable("AluguelConteiner");
+                });
 
             modelBuilder.Entity("Polaris.Aluguel.Models.Aluguel", b =>
                 {
@@ -157,7 +172,7 @@ namespace Polaris.Aluguel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AluguelId")
+                    b.Property<int>("AluguelId")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoriaConteinerId")
@@ -198,8 +213,6 @@ namespace Polaris.Aluguel.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ConteinerId");
-
-                    b.HasIndex("AluguelId");
 
                     b.HasIndex("CategoriaConteinerId");
 
@@ -303,6 +316,21 @@ namespace Polaris.Aluguel.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AluguelConteiner", b =>
+                {
+                    b.HasOne("Polaris.Aluguel.Models.Aluguel", null)
+                        .WithMany()
+                        .HasForeignKey("AlugueisAluguelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Aluguel.Models.Conteiner", null)
+                        .WithMany()
+                        .HasForeignKey("ConteineresConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Polaris.Aluguel.Models.Aluguel", b =>
                 {
                     b.HasOne("Polaris.Aluguel.Models.Cliente", "Cliente")
@@ -335,10 +363,6 @@ namespace Polaris.Aluguel.Migrations
 
             modelBuilder.Entity("Polaris.Aluguel.Models.Conteiner", b =>
                 {
-                    b.HasOne("Polaris.Aluguel.Models.Aluguel", null)
-                        .WithMany("Conteineres")
-                        .HasForeignKey("AluguelId");
-
                     b.HasOne("Polaris.Aluguel.Models.CategoriaConteiner", "CategoriaConteiner")
                         .WithMany()
                         .HasForeignKey("CategoriaConteinerId")
@@ -354,11 +378,6 @@ namespace Polaris.Aluguel.Migrations
                     b.Navigation("CategoriaConteiner");
 
                     b.Navigation("TipoConteiner");
-                });
-
-            modelBuilder.Entity("Polaris.Aluguel.Models.Aluguel", b =>
-                {
-                    b.Navigation("Conteineres");
                 });
 #pragma warning restore 612, 618
         }

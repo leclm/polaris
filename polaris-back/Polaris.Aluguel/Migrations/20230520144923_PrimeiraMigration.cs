@@ -51,6 +51,31 @@ namespace Polaris.Aluguel.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "AluguelConteiner",
+                columns: table => new
+                {
+                    AlugueisAluguelId = table.Column<int>(type: "int", nullable: false),
+                    ConteineresConteinerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AluguelConteiner", x => new { x.AlugueisAluguelId, x.ConteineresConteinerId });
+                    table.ForeignKey(
+                        name: "FK_AluguelConteiner_Aluguel_AlugueisAluguelId",
+                        column: x => x.AlugueisAluguelId,
+                        principalTable: "Aluguel",
+                        principalColumn: "AluguelId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AluguelConteiner_Conteiner_ConteineresConteinerId",
+                        column: x => x.ConteineresConteinerId,
+                        principalTable: "Conteiner",
+                        principalColumn: "ConteinerId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Aluguel_AluguelId",
                 table: "Aluguel",
@@ -66,11 +91,19 @@ namespace Polaris.Aluguel.Migrations
                 name: "IX_Aluguel_EnderecoId",
                 table: "Aluguel",
                 column: "EnderecoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AluguelConteiner_ConteineresConteinerId",
+                table: "AluguelConteiner",
+                column: "ConteineresConteinerId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AluguelConteiner");
+
             migrationBuilder.DropTable(
                 name: "Aluguel");
         }
