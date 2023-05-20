@@ -76,27 +76,27 @@ namespace Polaris.Conteiner.Repository
                 .FirstOrDefaultAsync();
         }
 
-        //public async Task<IEnumerable<Models.Conteiner?>> GetConteineresByAluguel(Guid uuidAluguel)
-        //{
+        public async Task<IEnumerable<Models.Conteiner?>> GetConteineresByAluguel(Guid uuidAluguel)
+        {
 
-        //    using (_context)
-        //    {
-        //        var query = (from e in _context.Conteineres
-        //                     join t in _context.Alugueis
-        //                     on e.ConteinerId equals t.ConteinerId
-        //                     where t.AluguelUuid == uuidAluguel
-        //                     select e);
+            using (_context)
+            {
+                var query = (from e in _context.Conteineres
+                             join t in _context.Alugueis
+                             on e.ConteinerId equals t.ConteinerId
+                             where t.AluguelUuid == uuidAluguel
+                             select e);
 
-        //        if (query is not null && query.Any())
-        //        {
-        //            return query.FirstOrDefault();
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //}
+                if (query is not null && query.Any())
+                {
+                    return query;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
     }
 }

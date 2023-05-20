@@ -249,16 +249,16 @@ namespace Polaris.Conteiner.Services
             await _context.Commit();
         }
 
-        //public async Task<RetornoConteinerViewModel> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
-        //{
-        //    var conteineres = await _context.ConteinerRepository.GetConteineresByAluguel(uuidAluguel);
+        public async Task<RetornoConteinerViewModel> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
+        {
+            var conteineres = await _context.ConteinerRepository.GetConteineresByAluguel(uuidAluguel);
 
-        //    if (conteineres is null)
-        //    {
-        //        throw new ConteinerNaoEncontradoException("Conteiner não encontrado.");
-        //    }
-        //    var conteineresDto = _mapper.Map<RetornoConteinerViewModel>(conteineres);
-        //    return conteineresDto;
-        //}
+            if (conteineres is null)
+            {
+                throw new ConteinerNaoEncontradoException("Conteiner não encontrado.");
+            }
+            var conteineresDto = _mapper.Map<RetornoConteinerViewModel>(conteineres);
+            return conteineresDto;
+        }
     }
 }

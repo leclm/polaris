@@ -16,5 +16,6 @@ namespace Polaris.Conteiner.Services
         Task AlterarDisponibilidade(Guid uuid, EstadoConteiner estado);
         Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveis();
         Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAtivosDisponiveisPorCategoriaETipo(Guid categoriaUUid, Guid tipoUuid);
+        Task<RetornoConteinerViewModel> BuscarVinculoConteinerAluguel(Guid uuidAluguel);
     }
 }
