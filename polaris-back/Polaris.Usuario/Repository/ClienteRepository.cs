@@ -33,5 +33,26 @@ namespace Polaris.Usuario.Repository
                  .Include(x => x.Login)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<Models.Cliente?> GetClienteByAluguel(Guid uuidAluguel)
+        {
+            using (_context)
+            {
+                var query = (from e in _context.Clientes
+                             join t in _context.Alugueis
+                             on e.ClienteId equals t.ClienteId
+                             where t.AluguelUuid == uuidAluguel
+                             select e);
+
+                if (query is not null && query.Any())
+                {
+                    return query.First();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace Polaris.Usuario.Services
     public interface IClienteService
     {
         Task AlterarStatus(Guid uuid, bool status);
+        Task<RetornoClienteViewModel> BuscarVinculoClienteAluguel(Guid uuidAluguel);
         Task<RetornoClienteViewModel> GetCliente(Guid uuid);
         Task<IEnumerable<RetornoClienteViewModel>> GetClientes();
         Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos();

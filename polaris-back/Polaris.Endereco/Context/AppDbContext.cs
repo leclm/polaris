@@ -25,9 +25,11 @@ namespace Polaris.Endereco.Context
             modelBuilder.Entity<Models.Cliente>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.Gerente>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.Aluguel>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Login>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.Conteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.CategoriaConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
             modelBuilder.Entity<Models.TipoConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity("AluguelConteiner").Metadata.SetIsTableExcludedFromMigrations(true);
         }
 
     }

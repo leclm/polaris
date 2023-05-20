@@ -142,6 +142,31 @@ namespace Polaris.Conteiner.Controllers
         }
 
         /// <summary>
+        /// Este endpoint deve consultar os conteineres ATIVOS e DISPONIVEIS por CATEGORIA E CONTEINER
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os conteineres ativos e disponiveis cadastrados
+        /// </returns>
+        // GET: api/Conteineres/conteineres-ativos-disponiveis-por-categoria-e-conteiner
+        [HttpGet("conteineres-ativos-disponiveis/categoria/{categoriaUUid}/tipo/{tipoUuid}")]
+        public async Task<ActionResult> GetConteineresAtivosDisponiveisPorCategoriaETipo(Guid categoriaUUid, Guid tipoUuid)
+        {
+            try
+            {
+                return Ok(await _service.GetConteineresAtivosDisponiveisPorCategoriaETipo(categoriaUUid, tipoUuid));
+            }
+            catch (ConteinerNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return ReturnError();
+            }
+
+        }
+
+        /// <summary>
         /// Este endpoint deve consultar um conteiner cadastrado via Guid
         /// </summary>
         /// <returns>
@@ -300,5 +325,32 @@ namespace Polaris.Conteiner.Controllers
                 return ReturnError();
             }
         }
+
+        ///// <summary>
+        ///// Este endpoint deve buscar quais conteineres estão vinculados com o aluguel buscado
+        ///// </summary>
+        ///// <returns>
+        ///// Retorna 201 caso sucesso
+        ///// Retorna 404 caso uuid não encontrado
+        ///// Retorna 500 caso erro interno         
+        ///// </returns>
+        //// AGET: api/Enderecos/buscar-conteineres-aluguel/uuid
+        //[HttpGet("buscar-conteineres-aluguel/{uuidAluguel}")]
+        //public async Task<IActionResult> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
+        //{
+        //    try
+        //    {
+        //        return Ok(await _service.BuscarVinculoConteinerAluguel(uuidAluguel));
+        //    }
+        //    catch (ConteinerNaoEncontradoException ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return ReturnError();
+        //    }
+        //}
+
     }
 }

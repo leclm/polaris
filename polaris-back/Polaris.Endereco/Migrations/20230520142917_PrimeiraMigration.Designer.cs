@@ -11,7 +11,7 @@ using Polaris.Endereco.Context;
 namespace Polaris.Endereco.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230517015122_PrimeiraMigration")]
+    [Migration("20230520142917_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -22,6 +22,24 @@ namespace Polaris.Endereco.Migrations
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("AluguelConteiner", b =>
+                {
+                    b.Property<int>("AlugueisAluguelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConteineresConteinerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlugueisAluguelId", "ConteineresConteinerId");
+
+                    b.HasIndex("ConteineresConteinerId");
+
+                    b.ToTable("AluguelConteiner", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
             modelBuilder.Entity("Polaris.Endereco.Models.Aluguel", b =>
                 {
                     b.Property<int>("AluguelId")
@@ -30,12 +48,6 @@ namespace Polaris.Endereco.Migrations
 
                     b.Property<Guid>("AluguelUuid")
                         .HasColumnType("char(36)");
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ConteinerId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataDevolucao")
                         .HasColumnType("datetime(6)");
@@ -68,8 +80,6 @@ namespace Polaris.Endereco.Migrations
                         .HasColumnType("double");
 
                     b.HasKey("AluguelId");
-
-                    b.HasIndex("ClienteId");
 
                     b.HasIndex("EnderecoId");
 
@@ -346,7 +356,10 @@ namespace Polaris.Endereco.Migrations
 
                     b.HasKey("LoginId");
 
-                    b.ToTable("Login");
+                    b.ToTable("Login", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
                 });
 
             modelBuilder.Entity("Polaris.Endereco.Models.Terceirizado", b =>
@@ -440,21 +453,28 @@ namespace Polaris.Endereco.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Polaris.Endereco.Models.Aluguel", b =>
+            modelBuilder.Entity("AluguelConteiner", b =>
                 {
-                    b.HasOne("Polaris.Endereco.Models.Cliente", "Cliente")
+                    b.HasOne("Polaris.Endereco.Models.Aluguel", null)
                         .WithMany()
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("AlugueisAluguelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Polaris.Endereco.Models.Conteiner", null)
+                        .WithMany()
+                        .HasForeignKey("ConteineresConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Polaris.Endereco.Models.Aluguel", b =>
+                {
                     b.HasOne("Polaris.Endereco.Models.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Cliente");
 
                     b.Navigation("Endereco");
                 });

@@ -25,8 +25,13 @@ namespace Polaris.Servico.Context
                .HasIndex(p => new { p.Empresa, p.Cnpj, p.Email, p.Telefone })
             .IsUnique();
 
-            modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
-            modelBuilder.Entity<PrestacaoDeServico>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Aluguel>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Conteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.CategoriaConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.TipoConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.PrestacaoDeServico>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity("AluguelConteiner").Metadata.SetIsTableExcludedFromMigrations(true);
         }
     }
 }

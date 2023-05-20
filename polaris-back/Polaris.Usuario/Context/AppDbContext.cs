@@ -14,6 +14,7 @@ namespace Polaris.Usuario.Context
         public DbSet<Models.Gerente>? Gerentes { get; set; }
         public DbSet<Models.Login>? Logins { get; set; }
         public DbSet<Models.Endereco>? Enderecos { get; set; }
+        public DbSet<Models.Aluguel>? Alugueis { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +30,12 @@ namespace Polaris.Usuario.Context
                .HasIndex(p => new { p.Usuario })
             .IsUnique();
 
-            modelBuilder.Entity<Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Endereco>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Aluguel>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.CategoriaConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.TipoConteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity<Models.Conteiner>().Metadata.SetIsTableExcludedFromMigrations(true);
+            modelBuilder.Entity("AluguelConteiner").Metadata.SetIsTableExcludedFromMigrations(true);
         }
     }
 }

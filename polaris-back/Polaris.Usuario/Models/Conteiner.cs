@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using Polaris.Usuario.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Servico.Models
+namespace Polaris.Usuario.Models
 {
     [Table("Conteiner")]
 
@@ -13,7 +13,7 @@ namespace Polaris.Servico.Models
         public int ConteinerId { get; set; }
         public Guid ConteinerUuid { get; set; }
         public int Codigo { get; set; }
-        public DateTime Fabricacao { get; set; }
+        public String Fabricacao { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um fabricante.")]
         [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
@@ -29,7 +29,7 @@ namespace Polaris.Servico.Models
         [NotNull]
         [Required]
         public string? Cor { get; set; }
-        public bool Disponivel { get; set; }
+        public EstadoConteiner Estado { get; set; }
         public bool Status { get; set; }
 
         [ForeignKey("CategoriaConteiner")]
@@ -40,6 +40,7 @@ namespace Polaris.Servico.Models
         public int TipoConteinerId { get; set; }
 
         public virtual TipoConteiner? TipoConteiner { get; set; }
+
 
         [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Aluguel> Alugueis { get; set; }

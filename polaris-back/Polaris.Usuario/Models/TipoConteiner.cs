@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Conteiner.ViewModels
+namespace Polaris.Usuario.Models
 {
-    public class CadastroTipoConteinerViewModel
+    [Table("TiposConteineres")]
+    public class TipoConteiner
     {
+        [Key]
+        public int TipoConteineroId { get; set; }
+        public Guid TipoConteinerUuid { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um tipo de conteiner.")]
         [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]
@@ -29,5 +34,6 @@ namespace Polaris.Conteiner.ViewModels
         [Required]
         public double ValorDiaria { get; set; }
         public double ValorMensal { get; set; }
+        public bool Status { get; set; }
     }
 }

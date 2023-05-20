@@ -19,6 +19,152 @@ namespace Polaris.Servico.Migrations
                 .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("AluguelConteiner", b =>
+                {
+                    b.Property<int>("AlugueisAluguelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConteineresConteinerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlugueisAluguelId", "ConteineresConteinerId");
+
+                    b.HasIndex("ConteineresConteinerId");
+
+                    b.ToTable("AluguelConteiner", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("Polaris.Servico.Models.Aluguel", b =>
+                {
+                    b.Property<int>("AluguelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("AluguelUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DataDevolucao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("Desconto")
+                        .HasColumnType("double");
+
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EstadoAluguel")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("TipoLocacao")
+                        .HasColumnType("int");
+
+                    b.Property<double>("ValorTotalAluguel")
+                        .HasColumnType("double");
+
+                    b.HasKey("AluguelId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.ToTable("Aluguel", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("Polaris.Servico.Models.CategoriaConteiner", b =>
+                {
+                    b.Property<int>("CategoriaConteinerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CategoriaConteinerUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("CategoriaConteinerId");
+
+                    b.ToTable("CategoriasConteineres", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("Polaris.Servico.Models.Conteiner", b =>
+                {
+                    b.Property<int>("ConteinerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaConteinerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Codigo")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ConteinerUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Cor")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Disponivel")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Fabricacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Fabricante")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("TipoConteinerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ConteinerId");
+
+                    b.HasIndex("CategoriaConteinerId");
+
+                    b.HasIndex("TipoConteinerId");
+
+                    b.ToTable("Conteiner", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
             modelBuilder.Entity("Polaris.Servico.Models.Endereco", b =>
                 {
                     b.Property<int>("EnderecoId")
@@ -65,6 +211,48 @@ namespace Polaris.Servico.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Polaris.Servico.Models.PrestacaoDeServico", b =>
+                {
+                    b.Property<int>("PrestacaoDeServicoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comentario")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("ConteinerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataProcedimento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("PrestacaoDeServicoUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("ServicoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TerceirizadoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PrestacaoDeServicoId");
+
+                    b.HasIndex("ConteinerId");
+
+                    b.HasIndex("ServicoId");
+
+                    b.HasIndex("TerceirizadoId");
+
+                    b.ToTable("PrestacaoDeServico", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
             modelBuilder.Entity("Polaris.Servico.Models.Servico", b =>
                 {
                     b.Property<int>("ServicoId")
@@ -98,8 +286,8 @@ namespace Polaris.Servico.Migrations
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)");
+                        .HasMaxLength(18)
+                        .HasColumnType("varchar(18)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -135,6 +323,52 @@ namespace Polaris.Servico.Migrations
                     b.ToTable("Terceirizado");
                 });
 
+            modelBuilder.Entity("Polaris.Servico.Models.TipoConteiner", b =>
+                {
+                    b.Property<int>("TipoConteineroId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<double>("Altura")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Comprimento")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Largura")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<double>("PesoMaximo")
+                        .HasColumnType("double");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("TipoConteinerUuid")
+                        .HasColumnType("char(36)");
+
+                    b.Property<double>("ValorDiaria")
+                        .HasColumnType("double");
+
+                    b.Property<double>("ValorMensal")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Volume")
+                        .HasColumnType("double");
+
+                    b.HasKey("TipoConteineroId");
+
+                    b.ToTable("TiposConteineres", t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
             modelBuilder.Entity("ServicoTerceirizado", b =>
                 {
                     b.Property<int>("ServicosServicoId")
@@ -148,6 +382,78 @@ namespace Polaris.Servico.Migrations
                     b.HasIndex("TerceirizadosTerceirizadoId");
 
                     b.ToTable("ServicoTerceirizado");
+                });
+
+            modelBuilder.Entity("AluguelConteiner", b =>
+                {
+                    b.HasOne("Polaris.Servico.Models.Aluguel", null)
+                        .WithMany()
+                        .HasForeignKey("AlugueisAluguelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Servico.Models.Conteiner", null)
+                        .WithMany()
+                        .HasForeignKey("ConteineresConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Polaris.Servico.Models.Aluguel", b =>
+                {
+                    b.HasOne("Polaris.Servico.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("Polaris.Servico.Models.Conteiner", b =>
+                {
+                    b.HasOne("Polaris.Servico.Models.CategoriaConteiner", "CategoriaConteiner")
+                        .WithMany()
+                        .HasForeignKey("CategoriaConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Servico.Models.TipoConteiner", "TipoConteiner")
+                        .WithMany()
+                        .HasForeignKey("TipoConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoriaConteiner");
+
+                    b.Navigation("TipoConteiner");
+                });
+
+            modelBuilder.Entity("Polaris.Servico.Models.PrestacaoDeServico", b =>
+                {
+                    b.HasOne("Polaris.Servico.Models.Conteiner", "Conteiner")
+                        .WithMany()
+                        .HasForeignKey("ConteinerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Servico.Models.Servico", "Servico")
+                        .WithMany()
+                        .HasForeignKey("ServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Polaris.Servico.Models.Terceirizado", "Tercerizado")
+                        .WithMany()
+                        .HasForeignKey("TerceirizadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Conteiner");
+
+                    b.Navigation("Servico");
+
+                    b.Navigation("Tercerizado");
                 });
 
             modelBuilder.Entity("Polaris.Servico.Models.Terceirizado", b =>

@@ -39,7 +39,7 @@ namespace Polaris.Servico.Migrations
                     TerceirizadoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TerceirizadoUuid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Cnpj = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
+                    Cnpj = table.Column<string>(type: "varchar(18)", maxLength: 18, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Empresa = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),

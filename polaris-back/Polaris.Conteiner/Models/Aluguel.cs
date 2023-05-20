@@ -1,9 +1,9 @@
-﻿using Polaris.Endereco.Enums;
+﻿using Polaris.Conteiner.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Polaris.Endereco.Models
+namespace Polaris.Conteiner.Models
 {
     [Table("Aluguel")]
     public class Aluguel
@@ -11,20 +11,29 @@ namespace Polaris.Endereco.Models
         [Key]
         public int AluguelId { get; set; }
         public Guid AluguelUuid { get; set; }
+        [NotNull]
+        [Required]
         public EstadoAluguel EstadoAluguel { get; set; }
+        [NotNull]
+        [Required]
         public DateTime DataInicio { get; set; }
+        [NotNull]
+        [Required]
         public DateTime DataDevolucao { get; set; }
         [NotNull]
         [Required]
         public TipoLocacao TipoLocacao { get; set; }
+        [NotNull]
         public double Desconto { get; set; }
         [NotNull]
         [Required]
         public double ValorTotalAluguel { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        [NotNull]
+        [Required]
         public bool Status { get; set; }
 
+        //[NotNull]
+        //[Required]
         //[ForeignKey("Cliente")]
         //public int ClienteId { get; set; }
         //public virtual Cliente? Cliente { get; set; }
@@ -35,8 +44,10 @@ namespace Polaris.Endereco.Models
         public int EnderecoId { get; set; }
         public virtual Endereco Endereco { get; set; }
 
-
-        [System.Text.Json.Serialization.JsonIgnore]
-        public virtual ICollection<Conteiner> Conteineres { get; set; }
+        [Required]
+        [NotNull]
+        [ForeignKey("Conteiner")]
+        public int ConteinerId { get; set; }
+        public virtual IEnumerable<Conteiner> Conteineres { get; set; }
     }
 }
