@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.ExternalServices;
+using Polaris.Aluguel.Models;
 using Polaris.Aluguel.Repository;
 using Polaris.Aluguel.Utils;
 using Polaris.Aluguel.ViewModels;
@@ -40,7 +41,10 @@ namespace Polaris.Aluguel.Services
                 throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
-            return await ConsultaInformacoesAlugueis(alugueis);
+            var alugueisDto = _mapper.Map<List<RetornoAluguelViewModel>>(alugueis);
+            return alugueisDto;
+
+            //return await ConsultaInformacoesAlugueis(alugueis);
         }
 
         public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueis()
@@ -54,26 +58,17 @@ namespace Polaris.Aluguel.Services
             return await ConsultaInformacoesAlugueis(alugueis);
         }
 
-        //public async Task<IEnumerable<RetornoAluguelViewModel>> GetTerceirizadosAtivos()
-        //{
-        //    var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosAtivosCompleto();
-        //    if (!terceirizados.Any())
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Não há terceirizados ativos.");
-        //    }
-        //    return await ConsultaEnderecosTerceirizados(terceirizados);
-        //}
-
         public async Task<RetornoAluguelViewModel> GetAluguel(Guid uuid)
         {
             var aluguel = await _context.AluguelRepository.GetAluguel(uuid);
-            aluguel.Endereco = await _enderecoExternalService.GetEnderecoAluguel(uuid);
+            var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
+
+            aluguelDto.Endereco = await _enderecoExternalService.GetEnderecoAluguel(uuid);
 
             if (aluguel is null)
             {
                 throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
             }
-            var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
             return aluguelDto;
         }
 
@@ -96,20 +91,7 @@ namespace Polaris.Aluguel.Services
             aluguel.Status = true;
             aluguel.EstadoAluguel = EstadoAluguel.Solicitado;
 
-            // calcular valor total baseado no tempo e na modalidade
-            //if (aluguelDto.TipoLocacao == TipoLocacao.Diaria)
-            //{
-            //    int diasLocacao = CalcularDiasEntreDatas(aluguelDto.DataInicio, aluguelDto.DataDevolucao);
-            //    aluguel.ValorTotalAluguel = ((double)diasLocacao * aluguel.Conteineres.Tipo.);
-
-            //}
-            //else
-            //{
-            //    int mesesLocacao = CalcularMesesEntreDatas(aluguelDto.DataInicio, aluguelDto.DataDevolucao);
-            //    aluguel.ValorTotalAluguel = ((double)mesesLocacao * );
-            //}
-          
-
+            //calculo
 
             _context.AluguelRepository.Add(aluguel);
             await _context.Commit();
@@ -128,67 +110,6 @@ namespace Polaris.Aluguel.Services
             await _context.Commit();
             return aluguel.AluguelUuid;
         }
-
-        //public async Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
-        //{
-        //    if (terceirizadoDto.TerceirizadoUuid == Guid.Empty)
-        //    {
-        //        throw new AtualizarTerceirizadoException("Terceirizado inválido. Erro ao atualizar o terceirizado.");
-        //    }
-
-        //    var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(terceirizadoDto.TerceirizadoUuid);
-
-        //    if (terceirizado == null || terceirizado.TerceirizadoId == 0)
-        //    {
-        //        throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
-        //    }
-
-        //    await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco);
-        //    terceirizadoDto.Endereco = null;
-
-        //    if (ValidaCnpj.IsCnpj(terceirizadoDto.Cnpj) is false)
-        //    {
-        //        throw new AtualizarTerceirizadoException("Cnpj inválido. Erro ao editar um terceirizado.");
-        //    };
-
-        //    //if (ValidaTelefone.IsTelefone(terceirizadoDto.Telefone) is false)
-        //    //{
-        //    //    throw new AtualizarTerceirizadoException("Telefone inválido. Erro ao editar um terceirizado.");
-        //    //};
-
-        //    if (ValidaEmail.IsValidEmail(terceirizadoDto.Email) is false)
-        //    {
-        //        throw new AtualizarTerceirizadoException("E-mail inválido. Erro ao editar um terceirizado.");
-        //    }
-
-        //    List<Models.Servico> servicos = new();
-        //    if (terceirizadoDto.ListaServicos is not null || terceirizadoDto.ListaServicos!.Any())
-        //    {
-        //        foreach (var servicoUuid in terceirizadoDto.ListaServicos!)
-        //        {
-        //            servicos.Add(await _servicoRepository.GetByParameter(x => x.ServicoUuid == servicoUuid));
-        //        }
-        //    }
-        //    else
-        //    {
-        //        throw new AtualizarTerceirizadoException("Serviço Inválido. Erro ao atualizar o terceirizado.");
-        //    }
-
-
-        //    terceirizado.Cnpj = terceirizadoDto.Cnpj;
-        //    terceirizado.Empresa = terceirizadoDto.Empresa;
-        //    terceirizado.Email = terceirizadoDto.Email;
-        //    terceirizado.Telefone = terceirizadoDto.Telefone;
-        //    StringUtils.ClassToUpper(terceirizado);
-        //    _context.TerceirizadoRepository.Update(terceirizado);
-        //    await _context.Commit();
-
-        //    _context.TerceirizadoRepository.LimpaServicos(terceirizado);
-
-        //    terceirizado.Servicos = servicos;
-        //    await _context.Commit();
-
-        //}
 
         public async Task AlterarStatus(Guid uuid, bool status)
         {
@@ -225,11 +146,11 @@ namespace Polaris.Aluguel.Services
             List<RetornoAluguelViewModel> alugueisDto = new();
             foreach (var aluguel in alugueis)
             {
-                aluguel.Endereco = await _enderecoExternalService.GetEnderecoAluguel(aluguel.AluguelUuid);
-                aluguel.Cliente = await _clienteExternalService.GetClienteAluguel(aluguel.AluguelUuid);
-                var conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
-                //aluguel.Conteineres = conteineres.ToList();
-                alugueisDto.Add(_mapper.Map<RetornoAluguelViewModel>(aluguel));
+                var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
+                aluguelDto.Endereco = await _enderecoExternalService.GetEnderecoAluguel(aluguel.AluguelUuid);
+                aluguelDto.Cliente = await _clienteExternalService.GetClienteAluguel(aluguel.AluguelUuid);
+                aluguelDto.Conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
+                alugueisDto.Add(aluguelDto);
             }
             return alugueisDto;
         }

@@ -36,7 +36,7 @@ namespace Polaris.Aluguel.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return ReturnError();
             }
@@ -60,7 +60,7 @@ namespace Polaris.Aluguel.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return ReturnError();
             }

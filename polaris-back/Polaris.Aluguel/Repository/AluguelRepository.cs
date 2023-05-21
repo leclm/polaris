@@ -14,11 +14,9 @@ namespace Polaris.Aluguel.Repository
 
         public IEnumerable<Models.Aluguel> GetAlugueisCompletos()
         {
-            return Get()
-                .Include(x => x.Conteineres)
-                .Include(x => x.Cliente)
-                .Include(x => x.Endereco);
+            return Get();
         }
+
         public IEnumerable<Models.Aluguel> GetAlugueis(AluguelParameters aluguelParameters)
         {
             return Get()
@@ -39,7 +37,9 @@ namespace Polaris.Aluguel.Repository
         public IEnumerable<Models.Aluguel> GetAlugueisPorCpf(string cpf)
         {
             return GetAllByParameter(s => s.Cliente.Cpf == cpf)
-                 .Include(x => x.Cliente);
+                .Include(x => x.Cliente)
+                .Include(x => x.Endereco)
+                .Include(x => x.Conteineres);
         }
     }
 }

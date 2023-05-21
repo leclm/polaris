@@ -249,7 +249,7 @@ namespace Polaris.Conteiner.Services
             await _context.Commit();
         }
 
-        public async Task<RetornoConteinerViewModel> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
+        public async Task<IEnumerable<RetornoConteinerViewModel>> BuscarVinculoConteinerAluguel(Guid uuidAluguel)
         {
             var conteineres = _context.ConteinerRepository.GetConteineresByAluguel(uuidAluguel);
 
@@ -257,7 +257,7 @@ namespace Polaris.Conteiner.Services
             {
                 throw new ConteinerNaoEncontradoException("Conteiner não encontrado.");
             }
-            var conteineresDto = _mapper.Map<RetornoConteinerViewModel>(conteineres);
+            var conteineresDto = _mapper.Map<IEnumerable<RetornoConteinerViewModel>>(conteineres);
             return conteineresDto;
         }
     }

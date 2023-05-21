@@ -5,7 +5,7 @@ namespace Polaris.Aluguel.ExternalServices
 {
     public interface IEnderecoExternalService
     {
-        Task<Endereco> GetEnderecoAluguel(Guid uuid);
+        Task<RetornoEnderecoViewModel> GetEnderecoAluguel(Guid uuid);
         Task<Endereco> GetEnderecos(Guid uuid);
         Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco);
         Task PutEnderecos(AtualizaEnderecoViewModel endereco);

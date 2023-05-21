@@ -16,10 +16,10 @@ namespace Polaris.Aluguel.ViewModels
         public bool Status { get; set; }
 
 
-        public BuscaClienteViewModel? Cliente { get; set; }
+        public RetornoClienteViewModel? Cliente { get; set; }
 
         public RetornoEnderecoViewModel? Endereco { get; set; }
 
-        public IEnumerable<BuscaConteinerViewModel>? Conteineres { get; set; }
+        public IEnumerable<RetornoConteinerViewModel>? Conteineres { get; set; }
     }
 }

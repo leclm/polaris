@@ -24,13 +24,13 @@ namespace Polaris.Aluguel.ExternalServices
         }
         
 
-        public async Task<Endereco> GetEnderecoAluguel(Guid uuid)
+        public async Task<RetornoEnderecoViewModel> GetEnderecoAluguel(Guid uuid)
         {
             return await _config.PolarisEnderecoConfig.Url
                 .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
                 .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEnderecoAluguel)
                 .AppendPathSegment(uuid)
-                .GetJsonAsync<Endereco>();
+                .GetJsonAsync<RetornoEnderecoViewModel>();
         }
 
         public async Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco)

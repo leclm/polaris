@@ -84,24 +84,6 @@ namespace Polaris.Conteiner.Repository
                 .Where(x => x.Alugueis.Any(a => a.AluguelUuid == uuidAluguel))
                 .Include(x => x.CategoriaConteiner)
                 .Include(x => x.TipoConteiner);
-
-            //using (_context)
-            //{
-            //    var query = (from e in _context.Conteineres
-            //                 join t in _context.Alugueis
-            //                 on e.ConteinerId equals t.Conteineres.Where(c => c.ConteinerId == e.ConteinerId)
-            //                 where t.AluguelUuid == uuidAluguel
-            //                 select e);
-
-            //    if (query is not null && query.Any())
-            //    {
-            //        return query;
-            //    }
-            //    else
-            //    {
-            //        return null;
-            //    }
-            //}
         }
 
     }
