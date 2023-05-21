@@ -24,7 +24,7 @@ namespace Polaris.Usuario.ViewModels
         public string? Sobrenome { get; set; }
         [NotNull]
         [Required]
-        public DateOnly DataNascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um e-mail.")]
         [MaxLength(45, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]

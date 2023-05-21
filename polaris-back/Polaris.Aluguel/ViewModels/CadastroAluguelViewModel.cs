@@ -16,6 +16,9 @@ namespace Polaris.Aluguel.ViewModels
         [NotNull]
         public TipoLocacao TipoLocacao { get; set; }
         public double Desconto { get; set; }
+        [NotNull]
+        [Required]
+        public double ValorTotalAluguel { get; set; }
         [Required]
         [NotNull]
         public Guid? ClienteUuid { get; set; }

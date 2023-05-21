@@ -124,7 +124,7 @@ namespace Polaris.Usuario.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("varchar(11)");
 
-                    b.Property<DateOnly>("DataNascimento")
+                    b.Property<DateTime>("DataNascimento")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")

@@ -47,7 +47,7 @@ namespace Polaris.Usuario.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Sobrenome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataNascimento = table.Column<DateOnly>(type: "date", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "date", nullable: false),
                     Email = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefone = table.Column<string>(type: "varchar(45)", maxLength: 45, nullable: false)
