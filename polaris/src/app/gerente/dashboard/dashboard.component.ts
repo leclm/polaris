@@ -28,11 +28,23 @@ export class DashboardComponent implements OnInit {
   }
 
   initializeMap() {
-    const mapProperties = {
-      center: new google.maps.LatLng(35.2271, -80.8431),
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapProperties);
-  }
-}
+
+  const myLatLng = { lat: -25.363, lng: 131.044 };
+  const map = new google.maps.Map(this.mapElement.nativeElement, {
+    zoom: 3,
+    center: myLatLng,
+  });
+
+  var marker = new google.maps.Marker({
+    position: { lat: -25.363, lng: 120.044 },
+    map,
+    title: "Hello World!",
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    window.location.href = 'http://www.google.com/';
+    window.open('http://www.google.com/', '_blank');
+  });
+}}
+
+
