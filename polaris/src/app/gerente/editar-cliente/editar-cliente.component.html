@@ -27,15 +27,25 @@
             <form class="row g-3" #formCliente="ngForm" (ngSubmit)="editar()">
               <div class="col-md-6">
                 <label for="inputNome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel">
+                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel" required minlength="2">
+                <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                  <div [hidden]="!nome.errors?.['required']">Digite o nome.</div>
+                  <div [hidden]="!nome.errors?.['minlength']">Digite o sobrenome.</div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="inputSobrenome" class="form-label">Sobrenome</label>
-                <input type="text" class="form-control" id="inputSobrenome" name="sobrenome" [(ngModel)]="cliente.sobrenome" #sobrenome="ngModel">
+                <input type="text" class="form-control" id="inputSobrenome" name="sobrenome" [(ngModel)]="cliente.sobrenome" #sobrenome="ngModel" required minlength="2">
+                <div *ngIf="sobrenome.errors && (sobrenome.dirty || sobrenome.touched)" class="alert alert-danger">
+                  <div [hidden]="!sobrenome.errors?.['required']">Digite o sobrenome.</div>
+                  <div [hidden]="!sobrenome.errors?.['minlength']">
+                    O sobrenome deve conter ao menos 2 caracteres.
+                  </div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
-                <input type="text" class="form-control" id="inputDataNascimento" name="dataNascimento" [(ngModel)]="cliente.dataNascimento" #dataNascimento="ngModel">
+                <input type="text" class="form-control" id="inputDataNascimento" name="dataNascimento" [(ngModel)]="cliente.dataNascimento">
               </div>
               <div class="col-md-6">
                 <label for="inputCpf" class="form-label">CPF</label>
@@ -43,7 +53,10 @@
               </div>
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
-                <input type="tel" class="form-control" id="inputTelefone" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel">
+                <input type="tel" class="form-control" id="inputTelefone" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel" required>
+                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+                  <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
@@ -52,11 +65,15 @@
         
               <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel">
+                <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel" required mask='00000-000'>
+                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                  <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+                </div>
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>
                 <input type="text" class="form-control" id="inputEstado" name="estado" [(ngModel)]="cliente.endereco.estado" #estado="ngModel">
+
               </div>
               <div class="col-md-4">
                 <label for="inputCidade" class="form-label">Cidade</label>
@@ -68,7 +85,10 @@
               </div>
               <div class="col-md-3">
                 <label for="inputNumero" class="form-label">Número</label>
-                <input type="number" class="form-control" id="inputNumero" placeholder="123" name="numero" [(ngModel)]="cliente.endereco.numero" #numero="ngModel">
+                <input type="number" class="form-control" id="inputNumero" placeholder="123" name="numero" [(ngModel)]="cliente.endereco.numero" #numero="ngModel" required>
+                <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
+                  <div [hidden]="!numero.errors?.['required']">Digite o número.</div>
+                </div>
               </div>
               <div class="col-md-3 mb-3">
                 <label for="inputComplemento" class="form-label">Complemento</label>

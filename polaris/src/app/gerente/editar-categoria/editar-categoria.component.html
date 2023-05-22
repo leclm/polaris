@@ -27,7 +27,10 @@
             <form class="row g-3" #formCategoria="ngForm" (ngSubmit)="editar()">
               <div class="col-md-6">
                 <label for="inputNome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="categoria.nome" value="{{categoria.nome}}" #nome="ngModel">
+                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="categoria.nome" value="{{categoria.nome}}" #nome="ngModel" required>
+                <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                  <div [hidden]="!nome.errors?.['required']">Digite o nome.</div>
+                </div>
               </div>
 
               <div class="ctn-btn d-flex justify-content-evenly mt-5">

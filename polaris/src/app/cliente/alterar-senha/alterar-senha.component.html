@@ -25,11 +25,17 @@
         <form class="row g-3" #formAlterarSenha="ngForm" (ngSubmit)="changePassword()">
           <div class="col-md-12">
             <label class="form-label" for="newPassword">Nova senha:</label>
-            <input class="form-control" type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword">
+            <input class="form-control" type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" #novaSenha="ngModel" required>
+            <div *ngIf="novaSenha.errors && (novaSenha.dirty || novaSenha.touched)" class="alert alert-danger">
+              <div [hidden]="!novaSenha.errors?.['required']">Digite o nova senha.</div>
+            </div>
           </div>
           <div class="col-md-12">
             <label class="form-label" for="confirmPassword">Confirme sua nova senha:</label>
-            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword">
+            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" #novaSenhaConfirma="ngModel" required>
+            <div *ngIf="novaSenhaConfirma.errors && (novaSenhaConfirma.dirty || novaSenhaConfirma.touched)" class="alert alert-danger">
+              <div [hidden]="!novaSenhaConfirma.errors?.['required']">Digite a confirmação da senha.</div>
+          </div>
           </div> 
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">

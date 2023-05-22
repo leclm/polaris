@@ -35,6 +35,9 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgbPaginationModule, NgbAlertModule, NgbDate, NgbModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,14 @@ import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.componen
     CommonModule,
     FormsModule,
     RouterModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    NgbCarouselModule,
+    NgxMaskModule.forRoot(),
+    CurrencyMaskModule,
+    NgbPaginationModule, 
+    NgbAlertModule,
+    NgbModule,
+    NgbDatepickerModule, 
   ],
   providers: [
     GerenteService

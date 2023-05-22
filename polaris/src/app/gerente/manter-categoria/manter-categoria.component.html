@@ -25,7 +25,10 @@
         <form class="row g-3" #formCategoria="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-5 center">
             <label for="inputNome" class="form-label">Nome da Categoria</label>
-            <input type="text" class="form-control" id="inputNome" [(ngModel)]="categoria.nome" name="nome">
+            <input type="text" class="form-control" id="inputNome" [(ngModel)]="categoria.nome" name="nome" #nome="ngModel" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+              <div [hidden]="!nome.errors?.['required']">Digite o nome da categoria.</div>
+            </div>
           </div>
           
           <div class="ctn-btn d-flex justify-content-evenly mt-5">

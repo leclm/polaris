@@ -25,22 +25,38 @@
           <form class="row g-3" #formConteiner="ngForm" (ngSubmit)="cadastrar()">
             <div class="col-md-3">
               <label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
-              <input class="form-control" placeholder="AAAA" name="fabricacao" [(ngModel)]="conteiner.fabricacao">
+              <input class="form-control" placeholder="AAAA" name="fabricacao" [(ngModel)]="conteiner.fabricacao" #fabricacao="ngModel" required>
+
+              <div *ngIf="fabricacao.errors && (fabricacao.dirty || fabricacao.touched)" class="alert alert-danger">
+                  <div [hidden]="!fabricacao.errors?.['required']">Digite o ano de fabricação.</div>
+              </div>
             </div>
             
             <div class="col-md-3">
               <label for="inputFabricante" class="form-label">Fabricante</label>
-              <input type="text" class="form-control" id="inputFabricante" [(ngModel)]="conteiner.fabricante" name="fabricante">
+              <input type="text" class="form-control" id="inputFabricante" [(ngModel)]="conteiner.fabricante" name="fabricante" #fabricante="ngModel" required>
+
+              <div *ngIf="fabricante.errors && (fabricante.dirty || fabricante.touched)" class="alert alert-danger">
+                  <div [hidden]="!fabricante.errors?.['required']">Digite o fabricante.</div>
+              </div>
             </div>
             
             <div class="col-md-3">
               <label for="inputCor" class="form-label">Cor</label>
-              <input type="text" class="form-control" id="inputCor" [(ngModel)]="conteiner.cor" name="cor">
+              <input type="text" class="form-control" id="inputCor" [(ngModel)]="conteiner.cor" name="cor" #cor="ngModel" required>
+
+              <div *ngIf="cor.errors && (cor.dirty || cor.touched)" class="alert alert-danger">
+                  <div [hidden]="!cor.errors?.['required']">Digite a cor.</div>
+              </div>
             </div>
                         
             <div class="col-md-3">
               <label for="inputMaterial" class="form-label">Material</label>
-              <input type="text" class="form-control" id="inputMaterial" [(ngModel)]="conteiner.material" name="material">
+              <input type="text" class="form-control" id="inputMaterial" [(ngModel)]="conteiner.material" name="material" #material="ngModel" required>
+
+              <div *ngIf="material.errors && (material.dirty || material.touched)" class="alert alert-danger">
+                  <div [hidden]="!material.errors?.['required']">Digite o material.</div>
+              </div>
             </div>     
   
             <div class="col-md-6">         
