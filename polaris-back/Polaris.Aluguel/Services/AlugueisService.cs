@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.ExternalServices;
-using Polaris.Aluguel.Models;
 using Polaris.Aluguel.Repository;
 using Polaris.Aluguel.Utils;
 using Polaris.Aluguel.ViewModels;
@@ -41,10 +39,7 @@ namespace Polaris.Aluguel.Services
                 throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
-            var alugueisDto = _mapper.Map<List<RetornoAluguelViewModel>>(alugueis);
-            return alugueisDto;
-
-            //return await ConsultaInformacoesAlugueis(alugueis);
+            return await ConsultaInformacoesAlugueis(alugueis);
         }
 
         public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueis()
@@ -52,7 +47,7 @@ namespace Polaris.Aluguel.Services
             var alugueis = _context.AluguelRepository.GetAlugueisCompletos();
             if (!alugueis.Any())
             {
-                throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
+                throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
             return await ConsultaInformacoesAlugueis(alugueis);
@@ -61,15 +56,12 @@ namespace Polaris.Aluguel.Services
         public async Task<RetornoAluguelViewModel> GetAluguel(Guid uuid)
         {
             var aluguel = await _context.AluguelRepository.GetAluguel(uuid);
-            var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
-
-            aluguelDto.Endereco = await _enderecoExternalService.GetEnderecoAluguel(uuid);
-
             if (aluguel is null)
             {
-                throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
+                throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
-            return aluguelDto;
+
+            return await ConsultaInformacaoAluguelPorUuid(aluguel);
         }
 
         public async Task<Guid> PostAluguel(CadastroAluguelViewModel aluguelDto)
@@ -139,6 +131,18 @@ namespace Polaris.Aluguel.Services
 
             _context.AluguelRepository.Update(aluguel);
             await _context.Commit();
+        }
+
+        private async Task<RetornoAluguelViewModel> ConsultaInformacaoAluguelPorUuid(Models.Aluguel aluguel)
+        {
+            //RetornoAluguelViewModel aluguelDto = new();
+            var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
+            aluguelDto.Endereco = await _enderecoExternalService.GetEnderecoAluguel(aluguel.AluguelUuid);
+            aluguelDto.Cliente = await _clienteExternalService.GetClienteAluguel(aluguel.AluguelUuid);
+            aluguelDto.Conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
+            //aluguelDto.Add(aluguelDto);
+
+            return aluguelDto;
         }
 
         private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaInformacoesAlugueis(IEnumerable<Models.Aluguel> alugueis)
