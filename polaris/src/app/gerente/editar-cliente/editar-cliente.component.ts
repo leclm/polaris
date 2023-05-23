@@ -3,7 +3,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente.model';
+import { ClienteLogin } from 'src/app/models/clienteLogin.model';
 import { Endereco } from 'src/app/models/endereco.model';
+import { Login } from 'src/app/models/login.model';
+import { LoginEdicaoCadastro } from "src/app/models/loginEdicaoCadastro.model";
 import { GerenteService } from '../services';
 
 @Component({
@@ -15,7 +18,13 @@ export class EditarClienteComponent implements OnInit {
   public statusMsg!: string;
   public clienteUuid: any;
   public clienteData: any;
-  public clienteById!: Cliente;
+  public clienteById!: ClienteLogin;
+
+  public login: Login = {
+    loginUuid: '',
+    usuario: '',
+    senha: 'senha1234'
+  }
 
   public endereco: Endereco = {
     cep: '',
@@ -26,7 +35,7 @@ export class EditarClienteComponent implements OnInit {
     numero: NaN
   }
 
-  public cliente: Cliente = {
+  public cliente: ClienteLogin = {
     clienteUuid: '',
     nome: '',
     sobrenome: '',
@@ -34,7 +43,8 @@ export class EditarClienteComponent implements OnInit {
     dataNascimento: '',
     email: '',
     telefone: '',
-    endereco: this.endereco
+    endereco: this.endereco,
+    login: this.login
   }
   
   @ViewChild("formCliente") formCliente!: NgForm;
@@ -43,10 +53,11 @@ export class EditarClienteComponent implements OnInit {
   ngOnInit(): void {
     this.clienteUuid = this.activatedRoute.snapshot.params['id']; 
     this.getAllClientes();
-    this.getClienteById();
+    this.getClienteByIdLogin();
   }
 
   editar() {
+    console.log(this.cliente);
     this.gerenteService.editarCliente(this.cliente).subscribe(
       (response: HttpResponse<Cliente>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -70,8 +81,8 @@ export class EditarClienteComponent implements OnInit {
     )
   }
 
-  getClienteById() {
-    this.gerenteService.getClienteById(this.clienteUuid).subscribe( (res: any) => {
+  getClienteByIdLogin() {
+    this.gerenteService.getClienteByIdLogin(this.clienteUuid).subscribe( (res: any) => {
         this.clienteById = res;
         this.cliente.clienteUuid = this.clienteUuid;
         this.cliente.nome = this.clienteById.nome;
@@ -80,7 +91,9 @@ export class EditarClienteComponent implements OnInit {
         this.cliente.dataNascimento = this.clienteById.dataNascimento;
         this.cliente.email = this.clienteById.email;
         this.cliente.telefone = this.clienteById.telefone;
-        this.cliente.endereco = this.clienteById.endereco;        
+        this.cliente.endereco = this.clienteById.endereco;
+        this.cliente.login.loginUuid = this.clienteById.login.loginUuid;  
+        this.cliente.login.usuario = this.clienteById.login.usuario;       
       }
     )
   }
