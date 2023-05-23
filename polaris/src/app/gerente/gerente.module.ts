@@ -35,6 +35,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
+import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.componen
     PhoneGerentePipe,
     CpfGerentePipe,
     DashboardComponent,
-    ManterAluguelComponent
+    ManterAluguelComponent,
+    VisualizarHistoricoAlugueisComponent
   ],
   imports: [
     CommonModule,

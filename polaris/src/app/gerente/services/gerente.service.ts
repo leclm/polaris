@@ -305,6 +305,11 @@ export class GerenteService {
     return this.http.post<Aluguel>(url, aluguel, { headers, observe: 'response' });
   }
 
+  getAllAlugueis(): Observable<Aluguel[]> {
+    const url = `${this.aluguelURL}/Alugueis`;
+    return this.http.get<Aluguel[]>(url);
+  }
+
   // old
   getAluguelData() {
     return this.http.get('http://localhost:8180/aluguel');
