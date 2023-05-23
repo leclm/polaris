@@ -35,3 +35,4 @@ export * from './manter-prestacao-servico';
 export * from './editar-prestacao-servico';
 
 export * from './manter-aluguel';
+export * from './visualizar-historico-alugueis';

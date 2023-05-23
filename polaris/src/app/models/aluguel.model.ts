@@ -5,10 +5,10 @@ import { Endereco } from "./endereco.model";
 export interface Aluguel {
     dataInicio: string;
     dataDevolucao: string;
-    tipoLocacao: string;
+    tipoLocacao: number;
     endereco: Endereco;
-    cliente: Cliente;
-    conteiner: Conteiner;
-    valorTotal: string;
-    desconto: string;
+    clienteUuid?: string;
+    conteineresUuid: string[];
+    valorTotalAluguel: number;
+    desconto: number;
 }
