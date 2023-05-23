@@ -76,14 +76,11 @@ namespace Polaris.Aluguel.Services
             aluguelDto.Endereco = null;
 
             var aluguel = _mapper.Map<Models.Aluguel>(aluguelDto);
-            StringUtils.ClassToUpper(aluguel);
             aluguel.AluguelUuid = Guid.NewGuid();
             aluguel.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
             aluguel.ClienteId = _clienteRepository.GetClienteId(aluguelDto.ClienteUuid.Value);
             aluguel.Status = true;
             aluguel.EstadoAluguel = EstadoAluguel.Solicitado;
-
-            //calculo
 
             _context.AluguelRepository.Add(aluguel);
             await _context.Commit();
@@ -97,6 +94,7 @@ namespace Polaris.Aluguel.Services
                 conteiner.TipoConteiner = null;
                 conteiner.CategoriaConteiner = null;
                 aluguel.Conteineres.Add(conteiner);
+                _conteinerExternalService.AlterarDisponibilidadeConteiner(conteinerUuid, (int)EstadoConteiner.Locado);
             }
 
             await _context.Commit();
