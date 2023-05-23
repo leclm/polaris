@@ -149,20 +149,6 @@ export class ManterAluguelComponent implements OnInit {
     return date;
   }
   
-  calculateTotalPrice() {
-    let dataInicio = this.convertStringToDate(this.aluguel.dataInicio);
-    let dataDevolucao = this.convertStringToDate(this.aluguel.dataDevolucao);    
-    this.totalDays = this.calculateDaysBetweenDates(dataInicio, dataDevolucao);
-
-    let valorTotal = 0;
-    for (let i = 0; i < this.carrinho.length; i++) {
-      const valorDiaria = this.carrinho[i].tipoConteiner.valorDiaria;
-      const multipliedValue = valorDiaria * this.totalDays;
-      valorTotal += multipliedValue;
-    }
-    this.aluguel.valorTotalAluguel = valorTotal;
-  }
-
   addConteiner(event: any) {
     this.gerenteService.getConteinerByIdEstado(this.conteinerUuid)
     .subscribe( response => {
@@ -170,9 +156,20 @@ export class ManterAluguelComponent implements OnInit {
       if (!existingValue) {
         this.carrinho.push(response);
         this.aluguel.conteineresUuid.push(response.conteinerUuid);
+        
+        let dataInicio = this.convertStringToDate(this.aluguel.dataInicio);
+        let dataDevolucao = this.convertStringToDate(this.aluguel.dataDevolucao);    
+        this.totalDays = this.calculateDaysBetweenDates(dataInicio, dataDevolucao);
+
+        let valorTotal = 0;
+        for (const element of this.carrinho) {
+          const valorDiaria = element.tipoConteiner.valorDiaria;
+          const multipliedValue = valorDiaria * this.totalDays;
+          valorTotal += multipliedValue;
+        }
+        this.aluguel.valorTotalAluguel = valorTotal;
       }
     });
-    this.calculateTotalPrice();
   }
 
   removeConteiner(conteiner: string) {
