@@ -17,10 +17,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of prestacaoServicosData">
-                <td>{{ item.terceirizado.empresa }}</td>
-                <td>{{ item.dataProcedimento }}</td>
-                <td>{{ item.estadoPrestacaoServico }}</td>
-                <td>{{ item.comentario }}</td>
+                <td>{{ item.terceirizado.empresa! | capitalizacaoGerente }}</td>
+                <td>{{ item.dataProcedimento! | dateGerente }}</td>
+                <td>{{ item.estadoPrestacaoServico! | capitalizacaoGerente }}</td>
+                <td>{{ item.comentario! | capitalizacaoGerente }}</td>
                 <td>
                   <a [routerLink]="['/gerente/editar-prestacao-servico', item.prestacaoDeServicoUuid]">
                     <i class="fa fa-user-edit" aria-hidden="true"></i>
