@@ -32,7 +32,7 @@ namespace Polaris.Aluguel.Repository
         }
         public IEnumerable<Models.Aluguel> GetAlugueisPorCpf(string cpf)
         {
-            return Get();
+            return Get().Where(x => x.Cliente.Cpf == cpf);
         }
     }
 }
