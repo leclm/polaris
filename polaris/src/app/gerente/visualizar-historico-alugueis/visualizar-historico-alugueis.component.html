@@ -24,7 +24,7 @@
             <td>{{ item.dataInicio! | dateGerente }}</td>
             <td>{{ item.dataDevolucao! | dateGerente }}</td>
             <td>
-              <a [routerLink]="['/gerente/visualizar-aluguel', item.aluguelUuid]">
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </a> 
               <a [routerLink]="['/gerente/editar-estado-aluguel', item.aluguelUuid]">
