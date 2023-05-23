@@ -26,11 +26,17 @@
             <td>
               <a [routerLink]="['/gerente/visualizar-aluguel', item.aluguelUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
+              </a> 
+              <a [routerLink]="['/gerente/editar-estado-aluguel', item.aluguelUuid]">
+                <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>  
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a [routerLink]="['/gerente/manter-aluguel']">Novo Aluguel</a>
+      </div>
     </div>
   </div>
 </div>
