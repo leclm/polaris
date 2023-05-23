@@ -25,37 +25,33 @@
         <p class="title">Dados cadastrais</p>
         <div class="content d-flex ms-3">
           <form class="row g-3" #formCategoria="ngForm" (ngSubmit)="editar()">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="inputTipo" class="form-label">Tipo</label>
               <input type="text" class="form-control" id="inputTipo" placeholder="Pequeno, Médio, Grande..." name="nome" [(ngModel)]="tipo.nome" value="{{tipo.nome}}" #nome="ngModel">
             </div>
-            <div class="col-md-3">
-              <label for="inputLargura" class="form-label">Largura</label>
-              <input type="number" class="form-control" id="inputLargura" name="largura" [(ngModel)]="tipo.largura" value="{{tipo.largura}}" #largura="ngModel">
-            </div>
-            <div class="col-md-3">
-              <label for="inputComprimento" class="form-label">Comprimento</label>
-              <input type="number" class="form-control" id="inputComprimento" name="comprimento" [(ngModel)]="tipo.comprimento" value="{{tipo.comprimento}}" #comprimento="ngModel">
-            </div>
-            <div class="col-md-3">
-              <label for="inputAltura" class="form-label">Altura</label>
-              <input type="number" class="form-control" id="inputAltura" name="altura" [(ngModel)]="tipo.altura" value="{{tipo.altura}}" #altura="ngModel">
-            </div>
-            <div class="col-md-3">
-              <label for="inputVolume" class="form-label">Volume</label>
-              <input type="number" class="form-control" id="inputVolume" name="volume" [(ngModel)]="tipo.volume" value="{{tipo.volume}}" #volume="ngModel">
-            </div>
-            <div class="col-md-3">
-              <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
-              <input type="number" class="form-control" id="inputPesoMaximo" name="pesoMaximo" [(ngModel)]="tipo.pesoMaximo" value="{{tipo.pesoMaximo}}" #pesoMaximo="ngModel">
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
               <input type="text" class="form-control" id="inputValorDiaria" value="R$ " name="valorDiaria" [(ngModel)]="tipo.valorDiaria" value="{{tipo.valorDiaria}}" #valorDiaria="ngModel">
             </div>
-            <div class="col-md-3 mb-3">
-              <label for="inputValorMes" class="form-label">Valor por Mês</label>
-              <input type="text" class="form-control" id="inputValorMes" value="R$ " name="valorMensal" [(ngModel)]="tipo.valorMensal" value="{{tipo.valorMensal}}" #valorMensal="ngModel">
+            <div class="col-md-4">
+              <label for="inputVolume" class="form-label">Volume</label>
+              <input type="number" class="form-control" id="inputVolume" name="volume" [(ngModel)]="tipo.volume" value="{{tipo.volume}}" #volume="ngModel">
+            </div>
+            <div class="col-md-6">
+              <label for="inputLargura" class="form-label">Largura</label>
+              <input type="number" class="form-control" id="inputLargura" name="largura" [(ngModel)]="tipo.largura" value="{{tipo.largura}}" #largura="ngModel">
+            </div>
+            <div class="col-md-6">
+              <label for="inputComprimento" class="form-label">Comprimento</label>
+              <input type="number" class="form-control" id="inputComprimento" name="comprimento" [(ngModel)]="tipo.comprimento" value="{{tipo.comprimento}}" #comprimento="ngModel">
+            </div>
+            <div class="col-md-6">
+              <label for="inputAltura" class="form-label">Altura</label>
+              <input type="number" class="form-control" id="inputAltura" name="altura" [(ngModel)]="tipo.altura" value="{{tipo.altura}}" #altura="ngModel">
+            </div>
+            <div class="col-md-6">
+              <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
+              <input type="number" class="form-control" id="inputPesoMaximo" name="pesoMaximo" [(ngModel)]="tipo.pesoMaximo" value="{{tipo.pesoMaximo}}" #pesoMaximo="ngModel">
             </div>
             
             <div class="ctn-btn d-flex justify-content-evenly mt-5">
