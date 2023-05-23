@@ -29,6 +29,7 @@ import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidad
 import { DashboardComponent } from './dashboard';
 import { ManterAluguelComponent } from './manter-aluguel';
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis';
+import { EditarEstadoAluguelComponent } from './editar-estado-aluguel';
 
 export const GerenteRoutes: Routes = [
   // Dashboard
@@ -158,5 +159,9 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-historico-alugueis',
     component: VisualizarHistoricoAlugueisComponent
+  },
+  {
+    path: 'gerente/editar-estado-aluguel/:id',
+    component: EditarEstadoAluguelComponent
   }
 ];

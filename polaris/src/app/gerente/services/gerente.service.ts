@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Aluguel } from 'src/app/models/aluguel.model';
+import { AluguelEstado } from 'src/app/models/aluguelEstado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Cliente } from 'src/app/models/cliente.model';
 import { ClienteLogin } from 'src/app/models/clienteLogin.model';
@@ -308,6 +309,17 @@ export class GerenteService {
   getAllAlugueis(): Observable<Aluguel[]> {
     const url = `${this.aluguelURL}/Alugueis`;
     return this.http.get<Aluguel[]>(url);
+  }
+
+  getAluguelById(aluguelUuid: string): Observable<Aluguel> {
+    const url = `${this.aluguelURL}/Alugueis/${aluguelUuid}`;
+    return this.http.get<Aluguel>(url);
+  }
+
+  alteraEstadoAluguel(aluguelUuid: string, estado: any): Observable<HttpResponse<AluguelEstado>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.aluguelURL}/alugueis/alterar-disponibilidade/${aluguelUuid}/${estado}`;
+    return this.http.put<AluguelEstado>(url, estado, { headers, observe: 'response' });
   }
 
   // old

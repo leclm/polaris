@@ -36,6 +36,7 @@ import { CapitalizacaoGerentePipe, CpfGerentePipe, DateGerentePipe, PhoneGerente
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
+import { EditarEstadoAluguelComponent } from './editar-estado-aluguel/editar-estado-aluguel.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alu
     DateGerentePipe,
     DashboardComponent,
     ManterAluguelComponent,
-    VisualizarHistoricoAlugueisComponent
+    VisualizarHistoricoAlugueisComponent,
+    EditarEstadoAluguelComponent
   ],
   imports: [
     CommonModule,

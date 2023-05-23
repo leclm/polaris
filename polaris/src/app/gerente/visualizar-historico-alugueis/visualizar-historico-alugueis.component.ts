@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Endereco } from 'src/app/models/endereco.model';
-import { Aluguel } from 'src/app/models/aluguel.model';
 import { GerenteService } from '../services';
 
 enum EstadoAluguel {
