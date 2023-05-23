@@ -16,8 +16,8 @@
           <tbody>
             <tr *ngFor="let item of conteinerData">
               <td>#{{ item.codigo }}</td>
-              <td>{{ item.categoriaConteiner.nome }}</td>
-              <td>{{ item.tipoConteiner.nome }}</td>
+              <td>{{ item.categoriaConteiner.nome! | capitalizacaoGerente }}</td>
+              <td>{{ item.tipoConteiner.nome! | capitalizacaoGerente }}</td>
               <td>{{ item.estado }}</td>
               <td>
                 <a [routerLink]="['/gerente/manter-prestacao-servico', item.conteinerUuid]" alt="Cadastrar Prestação de Serviço" title="Cadastrar Prestação de Serviço">

@@ -32,7 +32,7 @@ import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/mant
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
-import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
+import { CapitalizacaoGerentePipe, CpfGerentePipe, DateGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
@@ -70,6 +70,7 @@ import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alu
     CapitalizacaoGerentePipe,
     PhoneGerentePipe,
     CpfGerentePipe,
+    DateGerentePipe,
     DashboardComponent,
     ManterAluguelComponent,
     VisualizarHistoricoAlugueisComponent

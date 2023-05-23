@@ -18,10 +18,10 @@
             <tbody>
               <tr>
                 <td>{{item.conteiner.codigo}}</td>
-                <td>{{item.servico.nome}}</td>
-                <td>{{item.dataProcedimento}}</td>
+                <td>{{item.servico.nome! | capitalizacaoGerente}}</td>
+                <td>{{item.dataProcedimento! | dateGerente}}</td>
                 <td>{{item.estadoPrestacaoServico}}</td>
-                <td>{{item.comentario}}</td>
+                <td>{{item.comentario! | capitalizacaoGerente}}</td>
               </tr>
             </tbody>
           </table>

@@ -21,8 +21,8 @@
             <td>{{ item.cliente.telefone! | phoneGerente }}</td>
             <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacaoGerente }}</td>
             <td>{{ item.estadoAluguel! | capitalizacaoGerente }}</td>
-            <td>{{ item.dataInicio }}</td>
-            <td>{{ item.dataDevolucao }}</td>
+            <td>{{ item.dataInicio! | dateGerente }}</td>
+            <td>{{ item.dataDevolucao! | dateGerente }}</td>
             <td>
               <a [routerLink]="['/gerente/visualizar-aluguel', item.aluguelUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
