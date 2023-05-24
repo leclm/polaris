@@ -1,0 +1,57 @@
+<div class="visualizar-historico-cliente container-fluid mt-4 mb-4">
+  <div class="container-content p-4">
+    <h1 class="mb-4">Histórico de Aluguéis:</h1>
+
+    <div class="table-responsive">
+      <table class="table align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th [appSort]="clienteAluguelData" data-order="desc" data-name="codigo">Código <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteAluguelData" data-order="desc" data-name="categoria">Categoria <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteAluguelData" data-order="desc" data-name="tipo">Tipo <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteAluguelData" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteAluguelData" data-order="desc" data-name="valorTotalAluguel">Valor <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteAluguelData" data-order="desc" data-name="estadoAluguel">Estado <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of clienteAluguelData">
+            <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>#{{ childItem.codigo }}</td>
+                </tr>
+              </table>
+            </td>
+             <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>{{ childItem.categoriaConteiner.nome ! | capitalizacaoGerente }}</td>
+                </tr>
+              </table>
+            </td>
+             <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>{{ childItem.tipoConteiner.nome ! | capitalizacaoGerente }}</td>
+                </tr>
+              </table>
+            </td>
+            <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacaoGerente }}</td>
+            <td>{{ item.valorTotalAluguel }}</td>
+            <td>{{ item.estadoAluguel! | capitalizacaoGerente }}</td>
+            <td>
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a [routerLink]="['/gerente/visualizar-clientes']">Voltar</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -322,6 +322,10 @@ export class GerenteService {
     return this.http.put<AluguelEstado>(url, estado, { headers, observe: 'response' });
   }
 
+  getAlugueisByCPFClient(cpf: string): Observable<Aluguel> {
+    const url = `${this.aluguelURL}/Alugueis/clientes?cpf=${cpf}`;
+    return this.http.get<Aluguel>(url);
+  }
   // old
   getAluguelData() {
     return this.http.get('http://localhost:8180/aluguel');
