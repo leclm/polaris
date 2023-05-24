@@ -31,6 +31,7 @@ import { ManterAluguelComponent } from './manter-aluguel';
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis';
 import { EditarEstadoAluguelComponent } from './editar-estado-aluguel';
 import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel';
+import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente/visualizar-historico-cliente.component';
 
 export const GerenteRoutes: Routes = [
   // Dashboard
@@ -54,6 +55,10 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-detalhes-cliente/:id',
     component: VisualizarDetalhesClienteComponent
+  },
+  {
+    path: 'gerente/visualizar-historico-cliente/:id',
+    component: VisualizarHistoricoClienteComponent
   },
   // Terceirizado
   {

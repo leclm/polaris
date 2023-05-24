@@ -39,6 +39,7 @@ import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alu
 import { EditarEstadoAluguelComponent } from './editar-estado-aluguel/editar-estado-aluguel.component';
 import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel/visualizar-detalhes-aluguel.component';
 import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
+import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente/visualizar-historico-cliente.component';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
@@ -80,7 +81,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     ManterAluguelComponent,
     VisualizarHistoricoAlugueisComponent,
     EditarEstadoAluguelComponent,
-    VisualizarDetalhesAluguelComponent
+    VisualizarDetalhesAluguelComponent,
+    VisualizarHistoricoClienteComponent
   ],
   imports: [
     CommonModule,

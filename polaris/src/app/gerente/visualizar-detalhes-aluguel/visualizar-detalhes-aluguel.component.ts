@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { GerenteService } from '../services';
 
@@ -12,7 +13,7 @@ export class VisualizarDetalhesAluguelComponent implements OnInit {
   public aluguelData: any;
   public totalDays!: number;
 
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private location: Location ) { }
 
   ngOnInit(): void {
     this.aluguelUuid = this.activatedRoute.snapshot.params['id'];
@@ -53,5 +54,9 @@ export class VisualizarDetalhesAluguelComponent implements OnInit {
         this.totalDays = this.calculateDaysBetweenDates(dataInicioString, dataDevolucaoString);
       }
     );
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
