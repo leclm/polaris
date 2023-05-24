@@ -53,7 +53,11 @@
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email">
+            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email"   #email="ngModel" required  email="true">
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors?.['required']">Digite o email.</div>
+              <div [hidden]="!email.errors?.['email']">Digite um email válido.</div>
+            </div>
           </div>     
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
@@ -76,7 +80,10 @@
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero"  name="numero" #numero="ngModel" required>
+            <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
+              <div [hidden]="!numero.errors?.['required']">Digite um número.</div>
+            </div>
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>

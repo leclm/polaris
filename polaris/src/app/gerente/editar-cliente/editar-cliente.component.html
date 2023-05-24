@@ -87,7 +87,7 @@
                 <label for="inputNumero" class="form-label">Número</label>
                 <input type="number" class="form-control" id="inputNumero" placeholder="123" name="numero" [(ngModel)]="cliente.endereco.numero" #numero="ngModel" required>
                 <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
-                  <div [hidden]="!numero.errors?.['required']">Digite o número.</div>
+                  <div [hidden]="!numero.errors?.['required']">Digite um número.</div>
                 </div>
               </div>
               <div class="col-md-3 mb-3">
