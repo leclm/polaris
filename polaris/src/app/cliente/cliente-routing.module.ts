@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AlterarSenhaComponent } from './alterar-senha';
 import { DetalhesAluguelComponent } from './detalhes-aluguel';
 import { VisualizarAluguelComponent } from './visualizar-aluguel';
-import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente';
 
 export const ClienteRoutes: Routes = [
   {
@@ -20,9 +19,5 @@ export const ClienteRoutes: Routes = [
   {
     path: 'cliente/alterar-senha',
     component: AlterarSenhaComponent
-  },
-  {
-    path: 'cliente/visualizar-historico-cliente/:id',
-    component: VisualizarHistoricoClienteComponent
   }
 ];

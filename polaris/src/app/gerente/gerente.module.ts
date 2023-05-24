@@ -38,6 +38,7 @@ import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.componen
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
 import { EditarEstadoAluguelComponent } from './editar-estado-aluguel/editar-estado-aluguel.component';
 import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel/visualizar-detalhes-aluguel.component';
+import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente/visualizar-historico-cliente.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-alugue
     ManterAluguelComponent,
     VisualizarHistoricoAlugueisComponent,
     EditarEstadoAluguelComponent,
-    VisualizarDetalhesAluguelComponent
+    VisualizarDetalhesAluguelComponent,
+    VisualizarHistoricoClienteComponent
   ],
   imports: [
     CommonModule,
