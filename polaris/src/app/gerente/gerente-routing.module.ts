@@ -28,6 +28,9 @@ import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner';
 import { DashboardComponent } from './dashboard';
 import { ManterAluguelComponent } from './manter-aluguel';
+import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis';
+import { EditarEstadoAluguelComponent } from './editar-estado-aluguel';
+import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel';
 
 export const GerenteRoutes: Routes = [
   // Dashboard
@@ -153,5 +156,17 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/manter-aluguel',
     component: ManterAluguelComponent
+  },
+  {
+    path: 'gerente/visualizar-historico-alugueis',
+    component: VisualizarHistoricoAlugueisComponent
+  },
+  {
+    path: 'gerente/editar-estado-aluguel/:id',
+    component: EditarEstadoAluguelComponent
+  },
+  {
+    path: 'gerente/visualizar-detalhes-aluguel/:id',
+    component: VisualizarDetalhesAluguelComponent
   }
 ];

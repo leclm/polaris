@@ -72,12 +72,12 @@ export class ManterAluguelComponent implements OnInit {
   public aluguel: Aluguel = {
     dataInicio: '',
     dataDevolucao: '',
-    tipoLocacao: '',
-    endereco: this.endereco,
-    cliente: this.cliente,
-    conteiner: this.conteiner,
-    valorTotal: '',
-    desconto: '',
+    tipoLocacao: 0,
+    endereco: this.enderecoLocacao,
+    clienteUuid: '',
+    conteineresUuid: [],
+    valorTotalAluguel: 0,
+    desconto: 0
   }
   
   constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
@@ -86,24 +86,6 @@ export class ManterAluguelComponent implements OnInit {
     this.getAllClientesAtivos();
     this.getAllCategoriasAtivas(); 
     this.getAllTiposAtivos();
-    this.getAllConteineresAtivos();
-  }
-
-  cadastrar() {
-    /*this.gerenteService.addCliente(this.cliente).subscribe(
-      (response: HttpResponse<Cliente>) => {   
-        if (response.status === 200 || response.status === 201) {
-          this.statusMsg = 'success';
-          console.log('Post request successful');
-        } else {
-          console.log('Post request failed');
-        }
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.statusMsg = 'fail';
-      }
-    );*/
   }
 
   getAllClientesAtivos() {
@@ -111,6 +93,22 @@ export class ManterAluguelComponent implements OnInit {
     .subscribe( response => {
       this.clientesCadastrados = response;
     })
+  }
+   
+  fillClientObject(event: any) {
+    this.gerenteService.getClienteById(this.clienteUuid)
+    .subscribe( response => {
+      this.cliente = response;
+      this.aluguel.clienteUuid = response.clienteUuid;
+    })
+  }
+
+  searchAddress(event: any) {
+    this.viaCepService.getAddressByCep(this.enderecoLocacao.cep).subscribe(data => {
+      this.enderecoLocacao.cidade = data.localidade;
+      this.enderecoLocacao.estado = data.uf;
+      this.enderecoLocacao.logradouro = data.logradouro;
+    });
   }
 
   getAllCategoriasAtivas() {
@@ -127,44 +125,13 @@ export class ManterAluguelComponent implements OnInit {
     })
   }
 
-  getAllConteineresAtivos() {
-    this.gerenteService.getAllConteineresAtivos()
+  findContainers() {
+    this.gerenteService.getConteineresByTipoCategoria(this.conteiner.categoria, this.conteiner.tipo)
     .subscribe( response => {
       this.conteineresCadastrados = response;
     })
   }
-    
-  fillClientObject(event: any) {
-    this.gerenteService.getClienteById(this.clienteUuid)
-    .subscribe( response => {
-      this.cliente = response;
-    })
-  }
-
-  searchAddress(event: any) {
-    this.viaCepService.getAddressByCep(this.enderecoLocacao.cep).subscribe(data => {
-      this.enderecoLocacao.cidade = data.localidade;
-      this.enderecoLocacao.estado = data.uf;
-      this.enderecoLocacao.logradouro = data.logradouro;
-    });
-  }
-
-  addConteiner(event: any) {
-    this.calculateTotalPrice();
-    this.gerenteService.getConteinerByIdEstado(this.conteinerUuid)
-    .subscribe( response => {
-      const existingValue = this.carrinho.find(obj => obj.conteinerUuid === response.conteinerUuid);
-      if (!existingValue) {
-        this.carrinho.push(response);
-      }
-      console.log(this.carrinho);
-    });
-  }
-
-  removeConteiner(conteiner: string) {
-    this.carrinho = this.carrinho.filter(obj => obj.conteinerUuid !== conteiner);
-  }
-
+ 
   calculateDaysBetweenDates(startDate: Date, endDate: Date): number {
     const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
     const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
@@ -175,16 +142,56 @@ export class ManterAluguelComponent implements OnInit {
 
   convertStringToDate(dateString: string) {
     const dateParts = dateString.split(/[-/\.]/); // Split by "-" or "/" or "."
-    const day = parseInt(dateParts[0]);
+    const year = parseInt(dateParts[0]);
     const month = parseInt(dateParts[1]) - 1; // Subtract 1 as month index is zero-based
-    const year = parseInt(dateParts[2]);
+    const day = parseInt(dateParts[2]);
     const date = new Date(year, month, day);
     return date;
   }
   
-  calculateTotalPrice() {
-    let dataInicio = this.convertStringToDate(this.aluguel.dataInicio);
-    let dataDevolucao = this.convertStringToDate(this.aluguel.dataDevolucao);    
-    this.totalDays = this.calculateDaysBetweenDates(dataInicio, dataDevolucao);
+  addConteiner(event: any) {
+    this.gerenteService.getConteinerByIdEstado(this.conteinerUuid)
+    .subscribe( response => {
+      const existingValue = this.carrinho.find(obj => obj.conteinerUuid === response.conteinerUuid);
+      if (!existingValue) {
+        this.carrinho.push(response);
+        this.aluguel.conteineresUuid.push(response.conteinerUuid);
+        
+        let dataInicio = this.convertStringToDate(this.aluguel.dataInicio);
+        let dataDevolucao = this.convertStringToDate(this.aluguel.dataDevolucao);    
+        this.totalDays = this.calculateDaysBetweenDates(dataInicio, dataDevolucao);
+
+        let valorTotal = 0;
+        for (const element of this.carrinho) {
+          const valorDiaria = element.tipoConteiner.valorDiaria;
+          const multipliedValue = valorDiaria * this.totalDays;
+          valorTotal += multipliedValue;
+        }
+        this.aluguel.valorTotalAluguel = valorTotal;
+      }
+    });
+  }
+
+  removeConteiner(conteiner: string) {
+    this.carrinho = this.carrinho.filter(obj => obj.conteinerUuid !== conteiner);
+    this.aluguel.conteineresUuid = this.aluguel.conteineresUuid.filter(obj => obj !== conteiner);
+  }
+  
+  cadastrar() {
+    console.log(this.aluguel);
+    this.gerenteService.addAluguel(this.aluguel).subscribe(
+      (response: HttpResponse<Aluguel>) => {   
+        if (response.status === 200 || response.status === 201) {
+          this.statusMsg = 'success';
+          console.log('Post request successful');
+        } else {
+          console.log('Post request failed');
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.statusMsg = 'fail';
+      }
+    );
   }
 }

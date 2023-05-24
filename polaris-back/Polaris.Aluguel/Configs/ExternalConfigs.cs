@@ -35,5 +35,6 @@
 
         public string Conteineres { get; set; }
         public string GetConteineresAluguel { get; set; }
+        public string AlterarDisponibilidadeConteiner { get; set; }
     }
 }

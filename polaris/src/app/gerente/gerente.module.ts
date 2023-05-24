@@ -32,12 +32,15 @@ import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/mant
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
-import { CapitalizacaoGerentePipe, CpfGerentePipe, PhoneGerentePipe } from '../shared';
+import { CapitalizacaoGerentePipe, CpfGerentePipe, DateGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgbPaginationModule, NgbAlertModule, NgbDate, NgbModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
+import { EditarEstadoAluguelComponent } from './editar-estado-aluguel/editar-estado-aluguel.component';
+import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel/visualizar-detalhes-aluguel.component';
 import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { NgbPaginationModule, NgbAlertModule, NgbDate, NgbModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -72,8 +75,12 @@ import { NgbPaginationModule, NgbAlertModule, NgbDate, NgbModule, NgbDatepickerM
     CapitalizacaoGerentePipe,
     PhoneGerentePipe,
     CpfGerentePipe,
+    DateGerentePipe,
     DashboardComponent,
-    ManterAluguelComponent
+    ManterAluguelComponent,
+    VisualizarHistoricoAlugueisComponent,
+    EditarEstadoAluguelComponent,
+    VisualizarDetalhesAluguelComponent
   ],
   imports: [
     CommonModule,

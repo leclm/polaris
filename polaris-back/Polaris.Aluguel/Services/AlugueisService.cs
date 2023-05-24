@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.ExternalServices;
 using Polaris.Aluguel.Models;
@@ -41,10 +40,7 @@ namespace Polaris.Aluguel.Services
                 throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
-            var alugueisDto = _mapper.Map<List<RetornoAluguelViewModel>>(alugueis);
-            return alugueisDto;
-
-            //return await ConsultaInformacoesAlugueis(alugueis);
+            return await ConsultaInformacoesAlugueis(alugueis);
         }
 
         public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueis()
@@ -52,7 +48,7 @@ namespace Polaris.Aluguel.Services
             var alugueis = _context.AluguelRepository.GetAlugueisCompletos();
             if (!alugueis.Any())
             {
-                throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
+                throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
             return await ConsultaInformacoesAlugueis(alugueis);
@@ -61,15 +57,12 @@ namespace Polaris.Aluguel.Services
         public async Task<RetornoAluguelViewModel> GetAluguel(Guid uuid)
         {
             var aluguel = await _context.AluguelRepository.GetAluguel(uuid);
-            var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
-
-            aluguelDto.Endereco = await _enderecoExternalService.GetEnderecoAluguel(uuid);
-
             if (aluguel is null)
             {
-                throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
+                throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
             }
-            return aluguelDto;
+
+            return await ConsultaInformacaoAluguelPorUuid(aluguel);
         }
 
         public async Task<Guid> PostAluguel(CadastroAluguelViewModel aluguelDto)
@@ -84,14 +77,11 @@ namespace Polaris.Aluguel.Services
             aluguelDto.Endereco = null;
 
             var aluguel = _mapper.Map<Models.Aluguel>(aluguelDto);
-            StringUtils.ClassToUpper(aluguel);
             aluguel.AluguelUuid = Guid.NewGuid();
             aluguel.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
             aluguel.ClienteId = _clienteRepository.GetClienteId(aluguelDto.ClienteUuid.Value);
             aluguel.Status = true;
             aluguel.EstadoAluguel = EstadoAluguel.Solicitado;
-
-            //calculo
 
             _context.AluguelRepository.Add(aluguel);
             await _context.Commit();
@@ -105,6 +95,7 @@ namespace Polaris.Aluguel.Services
                 conteiner.TipoConteiner = null;
                 conteiner.CategoriaConteiner = null;
                 aluguel.Conteineres.Add(conteiner);
+                _conteinerExternalService.AlterarDisponibilidadeConteiner(conteinerUuid, (int)EstadoConteiner.Locado);
             }
 
             await _context.Commit();
@@ -129,16 +120,33 @@ namespace Polaris.Aluguel.Services
         public async Task AlterarEstadoAluguel(Guid uuid, EstadoAluguel estado)
         {
             var aluguel = await _context.AluguelRepository.GetByParameter(p => p.AluguelUuid == uuid);
-
             if (aluguel == null)
             {
                 throw new AluguelNaoEncontradoException("Não há aluguéis cadastrados.");
             }
 
             aluguel.EstadoAluguel = estado;
-
             _context.AluguelRepository.Update(aluguel);
             await _context.Commit();
+
+            if (estado == EstadoAluguel.Finalizado)
+            {
+                var aluguelDto = await GetAluguel(uuid);
+                foreach (var c in aluguelDto.Conteineres!)
+                {
+                    _conteinerExternalService.AlterarDisponibilidadeConteiner(c.ConteinerUuid, (int)EstadoConteiner.Disponível);
+                }
+            }
+        }
+
+        private async Task<RetornoAluguelViewModel> ConsultaInformacaoAluguelPorUuid(Models.Aluguel aluguel)
+        {
+            var aluguelDto = _mapper.Map<RetornoAluguelViewModel>(aluguel);
+            aluguelDto.Endereco = await _enderecoExternalService.GetEnderecoAluguel(aluguel.AluguelUuid);
+            aluguelDto.Cliente = await _clienteExternalService.GetClienteAluguel(aluguel.AluguelUuid);
+            aluguelDto.Conteineres = await _conteinerExternalService.GetConteineresAluguel(aluguel.AluguelUuid);
+
+            return aluguelDto;
         }
 
         private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaInformacoesAlugueis(IEnumerable<Models.Aluguel> alugueis)

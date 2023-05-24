@@ -63,7 +63,7 @@ export class EditarDisponibilidadeConteinerComponent implements OnInit {
     );
   }
 
-  // Popula EstadoConteiner e EstadoPrestacaoServico dropdown
+  // Popula EstadoConteiner dropdown
   public enumConteinerLength = Object.keys(this.estadoConteiner).length / 2;
   fakeArrayConteiner = new Array(this.enumConteinerLength);
 }

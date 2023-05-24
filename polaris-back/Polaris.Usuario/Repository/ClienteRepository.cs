@@ -46,7 +46,10 @@ namespace Polaris.Usuario.Repository
 
                 if (query is not null && query.Any())
                 {
-                    return query.First();
+                    var cliente = query.Include(x => x.Endereco)
+                                        .Include(x => x.Login)
+                                        .First();
+                    return cliente;                    
                 }
                 else
                 {

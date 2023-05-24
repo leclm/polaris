@@ -1,5 +1,5 @@
 import { Endereco } from "./endereco.model";
-import { Login } from "./login.model";
+import { LoginEdicaoCadastro } from "./loginEdicaoCadastro.model";
 
 export interface ClienteLogin {
     clienteUuid?: string;
@@ -10,5 +10,5 @@ export interface ClienteLogin {
     email: string;
     telefone: string;
     endereco: Endereco;
-    login: Login;
+    login: LoginEdicaoCadastro;
 }

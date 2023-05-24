@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Aluguel } from 'src/app/models/aluguel.model';
+import { AluguelEstado } from 'src/app/models/aluguelEstado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Cliente } from 'src/app/models/cliente.model';
 import { ClienteLogin } from 'src/app/models/clienteLogin.model';
@@ -22,7 +24,8 @@ export class GerenteService {
   servicoURL = 'https://localhost:44352';
   conteinerURL = 'https://localhost:44387';
   loginURL = 'https://localhost:57361';
-
+  aluguelURL = 'https://localhost:44444';
+  
   constructor( private http: HttpClient ) { } 
   // Login 
   alterarSenha(login: Login): Observable<HttpResponse<Login>> {
@@ -267,6 +270,11 @@ export class GerenteService {
     return this.http.get<ConteinerEstado>(url);
   }
 
+  getConteineresByTipoCategoria(categoriaUuid: string, tipoUuid: string): Observable<Conteiner[]> {
+    const url = `${this.conteinerURL}/Conteineres/conteineres-ativos-disponiveis/categoria/${categoriaUuid}/tipo/${tipoUuid}`;
+    return this.http.get<Conteiner[]>(url);
+  }
+
   addConteiner(conteiner: Conteiner): Observable<HttpResponse<Conteiner>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.conteinerURL}/Conteineres`;
@@ -289,6 +297,29 @@ export class GerenteService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.conteinerURL}/Conteineres/alterar-disponibilidade/${uuid}/${estado}`;
     return this.http.put<ConteinerEstado>(url, estado, { headers, observe: 'response' });
+  }
+
+  // Aluguel
+  addAluguel(aluguel: Aluguel): Observable<HttpResponse<Aluguel>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.aluguelURL}/alugueis`;
+    return this.http.post<Aluguel>(url, aluguel, { headers, observe: 'response' });
+  }
+
+  getAllAlugueis(): Observable<Aluguel[]> {
+    const url = `${this.aluguelURL}/Alugueis`;
+    return this.http.get<Aluguel[]>(url);
+  }
+
+  getAluguelById(aluguelUuid: string): Observable<Aluguel> {
+    const url = `${this.aluguelURL}/Alugueis/${aluguelUuid}`;
+    return this.http.get<Aluguel>(url);
+  }
+
+  alteraEstadoAluguel(aluguelUuid: string, estado: any): Observable<HttpResponse<AluguelEstado>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.aluguelURL}/alugueis/alterar-disponibilidade/${aluguelUuid}/${estado}`;
+    return this.http.put<AluguelEstado>(url, estado, { headers, observe: 'response' });
   }
 
   // old

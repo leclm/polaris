@@ -30,5 +30,15 @@ namespace Polaris.Aluguel.ExternalServices
                 .AppendPathSegment(uuid)
                 .GetJsonAsync<IEnumerable<RetornoConteinerViewModel>>();
         }
+
+        public void AlterarDisponibilidadeConteiner(Guid uuid, int estado)
+        {
+            _config.PolarisConteinerConfig.Url
+                .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.Conteineres)
+                .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.AlterarDisponibilidadeConteiner)
+                .AppendPathSegment(uuid)
+                .AppendPathSegment(estado)
+                .SendAsync(HttpMethod.Put);
+        }
     }
 }

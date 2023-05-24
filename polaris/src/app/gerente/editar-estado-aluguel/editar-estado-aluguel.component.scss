@@ -4,7 +4,7 @@ $dark-blue: #0f2b46;
 $dark-gray: #2d2e30;
 $white: #fff;
 
-.manter-aluguel {
+.editar-estado-aluguel {
   .container-content {
     border: 1px solid $border-gray;
     border-radius: 15px;
@@ -33,53 +33,9 @@ $white: #fff;
     border-bottom: $dark-blue 1px solid;
   }
   
-  .line-price {
-    border-top: $dark-blue 3px solid;
-  } 
   .content {
     flex-direction: column;
-    p {
-      font-size: 1rem;
-      height: 37px;
-      margin: 0;
-    }
-    .disabled {
-      background-color: $border-gray;
-    }
-    .ctn-clientes {
-      display: flex;
-      div {
-        margin-left: 20px;
-      }
-    }
-    .price {
-      flex-direction: column;
-      align-items: flex-end;
-      .desconto {
-        display: flex;
-        .desconto-input {
-          width: 100px;
-        }
-      }
-    }
-    .btn-buscar {
-      display: flex;
-      justify-content: center;
-      button {
-        border-radius: 50px;
-        text-decoration: none;
-        padding: 0.3rem 1rem;
-        margin: 16px 0 0;
-        border: 1px solid transparent;
-        background-color: $dark-blue;
-        color: $white;
-        text-align: center;      
-      }
-      :hover {
-        color: unset;
-        background-color: $aqua;
-      }
-    }
+    
     .ctn-btn {
       flex-direction: column;
       align-items: center;

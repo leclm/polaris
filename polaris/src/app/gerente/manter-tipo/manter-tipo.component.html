@@ -31,52 +31,45 @@
             </div>
           </div>
           <div class="col-md-4">
-            <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
-            <input class="form-control" id="inputPesoMaximo" [(ngModel)]="tipo.pesoMaximo" name="pesoMaximo" #pesoMaximo="ngModel" required>
-            <div *ngIf="pesoMaximo.errors && (pesoMaximo.dirty || pesoMaximo.touched)" class="alert alert-danger">
-              <div [hidden]="!pesoMaximo.errors?.['required']">Digite o peso máximo.</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label for="inputComprimento" class="form-label">Comprimento</label>
-            <input type="number" class="form-control" id="inputComprimento" [(ngModel)]="tipo.comprimento" name="comprimento" #comprimento="ngModel" required>
-            <div *ngIf="comprimento.errors && (comprimento.dirty || comprimento.touched)" class="alert alert-danger">
-              <div [hidden]="!comprimento.errors?.['required']">Digite o comprimento.</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label for="inputLargura" class="form-label">Largura</label>
-            <input type="number" class="form-control" id="inputLargura" [(ngModel)]="tipo.largura" name="largura" #largura="ngModel" required>
-            <div *ngIf="largura.errors && (largura.dirty || largura.touched)" class="alert alert-danger">
-              <div [hidden]="!largura.errors?.['required']">Digite a largura.</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label for="inputAltura" class="form-label">Altura</label>
-            <input type="number" class="form-control" id="inputAltura" [(ngModel)]="tipo.altura" name="altura" #altura="ngModel" required>
-            <div *ngIf="altura.errors && (altura.dirty || altura.touched)" class="alert alert-danger">
-              <div [hidden]="!altura.errors?.['required']">Digite a altura.</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label for="inputVolume" class="form-label">Volume</label>
-            <input type="number" class="form-control" id="inputVolume" [(ngModel)]="tipo.volume" name="volume" #volume="ngModel" required>
-            <div *ngIf="volume.errors && (volume.dirty || volume.touched)" class="alert alert-danger">
-              <div [hidden]="!volume.errors?.['required']">Digite o volume.</div>
-            </div>
-          </div>
-          <div class="col-md-6">
             <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
             <input type="text" class="form-control" id="inputValorDiaria" value="R$ " [(ngModel)]="tipo.valorDiaria" name="valorDiaria" #valorDiaria="ngModel" required>
             <div *ngIf="valorDiaria.errors && (valorDiaria.dirty || valorDiaria.touched)" class="alert alert-danger">
               <div [hidden]="!valorDiaria.errors?.['required']">Digite o valor da diária.</div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
-            <label for="inputValorMes" class="form-label">Valor por Mês</label>
-            <input type="text" class="form-control" id="inputValorMes" value="R$ " [(ngModel)]="tipo.valorMensal" name="valorMensal" #valorMensal="ngModel" required>
-            <div *ngIf="valorMensal.errors && (valorMensal.dirty || valorMensal.touched)" class="alert alert-danger">
-              <div [hidden]="!valorMensal.errors?.['required']">Digite o valor mensal.</div>
+          <div class="col-md-4">
+            <label for="inputPesoMaximo" class="form-label">Peso Máximo</label>
+            <input type="number" class="form-control" id="inputPesoMaximo" [(ngModel)]="tipo.pesoMaximo" name="pesoMaximo"  #pesoMaximo="ngModel" required>
+            <div *ngIf="pesoMaximo.errors && (pesoMaximo.dirty || pesoMaximo.touched)" class="alert alert-danger">
+              <div [hidden]="!pesoMaximo.errors?.['required']">Digite o peso máximo.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="inputComprimento" class="form-label">Comprimento</label>
+            <input type="number" class="form-control" id="inputComprimento" [(ngModel)]="tipo.comprimento" name="comprimento"  #comprimento="ngModel" required>
+            <div *ngIf="comprimento.errors && (comprimento.dirty || comprimento.touched)" class="alert alert-danger">
+              <div [hidden]="!comprimento.errors?.['required']">Digite o comprimento.</div>
+            </div>>
+          </div>
+          <div class="col-md-6">
+            <label for="inputLargura" class="form-label">Largura</label>
+            <input type="number" class="form-control" id="inputLargura" [(ngModel)]="tipo.largura" name="largura" #largura="ngModel" required>
+            <div *ngIf="largura.errors && (largura.dirty || largura.touched)" class="alert alert-danger">
+              <div [hidden]="!largura.errors?.['required']">Digite a largura.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="inputAltura" class="form-label">Altura</label>
+            <input type="number" class="form-control" id="inputAltura" [(ngModel)]="tipo.altura" name="altura"  #altura="ngModel" required>
+            <div *ngIf="altura.errors && (altura.dirty || altura.touched)" class="alert alert-danger">
+              <div [hidden]="!altura.errors?.['required']">Digite a altura.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="inputVolume" class="form-label">Volume</label>
+            <input type="number" class="form-control" id="inputVolume" [(ngModel)]="tipo.volume" name="volume"  #volume="ngModel" required>
+            <div *ngIf="volume.errors && (volume.dirty || volume.touched)" class="alert alert-danger">
+              <div [hidden]="!volume.errors?.['required']">Digite o volume.</div>
             </div>
           </div>
           

@@ -28,18 +28,11 @@ namespace Polaris.Aluguel.Repository
 
         public async Task<Models.Aluguel> GetAluguel(Guid uuid)
         {
-            return await _context.Set<Models.Aluguel>().AsNoTracking().Where(x => x.AluguelUuid == uuid)
-                .Include(x => x.Cliente)
-                .Include(x => x.Endereco)
-                .Include(x => x.Conteineres)
-                .FirstOrDefaultAsync();
+            return Get().First();
         }
         public IEnumerable<Models.Aluguel> GetAlugueisPorCpf(string cpf)
         {
-            return GetAllByParameter(s => s.Cliente.Cpf == cpf)
-                .Include(x => x.Cliente)
-                .Include(x => x.Endereco)
-                .Include(x => x.Conteineres);
+            return Get().Where(x => x.Cliente.Cpf == cpf);
         }
     }
 }
