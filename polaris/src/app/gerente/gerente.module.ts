@@ -42,7 +42,9 @@ import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.componen
 import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente/visualizar-historico-cliente.component';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-
+import { BrowserModule } from '@angular/platform-browser';
+import * as CanvasJSAngularChart from '../../assets/canvasjs-chart-3.7.7/canvasjs.angular.component';
+var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 @NgModule({
   declarations: [
     ManterClienteComponent,
@@ -82,7 +84,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     VisualizarHistoricoAlugueisComponent,
     EditarEstadoAluguelComponent,
     VisualizarDetalhesAluguelComponent,
-    VisualizarHistoricoClienteComponent
+    VisualizarHistoricoClienteComponent,
+    CanvasJSChart
   ],
   imports: [
     CommonModule,
@@ -96,9 +99,11 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     NgbAlertModule,
     NgbModule,
     NgbDatepickerModule, 
+    BrowserModule,
   ],
   providers: [
     GerenteService
-  ]
+  ],
+  bootstrap: [DashboardComponent]
 })
 export class GerenteModule { }

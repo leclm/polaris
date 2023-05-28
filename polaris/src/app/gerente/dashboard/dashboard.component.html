@@ -1,7 +1,47 @@
 <div class="dashboard container-fluid mt-4 mb-4">
   <div class="container-content p-4">
     <h1 class="mb-4">Dashboard</h1>
-
+    <h1 class="text-center">CanvasJS Angular Charts in ng-bootstap Tabs</h1>
+    <div class="container">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" (shown)="navChangeEvent($event)" 
+        (hidden)="navHiddenEvent($event)">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>Line Chart</a>
+            <ng-template ngbNavContent>
+              <canvasjs-chart
+              *ngIf="showChart"
+              [options]="lineChartOptions"
+              (chartInstance)="getChartInstance($event)"
+              [styles]="{ width: '100%', height: '360px' }"
+              ></canvasjs-chart>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>Column Charteeee</a>
+            <ng-template ngbNavContent>
+              <canvasjs-chart
+              *ngIf="showChart"
+              [options]="columnChartOptions"
+              (chartInstance)="getChartInstance($event)"
+              [styles]="{ width: '100%', height: '360px' }"
+              ></canvasjs-chart>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <a ngbNavLink>Pie Charteee</a>
+            <ng-template ngbNavContent>
+              <canvasjs-chart
+              *ngIf="showChart"
+              [options]="pieChartOptions"
+              (chartInstance)="getChartInstance($event)"
+              [styles]="{ width: '100%', height: '360px' }"
+              ></canvasjs-chart>
+            </ng-template>
+          </li>
+        </ul>
+        
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
     <div #map style="width:100%; height:400px"></div>
   </div>
 </div>
