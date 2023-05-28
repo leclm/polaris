@@ -27,6 +27,6 @@ namespace Polaris.Usuario.ViewModels
         [NotNull]
         [Required]
         public AtualizaEnderecoViewModel? Endereco { get; set; }
-        public AtualizaLoginViewModel Login { get; set; }
+        //public AtualizaLoginViewModel Login { get; set; }
     }
 }
