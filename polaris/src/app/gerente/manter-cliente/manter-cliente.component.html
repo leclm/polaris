@@ -60,15 +60,14 @@
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf" #cpf="ngModel" mask='000.000.000-00' required minlength="11">
+            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf" #cpf="ngModel" required minlength="11">
             <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
               <div [hidden]="!cpf.errors?.['required']">Digite o CPF.</div>
-              <div [hidden]="!cpf.errors?.['minlength']">Digite um CPF válido.</div>
             </div>
           </div>
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone" #telefone="ngModel" mask='(00) 00000-0000' required minlength="11">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone" #telefone="ngModel" required minlength="11">
             <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
               <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
               <div [hidden]="!telefone.errors?.['minlength']">O telefone deve ter 8 digitos incluindo o DDD.</div>

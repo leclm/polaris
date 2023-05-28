@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   active = 1;
   chart: any;
   showChart: Boolean = false;
+  public clienteData: any;
+  public loginUuid!: string;
   
   dataOne = [
     { label: 'apple', y: 10 },
@@ -99,22 +101,29 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.getAllClientesAtivos();
     this.loadData();
   }
-
-  loadData() {
-    this.gerenteService.getAllConteineresAtivos().subscribe( (res: any) => {
-      this.conteinerData = res;
-      this.getEstadoText(this.conteinerData);
-    });
-  };
+  getAllClientesAtivos() {
+    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
+        this.clienteData = res;
+      }
+    );
+  }
   
-  getEstadoText(data: any) {
+  loadData() {
+    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
+      this.clienteData = res;
+      console.log(this.clienteData)
+      console.log("aqui")
+      this.getEndereco(this.clienteData);
+    })
+  };
+
+  getEndereco(data: any) {
     for (let i = 0; i < data.length; i++) {
-      let estado = data[i].estado;
-      //Pegar conteiners locados
-      let estadoText = EstadoConteiner[estado]
-      data[i].estado = estadoText;
+      let endereco = data[i].endereco;
+console.log(endereco)
     }
   };
 
