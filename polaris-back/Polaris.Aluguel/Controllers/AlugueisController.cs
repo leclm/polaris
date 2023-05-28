@@ -43,6 +43,30 @@ namespace Polaris.Aluguel.Controllers
         }
 
         /// <summary>
+        /// Este endpoint deve consultar os alugueis por conteiner (uuid)
+        /// </summary>
+        /// <returns>
+        /// Retorna a lista com todos os alugueis por um conteiner
+        /// </returns>
+        /// GET: api/Alugueis/conteiner
+        [HttpGet("conteineres")]
+        public async Task<ActionResult> GetAlugueisPorConteiner(int codigo)
+        {
+            try
+            {
+                return Ok(await _service.GetAlugueisPorConteiner(codigo));
+            }
+            catch (AluguelNaoEncontradoException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return ReturnError();
+            }
+        }
+
+        /// <summary>
         /// Este endpoint deve consultar os alugueis cadastrados
         /// </summary>
         /// <returns>

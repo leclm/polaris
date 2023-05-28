@@ -20,11 +20,12 @@ import { Tipo } from 'src/app/models/tipo.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class GerenteService {
-  servicoURL = 'https://localhost:44352';
-  conteinerURL = 'https://localhost:44387';
-  loginURL = 'https://localhost:57361';
-  aluguelURL = 'https://localhost:44444';
+  servicoURL = 'http://localhost:44352';
+  conteinerURL = 'http://localhost:44387';
+  loginURL = 'http://localhost:57361';
+  aluguelURL = 'http://localhost:44444';
   
   constructor( private http: HttpClient ) { } 
   // Login 

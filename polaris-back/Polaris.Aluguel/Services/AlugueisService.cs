@@ -43,6 +43,17 @@ namespace Polaris.Aluguel.Services
             return await ConsultaInformacoesAlugueis(alugueis);
         }
 
+        public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueisPorConteiner(int codigo)
+        {
+            var alugueis = _context.AluguelRepository.GetAlugueisPorConteiner(codigo);
+            if (!alugueis.Any())
+            {
+                throw new AluguelNaoEncontradoException("Nenhum resultado encontrado.");
+            }
+
+            return await ConsultaInformacoesAlugueis(alugueis);
+        }
+
         public async Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueis()
         {
             var alugueis = _context.AluguelRepository.GetAlugueisCompletos();
