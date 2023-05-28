@@ -43,7 +43,7 @@ namespace Polaris.Aluguel.Controllers
         }
 
         /// <summary>
-        /// Este endpoint deve consultar os alugueis por conteiner (uuid)
+        /// Este endpoint deve consultar os alugueis por conteiner (codigo)
         /// </summary>
         /// <returns>
         /// Retorna a lista com todos os alugueis por um conteiner
