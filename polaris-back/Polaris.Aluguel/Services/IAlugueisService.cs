@@ -8,6 +8,7 @@ namespace Polaris.Aluguel.Services
         Task AlterarEstadoAluguel(Guid uuid, EstadoAluguel estado);
         Task AlterarStatus(Guid uuid, bool status);
         Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueis();
+        Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueisPorConteiner(int codigo);
         Task<IEnumerable<RetornoAluguelViewModel>> GetAlugueisPorCpf(string cpf);
         Task<RetornoAluguelViewModel> GetAluguel(Guid uuid);
         Task<Guid> PostAluguel(CadastroAluguelViewModel aluguelDto);

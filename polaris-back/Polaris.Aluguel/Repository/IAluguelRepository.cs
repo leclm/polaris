@@ -6,6 +6,7 @@ namespace Polaris.Aluguel.Repository
     {
         IEnumerable<Models.Aluguel> GetAlugueis(AluguelParameters aluguelParameters);
         IEnumerable<Models.Aluguel> GetAlugueisCompletos();
+        IEnumerable<Models.Aluguel> GetAlugueisPorConteiner(int codigo);
         IEnumerable<Models.Aluguel> GetAlugueisPorCpf(string cpf);
         Task<Models.Aluguel> GetAluguel(Guid uuid);
     }
