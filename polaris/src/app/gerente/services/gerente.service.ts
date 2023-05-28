@@ -327,6 +327,12 @@ export class GerenteService {
     const url = `${this.aluguelURL}/Alugueis/clientes?cpf=${cpf}`;
     return this.http.get<Aluguel>(url);
   }
+
+  getAlugueisByConteiner(codigo: string): Observable<Aluguel> {
+    const url = `${this.aluguelURL}/Alugueis/conteineres?codigo=${codigo}`;
+    return this.http.get<Aluguel>(url);
+  }
+
   // old
   getAluguelData() {
     return this.http.get('http://localhost:8180/aluguel');

@@ -33,7 +33,6 @@ export class VisualizarHistoricoClienteComponent implements OnInit {
     this.gerenteService.getAlugueisByCPFClient(this.clienteCPF).subscribe( (res: any) => {
         this.clienteAluguelData = res;
         this.getEstadoText(this.clienteAluguelData);
-        console.log(this.clienteAluguelData);
       }
     );
   }

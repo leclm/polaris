@@ -1,43 +1,36 @@
 <div class="visualizar-historico-aluguel-conteiner container-fluid mt-4 mb-4">
-  <div *ngFor="let item of conteineresData">
-    <div *ngIf="item.conteinerUuid == conteinerUuid">
-      <div class="container-content p-4">
-        <h1 class="mb-4">Visualizar Histórico de Aluguéis do Contêiner</h1>
+  <div class="container-content p-4">
+    <h1 class="mb-4">Histórico de Aluguéis</h1>
 
-       <!-- <div class="table-responsive">
-          <table class="table align-middle text-center">
-            <thead class="table-light">
-              <tr>
-                <th [appSort]="aluguelData" data-order="desc" data-name="nome">Cliente <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="aluguelData" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="aluguelData" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="aluguelData" data-order="desc" data-name="estadoAluguel">Status <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="aluguelData" data-order="desc" data-name="dataInicio">Início <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th [appSort]="aluguelData" data-order="desc" data-name="dataDevolucao">Fim <i class="fa fa-sort" aria-hidden="true"></i></th>
-                <th>Opções</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of aluguelData">
-                <td>{{ item.cliente.nome! | capitalizacaoGerente }}</td>
-                <td>{{ item.cliente.telefone! | phoneGerente }}</td>
-                <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacaoGerente }}</td>
-                <td>{{ item.estadoAluguel! | capitalizacaoGerente }}</td>
-                <td>{{ item.dataInicio! | dateGerente }}</td>
-                <td>{{ item.dataDevolucao! | dateGerente }}</td>
-                <td>
-                  <a [routerLink]="['/gerente/visualizar-aluguel', item.aluguelUuid]">
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                  </a>  
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>-->
-
-        <div class="ctn-btn d-flex justify-content-evenly mt-5">
-          <a [routerLink]="['/gerente/visualizar-conteiner', item.conteinerUuid]" alt="Visualizar Detalhes" title="Visualizar Detalhes">Voltar</a>
-        </div>
+    <div class="table-responsive">
+      <table class="table align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Cliente</th>            
+            <th>Telefone</th>
+            <th>Endereço</th>
+            <th [appSort]="conteinerAluguelData" data-order="desc" data-name="valorTotalAluguel">Valor do Aluguel <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="conteinerAluguelData" data-order="desc" data-name="estadoAluguel">Estado <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Visualizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of conteinerAluguelData">            
+            <td>{{ item.cliente.nome! | capitalizacaoGerente }} {{ item.cliente.sobrenome! | capitalizacaoGerente }}</td>
+            <td>{{ item.cliente.telefone! | phoneGerente }}</td>
+            <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacaoGerente }}</td>
+            <td>{{ item.valorTotalAluguel! | currency }}</td>
+            <td>{{ item.estadoAluguel! | capitalizacaoGerente }}</td>
+            <td>
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
       </div>
     </div>
   </div>
