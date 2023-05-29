@@ -73,21 +73,13 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   constructor( private gerenteService: GerenteService ) { }
 
-  ngAfterViewInit() {
-    this.loadGoogleMapsScript(() => this.initializeMap());
-    this.showChart = true;
-  }
-
   ngOnInit(): void {
-    this.getAllClientesAtivos();
     this.loadData();
   }
 
-  getAllClientesAtivos() {
-    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
-        this.clienteData = res;
-      }
-    );
+  ngAfterViewInit() {
+    this.loadGoogleMapsScript(() => this.initializeMap());
+    this.showChart = true;
   }
   
   loadData() {
@@ -100,6 +92,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     this.gerenteService.getAllAlugueis().subscribe( (res: any) => {
       this.aluguelData = res;
       this.getEstadoAluguel(this.aluguelData);
+      this.getEnderecoAluguel(this.aluguelData);
     })
 
   };
@@ -116,15 +109,23 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   getEstadoAluguel(data: any) {
     for (let i = 0; i < data.length; i++) {
-      let estado = data[i].estado;
+      let estado = data[i].estadoAluguel;
       let estadoData = EstadoAluguel[estado]
       for (let dataO of this.dataAluguel ) {
         if (dataO.label === estadoData) { 
-          dataO.y = dataO.y+1;     
+          dataO.y = dataO.y+1;    
        }}}
   };
 
-  //Graficos
+  getEnderecoAluguel(data: any) {
+    for (let i = 0; i < data.length; i++) {
+      let endereco = data[i].endereco;
+      console.log("teste de endereco")
+      console.log(endereco)
+    }
+  };
+
+  //GRAFICO
 
   columnChartOptions = {
     animationEnabled: false,
@@ -133,7 +134,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     },
     data: [{
         type: 'column',
-        dataPoints: this.dataConteiner 
+        dataPoints: this.dataAluguel
     }]
   };
 
@@ -178,10 +179,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     document.body.appendChild(script);
   }
 
-  getAdress(data: any) {
-
-  };
-
   initializeMap() {
 
   const myLatLng = { lat: -25.363, lng: 131.044 };
@@ -214,8 +211,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
 
 }
-
-/////////////////////////////////////////////////
 
 /*
 initialize() {
