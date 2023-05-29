@@ -140,7 +140,7 @@ namespace Polaris.Aluguel.Services
             _context.AluguelRepository.Update(aluguel);
             await _context.Commit();
 
-            if (estado == EstadoAluguel.Finalizado)
+            if (estado == EstadoAluguel.Finalizado || estado == EstadoAluguel.Cancelado)
             {
                 var aluguelDto = await GetAluguel(uuid);
                 foreach (var c in aluguelDto.Conteineres!)

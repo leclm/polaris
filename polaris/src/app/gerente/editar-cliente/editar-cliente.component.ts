@@ -2,12 +2,10 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Cliente } from 'src/app/models/cliente.model';
-import { ClienteLogin } from 'src/app/models/clienteLogin.model';
+import { ClienteEdicao } from 'src/app/models/clienteEdicao.model';
 import { Endereco } from 'src/app/models/endereco.model';
-import { Login } from 'src/app/models/login.model';
-import { LoginEdicaoCadastro } from "src/app/models/loginEdicaoCadastro.model";
 import { GerenteService } from '../services';
+import { Cliente } from 'src/app/models/cliente.model';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -18,13 +16,7 @@ export class EditarClienteComponent implements OnInit {
   public statusMsg!: string;
   public clienteUuid: any;
   public clienteData: any;
-  public clienteById!: ClienteLogin;
-
-  public login: Login = {
-    loginUuid: '',
-    usuario: '',
-    senha: 'senha1234'
-  }
+  public clienteById!: Cliente;
 
   public endereco: Endereco = {
     cep: '',
@@ -35,16 +27,14 @@ export class EditarClienteComponent implements OnInit {
     numero: NaN
   }
 
-  public cliente: ClienteLogin = {
+  public cliente: ClienteEdicao = {
     clienteUuid: '',
     nome: '',
     sobrenome: '',
-    cpf: '',
     dataNascimento: '',
     email: '',
     telefone: '',
-    endereco: this.endereco,
-    login: this.login
+    endereco: this.endereco
   }
   
   @ViewChild("formCliente") formCliente!: NgForm;
@@ -53,13 +43,13 @@ export class EditarClienteComponent implements OnInit {
   ngOnInit(): void {
     this.clienteUuid = this.activatedRoute.snapshot.params['id']; 
     this.getAllClientes();
-    this.getClienteByIdLogin();
+    this.getClienteById();
   }
 
   editar() {
     console.log(this.cliente);
     this.gerenteService.editarCliente(this.cliente).subscribe(
-      (response: HttpResponse<Cliente>) => {   
+      (response: HttpResponse<ClienteEdicao>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';
           console.log('Put request successful');
@@ -81,19 +71,16 @@ export class EditarClienteComponent implements OnInit {
     )
   }
 
-  getClienteByIdLogin() {
-    this.gerenteService.getClienteByIdLogin(this.clienteUuid).subscribe( (res: any) => {
+  getClienteById() {
+    this.gerenteService.getClienteById(this.clienteUuid).subscribe( (res: any) => {
         this.clienteById = res;
         this.cliente.clienteUuid = this.clienteUuid;
         this.cliente.nome = this.clienteById.nome;
         this.cliente.sobrenome = this.clienteById.sobrenome;
-        this.cliente.cpf = this.clienteById.cpf;
         this.cliente.dataNascimento = this.clienteById.dataNascimento;
         this.cliente.email = this.clienteById.email;
         this.cliente.telefone = this.clienteById.telefone;
-        this.cliente.endereco = this.clienteById.endereco;
-        this.cliente.login.loginUuid = this.clienteById.login.loginUuid;  
-        this.cliente.login.usuario = this.clienteById.login.usuario;       
+        this.cliente.endereco = this.clienteById.endereco;  
       }
     )
   }

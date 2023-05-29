@@ -5,6 +5,7 @@ import { Aluguel } from 'src/app/models/aluguel.model';
 import { AluguelEstado } from 'src/app/models/aluguelEstado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Cliente } from 'src/app/models/cliente.model';
+import { ClienteEdicao } from 'src/app/models/clienteEdicao.model';
 import { ClienteLogin } from 'src/app/models/clienteLogin.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { ConteinerEstado } from 'src/app/models/conteinerEstado.model';
@@ -74,10 +75,10 @@ export class GerenteService {
     return this.http.get<ClienteLogin>(url);
   }
 
-  editarCliente(cliente: Cliente): Observable<HttpResponse<Cliente>> {
+  editarCliente(cliente: ClienteEdicao): Observable<HttpResponse<ClienteEdicao>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.loginURL}/Clientes`;
-    return this.http.put<Cliente>(url, cliente, { headers, observe: 'response' });
+    return this.http.put<ClienteEdicao>(url, cliente, { headers, observe: 'response' });
   }
 
   deleteCliente(uuid: string): Observable<HttpResponse<Cliente>> {
@@ -327,6 +328,12 @@ export class GerenteService {
     const url = `${this.aluguelURL}/Alugueis/clientes?cpf=${cpf}`;
     return this.http.get<Aluguel>(url);
   }
+
+  getAlugueisByConteiner(codigo: string): Observable<Aluguel> {
+    const url = `${this.aluguelURL}/Alugueis/conteineres?codigo=${codigo}`;
+    return this.http.get<Aluguel>(url);
+  }
+
   // old
   getAluguelData() {
     return this.http.get('http://localhost:8180/aluguel');
