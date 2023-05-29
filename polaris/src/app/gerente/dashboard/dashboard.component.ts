@@ -2,15 +2,25 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GerenteService } from '../services';
 import {} from 'googlemaps';
 
+enum EstadoAluguel {
+  "Solicitado" = 0,
+  "Em Andamento" = 1,
+  "Pagamento Atrasado" = 2,
+  "Devolução Atrasada" = 3,
+  "Cancelado" = 4,
+  "Aguardando Retirada do Contêiner" = 5,
+  "Finalizado" = 6
+}
+
 enum EstadoConteiner {
-  Cancelado = 0,
-  Disponível = 1,
+  "Cancelado" = 0,
+  "Disponível" = 1,
   "Em Manutenção" = 2,
-  Limpeza = 3,
-  Locado = 4,
-  Atrasado = 5,
-  Reservado = 6,
-  Indisponível = 7,
+  "Limpeza" = 3,
+  "Locado" = 4,
+  "Atrasado" = 5,
+  "Reservado" = 6,
+  "Indisponível" = 7,
   "Em Vistoria" = 8
 };
 
@@ -19,80 +29,48 @@ enum EstadoConteiner {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit,AfterViewInit {
+  
   active = 1;
   chart: any;
   showChart: Boolean = false;
   public clienteData: any;
-  public loginUuid!: string;
-  
-  dataOne = [
-    { label: 'apple', y: 10 },
-    { label: 'orange', y: 15 },
-    { label: 'banana', y: 25 },
-    { label: 'mango', y: 30 },
-    { label: 'grape', y: 28 }
-  ]
-  dataTwo = [
-    { label: 'apple', y: 10 },
-    { label: 'orange', y: 15 },
-    { label: 'banana', y: 25 },
-    { label: 'mango', y: 30 },
-    { label: 'grape', y: 28 }
-  ]
-  dataThree = [
-    { label: 'apple', y: 10 },
-    { label: 'orange', y: 15 },
-    { label: 'banana', y: 25 },
-    { label: 'mango', y: 30 },
-    { label: 'grape', y: 28 }
-  ]
-
-  columnChartOptions = {
-    animationEnabled: true,
-    title: {
-      text: 'Angular Column Chart in Bootstrap Tabs',
-    },
-    data: [{
-        type: 'column',
-        dataPoints: this.dataOne
-    }]
-  };
-  lineChartOptions = {
-    animationEnabled: true,
-    title: {
-      text: 'Angular Line Chart in Bootstrap Tabs',
-    },
-    data: [{
-        type: 'line',
-        dataPoints: this.dataTwo
-      }]
-  };
-  pieChartOptions = {
-    animationEnabled: true,
-    title: {
-      text: 'Angular Pie Chart in Bootstrap Tabs',
-    },
-    data: [{
-        type: 'pie',
-        dataPoints: this.dataThree
-    }]
-  };
-  getChartInstance(chart: object) {
-    this.chart = chart;
-  }
-  navChangeEvent(e: any) {
-    this.showChart = true;
-  }
-  navHiddenEvent(e: any) {
-    this.showChart = false;
-  }
-
   public conteinerData: any;
+  public aluguelData: any;
+  public estadoAluguel = EstadoAluguel;
+
   @ViewChild('map') mapElement: any;
   map!: google.maps.Map;
   private apiKey = 'AIzaSyDT7c9WiX0QDvFDopYb6gPLLFE1hi6eXnE';
-  
+
+  dataConteiner = [
+    { label: 'Cancelado', y: 0 },
+    { label: 'Disponível', y: 0 },
+    { label: 'Em Manutenção', y: 0 },
+    { label: 'Limpeza', y: 0 },
+    { label: 'Locado', y: 0 },
+    { label: 'Atrasado', y: 0 },
+    { label: 'Reservado', y: 0 },
+    { label: 'Indisponível', y: 0 },
+    { label: 'Em Vistoria', y: 0 }
+  ]
+
+  dataAluguel = [
+    { label: 'Solicitado', y: 0 },
+    { label: 'Em Andamento', y: 0 },
+    { label: 'Pagamento Atrasado', y: 0 },
+    { label: 'Devolução Atrasada', y: 0 },
+    { label: 'Cancelado', y: 0 },
+    { label: 'Aguardando Retirada', y: 0 },
+    { label: 'Finalizado', y: 0 }
+  ]
+
+  dataThree = [
+    { label: 'teste 1', y: 0 },
+    { label: 'teste 2', y: 0 }
+  ]
+
   constructor( private gerenteService: GerenteService ) { }
 
   ngAfterViewInit() {
@@ -104,6 +82,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     this.getAllClientesAtivos();
     this.loadData();
   }
+
   getAllClientesAtivos() {
     this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
         this.clienteData = res;
@@ -112,20 +91,85 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   }
   
   loadData() {
-    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
-      this.clienteData = res;
-      console.log(this.clienteData)
-      console.log("aqui")
-      this.getEndereco(this.clienteData);
+    
+    this.gerenteService.getAllConteineresAtivos().subscribe( (res: any) => {
+      this.conteinerData = res;
+      this.getEstadoConteiner(this.conteinerData);
+    });
+
+    this.gerenteService.getAllAlugueis().subscribe( (res: any) => {
+      this.aluguelData = res;
+      this.getEstadoAluguel(this.aluguelData);
     })
+
   };
 
-  getEndereco(data: any) {
+  getEstadoConteiner(data: any) {
     for (let i = 0; i < data.length; i++) {
-      let endereco = data[i].endereco;
-console.log(endereco)
-    }
+      let estado = data[i].estado;
+      let estadoData = EstadoConteiner[estado]
+      for (let dataO of this.dataConteiner ) {
+        if (dataO.label === estadoData) { 
+          dataO.y = dataO.y+1;  
+       }}}
   };
+
+  getEstadoAluguel(data: any) {
+    for (let i = 0; i < data.length; i++) {
+      let estado = data[i].estado;
+      let estadoData = EstadoAluguel[estado]
+      for (let dataO of this.dataAluguel ) {
+        if (dataO.label === estadoData) { 
+          dataO.y = dataO.y+1;     
+       }}}
+  };
+
+  //Graficos
+
+  columnChartOptions = {
+    animationEnabled: false,
+    title: {
+      text: 'Estado dos aluguéis',
+    },
+    data: [{
+        type: 'column',
+        dataPoints: this.dataConteiner 
+    }]
+  };
+
+  lineChartOptions = {
+    animationEnabled: false,
+    title: {
+      text: 'Estado dos conteineres',
+    },
+    data: [{
+        type: 'line',
+        dataPoints: this.dataConteiner 
+      }]
+  };
+
+  pieChartOptions = {
+    animationEnabled: false,
+    title: {
+      text: 'Tipos de conteineres alugados',
+    },
+    data: [{
+        type: 'pie',
+        dataPoints: this.dataConteiner 
+    }]
+  };
+
+  getChartInstance(chart: object) {
+    this.chart = chart;
+  }
+  navChangeEvent(e: any) {
+    this.showChart = true;
+  }
+  navHiddenEvent(e: any) {
+    this.showChart = false;
+  }
+
+  //MAPA
 
   private loadGoogleMapsScript(callback: () => void) {
     const script = document.createElement('script');
