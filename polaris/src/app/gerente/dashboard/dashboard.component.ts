@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   private apiKey = 'AIzaSyDT7c9WiX0QDvFDopYb6gPLLFE1hi6eXnE';
 
   dataConteiner = [
-    { label: 'Cancelado', y: 0 },
+    { label: 'Cancelado', y: 5 },
     { label: 'Disponível', y: 0 },
     { label: 'Em Manutenção', y: 0 },
     { label: 'Limpeza', y: 0 },
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   ]
 
   dataAluguel = [
-    { label: 'Solicitado', y: 0 },
+    { label: 'Solicitado', y: 5 },
     { label: 'Em Andamento', y: 0 },
     { label: 'Pagamento Atrasado', y: 0 },
     { label: 'Devolução Atrasada', y: 0 },
@@ -80,6 +80,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   ngAfterViewInit() {
     this.loadGoogleMapsScript(() => this.initializeMap());
     this.showChart = true;
+    setInterval(() => this.showChart = true, 1000);
+    
   }
   
   loadData() {
@@ -128,9 +130,9 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   //GRAFICO
 
   columnChartOptions = {
-    animationEnabled: false,
+    animationEnabled: true,
     title: {
-      text: 'Estado dos aluguéis',
+      text: 'Aluguéis',
     },
     data: [{
         type: 'column',
@@ -139,9 +141,9 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   };
 
   lineChartOptions = {
-    animationEnabled: false,
+    animationEnabled: true,
     title: {
-      text: 'Estado dos conteineres',
+      text: 'Tipos de conteineres alugados',
     },
     data: [{
         type: 'line',
@@ -150,9 +152,9 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   };
 
   pieChartOptions = {
-    animationEnabled: false,
+    animationEnabled: true,
     title: {
-      text: 'Tipos de conteineres alugados',
+      text: 'Contêineres',
     },
     data: [{
         type: 'pie',
