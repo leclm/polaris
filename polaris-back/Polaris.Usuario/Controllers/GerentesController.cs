@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Usuario.Services;
 using Polaris.Usuario.ViewModels;
 using static Polaris.Usuario.Exceptions.CustomExceptions;
 
 namespace Polaris.Usuario.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class GerentesController : UtilsController
