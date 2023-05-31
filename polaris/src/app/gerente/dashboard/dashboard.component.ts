@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   active = 1;
   chart: any;
   showChart: Boolean = false;
-  public aluguelUuid: any;
   public clienteData: any;
   public conteinerData: any;
   public aluguelData: any;
@@ -69,35 +68,20 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     { label: 'Finalizado', y: 0 }
   ]
 
-  dataThree = [
-    { label: 'teste 1', y: 0 },
-    { label: 'teste 2', y: 0 }
-  ]
-
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private http: HttpClient ) { }
 
   async ngOnInit() { 
     await this.loadData();
-    //this.loadGoogleMapsScript(() => this.initializeMap());
-    //this.showChart = true;
-    //setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
+    
     setTimeout(() => this.showChart = true, 200); 
   }
 
  ngAfterViewInit() {
-
     //setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
     //setTimeout(() => this.showChart = true, 200); 
   }
   
  async loadData() {
-   
-   /* this.aluguelUuid = this.activatedRoute.snapshot.params['id']; 
-  
-    this.gerenteService.getAluguelById(this.aluguelUuid).subscribe( (res: any) => { 
-      this.estadoAluguelSelecionado = res.estadoAluguel;
-    });  */
-
     this.gerenteService.getAllConteineresAtivos().subscribe( (res: any) => {
       this.conteinerData = res;
       this.getEstadoConteiner(this.conteinerData);
@@ -106,7 +90,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     this.gerenteService.getAllAlugueis().subscribe( (res: any) => {
       this.aluguelData = res;
       this.getEstadoAluguel(this.aluguelData);
-      //this.getEnderecoAluguel(this.aluguelData);
       this.loadGoogleMapsScript(() => this.initializeMap(this.aluguelData))
     })
 
@@ -200,25 +183,24 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   const myLatLng = { lat: -25.4555189, lng: -49.2351974 };
   const map = new google.maps.Map(this.mapElement.nativeElement, {
-    zoom: 3,
+    zoom: 10,
     center: myLatLng,
   });
 
   for (let i = 0; i < data.length; i++) {
+    let idAluguel = data[i].aluguelUuid;
+    let clienteCpf = data[i].cliente.cpf
     let endereco = data[i].endereco;
     let cep = JSON.stringify(endereco.cep)
     let logradouro = JSON.stringify(endereco.logradouro)
     let numero = JSON.stringify(endereco.numero) 
     let address =  `${cep} ${logradouro} ${numero}`;
     console.log(address)
-    this.getLatLngFromAddress(address, map) 
+    this.getLatLngFromAddress(address, idAluguel, clienteCpf, map) 
   }
-
-
-
 }
 
-async getLatLngFromAddress(address: string, map: any) {
+async getLatLngFromAddress(address: string, id:string, cpf:string,map: any) {
 
   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.apiKey}`)
   .then((response) => {
@@ -230,12 +212,12 @@ async getLatLngFromAddress(address: string, map: any) {
       var marker = new google.maps.Marker({
         position: { lat: lat, lng: lng},
         map,
-        title: "Contêiner 1",
+        title: cpf,
       });
     
       google.maps.event.addListener(marker, 'click', function() {
-        window.location.href = 'https://www.google.com/';
-        window.open('https://www.google.com/', '_blank');
+        window.location.href = `gerente/visualizar-detalhes-aluguel/${id}`;
+        window.open(`gerente/visualizar-detalhes-aluguel/${id}`, '_blank');
       });
 
   })
@@ -243,34 +225,6 @@ async getLatLngFromAddress(address: string, map: any) {
       console.log(error);
   })
 }
-/*
-initialize() {
-  var contactLatitude = 42;
-  var contactLongitude = -72;
-  var mapCanvas = document.getElementById('map_canvas2');
-  var myLatLng = {
-    lat: contactLatitude,
-    lng: contactLongitude
-  };
-  var mapOptions = {
-    center: new google.maps.LatLng(contactLatitude, contactLongitude),
-    zoom: 8,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  var map = new google.maps.Map(mapCanvas, mapOptions);
-  this.addMarker(myLatLng, map);
-}
-
-addMarker(location:any, map:any) {
-  var marker = new google.maps.Marker({
-    position: location,
-    title: 'Home Center',
-    map: map
-  });
-}
-
-*/
-
 }
 
 
