@@ -76,41 +76,21 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private http: HttpClient ) { }
 
-  getLatLngFromAddress(address: string) {
-    const googleApiKey = this.apiKey
-    const mapUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-    console.log("here we gp")
-    console.log(this.http.get(`${mapUrl}${encodeURIComponent(address)}&key=${googleApiKey}`))
-    return this.http.get(`${mapUrl}${encodeURIComponent(address)}&key=${googleApiKey}`)
+  async ngOnInit() { 
+    await this.loadData();
+    //this.loadGoogleMapsScript(() => this.initializeMap());
+    //this.showChart = true;
+    //setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
+    setTimeout(() => this.showChart = true, 200); 
   }
 
-  ngOnInit(): void { 
-    this.loadData();
+ ngAfterViewInit() {
 
-    var input = "Rua-carlos-pradi-55";
-    const address = "111 Wellington St, Ottawa, ON K1A 0A9, Canada";
-
-fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${this.apiKey}`)
-.then((response) => {
-  console.log("aqui res");
-  console.log(response);
-    return response.json();
-}).then(jsonData => {
-    console.log(jsonData.results[0].geometry.location);
-})
-.catch(error => {
-    console.log(error);
-})
-
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
-    setTimeout(() => this.showChart = true, 200);
-    
+    //setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
+    //setTimeout(() => this.showChart = true, 200); 
   }
   
-  loadData() {
+ async loadData() {
    
    /* this.aluguelUuid = this.activatedRoute.snapshot.params['id']; 
   
@@ -126,7 +106,8 @@ fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${
     this.gerenteService.getAllAlugueis().subscribe( (res: any) => {
       this.aluguelData = res;
       this.getEstadoAluguel(this.aluguelData);
-      this.getEnderecoAluguel(this.aluguelData);
+      //this.getEnderecoAluguel(this.aluguelData);
+      this.loadGoogleMapsScript(() => this.initializeMap(this.aluguelData))
     })
 
   };
@@ -154,8 +135,10 @@ fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${
   getEnderecoAluguel(data: any) {
     for (let i = 0; i < data.length; i++) {
       let endereco = data[i].endereco;
-      console.log("teste de endereco")
-      console.log(endereco)
+      let cep = JSON.stringify(endereco.cep)
+      let logradouro = JSON.stringify(endereco.logradouro)
+      let numero = JSON.stringify(endereco.numero) 
+      console.log( `${cep} ${logradouro} ${numero}`)
     }
   };
 
@@ -213,39 +196,53 @@ fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${
     document.body.appendChild(script);
   }
 
-  initializeMap() {
+  async initializeMap(data: any) {
 
-  const myLatLng = { lat: -25.363, lng: 131.044 };
+  const myLatLng = { lat: -25.4555189, lng: -49.2351974 };
   const map = new google.maps.Map(this.mapElement.nativeElement, {
     zoom: 3,
     center: myLatLng,
   });
 
-  var marker = new google.maps.Marker({
-    position: { lat: -25.363, lng: 125.044 },
-    map,
-    title: "Contêiner 1",
-  });
+  for (let i = 0; i < data.length; i++) {
+    let endereco = data[i].endereco;
+    let cep = JSON.stringify(endereco.cep)
+    let logradouro = JSON.stringify(endereco.logradouro)
+    let numero = JSON.stringify(endereco.numero) 
+    let address =  `${cep} ${logradouro} ${numero}`;
+    console.log(address)
+    this.getLatLngFromAddress(address, map) 
+  }
 
-  google.maps.event.addListener(marker, 'click', function() {
-    window.location.href = 'https://www.google.com/';
-    window.open('https://www.google.com/', '_blank');
-  });
-
-  var marker = new google.maps.Marker({
-    position: { lat: -20.363, lng: 120.044 },
-    map,
-    title: "Contêiner 2",
-  });
-
-  google.maps.event.addListener(marker, 'click', function() {
-    window.location.href = 'https://www.google.com/';
-    window.open('https://www.google.com/', '_blank');
-  });
 
 
 }
 
+async getLatLngFromAddress(address: string, map: any) {
+
+  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.apiKey}`)
+  .then((response) => {
+      return response.json();
+  }).then(jsonData => {
+
+    let lat = jsonData.results[0].geometry.location.lat;
+    let lng = jsonData.results[0].geometry.location.lng;
+      var marker = new google.maps.Marker({
+        position: { lat: lat, lng: lng},
+        map,
+        title: "Contêiner 1",
+      });
+    
+      google.maps.event.addListener(marker, 'click', function() {
+        window.location.href = 'https://www.google.com/';
+        window.open('https://www.google.com/', '_blank');
+      });
+
+  })
+  .catch(error => {
+      console.log(error);
+  })
+}
 /*
 initialize() {
   var contactLatitude = 42;
