@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GerenteService } from '../services';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import {} from 'googlemaps';
 
 enum EstadoAluguel {
@@ -35,6 +37,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   active = 1;
   chart: any;
   showChart: Boolean = false;
+  public aluguelUuid: any;
   public clienteData: any;
   public conteinerData: any;
   public aluguelData: any;
@@ -71,21 +74,50 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     { label: 'teste 2', y: 0 }
   ]
 
-  constructor( private gerenteService: GerenteService ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute, private http: HttpClient ) { }
 
-  ngOnInit(): void {
+  getLatLngFromAddress(address: string) {
+    const googleApiKey = this.apiKey
+    const mapUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+    console.log("here we gp")
+    console.log(this.http.get(`${mapUrl}${encodeURIComponent(address)}&key=${googleApiKey}`))
+    return this.http.get(`${mapUrl}${encodeURIComponent(address)}&key=${googleApiKey}`)
+  }
+
+  ngOnInit(): void { 
     this.loadData();
+
+    var input = "Rua-carlos-pradi-55";
+    const address = "111 Wellington St, Ottawa, ON K1A 0A9, Canada";
+
+fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${input}&key=${this.apiKey}`)
+.then((response) => {
+  console.log("aqui res");
+  console.log(response);
+    return response.json();
+}).then(jsonData => {
+    console.log(jsonData.results[0].geometry.location);
+})
+.catch(error => {
+    console.log(error);
+})
+
   }
 
   ngAfterViewInit() {
-    this.loadGoogleMapsScript(() => this.initializeMap());
-    this.showChart = true;
-    setInterval(() => this.showChart = true, 1000);
+    setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
+    setTimeout(() => this.showChart = true, 200);
     
   }
   
   loadData() {
-    
+   
+   /* this.aluguelUuid = this.activatedRoute.snapshot.params['id']; 
+  
+    this.gerenteService.getAluguelById(this.aluguelUuid).subscribe( (res: any) => { 
+      this.estadoAluguelSelecionado = res.estadoAluguel;
+    });  */
+
     this.gerenteService.getAllConteineresAtivos().subscribe( (res: any) => {
       this.conteinerData = res;
       this.getEstadoConteiner(this.conteinerData);
