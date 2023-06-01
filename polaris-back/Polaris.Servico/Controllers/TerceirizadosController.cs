@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Polaris.Servico.Services;
 using Polaris.Servico.ViewModels;
@@ -6,6 +7,7 @@ using static Polaris.Servico.Exceptions.CustomExceptions;
 
 namespace Polaris.Servico.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class TerceirizadosController : UtilsController
