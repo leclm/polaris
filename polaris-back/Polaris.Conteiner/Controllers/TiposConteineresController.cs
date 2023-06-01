@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Conteiner.Services;
 using Polaris.Conteiner.ViewModels;
 using static Polaris.Conteiner.Exceptions.CustomExceptions;
 
 namespace Polaris.Conteiner.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class TiposConteineresController : UtilsController

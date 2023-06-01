@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Conteiner.Enums;
 using Polaris.Conteiner.Models;
 using Polaris.Conteiner.Services;
@@ -8,6 +9,7 @@ using static Polaris.Conteiner.Exceptions.CustomExceptions;
 
 namespace Polaris.Conteiner.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class PrestacoesServicosController : UtilsController
