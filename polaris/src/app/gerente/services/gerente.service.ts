@@ -10,13 +10,13 @@ import { ClienteLogin } from 'src/app/models/clienteLogin.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { ConteinerEstado } from 'src/app/models/conteinerEstado.model';
 import { Login } from 'src/app/models/login.model';
-import { LoginAcesso } from 'src/app/models/loginAcesso.model';
 import { PrestacaoServico } from 'src/app/models/prestacaoServico.model';
 import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtualizacao.model';
 import { PrestacaoServicoEstado } from 'src/app/models/prestacaoServicoEstado.model';
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Tipo } from 'src/app/models/tipo.model';
+import { LoginService } from 'src/app/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class GerenteService {
   loginURL = 'http://localhost:57361';
   aluguelURL = 'http://localhost:44444';
   
-  constructor( private http: HttpClient ) { } 
+  constructor( private http: HttpClient, private loginService: LoginService ) { } 
   // Login 
   alterarSenha(login: Login): Observable<HttpResponse<Login>> {
     const url = `${this.loginURL}/Logins/alterar-senha`;
@@ -42,49 +42,50 @@ export class GerenteService {
     return this.http.put<Login>(url, null, { headers, observe: 'response' });
   }
 
-  efetuarLogin(login: LoginAcesso): Observable<HttpResponse<LoginAcesso>> {
-    const url = `${this.loginURL}/Logins/logar`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<LoginAcesso>(url, login, { headers, observe: 'response' });
-  }
-
   // Cliente
   addCliente(cliente: Cliente): Observable<HttpResponse<Cliente>> {
+    this.loginService.buildHeaderToken();
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.loginURL}/Clientes`;
-    return this.http.post<Cliente>(url, cliente, { headers, observe: 'response' });
+    return this.http.post<Cliente>(url, cliente, { headers: this.loginService.httpOptions.headers, observe: 'response' });
   }
 
-  getAllClientes(): Observable<Cliente[]> {
+  getAllClientes(): Observable<Cliente[]> {  
+    this.loginService.buildHeaderToken();  
     const url = `${this.loginURL}/Clientes`;
-    return this.http.get<Cliente[]>(url);
+    return this.http.get<Cliente[]>(url, this.loginService.httpOptions);
   }
 
   getAllClientesAtivos(): Observable<Cliente[]> {
+    this.loginService.buildHeaderToken();
     const url = `${this.loginURL}/Clientes/clientes-ativos`;
-    return this.http.get<Cliente[]>(url);
+    return this.http.get<Cliente[]>(url, this.loginService.httpOptions);
   } 
 
   getClienteById(id: string): Observable<Cliente> {
+    this.loginService.buildHeaderToken();
     const url = `${this.loginURL}/Clientes/${id}`;
-    return this.http.get<Cliente>(url);
+    return this.http.get<Cliente>(url, this.loginService.httpOptions);
   }
   
   getClienteByIdLogin(id: string): Observable<ClienteLogin> {
+    this.loginService.buildHeaderToken();
     const url = `${this.loginURL}/Clientes/${id}`;
-    return this.http.get<ClienteLogin>(url);
+    return this.http.get<ClienteLogin>(url, this.loginService.httpOptions);
   }
 
   editarCliente(cliente: ClienteEdicao): Observable<HttpResponse<ClienteEdicao>> {
+    this.loginService.buildHeaderToken();
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.loginURL}/Clientes`;
-    return this.http.put<ClienteEdicao>(url, cliente, { headers, observe: 'response' });
+    return this.http.put<ClienteEdicao>(url, cliente, { headers: this.loginService.httpOptions.headers, observe: 'response' });
   }
 
   deleteCliente(uuid: string): Observable<HttpResponse<Cliente>> {
+    this.loginService.buildHeaderToken();
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.loginURL}/Clientes/alterar-status/${uuid}/false`;
-    return this.http.put<Cliente>(url, null, { headers, observe: 'response' });
+    return this.http.put<Cliente>(url, null, { headers: this.loginService.httpOptions.headers, observe: 'response' });
   }
 
   // Terceirizado
