@@ -1,8 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { GerenteService } from 'src/app/gerente/services';
-import { Login } from 'src/app/models/login.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginAcesso } from 'src/app/models/loginAcesso.model';
+import { LoginService } from '../services';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,28 +18,33 @@ export class LoginComponent implements OnInit {
 
   public login: LoginAcesso = {
     usuario: '',
-    senha: ''
-  } 
-
-  constructor( private gerenteService: GerenteService ) { }
-
-  ngOnInit(): void {
+    senha: '',
+    token: ''
   }
 
-  efetuarLogin() {
-    this.gerenteService.efetuarLogin(this.login).subscribe(
-      (response: HttpResponse<LoginAcesso>) => {   
-        if (response.status === 200 || response.status === 201) {
-          console.log('Put request successful');
-        } else {
-          console.log('Put request failed');
+  @ViewChild('formLogin') formLogin!: NgForm;
+
+  constructor (private loginService: LoginService, private router: Router, private route: ActivatedRoute ) { }
+
+  ngOnInit(): void { }
+  
+  efetuarLogin() {    
+    if (this.formLogin.form.valid) {
+      this.loginService.efetuarLogin(this.login).subscribe(
+        (response: HttpResponse<LoginAcesso>) => {
+          if (response.status === 200 || response.status === 201) {
+            console.log('Put request successful');
+            this.router.navigate(["/gerente/dashboard"]);
+          } else {
+            console.log('Put request failed');
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.statusMsg = 'fail';
         }
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.statusMsg = 'fail';
-      }
-    );
+      );
+    }
   };
 
   forgetPassword() {

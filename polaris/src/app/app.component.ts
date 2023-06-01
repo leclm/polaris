@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from './auth';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Polaris';
-
   status: boolean = false;
+
+  constructor( private loginService: LoginService ) { }
+
   clickEvent(){
     this.status = !this.status;       
+  }
+
+  deleteFromLocalStorage() {
+    this.loginService.deleteFromLocalStorage();
   }
 }
