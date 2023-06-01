@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.Services;
 using Polaris.Aluguel.ViewModels;
-using System.Xml.Linq;
 using static Polaris.Aluguel.Exceptions.CustomExceptions;
 
 namespace Polaris.Aluguel.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class AlugueisController : UtilsController
