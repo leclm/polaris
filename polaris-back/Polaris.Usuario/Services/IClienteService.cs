@@ -1,4 +1,5 @@
-﻿using Polaris.Usuario.ViewModels;
+﻿using NuGet.Common;
+using Polaris.Usuario.ViewModels;
 
 namespace Polaris.Usuario.Services
 {
@@ -6,10 +7,10 @@ namespace Polaris.Usuario.Services
     {
         Task AlterarStatus(Guid uuid, bool status);
         Task<RetornoClienteViewModel> BuscarVinculoClienteAluguel(Guid uuidAluguel);
-        Task<RetornoClienteViewModel> GetCliente(Guid uuid);
-        Task<IEnumerable<RetornoClienteViewModel>> GetClientes();
-        Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos();
-        Task<Guid> PostCliente(CadastroClienteViewModel clienteDto);
-        Task PutCliente(AtualizaClienteViewModel clienteDto);
+        Task<RetornoClienteViewModel> GetCliente(Guid uuid, string token);
+        Task<IEnumerable<RetornoClienteViewModel>> GetClientes(string token);
+        Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos(string token);
+        Task<Guid> PostCliente(CadastroClienteViewModel clienteDto, string token);
+        Task PutCliente(AtualizaClienteViewModel clienteDto, string token);
     }
 }
