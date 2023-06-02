@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-4">
               <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
-              <input type="text" class="form-control" id="inputValorDiaria" value="R$ " name="valorDiaria" [(ngModel)]="tipo.valorDiaria" value="{{tipo.valorDiaria}}" #valorDiaria="ngModel" required>
+              <input type="text" class="form-control" id="inputValorDiaria" value="R$ " name="valorDiaria" [(ngModel)]="tipo.valorDiaria" value="{{tipo.valorDiaria}}" #valorDiaria="ngModel" required mask="separator.2" prefix="R$" thousandSeparator="." decimalSeparator="," [allowNegativeNumbers]="false">
               <div *ngIf="valorDiaria.errors && (valorDiaria.dirty || valorDiaria.touched)" class="alert alert-danger">
                 <div [hidden]="!valorDiaria.errors?.['required']">Digite o valor da diária.</div>
               </div>

@@ -30,8 +30,7 @@
           <div class="col-md-6">
             <label for="inputCnpj" class="form-label">CNPJ</label>
             <input (input)="validateCnpj($event)"type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj" #cnpj="ngModel" required mask='00.000.000/0000-00'>
-            <div *ngIf="cnpj.pristine && cnpj.touched" class="alert alert-danger">Digite um CNPJ.</div>
-            <div *ngIf="hm" class="alert alert-danger">Digite um CNPJ válido.</div>           
+            <div *ngIf="cnpj.pristine && cnpj.touched" class="alert alert-danger">Digite um CNPJ.</div>   
           </div>
           <div class="col-md-12 mt-4 ctn-servicos">
             <label>Serviço Prestado: </label>
@@ -51,10 +50,10 @@
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email"   #email="ngModel" required  email="true">
+            <input type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"  class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email"   #email="ngModel" required  email="true">
             <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
               <div [hidden]="!email.errors?.['required']">Digite o email.</div>
-              <div [hidden]="!email.errors?.['email']">Digite um email válido.</div>
+              <div [hidden]="!email.errors?.['pattern']">Digite um email válido.</div>
             </div>
           </div>     
           <div class="col-md-4">
@@ -78,10 +77,7 @@
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero"  name="numero" #numero="ngModel" required>
-            <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
-              <div [hidden]="!numero.errors?.['required']">Digite um número.</div>
-            </div>
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero"  name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>

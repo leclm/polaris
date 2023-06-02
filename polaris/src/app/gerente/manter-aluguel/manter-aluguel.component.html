@@ -65,10 +65,7 @@
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="enderecoLocacao.numero"  name="numero" #numero="ngModel" required>
-            <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
-              <div [hidden]="!numero.errors?.['required']">Digite um número.</div>
-            </div>
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="enderecoLocacao.numero"  name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
@@ -148,7 +145,7 @@
               <p><span>Total da compra:</span> {{ aluguel.valorTotalAluguel! | currency }} </p>
               <div class="desconto mb-3">
                 <p class="me-2 mt-2"><span>Desconto:</span></p>
-                <input type="text" class="form-control desconto-input" id="inputDesconto" name="desconto" placeholder="R$" [(ngModel)]="aluguel.desconto"> 
+                <input type="text" class="form-control desconto-input" id="inputDesconto" name="desconto" placeholder="R$" [(ngModel)]="aluguel.desconto"  mask="separator.2" prefix="R$" thousandSeparator="." decimalSeparator="," [allowNegativeNumbers]="false"> 
               </div>              
               <p class="line-price pt-2"><span>Total com desconto:</span> {{ aluguel.valorTotalAluguel-aluguel.desconto! | currency }}</p>
             </div>
