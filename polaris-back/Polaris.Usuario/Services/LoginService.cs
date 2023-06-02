@@ -36,11 +36,12 @@ namespace Polaris.Usuario.Services
             }
 
             StringUtils.ClassToUpper(login);
+            var isGerente = await IsGerente(login.LoginId);
 
             return new RetornoLoginViewModel()
             {
                 Usuario = loginDto.Usuario,
-                IsGerente = await IsGerente(login.LoginId),
+                Role = isGerente ? "gerente" : "cliente",
                 LoginUuid = login.LoginUuid,
                 Status = login.Status,
                 Token = GeraToken(login)
