@@ -2,8 +2,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/models/cliente.model';
 import { Endereco } from 'src/app/models/endereco.model';
-import { ViaCepService } from 'src/app/shared';
+import { CustomvalidationService, ViaCepService } from 'src/app/shared';
 import { GerenteService } from '../services';
+
 
 @Component({
   selector: 'app-manter-cliente',
@@ -32,12 +33,13 @@ export class ManterClienteComponent implements OnInit {
     telefone: '',
     endereco: this.endereco
   }
-  
-  constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
+
+  constructor( private viaCepService: ViaCepService, private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
+
   }
-  
+
   cadastrar() {
     this.gerenteService.addCliente(this.cliente).subscribe(
       (response: HttpResponse<Cliente>) => {   
@@ -53,6 +55,13 @@ export class ManterClienteComponent implements OnInit {
         this.statusMsg = 'fail';
       }
     );
+  }
+ 
+  public cpfNotValid = false;
+
+  validateCpf(event: any) {
+    this.cpfNotValid =  this.CustomvalidationService.ValidaCpf(this.cliente.cpf)
+    console.log(this.cpfNotValid)
   }
 
   searchAddress(event: any) {

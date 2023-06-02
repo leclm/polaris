@@ -27,20 +27,16 @@
             <form class="row g-3" #formCliente="ngForm" (ngSubmit)="editar()">
               <div class="col-md-6">
                 <label for="inputNome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel" required minlength="2">
+                <input type="text" class="form-control" id="inputNome" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel" required>
                 <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
                   <div [hidden]="!nome.errors?.['required']">Digite o nome.</div>
-                  <div [hidden]="!nome.errors?.['minlength']">Digite o sobrenome.</div>
                 </div>
               </div>
               <div class="col-md-6">
                 <label for="inputSobrenome" class="form-label">Sobrenome</label>
-                <input type="text" class="form-control" id="inputSobrenome" name="sobrenome" [(ngModel)]="cliente.sobrenome" #sobrenome="ngModel" required minlength="2">
+                <input type="text" class="form-control" id="inputSobrenome" name="sobrenome" [(ngModel)]="cliente.sobrenome" #sobrenome="ngModel" required>
                 <div *ngIf="sobrenome.errors && (sobrenome.dirty || sobrenome.touched)" class="alert alert-danger">
                   <div [hidden]="!sobrenome.errors?.['required']">Digite o sobrenome.</div>
-                  <div [hidden]="!sobrenome.errors?.['minlength']">
-                    O sobrenome deve conter ao menos 2 caracteres.
-                  </div>
                 </div>
               </div>
               <div class="col-md-6">

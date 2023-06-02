@@ -10,7 +10,7 @@ import { SortDirective } from '../shared/directives/sort.directive';
 import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-terceirizado.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManterCategoriaComponent } from './manter-categoria/manter-categoria.component';
 import { VisualizarCategoriasComponent } from './visualizar-categorias/visualizar-categorias.component';
 import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.component';
@@ -43,6 +43,7 @@ import { VisualizarHistoricoClienteComponent } from './visualizar-historico-clie
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { BrowserModule } from '@angular/platform-browser';
+
 import * as CanvasJSAngularChart from '../../assets/canvasjs-chart-3.7.7/canvasjs.angular.component';
 var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 @NgModule({
@@ -90,6 +91,7 @@ var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     NgbCarouselModule,
     NgbCarouselModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ViaCepService } from 'src/app/shared';
+import { ViaCepService, CustomvalidationService } from 'src/app/shared';
 import { GerenteService } from '../services';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Endereco } from 'src/app/models/endereco.model';
@@ -35,7 +35,7 @@ export class ManterTerceirizadoComponent implements OnInit {
     listaServicos: []
   }
 
-  constructor( private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
+  constructor( private CustomvalidationService: CustomvalidationService, private viaCepService: ViaCepService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
     this.getAllServicosAtivos();
@@ -68,6 +68,21 @@ export class ManterTerceirizadoComponent implements OnInit {
         this.statusMsg = 'fail';
       }
     );
+  }
+ 
+  public cnpjNotValid = false;
+  public hm = false;
+
+  validateCnpj(event: any) {
+    this.cnpjNotValid =  this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
+    if(this.cnpjNotValid == true){
+      this.cnpjNotValid = true;
+      this.hm = true;
+    } else {
+      this.cnpjNotValid = false;
+      this.hm = false;
+    }
+    console.log(this.cnpjNotValid)
   }
 
   searchAddress(event: any) {

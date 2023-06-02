@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   private apiKey = 'AIzaSyDT7c9WiX0QDvFDopYb6gPLLFE1hi6eXnE';
 
   dataConteiner = [
-    { label: 'Cancelado', y: 5 },
+    { label: 'Cancelado', y: 0 },
     { label: 'Disponível', y: 0 },
     { label: 'Em Manutenção', y: 0 },
     { label: 'Limpeza', y: 0 },
@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   ]
 
   dataAluguel = [
-    { label: 'Solicitado', y: 5 },
+    { label: 'Solicitado', y: 0 },
     { label: 'Em Andamento', y: 0 },
     { label: 'Pagamento Atrasado', y: 0 },
     { label: 'Devolução Atrasada', y: 0 },

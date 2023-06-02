@@ -25,22 +25,16 @@
         <form class="row g-3" #formCliente="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="inputNome" [(ngModel)]="cliente.nome" name="nome" #nome="ngModel" minlength="2" required>
+            <input type="text" class="form-control" id="inputNome" [(ngModel)]="cliente.nome" name="nome" #nome="ngModel" required>
             <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
               <div [hidden]="!nome.errors?.['required']">Digite o nome.</div>
-              <div [hidden]="!nome.errors?.['minlength']">
-                O nome deve conter ao menos 2 caracteres.
-              </div>
             </div>
           </div>
           <div class="col-md-6">
             <label for="inputSobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" id="inputSobrenome" [(ngModel)]="cliente.sobrenome" name="sobrenome" #sobrenome="ngModel" minlength="2" required>
+            <input type="text" class="form-control" id="inputSobrenome" [(ngModel)]="cliente.sobrenome" name="sobrenome" #sobrenome="ngModel" required>
             <div *ngIf="sobrenome.errors && (sobrenome.dirty || sobrenome.touched)" class="alert alert-danger">
               <div [hidden]="!sobrenome.errors?.['required']">Digite o sobrenome.</div>
-              <div [hidden]="!sobrenome.errors?.['minlength']">
-                O sobrenome deve conter ao menos 2 caracteres.
-              </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -60,34 +54,31 @@
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf" #cpf="ngModel" required minlength="11">
-            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
-              <div [hidden]="!cpf.errors?.['required']">Digite o CPF.</div>
-            </div>
+            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf" (input)="validateCpf($event)" #cpf="ngModel" required mask="000.000.000-00">
+            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">Digite um CPF.</div>
+            <div *ngIf="cpfNotValid" class="alert alert-danger">Digite um CPF válido.</div>
           </div>
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone" #telefone="ngModel" required minlength="11">
-            <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
-              <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
-              <div [hidden]="!telefone.errors?.['minlength']">O telefone deve ter 8 digitos incluindo o DDD.</div>
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone" #telefone="ngModel" required mask="(00) 00000-0000">
+            <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" >
+              <div class="alert alert-danger" [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
             </div>
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="cliente.email" name="email" #email="ngModel" required  email="true">
+            <input type="email" class="form-control" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="inputEmail" [(ngModel)]="cliente.email" name="email" #email="ngModel" required  email="true">
             <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
               <div [hidden]="!email.errors?.['required']">Digite o email.</div>
-              <div [hidden]="!email.errors?.['email']">Digite um email válido.</div>
+              <div [hidden]="!email.errors?.['pattern']">Digite um email válido.</div>
             </div>
           </div>
      
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required minlength="8">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
             <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
               <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
-              <div [hidden]="!cep.errors?.['minlength']">Digite um CEP válido.</div>
             </div>
           </div>
           <div class="col-md-4">
@@ -104,10 +95,7 @@
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero" #numero="ngModel" required>
-            <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
-              <div [hidden]="!numero.errors?.['required']">Digite um número.</div>
-            </div>
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
