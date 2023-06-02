@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Polaris.Endereco.DTOs;
 using Polaris.Endereco.Services;
@@ -6,6 +6,7 @@ using static Polaris.Endereco.Exceptions.CustomExceptions;
 
 namespace Polaris.Endereco.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class EnderecosController : UtilsController
