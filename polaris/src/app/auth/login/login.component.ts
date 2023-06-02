@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoginAcesso } from 'src/app/models/loginAcesso.model';
 import { LoginService } from '../services';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +13,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class LoginComponent implements OnInit {
   public statusMsg!: string;
-  inputLogin: string = '';
-  password: string = '';
 
   public login: LoginAcesso = {
     usuario: '',
     senha: '',
-    token: ''
+    token: '',
+    isGerente: false,
+    loginUuid: ''
   }
 
   @ViewChild('formLogin') formLogin!: NgForm;
 
-  constructor (private loginService: LoginService, private router: Router, private route: ActivatedRoute ) { }
+  constructor (private loginService: LoginService, private router: Router ) { }
 
   ngOnInit(): void { }
   

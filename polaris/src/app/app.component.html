@@ -6,40 +6,36 @@
       </a>
     </div>
 
-    <!-- Menu Cliente
-    <ul class="list-group list-group-flush">
-      <li class="mb-3"><a [routerLink]="['/cliente']">Home</a></li>
-      <li class="mb-3"><a [routerLink]="['/cliente/alterar-senha']">Alterar Senha</a></li>
-      <li class="container-logout"><a href="#"><button type="button" class="btn">Logout</button></a></li>
-    </ul>  -->
-
-    <!-- Menu funcionário -->
     <ul class="list-group list-group-flush">
       <li class="mb-3"><a [routerLink]="['/sistema']">Home</a></li>
-      <li class="mb-3"><a [routerLink]="['/gerente/dashboard']">Dashboard</a></li>
-
-      <li><a [routerLink]="['/gerente/manter-aluguel']">Aluguel</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/manter-aluguel']">Novo Aluguel</a></li>
-      <li class="ms-4 mb-3"><a  [routerLink]="['/gerente/visualizar-historico-alugueis']">Visualizar Aluguéis</a></li>
       
-      <li><a [routerLink]="['/gerente/visualizar-clientes']">Clientes</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/manter-cliente']">Cadastro</a></li>
-      <li class="ms-4 mb-3"><a [routerLink]="['/gerente/visualizar-clientes']">Visualizar Clientes</a></li>
-
-      <li><a [routerLink]="['gerente/visualizar-estoque-conteineres']">Contêineres</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/manter-conteiner']">Cadastro</a></li>
-      <li class="ms-4 mb-3"><a  [routerLink]="['gerente/visualizar-estoque-conteineres']">Estoque</a></li>
+      <li *ngIf="logado && perfil === 'CLIENTE'" class="mb-3"><a [routerLink]="['/cliente/alterar-senha']">Alterar Senha</a></li>
       
-      <li><a [routerLink]="['/gerente/visualizar-categorias']">Categorias e Tipos</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/visualizar-categorias']">Visualizar Categorias</a></li>
-      <li class="ms-4 mb-3"><a [routerLink]="['/gerente/visualizar-tipos']">Visualizar Tipos</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="mb-3"><a [routerLink]="['/gerente/dashboard']">Dashboard</a></li>
+      
+      <li *ngIf="logado && perfil === 'GERENTE'"><a [routerLink]="['/gerente/manter-aluguel']">Aluguel</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/manter-aluguel']">Novo Aluguel</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4 mb-3"><a  [routerLink]="['/gerente/visualizar-historico-alugueis']">Visualizar Aluguéis</a></li>
+      
+      <li *ngIf="logado && perfil === 'GERENTE'"><a [routerLink]="['/gerente/visualizar-clientes']">Clientes</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/manter-cliente']">Cadastro</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4 mb-3"><a [routerLink]="['/gerente/visualizar-clientes']">Visualizar Clientes</a></li>
 
-      <li><a [routerLink]="['/gerente/visualizar-terceirizados']">Terceirizados</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/manter-terceirizado']">Cadastro</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/visualizar-terceirizados']">Visualizar Terceirizados</a></li>
-      <li class="ms-4"><a [routerLink]="['/gerente/visualizar-servicos']">Visualizar Serviços</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'"><a [routerLink]="['gerente/visualizar-estoque-conteineres']">Contêineres</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/manter-conteiner']">Cadastro</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4 mb-3"><a  [routerLink]="['gerente/visualizar-estoque-conteineres']">Estoque</a></li>
+      
+      <li *ngIf="logado && perfil === 'GERENTE'"><a [routerLink]="['/gerente/visualizar-categorias']">Categorias e Tipos</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/visualizar-categorias']">Visualizar Categorias</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4 mb-3"><a [routerLink]="['/gerente/visualizar-tipos']">Visualizar Tipos</a></li>
+
+      <li *ngIf="logado && perfil === 'GERENTE'"><a [routerLink]="['/gerente/visualizar-terceirizados']">Terceirizados</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/manter-terceirizado']">Cadastro</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/visualizar-terceirizados']">Visualizar Terceirizados</a></li>
+      <li *ngIf="logado && perfil === 'GERENTE'" class="ms-4"><a [routerLink]="['/gerente/visualizar-servicos']">Visualizar Serviços</a></li>
            
-      <li class="container-logout"><a href="#"><button #logoutBtn type="button" class="btn" (click)="deleteFromLocalStorage()">Logout</button></a></li>
+      <li *ngIf="logado" class="container-logout"><a href="#"><button #logoutBtn type="button" class="btn" (click)="deleteFromLocalStorage()">Sair</button></a></li>
+      <li *ngIf="!logado" class="container-logout"><a href="#"><button class="btn" [routerLink]="['/sistema']">Entrar</button></a></li>
     </ul>
   </div>
 

@@ -32,146 +32,279 @@ import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alu
 import { EditarEstadoAluguelComponent } from './editar-estado-aluguel';
 import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel';
 import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente/visualizar-historico-cliente.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 export const GerenteRoutes: Routes = [
   // Dashboard
   {
     path: 'gerente/dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Cliente
   {
     path: 'gerente/manter-cliente',
-    component: ManterClienteComponent
+    component: ManterClienteComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-cliente/:id',
-    component: EditarClienteComponent
+    component: EditarClienteComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-clientes',
-    component: VisualizarClientesComponent
+    component: VisualizarClientesComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-detalhes-cliente/:id',
-    component: VisualizarDetalhesClienteComponent
+    component: VisualizarDetalhesClienteComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-historico-cliente/:id',
-    component: VisualizarHistoricoClienteComponent
+    component: VisualizarHistoricoClienteComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Terceirizado
   {
     path: 'gerente/manter-terceirizado',
-    component: ManterTerceirizadoComponent
+    component: ManterTerceirizadoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-terceirizado/:id',
-    component: EditarTerceirizadoComponent
+    component: EditarTerceirizadoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-terceirizados',
-    component: VisualizarTerceirizadosComponent
+    component: VisualizarTerceirizadosComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-detalhes-terceirizado/:id',
-    component: VisualizarDetalhesTerceirizadoComponent
+    component: VisualizarDetalhesTerceirizadoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-historico-terceirizado/:id',
-    component: VisualizarHistoricoTerceirizadoComponent
+    component: VisualizarHistoricoTerceirizadoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Serviços Prestados pelos Terceirizados
   {
     path: 'gerente/manter-servico',
-    component: ManterServicoComponent
+    component: ManterServicoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-servico/:id',
-    component: EditarServicoComponent
+    component: EditarServicoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-servicos',
-    component: VisualizarServicosComponent
+    component: VisualizarServicosComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Categoria de Contêiner
   {
     path: 'gerente/manter-categoria',
-    component: ManterCategoriaComponent
+    component: ManterCategoriaComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-categorias',
-    component: VisualizarCategoriasComponent
+    component: VisualizarCategoriasComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-categoria/:id',
-    component: EditarCategoriaComponent
+    component: EditarCategoriaComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Tipo de Contêiner
   {
     path: 'gerente/manter-tipo',
-    component: ManterTipoComponent
+    component: ManterTipoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-tipo/:id',
-    component: EditarTipoComponent
+    component: EditarTipoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-tipos',
-    component: VisualizarTiposComponent
+    component: VisualizarTiposComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Contêiner
   {
     path: 'gerente/visualizar-estoque-conteineres',
-    component: VisualizarEstoqueConteineresComponent
+    component: VisualizarEstoqueConteineresComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-conteiner/:id',
-    component: VisualizarConteinerComponent
+    component: VisualizarConteinerComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/manter-conteiner',
-    component: ManterConteinerComponent
+    component: ManterConteinerComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-conteiner/:id',
-    component: EditarConteinerComponent
+    component: EditarConteinerComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-disponibilidade-conteiner/:id',
-    component: EditarDisponibilidadeConteinerComponent
+    component: EditarDisponibilidadeConteinerComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-historico-prestacao-servico/:id',
-    component: VisualizarHistoricoPrestacaoServicoComponent
+    component: VisualizarHistoricoPrestacaoServicoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-historico-aluguel-conteiner/:id',
-    component: VisualizarHistoricoAluguelConteinerComponent
+    component: VisualizarHistoricoAluguelConteinerComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/manter-prestacao-servico/:id',
-    component: ManterPrestacaoServicoComponent
+    component: ManterPrestacaoServicoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-prestacao-servico/:id',
-    component: EditarPrestacaoServicoComponent
+    component: EditarPrestacaoServicoComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   // Aluguel
   {
     path: 'gerente/manter-aluguel',
-    component: ManterAluguelComponent
+    component: ManterAluguelComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-historico-alugueis',
-    component: VisualizarHistoricoAlugueisComponent
+    component: VisualizarHistoricoAlugueisComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/editar-estado-aluguel/:id',
-    component: EditarEstadoAluguelComponent
+    component: EditarEstadoAluguelComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   },
   {
     path: 'gerente/visualizar-detalhes-aluguel/:id',
-    component: VisualizarDetalhesAluguelComponent
+    component: VisualizarDetalhesAluguelComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'GERENTE'
+      }
   }
 ];

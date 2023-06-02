@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LoginAcesso } from 'src/app/models/loginAcesso.model';
-import { Usuario } from 'src/app/models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +10,8 @@ import { Usuario } from 'src/app/models/usuario';
 export class LoginService {
   loginURL = 'http://localhost:57361';
   token: string | null = null;
-  isGerente: boolean = false;
-  loginId: string = '';
+  isGerente: boolean | null = null;
+  loginUuid: string = '';
   httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json"})};
   
   constructor( private http: HttpClient ) { }
@@ -43,6 +42,8 @@ export class LoginService {
     return this.http.post<LoginAcesso>(url, login, { headers: this.httpOptions.headers, observe: 'response' })
       .pipe(
         tap((response: HttpResponse<LoginAcesso>) => {
+          this.isGerente = response.body?.isGerente ?? null;
+          this.loginUuid = response.body?.loginUuid ?? '';
           console.log(response.body);
           const token = response.body?.token;
           if (token) {
@@ -53,21 +54,4 @@ export class LoginService {
         })
       );
   }
- 
-  public set usuarioLogado(usuario: Usuario) {
-    localStorage[this.token ? this.token : ''] = JSON.stringify(usuario);
-  }
-  
- /**
-  *  public get usuarioLogado() {
-    return JSON.parse(localStorage[this.token? this.token : '']);
-  }
-  */
-
-  efetuarLogin2(login: LoginAcesso): Observable<HttpResponse<LoginAcesso>> {
-    const url = `${this.loginURL}/Logins/logar`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<LoginAcesso>(url, login, { headers, observe: 'response' });
-  }
-      
 }
