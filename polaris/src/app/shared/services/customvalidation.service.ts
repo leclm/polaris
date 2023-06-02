@@ -8,6 +8,12 @@ export class CustomvalidationService {
 
   constructor() { }
 
+  alteraData(data:string): any {
+    
+    console.log(data)
+    return data;
+  }
+
   ValidaCpf(cpf: string): any {
 
     if (cpf) {

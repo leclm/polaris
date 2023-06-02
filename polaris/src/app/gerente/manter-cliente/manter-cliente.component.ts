@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Cliente } from 'src/app/models/cliente.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { CustomvalidationService, ViaCepService } from 'src/app/shared';
@@ -38,6 +38,19 @@ export class ManterClienteComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+public dataVar = 'dd-mm-aaaa';
+
+  valuechange(date: any) {
+    this.cliente.dataNascimento = `${date.year}-${date.month}-${date.day}`;
+
+    console.log("this.cliente.dataNascimento")
+    console.log(this.cliente.dataNascimento)
+    
+    this.dataVar = `${date.day}-${date.month}-${date.year}`;
+
+    console.log("this.dataVar")
+    console.log(this.dataVar)
   }
 
   cadastrar() {

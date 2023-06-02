@@ -40,8 +40,8 @@
           <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
             <div class="input-group mb-6">
-              <input class="form-control" placeholder="dd-mm-aaaa" id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento"
-                name="dataNascimento" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" />
+              <input class="form-control" placeholder={{dataVar}} id="inputDataNascimento" [(ngModel)]="dataVar"
+                name="dataNascimento" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
                     class="fa-solid fa-calendar"></i></button>
@@ -51,6 +51,9 @@
                 </ng-template>
               </div>
             </div>
+            <!--<div *ngIf="dataVar=='dd-mm-aaaa'" class="alert alert-danger">
+              Erro.
+            </div>-->
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>
