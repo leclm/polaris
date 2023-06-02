@@ -27,7 +27,7 @@ export class CustomvalidationService {
       for (i = 0; i < cpf.length - 1; i++) {
         if (cpf.charAt(i) !== cpf.charAt(i + 1)) {
           equalDigits = 0;
-          console.log("teste2")
+          console.log("n digitos certo")
           break;
         }
       }
@@ -55,10 +55,10 @@ export class CustomvalidationService {
         result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
 
         if (result !== Number(digits.charAt(1))) {
-          console.log("teste4")
+          console.log("cpf n valido")
           return { cpfNotValid: true };
         }
-        console.log("teste5")
+        console.log("tcpf valido")
         return null;
       } else {
         console.log("teste6")
@@ -71,9 +71,9 @@ export class CustomvalidationService {
 
   validaCnpj(cnpj: string): any {
 
-    if (cnpj == '') return false;
+    if (cnpj == '') return { cnpjNotValid: false }
     if (cnpj.length != 14){
-      console.log("f")
+      //console.log("f")
         return { cnpjNotValid: true }
     }
   
@@ -90,7 +90,7 @@ export class CustomvalidationService {
     }
     let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != +digitos.charAt(0)){
-      console.log("f")
+      //console.log("f")
       return { cnpjNotValid: true }
     }
   
@@ -105,12 +105,13 @@ export class CustomvalidationService {
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != +digitos.charAt(1)){
-      console.log("f")
+      //console.log("f")
       return { cnpjNotValid: true }
     }
          
-    console.log("verdadeiro")
-    return { cnpjNotValid: false }
+    //console.log("verdadeiro")
+    return null;
   }
+  
 }
 

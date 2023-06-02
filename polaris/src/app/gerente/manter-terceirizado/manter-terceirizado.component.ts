@@ -71,19 +71,19 @@ export class ManterTerceirizadoComponent implements OnInit {
   }
  
   public cnpjNotValid = false;
-  public hm = false;
 
   validateCnpj(event: any) {
-    this.cnpjNotValid =  this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
+      let valid = this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
+      this.cnpjNotValid = valid;
     if(this.cnpjNotValid == true){
-      this.cnpjNotValid = true;
-      this.hm = true;
+      console.log("fora")
+      console.log(this.cnpjNotValid)
     } else {
-      this.cnpjNotValid = false;
-      this.hm = false;
+      console.log("fora")
+      console.log(this.cnpjNotValid)
     }
-    console.log(this.cnpjNotValid)
   }
+
 
   searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.endereco.cep).subscribe(data => {
