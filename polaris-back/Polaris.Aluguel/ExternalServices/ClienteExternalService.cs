@@ -23,12 +23,13 @@ namespace Polaris.Aluguel.ExternalServices
                 .GetJsonAsync<Cliente>();
         }
 
-        public async Task<RetornoClienteViewModel> GetClienteAluguel(Guid uuid)
+        public async Task<RetornoClienteViewModel> GetClienteAluguel(Guid uuid, string token)
         {
             return await _config.PolarisClienteConfig.Url
                 .AppendPathSegment(_config.PolarisClienteConfig.Endpoints.Cliente)
                 .AppendPathSegment(_config.PolarisClienteConfig.Endpoints.GetClienteAluguel)
                 .AppendPathSegment(uuid)
+                .WithHeader("Authorization", token)
                 .GetJsonAsync<RetornoClienteViewModel>();
         }
     }

@@ -5,7 +5,7 @@ namespace Polaris.Aluguel.ExternalServices
 {
     public interface IClienteExternalService
     {
-        Task<RetornoClienteViewModel> GetClienteAluguel(Guid uuid);
+        Task<RetornoClienteViewModel> GetClienteAluguel(Guid uuid, string token);
         Task<Cliente> GetClientes(Guid uuid);
     }
 }
