@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from './auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,15 @@ import { LoginService } from './auth';
 export class AppComponent {
   title = 'Polaris';
   status: boolean = false;
+  
+  constructor( private router: Router, private loginService: LoginService) { }
+  // CERTO: GERENTE : CLIENTE
+  logado = true;
+  perfil = this.loginService.isGerente ? 'CLIENTE' : 'GERENTE';
+  // perfil = this.loginService.isGerente ? 'GERENTE' : 'CLIENTE';
 
-  constructor( private loginService: LoginService ) { }
-
-  clickEvent(){
-    this.status = !this.status;       
+  clickEvent() {
+    this.status = !this.status;
   }
 
   deleteFromLocalStorage() {
