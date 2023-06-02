@@ -43,11 +43,11 @@ namespace Polaris.Usuario.Services
                 IsGerente = await IsGerente(login.LoginId),
                 LoginUuid = login.LoginUuid,
                 Status = login.Status,
-                Token = GeraToekn(login)
+                Token = GeraToken(login)
             };
         }
 
-        private string GeraToekn(Login login)
+        private string GeraToken(Login login)
         {
             //define declarações do usuário
             var claims = new[]

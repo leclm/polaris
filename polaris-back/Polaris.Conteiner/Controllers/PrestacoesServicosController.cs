@@ -60,7 +60,7 @@ namespace Polaris.Conteiner.Controllers
         {
             try
             {
-                return Ok(await _service.GetPrestacoesServicosPorConteiner(uuidConteiner));
+                return Ok(await _service.GetPrestacoesServicosPorConteiner(uuidConteiner, Request!.Headers!.Authorization!));
             }
             catch (PrestacaoServicoNaoEncontradaException ex)
             {
@@ -84,7 +84,7 @@ namespace Polaris.Conteiner.Controllers
         {
             try
             {
-                return Ok(await _service.GetPrestacaoDeServicos());
+                return Ok(await _service.GetPrestacaoDeServicos(Request!.Headers!.Authorization!));
             }
             catch (PrestacaoServicoNaoEncontradaException ex)
             {
@@ -109,7 +109,7 @@ namespace Polaris.Conteiner.Controllers
         {
             try
             {
-                return Ok(await _service.GetPrestacaoDeServico(uuid));
+                return Ok(await _service.GetPrestacaoDeServico(uuid, Request!.Headers!.Authorization!));
             }
             catch (PrestacaoServicoNaoEncontradaException ex)
             {
