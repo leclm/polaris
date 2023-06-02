@@ -14,21 +14,23 @@ namespace Polaris.Conteiner.ExternalServices
             _config = config.Value;
         }
 
-        public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid)
+        public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid, string token)
         {
             return await _config.PolarisServicoConfig.Url
                 .AppendPathSegment(_config.PolarisServicoConfig.Endpoints.Terceirizados)
                 .AppendPathSegment(_config.PolarisServicoConfig.Endpoints.BuscarTerceirizadoPrestacaoServico)
                 .AppendPathSegment(uuid)
+                .WithHeader("Authorization", token)
                 .GetJsonAsync<RetornoTerceirizadoViewModel>();
         }
 
-        public async Task<BuscaServicoViewModel> GetServico(Guid uuid)
+        public async Task<BuscaServicoViewModel> GetServico(Guid uuid, string token)
         {
             return await _config.PolarisServicoConfig.Url
                 .AppendPathSegment(_config.PolarisServicoConfig.Endpoints.Servicos)
                 .AppendPathSegment(_config.PolarisServicoConfig.Endpoints.BuscarServicoPrestacaoServico)
                 .AppendPathSegment(uuid)
+                .WithHeader("Authorization", token)
                 .GetJsonAsync<BuscaServicoViewModel>();
         }
     }

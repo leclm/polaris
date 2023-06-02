@@ -28,7 +28,7 @@ namespace Polaris.Usuario.Services
             _loginRepository = loginRepository;
         }
 
-        public async Task<IEnumerable<RetornoGerenteViewModel>> GetGerentes()
+        public async Task<IEnumerable<RetornoGerenteViewModel>> GetGerentes(string token)
         {
             var gerentes = _context.GerenteRepository.GenteGerentesCompleto();
             if (!gerentes.Any())
@@ -36,23 +36,23 @@ namespace Polaris.Usuario.Services
                 throw new GerenteNaoEncontradoException("Não há gerentes cadastrados.");
             }
 
-            return await ConsultaEnderecosGerentes(gerentes);
+            return await ConsultaEnderecosGerentes(gerentes, token);
         }
 
-        public async Task<IEnumerable<RetornoGerenteViewModel>> GetGerentesAtivos()
+        public async Task<IEnumerable<RetornoGerenteViewModel>> GetGerentesAtivos(string token)
         {
             var gerentes = _context.GerenteRepository.GetGerentesAtivosCompleto();
             if (!gerentes.Any())
             {
                 throw new GerenteNaoEncontradoException("Não há gerentes ativos.");
             }
-            return await ConsultaEnderecosGerentes(gerentes);
+            return await ConsultaEnderecosGerentes(gerentes, token);
         }
 
-        public async Task<RetornoGerenteViewModel> GetGerente(Guid uuid)
+        public async Task<RetornoGerenteViewModel> GetGerente(Guid uuid, string token)
         {
             var gerente = await _context.GerenteRepository.GetGerente(uuid);
-            gerente.Endereco = await _enderecoExternalService.GetEnderecoGerente(uuid);
+            gerente.Endereco = await _enderecoExternalService.GetEnderecoGerente(uuid, token);
 
             if (gerente is null)
             {
@@ -62,7 +62,7 @@ namespace Polaris.Usuario.Services
             return gerenteDto;
         }
 
-        public async Task<Guid> PostGerente(CadastroGerenteViewModel gerenteDto)
+        public async Task<Guid> PostGerente(CadastroGerenteViewModel gerenteDto, string token)
         {
             if (await _context.GerenteRepository.GetByParameter(x => x.Cnpj == gerenteDto.Cnpj
             || x.Email == gerenteDto.Email) is not null)
@@ -70,7 +70,7 @@ namespace Polaris.Usuario.Services
                 throw new CadastrarGerenteException("Gerente já existe. Erro ao cadastrar um gerente.");
             }
 
-            var enderecoUuid = await _enderecoExternalService.PostEnderecos(gerenteDto.Endereco);
+            var enderecoUuid = await _enderecoExternalService.PostEnderecos(gerenteDto.Endereco, token);
             gerenteDto.Endereco = null;
 
             var loginUuid = await _loginService.CadastrarLogin(new CadastroLoginViewModel(gerenteDto));
@@ -103,7 +103,7 @@ namespace Polaris.Usuario.Services
             return gerente.GerenteUuid;
         }
 
-        public async Task PutGerente(AtualizaGerenteViewModel gerenteDto)
+        public async Task PutGerente(AtualizaGerenteViewModel gerenteDto, string token)
         {
             if (gerenteDto.GerenteUuid == Guid.Empty)
             {
@@ -122,7 +122,7 @@ namespace Polaris.Usuario.Services
                 throw new AtualizarGerenteException("Gerente não encontrado. Erro ao atualizar.");
             }
 
-            await _enderecoExternalService.PutEnderecos(gerenteDto.Endereco);
+            await _enderecoExternalService.PutEnderecos(gerenteDto.Endereco, token);
             gerenteDto.Endereco = null;
 
             var gerenteBase = await _context.GerenteRepository.GetByParameter(p => p.GerenteUuid == gerenteDto.GerenteUuid);
@@ -151,12 +151,12 @@ namespace Polaris.Usuario.Services
             var enderecoDto = _mapper.Map<AtualizaGerenteViewModel>(gerente);
         }
 
-        private async Task<IEnumerable<RetornoGerenteViewModel>> ConsultaEnderecosGerentes(IEnumerable<Gerente> gerentes)
+        private async Task<IEnumerable<RetornoGerenteViewModel>> ConsultaEnderecosGerentes(IEnumerable<Gerente> gerentes, string token)
         {
             List<RetornoGerenteViewModel> gerentesDto = new();
             foreach (var gerente in gerentes)
             {
-                gerente.Endereco = await _enderecoExternalService.GetEnderecoGerente(gerente.GerenteUuid);
+                gerente.Endereco = await _enderecoExternalService.GetEnderecoGerente(gerente.GerenteUuid, token);
                 gerentesDto.Add(_mapper.Map<RetornoGerenteViewModel>(gerente));
             }
             return gerentesDto;

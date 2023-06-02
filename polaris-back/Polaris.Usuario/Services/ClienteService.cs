@@ -28,7 +28,7 @@ namespace Polaris.Usuario.Services
             _loginService = loginService;
         }
 
-        public async Task<IEnumerable<RetornoClienteViewModel>> GetClientes()
+        public async Task<IEnumerable<RetornoClienteViewModel>> GetClientes(string token)
         {
             var clientes = _context.ClienteRepository.GetClientesCompleto();
             if (!clientes.Any())
@@ -36,23 +36,23 @@ namespace Polaris.Usuario.Services
                 throw new ClienteNaoEncontradoException("Não há clientes cadastrados.");
             }
 
-            return await ConsultaEnderecosClientes(clientes);
+            return await ConsultaEnderecosClientes(clientes, token);
         }
 
-        public async Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos()
+        public async Task<IEnumerable<RetornoClienteViewModel>> GetClientesAtivos(string token)
         {
             var clientes = _context.ClienteRepository.GetClientesAtivosCompleto();
             if (!clientes.Any())
             {
                 throw new ClienteNaoEncontradoException("Não há clientes ativos.");
             }
-            return await ConsultaEnderecosClientes(clientes);
+            return await ConsultaEnderecosClientes(clientes, token);
         }
 
-        public async Task<RetornoClienteViewModel> GetCliente(Guid uuid)
+        public async Task<RetornoClienteViewModel> GetCliente(Guid uuid, string token)
         {
             var cliente = await _context.ClienteRepository.GetCliente(uuid);
-            cliente.Endereco = await _enderecoExternalService.GetEnderecoCliente(uuid);
+            cliente.Endereco = await _enderecoExternalService.GetEnderecoCliente(uuid, token);
 
             if (cliente is null)
             {
@@ -62,7 +62,7 @@ namespace Polaris.Usuario.Services
             return clienteDto;
         }
 
-        public async Task<Guid> PostCliente(CadastroClienteViewModel clienteDto)
+        public async Task<Guid> PostCliente(CadastroClienteViewModel clienteDto, string token)
         {
             if (await _context.ClienteRepository.GetByParameter(x => x.Cpf == clienteDto.Cpf
             || x.Email == clienteDto.Email) is not null)
@@ -70,7 +70,7 @@ namespace Polaris.Usuario.Services
                 throw new CadastrarClienteException("Cliente já existe. Erro ao cadastrar um cliente.");
             }
 
-            var enderecoUuid = await _enderecoExternalService.PostEnderecos(clienteDto.Endereco);
+            var enderecoUuid = await _enderecoExternalService.PostEnderecos(clienteDto.Endereco, token);
             clienteDto.Endereco = null;
 
             var loginUuid = await _loginService.CadastrarLogin(new CadastroLoginViewModel(clienteDto));
@@ -103,7 +103,7 @@ namespace Polaris.Usuario.Services
             return cliente.ClienteUuid;
         }
 
-        public async Task PutCliente(AtualizaClienteViewModel clienteDto)
+        public async Task PutCliente(AtualizaClienteViewModel clienteDto, string token)
         {
             if (clienteDto.ClienteUuid == Guid.Empty)
             {
@@ -122,7 +122,7 @@ namespace Polaris.Usuario.Services
                 throw new AtualizarClienteException("Cliente não encontrado. Erro ao atualizar.");
             }
 
-            await _enderecoExternalService.PutEnderecos(clienteDto.Endereco);
+            await _enderecoExternalService.PutEnderecos(clienteDto.Endereco, token);
             clienteDto.Endereco = null;
           
             var clienteBase = await _context.ClienteRepository.GetByParameter(p => p.ClienteUuid == clienteDto.ClienteUuid);
@@ -151,12 +151,12 @@ namespace Polaris.Usuario.Services
             var enderecoDto = _mapper.Map<AtualizaClienteViewModel>(cliente);
         }
 
-        private async Task<IEnumerable<RetornoClienteViewModel>> ConsultaEnderecosClientes(IEnumerable<Cliente> clientes)
+        private async Task<IEnumerable<RetornoClienteViewModel>> ConsultaEnderecosClientes(IEnumerable<Cliente> clientes, string token)
         {
             List<RetornoClienteViewModel> clientesDto = new();
             foreach (var cliente in clientes)
             {
-                cliente.Endereco = await _enderecoExternalService.GetEnderecoCliente(cliente.ClienteUuid);
+                cliente.Endereco = await _enderecoExternalService.GetEnderecoCliente(cliente.ClienteUuid, token);
                 clientesDto.Add(_mapper.Map<RetornoClienteViewModel>(cliente));
             }
             return clientesDto;
