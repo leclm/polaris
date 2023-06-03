@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LoginService } from './auth';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +10,11 @@ export class AppComponent {
   title = 'Polaris';
   status: boolean = false;
   
-  constructor( private router: Router, private loginService: LoginService) { }
-  // CERTO: GERENTE : CLIENTE
-  logado = true;
-  perfil = this.loginService.isGerente ? 'CLIENTE' : 'GERENTE';
-  // perfil = this.loginService.isGerente ? 'GERENTE' : 'CLIENTE';
+  constructor( private loginService: LoginService) { }
+
+  get perfil(): string {
+    return this.loginService.role;
+  }
 
   clickEvent() {
     this.status = !this.status;

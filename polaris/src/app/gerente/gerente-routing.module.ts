@@ -41,7 +41,7 @@ export const GerenteRoutes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Cliente
@@ -50,7 +50,7 @@ export const GerenteRoutes: Routes = [
     component: ManterClienteComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -58,7 +58,7 @@ export const GerenteRoutes: Routes = [
     component: EditarClienteComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -66,7 +66,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarClientesComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -74,7 +74,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarDetalhesClienteComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -82,7 +82,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarHistoricoClienteComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Terceirizado
@@ -91,7 +91,7 @@ export const GerenteRoutes: Routes = [
     component: ManterTerceirizadoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -99,7 +99,7 @@ export const GerenteRoutes: Routes = [
     component: EditarTerceirizadoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -107,7 +107,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarTerceirizadosComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -115,7 +115,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarDetalhesTerceirizadoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -123,7 +123,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarHistoricoTerceirizadoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Serviços Prestados pelos Terceirizados
@@ -132,7 +132,7 @@ export const GerenteRoutes: Routes = [
     component: ManterServicoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -140,7 +140,7 @@ export const GerenteRoutes: Routes = [
     component: EditarServicoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -148,7 +148,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarServicosComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Categoria de Contêiner
@@ -157,7 +157,7 @@ export const GerenteRoutes: Routes = [
     component: ManterCategoriaComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -165,7 +165,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarCategoriasComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -173,7 +173,7 @@ export const GerenteRoutes: Routes = [
     component: EditarCategoriaComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Tipo de Contêiner
@@ -182,7 +182,7 @@ export const GerenteRoutes: Routes = [
     component: ManterTipoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -190,7 +190,7 @@ export const GerenteRoutes: Routes = [
     component: EditarTipoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -198,7 +198,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarTiposComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Contêiner
@@ -207,7 +207,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarEstoqueConteineresComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -215,7 +215,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarConteinerComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -223,7 +223,7 @@ export const GerenteRoutes: Routes = [
     component: ManterConteinerComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -231,7 +231,7 @@ export const GerenteRoutes: Routes = [
     component: EditarConteinerComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -239,7 +239,7 @@ export const GerenteRoutes: Routes = [
     component: EditarDisponibilidadeConteinerComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -247,7 +247,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarHistoricoPrestacaoServicoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -255,7 +255,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarHistoricoAluguelConteinerComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -263,7 +263,7 @@ export const GerenteRoutes: Routes = [
     component: ManterPrestacaoServicoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -271,7 +271,7 @@ export const GerenteRoutes: Routes = [
     component: EditarPrestacaoServicoComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   // Aluguel
@@ -280,7 +280,7 @@ export const GerenteRoutes: Routes = [
     component: ManterAluguelComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -288,7 +288,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarHistoricoAlugueisComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -296,7 +296,7 @@ export const GerenteRoutes: Routes = [
     component: EditarEstadoAluguelComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   },
   {
@@ -304,7 +304,7 @@ export const GerenteRoutes: Routes = [
     component: VisualizarDetalhesAluguelComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'GERENTE'
+        role: 'gerente'
       }
   }
 ];
