@@ -21,10 +21,10 @@
       <div class="form-group">
         <label class="form-label" for="inputLogin">E-mail</label>
         <input type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" class="form-control" id="inputLogin" aria-describedby="email" placeholder="Digite seu e-mail de acesso" name="inputLogin" [(ngModel)]="login.usuario" #email="ngModel" required>
-        <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-          <div [hidden]="!email.errors?.['required']">Digite o email.</div>
-          <div [hidden]="!email.errors?.['required']">Digite um email válido.</div>
-        </div>
+
+          <div *ngIf="(email.pristine && email.touched)" class="alert alert-danger">Digite o email.</div>
+          <div [hidden]="!email.errors?.['pattern']" class="alert alert-danger">Digite um email válido.</div>
+    
       </div>
       <div class="form-group mt-4">
         <label class="form-label" for="inputPassword">Senha</label>
