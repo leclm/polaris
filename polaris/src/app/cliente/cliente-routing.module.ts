@@ -10,7 +10,7 @@ export const ClienteRoutes: Routes = [
     component: VisualizarAluguelComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'CLIENTE'
+        role: 'cliente'
       }
   },
   {
@@ -18,7 +18,7 @@ export const ClienteRoutes: Routes = [
     component: VisualizarAluguelComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'CLIENTE'
+        role: 'cliente'
       }
   },
   {
@@ -26,7 +26,7 @@ export const ClienteRoutes: Routes = [
     component: DetalhesAluguelComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'CLIENTE'
+        role: 'cliente'
       }
   },
   {
@@ -34,7 +34,7 @@ export const ClienteRoutes: Routes = [
     component: AlterarSenhaComponent,
     canActivate: [AuthGuard],
       data: {
-        role: 'CLIENTE'
+        role: 'cliente'
       }
   }
 ];

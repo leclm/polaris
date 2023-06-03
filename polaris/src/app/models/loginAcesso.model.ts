@@ -3,5 +3,5 @@ export interface LoginAcesso {
     senha: string,
     token: string,
     loginUuid: string,
-    isGerente: boolean
+    role: string
 }

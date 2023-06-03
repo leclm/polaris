@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     usuario: '',
     senha: '',
     token: '',
-    isGerente: false,
+    role: '',
     loginUuid: ''
   }
 
@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit {
         (response: HttpResponse<LoginAcesso>) => {
           if (response.status === 200 || response.status === 201) {
             console.log('Put request successful');
-            this.router.navigate(["/gerente/dashboard"]);
+            if (response.body?.role === 'gerente') {
+              this.router.navigate(['/gerente/dashboard']);
+            } else if (response.body?.role === 'cliente') {
+              this.router.navigate(['/cliente/visualizar-aluguel']);
+            }            
           } else {
             console.log('Put request failed');
           }

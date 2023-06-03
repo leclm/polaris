@@ -10,7 +10,7 @@ import { LoginAcesso } from 'src/app/models/loginAcesso.model';
 export class LoginService {
   loginURL = 'http://localhost:57361';
   token: string | null = null;
-  isGerente: boolean | null = null;
+  role: string = '';
   loginUuid: string = '';
   httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json"})};
   
@@ -42,9 +42,9 @@ export class LoginService {
     return this.http.post<LoginAcesso>(url, login, { headers: this.httpOptions.headers, observe: 'response' })
       .pipe(
         tap((response: HttpResponse<LoginAcesso>) => {
-          this.isGerente = response.body?.isGerente ?? null;
+          this.role = response.body?.role ?? '';
           this.loginUuid = response.body?.loginUuid ?? '';
-          console.log(response.body);
+          //console.log(response.body);
           const token = response.body?.token;
           if (token) {
             this.saveTokenToLocalStorage(token);
