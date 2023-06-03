@@ -1,12 +1,12 @@
 <div class="d-flex" id="wrapper">
   <div class="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
-    <div class="sidebar-heading">
+    <div class="sidebar-heading" *ngIf="perfil">
       <a id="link-home" [routerLink]="['/cliente']">
         <img class="logo" loading="lazy" class="lozad" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
       </a>
     </div>
 
-    <ul class="list-group list-group-flush">
+    <ul *ngIf="perfil" class="list-group list-group-flush">
       <li class="mb-3"><a [routerLink]="['/sistema']">Home</a></li>
       
       <li *ngIf="perfil === 'cliente'" class="mb-3"><a [routerLink]="['/cliente/visualizar-aluguel']">Visualizar Aluguéis</a></li>
@@ -43,7 +43,7 @@
   <div class="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <a class="menu-toogle" (click)="clickEvent()"><i class="fa fa-bars me-3" aria-hidden="true"></i>Menu</a>
+        <a *ngIf="perfil" class="menu-toogle" (click)="clickEvent()"><i class="fa fa-bars me-3" aria-hidden="true"></i>Menu</a>
         <p class="text-center">Sistema de Gerenciamento de Aluguéis de Contêineres</p>
         <a id="link-home" [routerLink]="['/cliente']">
           <img class="logo" loading="lazy" class="lozad me-4" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
