@@ -11,7 +11,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const perfil = this.loginService.role;
-    //console.log(perfil);
     let url = state.url;
     if (perfil) {
       if (route.data?.['role'] && route.data?.['role'].indexOf(perfil) === -1) {
@@ -19,8 +18,7 @@ export class AuthGuard implements CanActivate {
         return false;
       }
       return true;
-    }
-   
+    }   
     this.router.navigate(['auth/login'], { queryParams: { error: "Deve fazer o login antes de acessar " + url } });
     return false;
   }
