@@ -14,30 +14,33 @@ namespace Polaris.Aluguel.ExternalServices
             _config = config.Value;
         }
 
-        public async Task<RetornoConteinerViewModel> GetConteineres(Guid uuid)
+        public async Task<RetornoConteinerViewModel> GetConteineres(Guid uuid, string token)
         {
             return await _config.PolarisConteinerConfig.Url
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.Conteineres)
                 .AppendPathSegment(uuid)
+                .WithHeader("Authorization", token)
                 .GetJsonAsync<RetornoConteinerViewModel> ();
         }
 
-        public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAluguel(Guid uuid)
+        public async Task<IEnumerable<RetornoConteinerViewModel>> GetConteineresAluguel(Guid uuid, string token)
         {
             return await _config.PolarisConteinerConfig.Url
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.Conteineres)
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.GetConteineresAluguel)
                 .AppendPathSegment(uuid)
+                .WithHeader("Authorization", token)
                 .GetJsonAsync<IEnumerable<RetornoConteinerViewModel>>();
         }
 
-        public void AlterarDisponibilidadeConteiner(Guid uuid, int estado)
+        public void AlterarDisponibilidadeConteiner(Guid uuid, int estado, string token)
         {
             _config.PolarisConteinerConfig.Url
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.Conteineres)
                 .AppendPathSegment(_config.PolarisConteinerConfig.Endpoints.AlterarDisponibilidadeConteiner)
                 .AppendPathSegment(uuid)
                 .AppendPathSegment(estado)
+                .WithHeader("Authorization", token)
                 .SendAsync(HttpMethod.Put);
         }
     }

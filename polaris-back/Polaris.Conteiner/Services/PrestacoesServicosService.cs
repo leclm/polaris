@@ -29,7 +29,7 @@ namespace Polaris.Conteiner.Services
             _conteinerRepository = conteinerRepository;
         }
 
-        public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacoesServicosPorConteiner(Guid uuidConteiner)
+        public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacoesServicosPorConteiner(Guid uuidConteiner, string token)
         {
             var prestacoes = _context.PrestacaDeServicoRepository.GetPrestacoesServicosPorConteiner(uuidConteiner);
             if (!prestacoes.Any())
@@ -41,15 +41,15 @@ namespace Polaris.Conteiner.Services
             foreach (var prestacao in prestacoes)
             {
                 var prestacaoMap = _mapper.Map<RetornoPrestacaoDeServicoViewModel>(prestacao);
-                prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid);
-                prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid);
+                prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid, token);
+                prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid, token);
                 listaPrestacoes.Add(prestacaoMap);
             }
 
             return listaPrestacoes;
         }
 
-        public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacaoDeServicos()
+        public async Task<IEnumerable<RetornoPrestacaoDeServicoViewModel>> GetPrestacaoDeServicos(string token)
         {
             var prestacoes = _context.PrestacaDeServicoRepository.GetPrestacaoCompleta();
             if (!prestacoes.Any())
@@ -61,20 +61,20 @@ namespace Polaris.Conteiner.Services
             foreach (var prestacao in prestacoes)
             {
                 var prestacaoMap = _mapper.Map<RetornoPrestacaoDeServicoViewModel>(prestacao);
-                prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid);
-                prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid);
+                prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid, token);
+                prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid, token);
                 listaPrestacoes.Add(prestacaoMap);
             }
 
             return listaPrestacoes;
         }
 
-        public async Task<RetornoPrestacaoDeServicoViewModel> GetPrestacaoDeServico(Guid uuid)
+        public async Task<RetornoPrestacaoDeServicoViewModel> GetPrestacaoDeServico(Guid uuid, string token)
         {
             var prestacao = await _context.PrestacaDeServicoRepository.GetPrestacaoDeServico(uuid);
             var prestacaoMap = _mapper.Map<RetornoPrestacaoDeServicoViewModel>(prestacao);
-            prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid);
-            prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid);
+            prestacaoMap.Terceirizado = await _servicoExternalService.GetTerceirizado(prestacaoMap.PrestacaoDeServicoUuid, token);
+            prestacaoMap.Servico = await _servicoExternalService.GetServico(prestacaoMap.PrestacaoDeServicoUuid, token);
             return prestacaoMap;
         }
 

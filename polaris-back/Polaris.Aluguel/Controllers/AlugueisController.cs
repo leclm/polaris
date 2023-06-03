@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.Services;
 using Polaris.Aluguel.ViewModels;
-using System.Xml.Linq;
 using static Polaris.Aluguel.Exceptions.CustomExceptions;
 
 namespace Polaris.Aluguel.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class AlugueisController : UtilsController
@@ -30,7 +31,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                return Ok(await _service.GetAlugueisPorCpf(cpf));
+                return Ok(await _service.GetAlugueisPorCpf(cpf, Request!.Headers!.Authorization!));
             }
             catch (AluguelNaoEncontradoException ex)
             {
@@ -54,7 +55,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                return Ok(await _service.GetAlugueisPorConteiner(codigo));
+                return Ok(await _service.GetAlugueisPorConteiner(codigo, Request!.Headers!.Authorization!));
             }
             catch (AluguelNaoEncontradoException ex)
             {
@@ -78,7 +79,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                return Ok(await _service.GetAlugueis());
+                return Ok(await _service.GetAlugueis(Request!.Headers!.Authorization!));
             }
             catch (AluguelNaoEncontradoException ex)
             {
@@ -103,7 +104,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                return Ok(await _service.GetAluguel(uuid));
+                return Ok(await _service.GetAluguel(uuid, Request!.Headers!.Authorization!));
             }
             catch (AluguelNaoEncontradoException ex)
             {
@@ -131,7 +132,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status201Created, await _service.PostAluguel(aluguelDto));
+                return StatusCode(StatusCodes.Status201Created, await _service.PostAluguel(aluguelDto, Request!.Headers!.Authorization!));
             }
             catch (AluguelNaoEncontradoException ex)
             {
@@ -161,7 +162,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                await _service.AlterarStatus(uuid, status);
+                await _service.AlterarStatus(uuid, status!);
                 return Ok();
             }
             catch (AluguelNaoEncontradoException ex)
@@ -188,7 +189,7 @@ namespace Polaris.Aluguel.Controllers
         {
             try
             {
-                await _service.AlterarEstadoAluguel(uuid, estado);
+                await _service.AlterarEstadoAluguel(uuid, estado, Request!.Headers!.Authorization);
                 return Ok();
             }
             catch (AluguelNaoEncontradoException ex)

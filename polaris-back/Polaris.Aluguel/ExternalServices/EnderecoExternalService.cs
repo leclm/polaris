@@ -24,19 +24,21 @@ namespace Polaris.Aluguel.ExternalServices
         }
         
 
-        public async Task<RetornoEnderecoViewModel> GetEnderecoAluguel(Guid uuid)
+        public async Task<RetornoEnderecoViewModel> GetEnderecoAluguel(Guid uuid, string token)
         {
             return await _config.PolarisEnderecoConfig.Url
                 .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
                 .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.GetEnderecoAluguel)
                 .AppendPathSegment(uuid)
+                .WithHeader("Authorization", token)
                 .GetJsonAsync<RetornoEnderecoViewModel>();
         }
 
-        public async Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco)
+        public async Task<Guid> PostEnderecos(CadastroEnderecoViewModel endereco, string token)
         {
             return await _config.PolarisEnderecoConfig.Url
                 .AppendPathSegment(_config.PolarisEnderecoConfig.Endpoints.Endereco)
+                .WithHeader("Authorization", token)
                 .PostJsonAsync(endereco)
                 .ReceiveJson<Guid>();
         }

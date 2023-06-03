@@ -29,7 +29,7 @@ namespace Polaris.Servico.Services
             _servicoRepository = servicoRepository;
         }
 
-        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosPorServico(string servico)
+        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosPorServico(string servico, string token)
         {  
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosPorServico(servico);
             if (!terceirizados.Any())
@@ -37,10 +37,10 @@ namespace Polaris.Servico.Services
                 throw new TerceirizadoNaoEncontradoException("Nenhum resultado encontrado.");
             }
 
-            return await ConsultaEnderecosTerceirizados(terceirizados);
+            return await ConsultaEnderecosTerceirizados(terceirizados, token);
         }
 
-        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados()
+        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizados(string token)
         {
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosCompleto();
             if (!terceirizados.Any())
@@ -48,23 +48,23 @@ namespace Polaris.Servico.Services
                 throw new TerceirizadoNaoEncontradoException("Não há terceirizados cadastrados.");
             }
 
-           return await ConsultaEnderecosTerceirizados(terceirizados);
+           return await ConsultaEnderecosTerceirizados(terceirizados, token);
         }
 
-        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosAtivos()
+        public async Task<IEnumerable<RetornoTerceirizadoViewModel>> GetTerceirizadosAtivos(string token)
         {
             var terceirizados = _context.TerceirizadoRepository.GetTerceirizadosAtivosCompleto();
             if (!terceirizados.Any())
             {
                 throw new TerceirizadoNaoEncontradoException("Não há terceirizados ativos.");
             }
-            return await ConsultaEnderecosTerceirizados(terceirizados);
+            return await ConsultaEnderecosTerceirizados(terceirizados, token);
         }
 
-        public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid)
+        public async Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid, string token)
         {
             var terceirizado = await _context.TerceirizadoRepository.GetTerceirizado(uuid);
-            terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(uuid);
+            terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(uuid, token);
 
             if (terceirizado is null)
             {
@@ -74,7 +74,7 @@ namespace Polaris.Servico.Services
             return terceirizadoDto;
         }
 
-        public async Task<Guid> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto)
+        public async Task<Guid> PostTerceirizado(CadastroTerceirizadoViewModel terceirizadoDto, string token)
         {
             if (await _context.TerceirizadoRepository.GetByParameter(x => x.Empresa == terceirizadoDto.Empresa 
             || x.Cnpj == terceirizadoDto.Cnpj
@@ -83,7 +83,7 @@ namespace Polaris.Servico.Services
                 throw new CadastrarTerceirizadoException("Terceirizado já existe. Erro ao cadastrar um terceirizado.");
             };
 
-            var enderecoUuid = await _enderecoExternalService.PostEnderecos(terceirizadoDto.Endereco);
+            var enderecoUuid = await _enderecoExternalService.PostEnderecos(terceirizadoDto.Endereco, token);
             terceirizadoDto.Endereco = null;
 
             var terceirizado = _mapper.Map<Models.Terceirizado>(terceirizadoDto);
@@ -120,7 +120,7 @@ namespace Polaris.Servico.Services
             return terceirizado.TerceirizadoUuid;
         }
 
-        public async Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto)
+        public async Task PutTerceirizado(AtualizaTerceirizadoViewModel terceirizadoDto, string token)
         {
             if (terceirizadoDto.TerceirizadoUuid == Guid.Empty)
             {
@@ -134,7 +134,7 @@ namespace Polaris.Servico.Services
                 throw new TerceirizadoNaoEncontradoException("Terceirizado não encontrado. Erro ao atualizar o terceirizado.");
             }
 
-            await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco);
+            await _enderecoExternalService.PutEnderecos(terceirizadoDto.Endereco, token);
             terceirizadoDto.Endereco = null;
 
             if (ValidaCnpj.IsCnpj(terceirizadoDto.Cnpj) is false)
@@ -198,21 +198,21 @@ namespace Polaris.Servico.Services
             var enderecoDto = _mapper.Map<AtualizaTerceirizadoViewModel>(terceirizado);
         }
 
-        private async Task<IEnumerable<RetornoTerceirizadoViewModel>> ConsultaEnderecosTerceirizados(IEnumerable<Terceirizado> terceirizados)
+        private async Task<IEnumerable<RetornoTerceirizadoViewModel>> ConsultaEnderecosTerceirizados(IEnumerable<Terceirizado> terceirizados, string token)
         {
             List<RetornoTerceirizadoViewModel> terceirizadosDto = new();
             foreach (var terceirizado in terceirizados)
             {
-                terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid);
+                terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid, token);
                 terceirizadosDto.Add(_mapper.Map<RetornoTerceirizadoViewModel>(terceirizado));
             }
             return terceirizadosDto;
         }
 
-        public async Task<RetornoTerceirizadoViewModel> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico)
+        public async Task<RetornoTerceirizadoViewModel> GetTerceirizadoByPrestacaoDeServico(Guid uuidPrestacaoDeServico, string token)
         {
             var terceirizado = await _context.TerceirizadoRepository.GetTerceirizadoByPrestacaoDeServico(uuidPrestacaoDeServico);
-            terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid);
+            terceirizado.Endereco = await _enderecoExternalService.GetEnderecoTerceirizado(terceirizado.TerceirizadoUuid, token);
 
             if (terceirizado is null)
             {

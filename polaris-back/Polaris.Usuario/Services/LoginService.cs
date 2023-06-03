@@ -1,8 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Polaris.Usuario.Configs;
 using Polaris.Usuario.Models;
 using Polaris.Usuario.Repository;
 using Polaris.Usuario.Utils;
 using Polaris.Usuario.ViewModels;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using static Polaris.Usuario.Exceptions.CustomExceptions;
 
 namespace Polaris.Usuario.Services
@@ -11,11 +17,13 @@ namespace Polaris.Usuario.Services
     {
         private readonly IUnityOfWork _context;
         private readonly IMapper _mapper;
+        private readonly TokenConfigs _tokenConfigs;
 
-        public LoginService(IUnityOfWork context, IMapper mapper)
+        public LoginService(IUnityOfWork context, IMapper mapper, IOptions<TokenConfigs> tokenConfigs)
         {
             _context = context;
             _mapper = mapper;
+            _tokenConfigs = tokenConfigs.Value;
         }
 
         public async Task<RetornoLoginViewModel> Logar(CadastroLoginViewModel loginDto)
@@ -28,14 +36,47 @@ namespace Polaris.Usuario.Services
             }
 
             StringUtils.ClassToUpper(login);
+            var isGerente = await IsGerente(login.LoginId);
 
             return new RetornoLoginViewModel()
             {
                 Usuario = loginDto.Usuario,
-                IsGerente = await IsGerente(login.LoginId),
+                Role = isGerente ? "gerente" : "cliente",
                 LoginUuid = login.LoginUuid,
-                Status = login.Status
+                Status = login.Status,
+                Token = GeraToken(login)
             };
+        }
+
+        private string GeraToken(Login login)
+        {
+            //define declarações do usuário
+            var claims = new[]
+            {
+                 new Claim(JwtRegisteredClaimNames.UniqueName, login.Usuario),
+                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+             };
+
+            //gera uma chave com base em um algoritmo simetrico
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_tokenConfigs.Key));
+
+            //gera a assinatura digital do token usando o algoritmo Hmac e a chave privada
+            var credenciais = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            //tempo de expiracão do token.
+            var expiration = DateTime.UtcNow.AddHours(_tokenConfigs.ExpireHours);
+
+            //classe que representa um token JWT e gera o token
+            var token = new JwtSecurityToken(
+              issuer: _tokenConfigs.Issuer,
+              audience: _tokenConfigs.Audience,
+              claims: claims,
+              expires: expiration,
+              signingCredentials: credenciais);
+
+            //retorna o token como string
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         private async Task<bool> IsGerente(int idLogin)

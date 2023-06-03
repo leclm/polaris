@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Usuario.Services;
 using Polaris.Usuario.ViewModels;
 using static Polaris.Usuario.Exceptions.CustomExceptions;
 
 namespace Polaris.Usuario.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class ClientesController : UtilsController 
@@ -29,7 +31,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return Ok(await _service.GetClientes());
+                return Ok(await _service.GetClientes(Request!.Headers!.Authorization!));
             }
             catch (ClienteNaoEncontradoException ex)
             {
@@ -54,7 +56,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return Ok(await _service.GetClientesAtivos());
+                return Ok(await _service.GetClientesAtivos(Request!.Headers!.Authorization!));
             }
             catch (ClienteNaoEncontradoException ex)
             {
@@ -79,7 +81,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return Ok(await _service.GetCliente(uuid));
+                return Ok(await _service.GetCliente(uuid, Request!.Headers!.Authorization!));
             }
             catch (ClienteNaoEncontradoException ex)
             {
@@ -124,7 +126,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status201Created, await _service.PostCliente(clienteDto));
+                return StatusCode(StatusCodes.Status201Created, await _service.PostCliente(clienteDto, Request!.Headers!.Authorization!));
             }
             catch (ClienteNaoEncontradoException ex)
             {
@@ -156,7 +158,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                await _service.PutCliente(clienteDto);
+                await _service.PutCliente(clienteDto, Request!.Headers!.Authorization!);
                 return Ok();
             }
             catch (AtualizarClienteException ex)

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Polaris.Servico.Services;
 using Polaris.Servico.ViewModels;
@@ -6,6 +6,7 @@ using static Polaris.Servico.Exceptions.CustomExceptions;
 
 namespace Polaris.Servico.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class TerceirizadosController : UtilsController
@@ -29,7 +30,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return Ok(await _service.GetTerceirizadosPorServico(servico));
+                return Ok(await _service.GetTerceirizadosPorServico(servico, Request!.Headers!.Authorization!));
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {
@@ -53,7 +54,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return Ok(await _service.GetTerceirizados());
+                return Ok(await _service.GetTerceirizados(Request!.Headers!.Authorization!));
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {
@@ -78,7 +79,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return Ok(await _service.GetTerceirizadosAtivos());
+                return Ok(await _service.GetTerceirizadosAtivos(Request!.Headers!.Authorization!));
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {
@@ -103,7 +104,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return Ok(await _service.GetTerceirizado(uuid));
+                return Ok(await _service.GetTerceirizado(uuid, Request!.Headers!.Authorization!));
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {
@@ -148,7 +149,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status201Created, await _service.PostTerceirizado(terceirizadoDto));
+                return StatusCode(StatusCodes.Status201Created, await _service.PostTerceirizado(terceirizadoDto, Request!.Headers!.Authorization!)); 
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {
@@ -199,7 +200,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                await _service.PutTerceirizado(terceirizadoDto);
+                await _service.PutTerceirizado(terceirizadoDto, Request!.Headers!.Authorization!);
                 return Ok();
             }
             catch (AtualizarTerceirizadoException ex)
@@ -254,7 +255,7 @@ namespace Polaris.Servico.Controllers
         {
             try
             {
-                return Ok(await _service.GetTerceirizadoByPrestacaoDeServico(uuidPrestacaoDeServico));
+                return Ok(await _service.GetTerceirizadoByPrestacaoDeServico(uuidPrestacaoDeServico, Request!.Headers!.Authorization!));
             }
             catch (TerceirizadoNaoEncontradoException ex)
             {

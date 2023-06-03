@@ -2,22 +2,39 @@ import { Routes } from '@angular/router';
 import { AlterarSenhaComponent } from './alterar-senha';
 import { DetalhesAluguelComponent } from './detalhes-aluguel';
 import { VisualizarAluguelComponent } from './visualizar-aluguel';
+import { AuthGuard } from '../auth/auth.guard';
 
 export const ClienteRoutes: Routes = [
   {
     path: 'cliente',
-    component: VisualizarAluguelComponent
+    component: VisualizarAluguelComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'cliente'
+      }
   },
   {
     path: 'cliente/visualizar-aluguel',
-    component: VisualizarAluguelComponent
+    component: VisualizarAluguelComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'cliente'
+      }
   },
   {
     path: 'cliente/detalhes-aluguel/:id',
-    component: DetalhesAluguelComponent
+    component: DetalhesAluguelComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'cliente'
+      }
   },
   {
     path: 'cliente/alterar-senha',
-    component: AlterarSenhaComponent
+    component: AlterarSenhaComponent,
+    canActivate: [AuthGuard],
+      data: {
+        role: 'cliente'
+      }
   }
 ];

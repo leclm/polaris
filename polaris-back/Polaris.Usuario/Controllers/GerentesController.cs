@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Polaris.Usuario.Services;
 using Polaris.Usuario.ViewModels;
 using static Polaris.Usuario.Exceptions.CustomExceptions;
 
 namespace Polaris.Usuario.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class GerentesController : UtilsController
@@ -28,7 +30,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return Ok(await _service.GetGerentes());
+                return Ok(await _service.GetGerentes(Request!.Headers!.Authorization!));
             }
             catch (GerenteNaoEncontradoException ex)
             {
@@ -53,7 +55,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return Ok(await _service.GetGerentesAtivos());
+                return Ok(await _service.GetGerentesAtivos(Request!.Headers!.Authorization!)); 
             }
             catch (GerenteNaoEncontradoException ex)
             {
@@ -78,7 +80,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return Ok(await _service.GetGerente(uuid));
+                return Ok(await _service.GetGerente(uuid, Request!.Headers!.Authorization!));
             }
             catch (GerenteNaoEncontradoException ex)
             {
@@ -106,7 +108,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status201Created, await _service.PostGerente(gerenteDto));
+                return StatusCode(StatusCodes.Status201Created, await _service.PostGerente(gerenteDto,  Request!.Headers!.Authorization!));
             }
             catch (GerenteNaoEncontradoException ex)
             {
@@ -138,7 +140,7 @@ namespace Polaris.Usuario.Controllers
         {
             try
             {
-                await _service.PutGerente(gerenteDto);
+                await _service.PutGerente(gerenteDto, Request!.Headers!.Authorization!);
                 return Ok();
             }
             catch (AtualizarGerenteException ex)

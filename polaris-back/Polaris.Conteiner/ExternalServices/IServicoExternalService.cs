@@ -5,7 +5,7 @@ namespace Polaris.Conteiner.ExternalServices
 {
     public interface IServicoExternalService
     {
-        Task<BuscaServicoViewModel> GetServico(Guid uuid);
-        Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid);
+        Task<BuscaServicoViewModel> GetServico(Guid uuid, string token);
+        Task<RetornoTerceirizadoViewModel> GetTerceirizado(Guid uuid, string token);
     }
 }
