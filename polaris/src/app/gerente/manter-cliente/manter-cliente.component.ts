@@ -39,18 +39,13 @@ export class ManterClienteComponent implements OnInit {
   ngOnInit(): void {
 
   }
-public dataVar = 'dd-mm-aaaa';
+  
+  public dataVar = 'dd-mm-aaaa';
 
   valuechange(date: any) {
     this.cliente.dataNascimento = `${date.year}-${date.month}-${date.day}`;
-
-    console.log("this.cliente.dataNascimento")
-    console.log(this.cliente.dataNascimento)
-    
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
-
-    console.log("this.dataVar")
-    console.log(this.dataVar)
+    console.log(this.cliente)
   }
 
   cadastrar() {
@@ -75,6 +70,7 @@ public dataVar = 'dd-mm-aaaa';
   validateCpf(event: any) {
     this.cpfNotValid =  this.CustomvalidationService.ValidaCpf(this.cliente.cpf)
     console.log(this.cpfNotValid)
+    console.log(this.cliente)
   }
 
   searchAddress(event: any) {

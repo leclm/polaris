@@ -53,7 +53,14 @@ export class ManterPrestacaoServicoComponent implements OnInit {
     this.getAllTerceirizadosAtivos();
     this.getConteinerById();
   }
+  public dataVar = 'dd-mm-aaaa';
 
+  valuechange(date: any) {
+    this.prestacaoServico.dataProcedimento = `${date.year}-${date.month}-${date.day}`;
+    this.dataVar = `${date.day}-${date.month}-${date.year}`;
+    console.log(this.prestacaoServico.dataProcedimento)
+    console.log(this.dataVar)
+  }
   cadastrar() {
     this.alteraDisponibilidadeConteiner();
     this.gerenteService.addPrestacaoServico(this.prestacaoServico).subscribe(

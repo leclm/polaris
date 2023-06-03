@@ -40,7 +40,7 @@
           <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
             <div class="input-group mb-6">
-              <input class="form-control" placeholder={{dataVar}} id="inputDataNascimento" [(ngModel)]="dataVar"
+              <input class="form-control" placeholder="{{cliente.dataNascimento}}" [(ngModel)]="dataVar" id="inputDataNascimento" 
                 name="dataNascimento" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
@@ -52,7 +52,7 @@
               </div>
             </div>
             <!--<div *ngIf="dataVar=='dd-mm-aaaa'" class="alert alert-danger">
-              Erro.
+              Preencha a data
             </div>-->
           </div>
           <div class="col-md-6">

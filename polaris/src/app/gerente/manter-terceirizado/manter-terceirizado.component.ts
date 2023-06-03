@@ -75,13 +75,6 @@ export class ManterTerceirizadoComponent implements OnInit {
   validateCnpj(event: any) {
       let valid = this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
       this.cnpjNotValid = valid;
-    if(this.cnpjNotValid == true){
-      console.log("fora")
-      console.log(this.cnpjNotValid)
-    } else {
-      console.log("fora")
-      console.log(this.cnpjNotValid)
-    }
   }
 
 

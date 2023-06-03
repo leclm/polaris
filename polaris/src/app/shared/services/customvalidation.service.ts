@@ -20,14 +20,12 @@ export class CustomvalidationService {
       let numbers, digits, sum, i, result, equalDigits;
       equalDigits = 1;
       if (cpf.length < 11) {
-        console.log("teste1")
        return null;
       }
 
       for (i = 0; i < cpf.length - 1; i++) {
         if (cpf.charAt(i) !== cpf.charAt(i + 1)) {
           equalDigits = 0;
-          console.log("n digitos certo")
           break;
         }
       }
@@ -43,7 +41,6 @@ export class CustomvalidationService {
         result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
 
         if (result !== Number(digits.charAt(0))) {
-          console.log("teste3")
           return { cpfNotValid: true };
         }
         numbers = cpf.substring(0, 10);
@@ -55,17 +52,13 @@ export class CustomvalidationService {
         result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
 
         if (result !== Number(digits.charAt(1))) {
-          console.log("cpf n valido")
           return { cpfNotValid: true };
         }
-        console.log("tcpf valido")
         return null;
       } else {
-        console.log("teste6")
         return { cpfNotValid: true };
       }
    }
-   console.log("teste7")
    return null;
   }
 
@@ -73,11 +66,9 @@ export class CustomvalidationService {
 
     if (cnpj == '') return { cnpjNotValid: false }
     if (cnpj.length != 14){
-      //console.log("f")
         return { cnpjNotValid: true }
     }
   
-    // Valida DVs LINHA 23 -
     let tamanho = cnpj.length - 2
     let numeros = cnpj.substring(0,tamanho);
     let digitos = cnpj.substring(tamanho);
@@ -90,7 +81,6 @@ export class CustomvalidationService {
     }
     let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != +digitos.charAt(0)){
-      //console.log("f")
       return { cnpjNotValid: true }
     }
   
@@ -105,11 +95,9 @@ export class CustomvalidationService {
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != +digitos.charAt(1)){
-      //console.log("f")
       return { cnpjNotValid: true }
     }
-         
-    //console.log("verdadeiro")
+        
     return null;
   }
   
