@@ -142,7 +142,7 @@ namespace Polaris.Aluguel.Services
 
             if (estado == EstadoAluguel.Finalizado || estado == EstadoAluguel.Cancelado)
             {
-                var aluguelDto = await GetAluguel(uuid, "");
+                var aluguelDto = await GetAluguel(uuid, token);
                 foreach (var c in aluguelDto.Conteineres!)
                 {
                     _conteinerExternalService.AlterarDisponibilidadeConteiner(c.ConteinerUuid, (int)EstadoConteiner.Disponível, token);
