@@ -25,7 +25,10 @@
         <form class="row g-3" #formServico="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-5 center">
             <label for="inputNome" class="form-label">Nome do Serviço</label>
-            <input type="text" class="form-control" id="inputNome" [(ngModel)]="servico.nome" name="nome">
+            <input type="text" class="form-control" id="inputNome" [(ngModel)]="servico.nome" name="nome" #nome="ngModel" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+              <div [hidden]="!nome.errors?.['required']">Digite o nome do serviço.</div>
+            </div>
           </div>
           
           <div class="ctn-btn d-flex justify-content-evenly mt-5">

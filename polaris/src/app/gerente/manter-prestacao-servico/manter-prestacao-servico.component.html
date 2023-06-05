@@ -32,7 +32,15 @@
           
           <div class="col-md-6">
             <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
-            <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" placeholder="aaaa-mm-dd" [(ngModel)]="prestacaoServico.dataProcedimento" #dataProcedimento="ngModel">
+            <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" placeholder="{{dataVar}}" [(ngModel)]="dataVar" #dataProcedimento="ngModel"  (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
+                  class="fa-solid fa-calendar"></i></button>
+              <ng-template #footerTemplate>
+                <hr class="my-0" />
+                <button class="btn btn-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
+              </ng-template>
+            </div>
           </div>
           
           <div class="col-md-6">         

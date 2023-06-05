@@ -87,7 +87,18 @@ export class ManterAluguelComponent implements OnInit {
     this.getAllCategoriasAtivas(); 
     this.getAllTiposAtivos();
   }
+  public dataIni = 'dd-mm-aaaa';
+  public dataDev = 'dd-mm-aaaa';
 
+  valuechangeIni(date: any) {
+    this.aluguel.dataInicio = `${date.year}-${date.month}-${date.day}`;
+    this.dataIni = `${date.day}-${date.month}-${date.year}`;
+  }
+  
+  valuechangeDev(date: any) {
+    this.aluguel.dataDevolucao = `${date.year}-${date.month}-${date.day}`;
+    this.dataDev = `${date.day}-${date.month}-${date.year}`;
+  }
   getAllClientesAtivos() {
     this.gerenteService.getAllClientesAtivos()
     .subscribe( response => {

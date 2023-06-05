@@ -20,11 +20,18 @@
     <form class="mt-5" #formLogin="ngForm" (ngSubmit)="efetuarLogin()">
       <div class="form-group">
         <label class="form-label" for="inputLogin">E-mail</label>
-        <input type="email" class="form-control" id="inputLogin" aria-describedby="email" placeholder="Digite seu e-mail de acesso" name="inputLogin" [(ngModel)]="login.usuario">
+        <input type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" class="form-control" id="inputLogin" aria-describedby="email" placeholder="Digite seu e-mail de acesso" name="inputLogin" [(ngModel)]="login.usuario" #email="ngModel" required>
+
+          <div *ngIf="(email.pristine && email.touched)" class="alert alert-danger">Digite o email.</div>
+          <div [hidden]="!email.errors?.['pattern']" class="alert alert-danger">Digite um email válido.</div>
+    
       </div>
       <div class="form-group mt-4">
         <label class="form-label" for="inputPassword">Senha</label>
-        <input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" name="password" [(ngModel)]="login.senha">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" name="password" [(ngModel)]="login.senha"  #senha="ngModel" required>
+        <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert alert-danger">
+          <div [hidden]="!senha.errors?.['required']">Digite o senha.</div>
+        </div>
       </div>
       <p>
         <a (click)="forgetPassword()" class="password-reset">Esqueci minha senha</a>

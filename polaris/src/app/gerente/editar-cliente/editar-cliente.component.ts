@@ -6,6 +6,7 @@ import { ClienteEdicao } from 'src/app/models/clienteEdicao.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { GerenteService } from '../services';
 import { Cliente } from 'src/app/models/cliente.model';
+import { CustomvalidationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -38,7 +39,7 @@ export class EditarClienteComponent implements OnInit {
   }
   
   @ViewChild("formCliente") formCliente!: NgForm;
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.clienteUuid = this.activatedRoute.snapshot.params['id']; 
@@ -46,6 +47,12 @@ export class EditarClienteComponent implements OnInit {
     this.getClienteById();
   }
 
+  public dataVar = this.cliente.dataNascimento;
+
+  valuechange(date: any) {
+    this.cliente.dataNascimento = `${date.year}-${date.month}-${date.day}`;
+    this.dataVar = `${date.day}-${date.month}-${date.year}`;
+  }
   editar() {
     console.log(this.cliente);
     this.gerenteService.editarCliente(this.cliente).subscribe(
@@ -77,10 +84,14 @@ export class EditarClienteComponent implements OnInit {
         this.cliente.clienteUuid = this.clienteUuid;
         this.cliente.nome = this.clienteById.nome;
         this.cliente.sobrenome = this.clienteById.sobrenome;
-        this.cliente.dataNascimento = this.clienteById.dataNascimento;
         this.cliente.email = this.clienteById.email;
         this.cliente.telefone = this.clienteById.telefone;
-        this.cliente.endereco = this.clienteById.endereco;  
+
+        let dataNasc = this.clienteById.dataNascimento;
+        let dataArr = dataNasc.split("T");
+        dataArr = dataArr[0].split("-")
+        this.cliente.dataNascimento = `${dataArr[2]}-${dataArr[1]}-${dataArr[0]}`;
+        this.dataVar = this.cliente.dataNascimento;
       }
     )
   }

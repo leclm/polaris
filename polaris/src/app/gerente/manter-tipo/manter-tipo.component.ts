@@ -28,6 +28,12 @@ export class ManterTipoComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  public tipoVar: any
+
+  changeCents(event: any) {
+    this.tipoVar
+}
+
   cadastrar() {
     this.gerenteService.addTipo(this.tipo).subscribe(
       (response: HttpResponse<Tipo>) => {   

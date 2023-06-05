@@ -1,7 +1,24 @@
 <div class="dashboard container-fluid mt-4 mb-4">
   <div class="container-content p-4">
     <h1 class="mb-4">Dashboard</h1>
+    <div class="container">
+      <div class="d-flex pb-4">
 
-    <div #map style="width:100%; height:400px"></div>
+        <div #map class="col-md-12" style="width:100%; height:350px"></div>
+      </div>
+      <div class="d-flex">
+      <div class="col-md-6">
+        <canvasjs-chart *ngIf="showChart" [options]="columnChartOptions" (chartInstance)="getChartInstance($event)"
+          [styles]="{ width: '100%', height: '350px' }"></canvasjs-chart>
+      </div>
+
+      <div class="col-md-6 pb-4">
+        <canvasjs-chart *ngIf="showChart" [options]="pieChartOptions" (chartInstance)="getChartInstance($event)"
+          [styles]="{ width: '100%', height: '350px' }"></canvasjs-chart>
+      </div>
+    </div>
+
+    </div>
+
   </div>
 </div>

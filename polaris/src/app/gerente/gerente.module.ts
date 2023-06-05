@@ -10,7 +10,7 @@ import { SortDirective } from '../shared/directives/sort.directive';
 import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-terceirizado.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManterCategoriaComponent } from './manter-categoria/manter-categoria.component';
 import { VisualizarCategoriasComponent } from './visualizar-categorias/visualizar-categorias.component';
 import { EditarCategoriaComponent } from './editar-categoria/editar-categoria.component';
@@ -34,12 +34,18 @@ import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidad
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CapitalizacaoGerentePipe, CpfGerentePipe, DateGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
+import { NgbPaginationModule, NgbAlertModule, NgbDate, NgbModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
 import { EditarEstadoAluguelComponent } from './editar-estado-aluguel/editar-estado-aluguel.component';
 import { VisualizarDetalhesAluguelComponent } from './visualizar-detalhes-aluguel/visualizar-detalhes-aluguel.component';
+import { ManterAluguelComponent } from './manter-aluguel/manter-aluguel.component';
 import { VisualizarHistoricoClienteComponent } from './visualizar-historico-cliente/visualizar-historico-cliente.component';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { BrowserModule } from '@angular/platform-browser';
 
+import * as CanvasJSAngularChart from '../../assets/canvasjs-chart-3.7.7/canvasjs.angular.component';
+var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 @NgModule({
   declarations: [
     ManterClienteComponent,
@@ -79,16 +85,27 @@ import { VisualizarHistoricoClienteComponent } from './visualizar-historico-clie
     VisualizarHistoricoAlugueisComponent,
     EditarEstadoAluguelComponent,
     VisualizarDetalhesAluguelComponent,
-    VisualizarHistoricoClienteComponent
+    VisualizarHistoricoClienteComponent,
+    CanvasJSChart
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+    NgbCarouselModule,
+    NgxMaskModule.forRoot(),
+    CurrencyMaskModule,
+    NgbPaginationModule, 
+    NgbAlertModule,
+    NgbModule,
+    NgbDatepickerModule, 
+    BrowserModule,
   ],
   providers: [
     GerenteService
-  ]
+  ],
+  bootstrap: [DashboardComponent]
 })
 export class GerenteModule { }

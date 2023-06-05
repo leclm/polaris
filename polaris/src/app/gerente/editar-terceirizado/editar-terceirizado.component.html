@@ -27,7 +27,10 @@
             <form class="row g-3" #formTerceirizado="ngForm" (ngSubmit)="editar()">
               <div class="col-md-6">
                 <label for="inputEmpresa" class="form-label">Nome da Empresa</label>
-                <input type="text" class="form-control" id="inputEmpresa" name="empresa" [(ngModel)]="terceirizado.empresa" #empresa="ngModel">
+                <input type="text" class="form-control" id="inputEmpresa" name="empresa" [(ngModel)]="terceirizado.empresa" #empresa="ngModel" required>
+                <div *ngIf="empresa.errors && (empresa.dirty || empresa.touched)" class="alert alert-danger">
+                  <div [hidden]="!empresa.errors?.['required']">Digite o nome da empresa.</div>
+                </div>
               </div>
               <div class="col-md-6">
                 <label for="inputCnpj" class="form-label">CNPJ</label>
@@ -45,17 +48,27 @@
     
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
-                <input type="tel" class="form-control" id="inputTelefone" value="{{terceirizado.telefone}}" [(ngModel)]="terceirizado.telefone" name="telefone">
+                <input type="tel" class="form-control" id="inputTelefone" value="{{terceirizado.telefone}}" [(ngModel)]="terceirizado.telefone" name="telefone" #telefone="ngModel" required mask="(00) 00000-0000">
+                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+                  <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
+                </div>
               </div>
 
               <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail" value="{{terceirizado.email}}" [(ngModel)]="terceirizado.email" name="email">
+                <input type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" class="form-control" id="inputEmail" value="{{terceirizado.email}}" [(ngModel)]="terceirizado.email" name="email"  #email="ngModel" required  email="true">
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                  <div [hidden]="!email.errors?.['required']">Digite o email.</div>
+                  <div [hidden]="!email.errors?.['pattern']">Digite um email válido.</div>
+                </div>
               </div>
         
               <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="inputCep" value="{{terceirizado.endereco.cep}}" [(ngModel)]="terceirizado.endereco.cep" name="cep">
+                <input type="text" class="form-control" id="inputCep" value="{{terceirizado.endereco.cep}}" [(ngModel)]="terceirizado.endereco.cep" name="cep" #cep="ngModel" required mask='00000-000'>
+                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+                  <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+                </div>
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>
@@ -71,7 +84,10 @@
               </div>
               <div class="col-md-3">
                 <label for="inputNumero" class="form-label">Número</label>
-                <input type="number" class="form-control" id="inputNumero" placeholder="123" value="{{terceirizado.endereco.numero}}" [(ngModel)]="terceirizado.endereco.numero" name="numero">
+                <input type="number" class="form-control" id="inputNumero" placeholder="123" value="{{terceirizado.endereco.numero}}" [(ngModel)]="terceirizado.endereco.numero" name="numero" #numero="ngModel" required>
+                <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
+                  <div [hidden]="!numero.errors?.['required']">Digite um número.</div>
+                </div>
               </div>
              <div class="col-md-3 mb-3">
                 <label for="inputComplemento" class="form-label">Complemento</label>

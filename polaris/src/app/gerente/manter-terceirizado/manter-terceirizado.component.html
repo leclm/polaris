@@ -29,7 +29,8 @@
           </div>
           <div class="col-md-6">
             <label for="inputCnpj" class="form-label">CNPJ</label>
-            <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj">
+            <input type="text" (input)="validateCnpj($event)" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj" #cnpj="ngModel" mask="00.000.000/0000-00" >
+            <div *ngIf="cnpjNotValid" class="alert alert-danger">Digite um CNPJ válido.</div>
           </div>
           <div class="col-md-12 mt-4 ctn-servicos">
             <label>Serviço Prestado: </label>
@@ -41,15 +42,25 @@
           </div> 
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="terceirizado.telefone" name="telefone">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="terceirizado.telefone" name="telefone"  #telefone="ngModel" required mask="(00) 00000-0000">
+            <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+              <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email">
+            <input type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"  class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email"   #email="ngModel" required  email="true">
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors?.['required']">Digite o email.</div>
+              <div [hidden]="!email.errors?.['pattern']">Digite um email válido.</div>
+            </div>
           </div>     
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
+            <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+              <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+            </div>
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
@@ -65,7 +76,7 @@
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero" name="numero">
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero"  name="numero">
           </div>
           <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>

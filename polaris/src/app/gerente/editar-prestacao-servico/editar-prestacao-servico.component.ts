@@ -57,6 +57,12 @@ export class EditarPrestacaoServicoComponent implements OnInit {
     this.getPrestacaoServicoById();    
   }
 
+  public dataVar = this.prestacaoServicoAtualizacao.dataProcedimento;
+
+  valuechange(date: any) {
+    this.prestacaoServicoAtualizacao.dataProcedimento = `${date.year}-${date.month}-${date.day}`;
+    this.dataVar = `${date.day}-${date.month}-${date.year}`;
+  }
   editar() {
     this.prestacaoServicoAtualizacao.prestacaoDeServicoUuid = this.prestacaoDeServicoUuid;
     this.prestacaoServicoAtualizacao.estadoPrestacaoServico = parseInt(this.estadoPrestacaoServicoSelecionada.toString());
@@ -86,6 +92,13 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   getPrestacaoServicoById() {
     this.gerenteService.getPrestacaoServicoById(this.prestacaoDeServicoUuid).subscribe( response => {
       this.prestacaoServicoAtualizacao.dataProcedimento = response.dataProcedimento;
+
+      let dataNasc = this.prestacaoServicoAtualizacao.dataProcedimento;
+      let dataArr = dataNasc.split("T");
+      dataArr = dataArr[0].split("-")
+      this.prestacaoServicoAtualizacao.dataProcedimento = `${dataArr[2]}-${dataArr[1]}-${dataArr[0]}`;
+      this.dataVar = this.prestacaoServicoAtualizacao.dataProcedimento;
+
       this.prestacaoServicoAtualizacao.estadoPrestacaoServico = response.estadoPrestacaoServico;
       this.prestacaoServicoAtualizacao.comentario = response.comentario;
       

@@ -25,32 +25,64 @@
         <form class="row g-3" #formCliente="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="inputNome" [(ngModel)]="cliente.nome" name="nome">
+            <input type="text" class="form-control" id="inputNome" [(ngModel)]="cliente.nome" name="nome" #nome="ngModel" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+              <div [hidden]="!nome.errors?.['required']">Digite o nome.</div>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputSobrenome" class="form-label">Sobrenome</label>
-            <input type="text" class="form-control" id="inputSobrenome" [(ngModel)]="cliente.sobrenome" name="sobrenome">
+            <input type="text" class="form-control" id="inputSobrenome" [(ngModel)]="cliente.sobrenome" name="sobrenome" #sobrenome="ngModel" required>
+            <div *ngIf="sobrenome.errors && (sobrenome.dirty || sobrenome.touched)" class="alert alert-danger">
+              <div [hidden]="!sobrenome.errors?.['required']">Digite o sobrenome.</div>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
-            <input type="text" class="form-control" id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento" name="dataNascimento" placeholder="AAAA-MM-DD">
+            <div class="input-group mb-6">
+              <input class="form-control" placeholder="{{cliente.dataNascimento}}" [(ngModel)]="dataVar" id="inputDataNascimento" 
+                name="dataNascimento" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
+                    class="fa-solid fa-calendar"></i></button>
+                <ng-template #footerTemplate>
+                  <hr class="my-0" />
+                  <button class="btn btn-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
+                </ng-template>
+              </div>
+            </div>
+            <!--<div *ngIf="dataVar=='dd-mm-aaaa'" class="alert alert-danger">
+              Preencha a data
+            </div>-->
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf">
+            <input type="text" class="form-control" id="inputCpf" [(ngModel)]="cliente.cpf" name="cpf" (input)="validateCpf($event)" #cpf="ngModel" required mask="000.000.000-00">
+            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">Digite um CPF.</div>
+            <div *ngIf="cpfNotValid" class="alert alert-danger">Digite um CPF válido.</div>
           </div>
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="cliente.telefone" name="telefone" #telefone="ngModel" required mask="(00) 00000-0000">
+            <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" >
+              <div class="alert alert-danger" [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" [(ngModel)]="cliente.email" name="email">
+            <input type="email" class="form-control" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" id="inputEmail" [(ngModel)]="cliente.email" name="email" #email="ngModel" required  email="true">
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors?.['required']">Digite o email.</div>
+              <div [hidden]="!email.errors?.['pattern']">Digite um email válido.</div>
+            </div>
           </div>
      
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
+            <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+              <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+            </div>
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
