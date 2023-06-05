@@ -1,8 +1,4 @@
 <div class="historico-alugueis container-fluid mt-4 mb-4">
-  <div class="container-content mb-4 pt-3 pb-3 ps-3">
-    <h1>Bem-vindo(a), Adriana Medeiros!</h1>
-  </div>
-
   <div class="container-content p-4">
     <h1 class="mb-4">Histórico de Aluguéis</h1>
 
@@ -10,29 +6,27 @@
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th>Código</th>
+            <th>Cliente</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
+            <th>Status</th>
             <th>Início</th>
             <th>Fim</th>
-            <th>Valor</th>
-            <th>Status</th>
-            <th>Pagamento atrasado</th>
-            <th>Devolução atrasada</th>
-            <th>Ver</th>
+            <th>Detalhes</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of aluguelData.content">
-            <td>#</td>
-            <td>{{ item.dataRetirada! | date:'mediumDate' }}</td>
-            <td>{{ item.dataDevolucao! | date:'mediumDate' }}</td>
-            <td>{{ item.valorTotalAluguel! | currency }}</td>
-            <td>{{ item.status }}</td>
-            <td>Sim</td>
-            <td>Não</td>
+          <tr *ngFor="let item of aluguelData">
+            <td>{{ item.cliente.nome! | capitalizacao }}</td>
+            <td>{{ item.cliente.telefone! | phone }}</td>
+            <td>{{ item.endereco.logradouro! | capitalizacao }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacao }}</td>
+            <td>{{ item.estadoAluguel! | capitalizacao }}</td>
+            <td>{{ item.dataInicio! | date }}</td>
+            <td>{{ item.dataDevolucao! | date }}</td>
             <td>
-              <a [routerLink]="['/cliente/detalhes-aluguel', item.id]" href="#">
+              <a [routerLink]="['/cliente/detalhes-aluguel', item.aluguelUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
+              </a> 
             </td>
           </tr>
         </tbody>

@@ -3,5 +3,6 @@ export interface LoginAcesso {
     senha: string,
     token: string,
     loginUuid: string,
-    role: string
+    role: string,
+    status: boolean
 }

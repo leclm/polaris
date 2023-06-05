@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginAcesso } from 'src/app/models/loginAcesso.model';
 
 @Injectable({
@@ -11,8 +11,10 @@ export class LoginService {
   loginURL = 'http://localhost:57361';
   token: string | null = null;
   role: string = '';
-  loginUuid: string = '';
+  loginUuid: string = '';  
   httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json"})};
+  
+  private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
   
   constructor( private http: HttpClient ) { }
 
@@ -24,7 +26,10 @@ export class LoginService {
     const key = 'jwt';
 
     if (localStorage.getItem(key)) {
+      this.loginStatus.next(false);
       localStorage.removeItem(key);
+      localStorage.setItem('loginStatus', '0');
+      localStorage.removeItem('userRole')
       console.log('Key and value removed from local storage.');
     } else {
       console.log('Key not found in local storage.');
@@ -33,7 +38,11 @@ export class LoginService {
 
   buildHeaderToken() {    
     this.token = localStorage.getItem('jwt');
-    this.httpOptions = { headers: new HttpHeaders({ "Authorization": "Bearer " + this.token, "Content-Type": "application/json"})};
+    if (this.token !== null) {
+      this.httpOptions = { headers: new HttpHeaders({ "Authorization": "Bearer " + this.token, "Content-Type": "application/json"})};
+    } else {
+      console.log('Token not found in local storage.');
+    }
   }
   
   efetuarLogin(login: LoginAcesso): Observable<HttpResponse<LoginAcesso>> {
@@ -41,9 +50,12 @@ export class LoginService {
     const url = `${this.loginURL}/Logins/logar`;
     return this.http.post<LoginAcesso>(url, login, { headers: this.httpOptions.headers, observe: 'response' })
       .pipe(
-        tap((response: HttpResponse<LoginAcesso>) => {
+        tap((response: HttpResponse<LoginAcesso>) => {          
           this.role = response.body?.role ?? '';
           this.loginUuid = response.body?.loginUuid ?? '';
+
+          this.loginStatus.next(true);     
+          localStorage.setItem('loginStatus', '1');
           //console.log(response.body);
           const token = response.body?.token;
           if (token) {
@@ -53,5 +65,18 @@ export class LoginService {
           return null;
         })
       );
+  }
+
+  checkLoginStatus(): boolean {
+    let loginCookie = localStorage.getItem("loginStatus");
+    if (loginCookie == "1") {
+      return true;
+    }
+    return false;
+  }
+
+  get isLoggesIn() 
+  {
+      return this.loginStatus.asObservable();
   }
 }
