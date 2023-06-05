@@ -10,29 +10,29 @@
             <p class="title">Dados cadastrais</p>
             <div class="content d-flex justify-content-start ms-3">
               <form class="row g-3">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <label for="inputEmpresa" class="form-label">Ano de Fabricação</label>
                   <p class="form-control"> {{ item.fabricacao }} </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <label for="inputCnpj" class="form-label">Fabricante</label>
-                  <p class="form-control"> {{ item.fabricante }} </p>
+                  <p class="form-control"> {{ item.fabricante | capitalizacaoGerente }} </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <label for="inputTipo" class="form-label">Cor</label>
-                  <p class="form-control"> {{ item.cor }} </p>
+                  <p class="form-control"> {{ item.cor | capitalizacaoGerente }} </p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <label for="inputTelefone" class="form-label">Material</label>
-                  <p class="form-control"> {{ item.material }} </p>
+                  <p class="form-control"> {{ item.material | capitalizacaoGerente }} </p>
                 </div>
                 <div class="col-md-4">
                   <label for="inputEmail" class="form-label">Categoria</label>
-                  <p class="form-control"> {{ item.categoriaConteiner.nome }} </p>
+                  <p class="form-control"> {{ item.categoriaConteiner.nome | capitalizacaoGerente }} </p>
                 </div>
                 <div class="col-md-4">
                   <label for="inputCep" class="form-label">Tipo</label>
-                  <p class="form-control"> {{ item.tipoConteiner.nome }} </p>
+                  <p class="form-control"> {{ item.tipoConteiner.nome | capitalizacaoGerente }} </p>
                 </div>
                 <div class="col-md-4">
                   <label for="inputEstado" class="form-label">Peso Máximo</label>
@@ -57,11 +57,7 @@
                 <div class="col-md-4">
                   <label for="inputNumero" class="form-label">Valor Diária</label>
                   <p class="form-control"> {{ item.tipoConteiner.valorDiaria }} </p>
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="inputComplemento" class="form-label">Valor Mensal</label>
-                  <p class="form-control"> {{ item.tipoConteiner.valorMensal }} </p>
-                </div>             
+                </div>          
   
                 <div class="ctn-btn d-flex justify-content-evenly mt-5">
                   <a [routerLink]="['/gerente/visualizar-historico-prestacao-servico', item.conteinerUuid]" alt="Histórico de Serviços" title="Histórico de Serviços">Histórico de Serviços</a>

@@ -8,11 +8,31 @@ export class CustomvalidationService {
 
   constructor() { }
 
-  alteraData(data:string): any {
+  camelize(value: string) {
+    if (value) {
+
+      const lowerCaseValue = value.toLowerCase();
     
-    console.log(data)
-    return data;
+      const words = lowerCaseValue.split(' ');
+      
+      const capitalizedWords = words.map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      });
+      
+      const capitalizedValue = capitalizedWords.join(' ');
+
+      return capitalizedValue;
+    } else {
+      return "";
+    }
   }
+
+  camelize2(str: string) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+      return index === 0 ?  word.toUpperCase() : word.toLowerCase();
+    }).replace(/\s+/g, '');
+  }
+
 
   ValidaCpf(cpf: string): any {
 

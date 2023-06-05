@@ -43,12 +43,26 @@ export class ManterClienteComponent implements OnInit {
   public dataVar = 'dd-mm-aaaa';
 
   valuechange(date: any) {
-    this.cliente.dataNascimento = `${date.year}-${date.month}-${date.day}`;
+    let day: any;
+    let month: any;
+    if((JSON.stringify(date.day).length)==1){
+      day = "0"+JSON.stringify(date.day)
+    } else {day = date.day}
+    if((JSON.stringify(date.month).length)==1){
+      month = "0"+JSON.stringify(date.month)
+    } else {month = date.month}
+    
+    this.cliente.dataNascimento = `${date.year}-${month}-${day}`;
+    console.log(this.cliente.dataNascimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
     console.log(this.cliente)
   }
 
   cadastrar() {
+
+      this.CustomvalidationService.camelize(this.cliente.nome)
+      this.CustomvalidationService.camelize(this.cliente.sobrenome)
+
     this.gerenteService.addCliente(this.cliente).subscribe(
       (response: HttpResponse<Cliente>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -66,7 +80,8 @@ export class ManterClienteComponent implements OnInit {
   }
  
   public cpfNotValid = false;
-
+  public cepNotValid = false;
+  
   validateCpf(event: any) {
     this.cpfNotValid =  this.CustomvalidationService.ValidaCpf(this.cliente.cpf)
     console.log(this.cpfNotValid)
@@ -78,6 +93,11 @@ export class ManterClienteComponent implements OnInit {
       this.endereco.cidade = data.localidade;
       this.endereco.estado = data.uf;
       this.endereco.logradouro = data.logradouro;
+      if(data.uf==undefined){
+        this.cepNotValid = true;
+      } else{
+        this.cepNotValid = false;
+      }
     });
   }
 }

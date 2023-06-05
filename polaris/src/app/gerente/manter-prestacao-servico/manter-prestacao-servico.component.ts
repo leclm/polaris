@@ -56,10 +56,19 @@ export class ManterPrestacaoServicoComponent implements OnInit {
   public dataVar = 'dd-mm-aaaa';
 
   valuechange(date: any) {
-    this.prestacaoServico.dataProcedimento = `${date.year}-${date.month}-${date.day}`;
-    this.dataVar = `${date.day}-${date.month}-${date.year}`;
+
+    let day: any;
+    let month: any;
+    if((JSON.stringify(date.day).length)==1){
+      day = "0"+JSON.stringify(date.day)
+    } else {day = date.day}
+    if((JSON.stringify(date.month).length)==1){
+      month = "0"+JSON.stringify(date.month)
+    } else {month = date.month}
+    
+    this.prestacaoServico.dataProcedimento = `${date.year}-${month}-${day}`;
     console.log(this.prestacaoServico.dataProcedimento)
-    console.log(this.dataVar)
+    this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
   cadastrar() {
     this.alteraDisponibilidadeConteiner();

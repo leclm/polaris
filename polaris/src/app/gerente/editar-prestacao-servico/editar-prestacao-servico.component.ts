@@ -5,6 +5,7 @@ import { PrestacaoServicoAtualizacao } from 'src/app/models/prestacaoServicoAtua
 import { Servico } from 'src/app/models/servico.model';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { GerenteService } from '../services';
+import { CustomvalidationService } from 'src/app/shared';
 
 enum EstadoConteiner {
   Cancelado = 0,
@@ -49,7 +50,7 @@ export class EditarPrestacaoServicoComponent implements OnInit {
     comentario: '',
   }
     
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.prestacaoDeServicoUuid = this.activatedRoute.snapshot.params['id']; 
@@ -60,9 +61,21 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   public dataVar = this.prestacaoServicoAtualizacao.dataProcedimento;
 
   valuechange(date: any) {
-    this.prestacaoServicoAtualizacao.dataProcedimento = `${date.year}-${date.month}-${date.day}`;
+    
+    let day: any;
+    let month: any;
+    if((JSON.stringify(date.day).length)==1){
+      day = "0"+JSON.stringify(date.day)
+    } else {day = date.day}
+    if((JSON.stringify(date.month).length)==1){
+      month = "0"+JSON.stringify(date.month)
+    } else {month = date.month}
+    
+    this.prestacaoServicoAtualizacao.dataProcedimento = `${date.year}-${month}-${day}`;
+    console.log(this.prestacaoServicoAtualizacao.dataProcedimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
+
   editar() {
     this.prestacaoServicoAtualizacao.prestacaoDeServicoUuid = this.prestacaoDeServicoUuid;
     this.prestacaoServicoAtualizacao.estadoPrestacaoServico = parseInt(this.estadoPrestacaoServicoSelecionada.toString());
@@ -100,7 +113,7 @@ export class EditarPrestacaoServicoComponent implements OnInit {
       this.dataVar = this.prestacaoServicoAtualizacao.dataProcedimento;
 
       this.prestacaoServicoAtualizacao.estadoPrestacaoServico = response.estadoPrestacaoServico;
-      this.prestacaoServicoAtualizacao.comentario = response.comentario;
+      this.prestacaoServicoAtualizacao.comentario = this.CustomvalidationService.camelize(response.comentario);
       
       this.estadoPrestacaoServicoSelecionada = this.prestacaoServicoAtualizacao.estadoPrestacaoServico;      
       

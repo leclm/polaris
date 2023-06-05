@@ -48,9 +48,18 @@ export class EditarClienteComponent implements OnInit {
   }
 
   public dataVar = this.cliente.dataNascimento;
-
   valuechange(date: any) {
-    this.cliente.dataNascimento = `${date.year}-${date.month}-${date.day}`;
+    let day: any;
+    let month: any;
+    if((JSON.stringify(date.day).length)==1){
+      day = "0"+JSON.stringify(date.day)
+    } else {day = date.day}
+    if((JSON.stringify(date.month).length)==1){
+      month = "0"+JSON.stringify(date.month)
+    } else {month = date.month}
+    
+    this.cliente.dataNascimento = `${date.year}-${month}-${day}`;
+    console.log(this.cliente.dataNascimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
   editar() {
@@ -82,10 +91,14 @@ export class EditarClienteComponent implements OnInit {
     this.gerenteService.getClienteById(this.clienteUuid).subscribe( (res: any) => {
         this.clienteById = res;
         this.cliente.clienteUuid = this.clienteUuid;
-        this.cliente.nome = this.clienteById.nome;
-        this.cliente.sobrenome = this.clienteById.sobrenome;
-        this.cliente.email = this.clienteById.email;
+        this.cliente.nome = this.CustomvalidationService.camelize(this.clienteById.nome);
+        this.cliente.sobrenome = this.CustomvalidationService.camelize(this.clienteById.sobrenome);
+        this.cliente.email = this.CustomvalidationService.camelize(this.clienteById.email);
         this.cliente.telefone = this.clienteById.telefone;
+        this.cliente.endereco = this.clienteById.endereco;
+        this.cliente.endereco.cidade = this.CustomvalidationService.camelize(this.cliente.endereco.cidade)
+        this.cliente.endereco.logradouro = this.CustomvalidationService.camelize(this.cliente.endereco.logradouro)
+        this.cliente.endereco.complemento = this.CustomvalidationService.camelize(this.cliente.endereco.complemento)
 
         let dataNasc = this.clienteById.dataNascimento;
         let dataArr = dataNasc.split("T");

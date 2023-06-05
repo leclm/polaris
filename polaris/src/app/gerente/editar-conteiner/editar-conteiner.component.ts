@@ -7,6 +7,8 @@ import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
 import { HttpResponse } from '@angular/common/http';
+import { CustomvalidationService } from 'src/app/shared';
+
 @Component({
   selector: 'app-editar-conteiner',
   templateUrl: './editar-conteiner.component.html',
@@ -22,7 +24,7 @@ export class EditarConteinerComponent implements OnInit {
   
   @ViewChild("formConteiner") formConteiner!: NgForm;
   
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService,private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   public conteiner: Conteiner = {
     conteinerUuid: '',
@@ -67,11 +69,21 @@ export class EditarConteinerComponent implements OnInit {
   }
 
   getAllTiposAtivos() {
-    this.gerenteService.getAllTiposAtivos().subscribe( (res: any) => { this.tiposCadastrados = res; });
+    this.gerenteService.getAllTiposAtivos().subscribe( (res: any) => { 
+      this.tiposCadastrados = res;
+      for (let data of this.tiposCadastrados) {
+        data.nome = this.CustomvalidationService.camelize(data.nome)  
+      }
+      });
   }
   
   getAllCategoriasAtivas() {
-    this.gerenteService.getAllCategoriasAtivas().subscribe( (res: any) => { this.categoriasCadastradas = res; });
+    this.gerenteService.getAllCategoriasAtivas().subscribe( (res: any) => { 
+      this.categoriasCadastradas = res;
+      for (let data of this.categoriasCadastradas) {
+          data.nome = this.CustomvalidationService.camelize(data.nome)  
+       }
+     });
   }
   getAllTerceirizadosAtivos() {
     this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => { this.terceirizadosCadastrados = res;}); 
@@ -82,9 +94,9 @@ export class EditarConteinerComponent implements OnInit {
       this.conteiner.conteinerUuid = res.conteinerUuid;
       this.conteiner.codigo = res.codigo;
       this.conteiner.fabricacao = res.fabricacao;
-      this.conteiner.fabricante = res.fabricante;
-      this.conteiner.material = res.material;
-      this.conteiner.cor = res.cor;
+      this.conteiner.fabricante = this.CustomvalidationService.camelize(res.fabricante);
+      this.conteiner.material = this.CustomvalidationService.camelize(res.material);
+      this.conteiner.cor = this.CustomvalidationService.camelize(res.cor);
       this.conteiner.categoria = res.categoriaConteiner.categoriaConteinerUuid;
       this.conteiner.tipo = res.tipoConteiner.tipoConteinerUuid;
     });   

@@ -72,13 +72,10 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   async ngOnInit() { 
     await this.loadData();
-    
-    setTimeout(() => this.showChart = true, 200); 
+    //setTimeout(() => this.showChart = true, 300); 
   }
 
  ngAfterViewInit() {
-    //setTimeout(() => this.loadGoogleMapsScript(() => this.initializeMap()), 200);
-    //setTimeout(() => this.showChart = true, 200); 
   }
   
  async loadData() {
@@ -99,9 +96,9 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     for (let i = 0; i < data.length; i++) {
       let estado = data[i].estado;
       let estadoData = EstadoConteiner[estado]
-      for (let dataO of this.dataConteiner ) {
-        if (dataO.label === estadoData) { 
-          dataO.y = dataO.y+1;  
+      for (let data of this.dataConteiner ) {
+        if (data.label === estadoData) { 
+          data.y = data.y+1;  
        }}}
   };
 
@@ -109,10 +106,11 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     for (let i = 0; i < data.length; i++) {
       let estado = data[i].estadoAluguel;
       let estadoData = EstadoAluguel[estado]
-      for (let dataO of this.dataAluguel ) {
-        if (dataO.label === estadoData) { 
-          dataO.y = dataO.y+1;    
+      for (let data of this.dataAluguel ) {
+        if (data.label === estadoData) { 
+          data.y = data.y+1;    
        }}}
+       this.showChart = true; 
   };
 
   getEnderecoAluguel(data: any) {
