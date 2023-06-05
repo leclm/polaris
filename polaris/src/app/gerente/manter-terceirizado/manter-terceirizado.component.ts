@@ -49,6 +49,9 @@ export class ManterTerceirizadoComponent implements OnInit {
     this.gerenteService.getAllServicosAtivos()
     .subscribe( response => {
       this.servicosCadastrados = response;
+      for (let data of this.servicosCadastrados) {
+        data.nome = this.CustomvalidationService.camelize(data.nome)  
+      }
     })
   }
 
@@ -71,18 +74,23 @@ export class ManterTerceirizadoComponent implements OnInit {
   }
  
   public cnpjNotValid = false;
+  public cepNotValid = false;
 
   validateCnpj(event: any) {
       let valid = this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
       this.cnpjNotValid = valid;
   }
 
-
   searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.endereco.cep).subscribe(data => {
       this.endereco.cidade = data.localidade;
       this.endereco.estado = data.uf;
       this.endereco.logradouro = data.logradouro;
+      if(data.uf==undefined){
+        this.cepNotValid = true;
+      } else{
+        this.cepNotValid = false;
+      }
     });
   }
 }

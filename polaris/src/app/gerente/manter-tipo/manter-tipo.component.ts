@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GerenteService } from '../services';
 import { HttpResponse } from '@angular/common/http';
 import { Tipo } from 'src/app/models/tipo.model';
+import { CustomvalidationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-manter-tipo',
@@ -24,17 +25,26 @@ export class ManterTipoComponent implements OnInit {
     status: true
   }
 
-  constructor( private gerenteService: GerenteService ) { }
+  constructor( private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void { }
 
   public tipoVar: any
+  public valueNotValid = false;
 
   changeCents(event: any) {
     this.tipoVar
+    let valor = JSON.stringify(this.tipo.valorDiaria)
+    
+    if(valor=="0"){this.valueNotValid=true}else {this.valueNotValid=false}
+    console.log(JSON.stringify(this.tipo.valorDiaria))
+    console.log(this.valueNotValid)
+    this.valueNotValid
 }
 
   cadastrar() {
+
+    this.CustomvalidationService.camelize(this.tipo.nome)
     this.gerenteService.addTipo(this.tipo).subscribe(
       (response: HttpResponse<Tipo>) => {   
         if (response.status === 200 || response.status === 201) {

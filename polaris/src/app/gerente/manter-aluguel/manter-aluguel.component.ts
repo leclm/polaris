@@ -89,16 +89,41 @@ export class ManterAluguelComponent implements OnInit {
   }
   public dataIni = 'dd-mm-aaaa';
   public dataDev = 'dd-mm-aaaa';
-
+  closeDatepicker(id: { close: () => void; }){
+    id.close();
+  }
   valuechangeIni(date: any) {
-    this.aluguel.dataInicio = `${date.year}-${date.month}-${date.day}`;
+    let day: any;
+    let month: any;
+    if((JSON.stringify(date.day).length)==1){
+      day = "0"+JSON.stringify(date.day)
+    } else {day = date.day}
+    if((JSON.stringify(date.month).length)==1){
+      month = "0"+JSON.stringify(date.month)
+    } else {month = date.month}
+    
+    this.aluguel.dataInicio = `${date.year}-${month}-${day}`;
+    console.log(this.aluguel.dataInicio)
     this.dataIni = `${date.day}-${date.month}-${date.year}`;
+    console.log(this.aluguel)
   }
-  
+
   valuechangeDev(date: any) {
-    this.aluguel.dataDevolucao = `${date.year}-${date.month}-${date.day}`;
+    let day: any;
+    let month: any;
+    if((JSON.stringify(date.day).length)==1){
+      day = "0"+JSON.stringify(date.day)
+    } else {day = date.day}
+    if((JSON.stringify(date.month).length)==1){
+      month = "0"+JSON.stringify(date.month)
+    } else {month = date.month}
+    
+    this.aluguel.dataInicio = `${date.year}-${month}-${day}`;
+    console.log(this.aluguel.dataInicio)
     this.dataDev = `${date.day}-${date.month}-${date.year}`;
+    console.log(this.aluguel)
   }
+
   getAllClientesAtivos() {
     this.gerenteService.getAllClientesAtivos()
     .subscribe( response => {
@@ -114,12 +139,20 @@ export class ManterAluguelComponent implements OnInit {
     })
   }
 
+  public cepNotValid = false;
+
   searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.enderecoLocacao.cep).subscribe(data => {
       this.enderecoLocacao.cidade = data.localidade;
       this.enderecoLocacao.estado = data.uf;
       this.enderecoLocacao.logradouro = data.logradouro;
+      if(data.uf==undefined){
+        this.cepNotValid = true;
+      } else{
+        this.cepNotValid = false;
+      }
     });
+
   }
 
   getAllCategoriasAtivas() {

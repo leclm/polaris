@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Servico } from 'src/app/models/servico.model';
 import { GerenteService } from '../services';
+import { CustomvalidationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-servico',
@@ -22,12 +23,15 @@ export class EditarServicoComponent implements OnInit {
   }
 
   @ViewChild("formservico") formservico!: NgForm;
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService,private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.servicoUuid = this.activatedRoute.snapshot.params['id'];
     this.gerenteService.getAllServicos().subscribe( (res: any) => { this.servicoData = res; });
-    this.gerenteService.getServicoById(this.servicoUuid).subscribe( (res: any) => { this.servico = res; });
+    this.gerenteService.getServicoById(this.servicoUuid).subscribe( (res: any) => { 
+      this.servico = res; 
+      this.servico.nome = this.CustomvalidationService.camelize(this.servico.nome);
+    });
   }
 
   editar() {

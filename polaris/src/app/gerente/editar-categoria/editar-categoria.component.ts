@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Categoria } from 'src/app/models/categoria.model';
 import { HttpResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { CustomvalidationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-categoria',
@@ -22,12 +23,15 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   @ViewChild("formCategoria") formCategoria!: NgForm;
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService,private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.categoriaConteinerUuid = this.activatedRoute.snapshot.params['id'];
     this.gerenteService.getAllCategorias().subscribe( (res: any) => { this.categoriaData = res; });
-    this.gerenteService.getCategoriaById(this.categoriaConteinerUuid).subscribe( (res: any) => { this.categoria = res; });
+    this.gerenteService.getCategoriaById(this.categoriaConteinerUuid).subscribe( (res: any) => { 
+      this.categoria = res;
+      this.categoria.nome = this.CustomvalidationService.camelize(this.categoria.nome);
+    });
   }
 
   editar() {

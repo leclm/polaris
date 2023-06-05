@@ -4,6 +4,7 @@ import { Tipo } from 'src/app/models/tipo.model';
 import { GerenteService } from '../services';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { CustomvalidationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-tipo',
@@ -29,13 +30,30 @@ export class EditarTipoComponent implements OnInit {
   }
   
   @ViewChild("formTipo") formTipo!: NgForm;
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService,private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.tipoConteinerUuid = this.activatedRoute.snapshot.params['id'];
     this.gerenteService.getAllTipos().subscribe( (res: any) => { this.tipoData = res; });
-    this.gerenteService.getTipoById(this.tipoConteinerUuid).subscribe( (res: any) => { this.tipo = res; });
+    this.gerenteService.getTipoById(this.tipoConteinerUuid).subscribe( (res: any) => { 
+      this.tipo = res;
+      this.tipo.nome = this.CustomvalidationService.camelize(this.tipo.nome);
+
+     });
   }
+
+  public tipoVar: any
+  public valueNotValid = false;
+
+  changeCents(event: any) {
+    this.tipoVar
+    let valor = JSON.stringify(this.tipo.valorDiaria)
+    
+    if(valor=="0"){this.valueNotValid=true}else {this.valueNotValid=false}
+    console.log(JSON.stringify(this.tipo.valorDiaria))
+    console.log(this.valueNotValid)
+    this.valueNotValid
+}
 
   editar() {
     this.gerenteService.editarTipo(this.tipo).subscribe(

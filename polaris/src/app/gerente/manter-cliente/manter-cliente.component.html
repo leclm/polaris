@@ -40,7 +40,7 @@
           <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
             <div class="input-group mb-6">
-              <input class="form-control" placeholder="{{cliente.dataNascimento}}" [(ngModel)]="dataVar" id="inputDataNascimento" 
+              <input class="form-control" placeholder="{{dataVar}}" [(ngModel)]="dataVar" id="inputDataNascimento" 
                 name="dataNascimento" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
@@ -80,9 +80,10 @@
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
             <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
-            <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-              <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+            <div *ngIf="cep.pristine && cep.touched" class="alert alert-danger">
+              Digite o CEP.
             </div>
+            <div *ngIf="cepNotValid==true" class="alert alert-danger">Digite um CEP válido</div>
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>

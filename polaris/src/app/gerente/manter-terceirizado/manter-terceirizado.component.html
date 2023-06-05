@@ -25,11 +25,16 @@
         <form class="row g-3" #formTerceirizado="ngForm" (ngSubmit)="cadastrar()">
           <div class="col-md-6">
             <label for="inputEmpresa" class="form-label">Nome da Empresa</label>
-            <input type="text" class="form-control" id="inputEmpresa" [(ngModel)]="terceirizado.empresa" name="empresa">
+            <input type="text" class="form-control" id="inputEmpresa" [(ngModel)]="terceirizado.empresa" name="empresa"  #nome="ngModel" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+              <div [hidden]="!nome.errors?.['required']">Digite o nome da empresa.</div>
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputCnpj" class="form-label">CNPJ</label>
-            <input type="text" (input)="validateCnpj($event)" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" name="cnpj" #cnpj="ngModel" mask="00.000.000/0000-00" >
+            <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" (input)="validateCnpj($event)" name="cnpj" #cnpj="ngModel" mask="00.000.000/0000-00" >
+            
+            <div *ngIf="cnpj.pristine && cnpj.touched" class="alert alert-danger">Digite um CNPJ.</div>
             <div *ngIf="cnpjNotValid" class="alert alert-danger">Digite um CNPJ válido.</div>
           </div>
           <div class="col-md-12 mt-4 ctn-servicos">
@@ -43,7 +48,7 @@
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
             <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="terceirizado.telefone" name="telefone"  #telefone="ngModel" required mask="(00) 00000-0000">
-            <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+            <div *ngIf="telefone.pristine && telefone.touched" class="alert alert-danger">
               <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
             </div>
           </div>
@@ -58,9 +63,10 @@
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
             <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
-            <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-              <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+            <div *ngIf="cep.pristine && cep.touched" class="alert alert-danger">
+              Digite o CEP.
             </div>
+            <div *ngIf="cepNotValid==true" class="alert alert-danger">Digite um CEP válido</div>
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>

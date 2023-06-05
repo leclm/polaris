@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Servico } from 'src/app/models/servico.model';
 import { GerenteService } from '../services';
+import { CustomvalidationService } from 'src/app/shared';
 
 @Component({
   selector: 'app-manter-servico',
@@ -17,12 +18,13 @@ export class ManterServicoComponent implements OnInit {
     checked: true
   }
 
-  constructor( private gerenteService: GerenteService ) { }
+  constructor( private CustomvalidationService: CustomvalidationService,private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
   }
 
   cadastrar() {
+    this.CustomvalidationService.camelize(this.servico.nome)
     this.gerenteService.addServico(this.servico).subscribe(
       (response: HttpResponse<Servico>) => {   
         if (response.status === 200 || response.status === 201) {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GerenteService } from '../services';
 import { ActivatedRoute } from '@angular/router';
+import { ViaCepService, CustomvalidationService } from 'src/app/shared';
 import { Terceirizado } from 'src/app/models/terceirizado.model';
 import { NgForm } from '@angular/forms';
 import { Servico } from 'src/app/models/servico.model';
@@ -48,7 +49,7 @@ export class EditarTerceirizadoComponent implements OnInit {
 
   @ViewChild("formTerceirizado") formTerceirizado!: NgForm;
 
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor(  private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.terceirizadoUuid = this.activatedRoute.snapshot.params['id']; 
@@ -60,11 +61,14 @@ export class EditarTerceirizadoComponent implements OnInit {
     this.gerenteService.getTerceirizadoById(this.terceirizadoUuid).subscribe( (res: any) => {
         this.terceirizadoById = res;
         this.terceirizado.terceirizadoUuid = this.terceirizadoUuid;
-        this.terceirizado.empresa = this.terceirizadoById.empresa;
+        this.terceirizado.empresa = this.CustomvalidationService.camelize(this.terceirizadoById.empresa);
         this.terceirizado.cnpj = this.terceirizadoById.cnpj;
         this.terceirizado.email = this.terceirizadoById.email;
         this.terceirizado.telefone = this.terceirizadoById.telefone;
         this.terceirizado.endereco = this.terceirizadoById.endereco;
+        this.terceirizado.endereco.cidade = this.CustomvalidationService.camelize(this.terceirizado.endereco.cidade)
+        this.terceirizado.endereco.logradouro = this.CustomvalidationService.camelize(this.terceirizado.endereco.logradouro)
+        this.terceirizado.endereco.complemento = this.CustomvalidationService.camelize(this.terceirizado.endereco.complemento)
         
         this.servicosAtuaisTerceirizado = res.servicos;
         for (let i = 0; i < this.servicosAtuaisTerceirizado.length; i++) {
@@ -77,6 +81,9 @@ export class EditarTerceirizadoComponent implements OnInit {
 
     this.gerenteService.getAllServicos().subscribe( (res: any) => {
         this.servicosCadastrados = res;
+        for (let data of this.servicosCadastrados) {
+          data.nome = this.CustomvalidationService.camelize(data.nome)  
+        }
       }
     )
   }
@@ -90,6 +97,14 @@ export class EditarTerceirizadoComponent implements OnInit {
     return this.servicosAtuaisTerceirizado.filter(item => item.checked);
   }
   
+  public cnpjNotValid = false;
+  public cepNotValid = false;
+
+  validateCnpj(event: any) {
+      let valid = this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
+      this.cnpjNotValid = valid;
+  }
+
   editar() {
     this.gerenteService.editarTerceirizado(this.terceirizado).subscribe(
       (response: HttpResponse<Terceirizado>) => {   

@@ -5,7 +5,7 @@
         <h1>Editar Terceirizado</h1>
 
         <div class="line mb-5"></div>
-        
+
         <div [ngSwitch]="statusMsg">
           <div *ngSwitchCase="'success'">
             <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
@@ -34,7 +34,10 @@
               </div>
               <div class="col-md-6">
                 <label for="inputCnpj" class="form-label">CNPJ</label>
-                <input type="text" class="form-control" id="inputCnpj" value="{{item.cnpj}}">
+                <input type="text" class="form-control" id="inputCnpj" value="{{item.cnpj}}" [(ngModel)]="terceirizado.cnpj" (input)="validateCnpj($event)" name="cnpj" #cnpj="ngModel" mask="00.000.000/0000-00" >
+            
+                <div *ngIf="cnpj.pristine && cnpj.touched" class="alert alert-danger">Digite um CNPJ.</div>
+                <div *ngIf="cnpjNotValid" class="alert alert-danger">Digite um CNPJ válido.</div>
               </div>       
 
               <div class="col-md-12 mt-4 ctn-servicos">
@@ -49,7 +52,7 @@
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
                 <input type="tel" class="form-control" id="inputTelefone" value="{{terceirizado.telefone}}" [(ngModel)]="terceirizado.telefone" name="telefone" #telefone="ngModel" required mask="(00) 00000-0000">
-                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
+                <div *ngIf="telefone.pristine && telefone.touched" class="alert alert-danger">
                   <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
                 </div>
               </div>
@@ -65,10 +68,11 @@
         
               <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="inputCep" value="{{terceirizado.endereco.cep}}" [(ngModel)]="terceirizado.endereco.cep" name="cep" #cep="ngModel" required mask='00000-000'>
+                <input type="text" class="form-control" id="inputCep" value="{{terceirizado.endereco.cep}}" [(ngModel)]="terceirizado.endereco.cep" name="cep" #cep="ngModel" mask='00000-000' required>
                 <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-                  <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+                  Digite um CEP válido.
                 </div>
+                <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>

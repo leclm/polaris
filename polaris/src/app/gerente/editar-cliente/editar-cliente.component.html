@@ -59,13 +59,13 @@
           </div>
               <div class="col-md-6">
                 <label for="inputCpf" class="form-label">CPF</label>
-                <p class="form-control disabled"> {{ item.cpf }} </p>
+                <p class="form-control disabled"> {{ item.cpf | cpfGerente }} </p>
               </div>
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
                 <input type="tel" class="form-control" id="inputTelefone" name="telefone" [(ngModel)]="cliente.telefone" #telefone="ngModel" required mask="(00) 00000-0000">
-                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">
-                  <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
+                <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)">
+                  <div class="alert alert-danger" [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -77,8 +77,9 @@
                 <label for="inputCep" class="form-label">CEP</label>
                 <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel" required mask='00000-000'>
                 <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-                  <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+                  Digite um CEP válido.
                 </div>
+                <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>

@@ -32,9 +32,9 @@
           </div>
           <div class="col-md-4">
             <label for="inputValorDiaria" class="form-label">Valor por Diária</label>
-            <input (input)="changeCents($event)" type="text" class="form-control" id="inputValorDiaria" value="R$ " [(ngModel)]="tipo.valorDiaria" mask="separator.2" prefix="R$" thousandSeparator="." [allowNegativeNumbers]="false" name="valorDiaria" #valorDiaria="ngModel" required>
-            <div *ngIf="valorDiaria.errors && (valorDiaria.dirty || valorDiaria.touched)" class="alert alert-danger">
-              <div [hidden]="!valorDiaria.errors?.['required']">Digite o valor da diária.</div>
+            <input (input)="changeCents($event)" type="text" class="form-control" id="inputValorDiaria" placeholder="R$" [(ngModel)]="tipo.valorDiaria" mask="separator.2" prefix="R$" thousandSeparator="." [allowNegativeNumbers]="false" name="valorDiaria" #valorDiaria="ngModel" required>
+            <div *ngIf="valueNotValid" class="alert alert-danger">
+              Digite um valor
             </div>
           </div>
           <div class="col-md-4">
