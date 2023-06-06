@@ -9,5 +9,8 @@ export const SistemaRoutes: Routes = [
   {
     path: 'sistema/pagina-inicial',
     component: PaginaInicialComponent
+  },
+  { 
+    path: '', redirectTo: 'sistema/pagina-inicial', pathMatch: 'full' 
   }
 ];

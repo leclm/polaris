@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Aluguel } from 'src/app/models/aluguel.model';
@@ -30,12 +30,6 @@ export class GerenteService {
   
   constructor( private http: HttpClient, private loginService: LoginService ) { } 
   // Login 
-  alterarSenha(login: Login): Observable<HttpResponse<Login>> {
-    this.loginService.buildHeaderToken();
-    const url = `${this.loginURL}/Logins/alterar-senha`;
-    return this.http.put<Login>(url, login, { headers: this.loginService.httpOptions.headers, observe: 'response' });
-  }
-
   alterarStatusLoginCliente(uuid: string): Observable<HttpResponse<Login>> {
     this.loginService.buildHeaderToken();
     const url = `${this.loginURL}/Logins/alterar-status/${uuid}/false`;

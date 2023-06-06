@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GerenteService } from 'src/app/gerente/services';
 import { Login } from 'src/app/models/login.model';
+import { ClienteService } from '../services';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -22,21 +23,21 @@ export class AlterarSenhaComponent implements OnInit {
   }  
 
   @ViewChild("formAlterarSenha") formAlterarSenha!: NgForm;
-  constructor( private gerenteService: GerenteService ) { }
+  constructor( private clienteService: ClienteService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    // ajustar para pegar o usuario logado
-    this.getClienteById('aa392264-ec06-4ab4-af59-f97f1c37bca7');
+    this.login.loginUuid = localStorage.getItem("loginUuid") as string;
+    this.getClienteById();
   }
 
-  getClienteById(id: string) {
-    this.gerenteService.getClienteByIdLogin(id).subscribe( res => {
+  getClienteById() {
+    this.gerenteService.getClienteByIdLogin(this.login.loginUuid).subscribe( res => {
         this.login.loginUuid = res.login.loginUuid;
         this.login.usuario = res.login.usuario;
       }      
     );
   }
-  
+ 
   changePassword(): void {
     if (this.newPassword === this.confirmPassword) {
       this.login.senha = this.newPassword;
@@ -48,7 +49,8 @@ export class AlterarSenhaComponent implements OnInit {
   }
 
   editar() {
-    this.gerenteService.alterarSenha(this.login).subscribe(
+    console.log(this.login);
+    this.clienteService.alterarSenha(this.login).subscribe(
       (response: HttpResponse<Login>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';
