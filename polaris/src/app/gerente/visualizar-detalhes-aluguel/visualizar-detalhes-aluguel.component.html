@@ -79,7 +79,7 @@
                         <td>#{{ item.codigo }}</td>
                         <td>{{ item.categoriaConteiner.nome! | capitalizacaoGerente }}</td>
                         <td>{{ item.tipoConteiner.nome! | capitalizacaoGerente }}</td>
-                        <td>{{ item.tipoConteiner.valorDiaria }}</td>
+                        <td>{{ item.tipoConteiner.valorDiaria | currency }}</td>
                         <td>{{ totalDays }} </td>
                         <td>{{ totalDays*item.tipoConteiner.valorDiaria! | currency }}</td>
                       </tr>

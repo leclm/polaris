@@ -62,14 +62,14 @@
             <div class="col-md-6">         
               <label for="inputCategoria" class="form-label">Categoria</label>
               <select class="form-select" id="inputCategoria" aria-label="categoria" name="categoria" [(ngModel)]="conteiner.categoria">
-                <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome}}</option>
+                <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome | capitalizacaoGerente}}</option>
               </select>
             </div>
   
             <div class="col-md-6">         
               <label for="inputTipo" class="form-label">Tipo</label>
               <select class="form-select" id="inputTipo" aria-label="tipo" name="tipo" [(ngModel)]="conteiner.tipo">
-                <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome}}</option>
+                <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome | capitalizacaoGerente}}</option>
               </select>
             </div>
   

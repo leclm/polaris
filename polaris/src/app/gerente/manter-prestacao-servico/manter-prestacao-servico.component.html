@@ -33,7 +33,9 @@
           <div class="col-md-6">
             <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
             <div class="input-group mb-6">
-            <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" placeholder="{{dataVar}}" [(ngModel)]="dataVar" #dataProcedimento="ngModel"  (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
+              <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" placeholder="dd-mm-aaaa" [(ngModel)]="prestacaoServico.dataProcedimento" #dataProcedimento="ngModel"/>
+           
+            <!--<input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" placeholder="{{dataVar}}" [(ngModel)]="dataVar" #dataProcedimento="ngModel"  (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
                   class="fa-solid fa-calendar"></i></button>
@@ -41,21 +43,21 @@
                 <hr class="my-0" />
                 <button class="btn btn-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
               </ng-template>
-            </div>
+            </div>-->
           </div>
           </div>
           
           <div class="col-md-6">         
             <label for="inputEmpresa" class="form-label">Empresa</label>
             <select class="form-select" id="inputEmpresa" aria-label="empresa" name="empresa" [(ngModel)]="prestacaoServico.terceirizado">
-              <option *ngFor="let item of terceirizadosCadastrados" [value]="item.terceirizadoUuid">{{item.empresa}}</option>
+              <option *ngFor="let item of terceirizadosCadastrados" [value]="item.terceirizadoUuid">{{item.empresa | capitalizacaoGerente}}</option>
             </select>
           </div>
 
           <div class="col-md-6">         
             <label for="inputServico" class="form-label">Serviço</label>
             <select class="form-select" id="inputServico" aria-label="servico" name="servico" [(ngModel)]="prestacaoServico.servico">
-              <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.nome}}</option>
+              <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.nome | capitalizacaoGerente}}</option>
             </select>
           </div>
 
