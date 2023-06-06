@@ -8,7 +8,7 @@ import { SistemaRoutes } from './sistema/sistema-routing.module';
 const routes: Routes = [
   { 
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'pagina-inicial',
     pathMatch: 'full',
   },
   ...ClienteRoutes,

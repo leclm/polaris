@@ -56,7 +56,8 @@ export class LoginService {
 
           this.loginStatus.next(true);     
           localStorage.setItem('loginStatus', '1');
-          //console.log(response.body);
+          
+          localStorage.setItem('loginUuid', this.loginUuid);
           const token = response.body?.token;
           if (token) {
             this.saveTokenToLocalStorage(token);
