@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../services';
-import { LoginService } from 'src/app/auth';
 import { GerenteService } from 'src/app/gerente/services';
 
 enum EstadoAluguel {
@@ -21,23 +20,30 @@ export class VisualizarAluguelComponent implements OnInit {
   public aluguelData: any;
   public estadoAluguel = EstadoAluguel;
   public cpf!: string;
-  public loginUuid!: string;
+  public usuario!: string;
+  public statusMsg!: string;
 
   constructor( private clienteService: ClienteService, private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this.loginUuid = localStorage.getItem("loginUuid") as string;
-    this.getClienteById();
+    this.usuario = localStorage.getItem("usuario") as string;
+    this.getAllClientesComLogin();
   }
 
-  getClienteById() {
-    this.gerenteService.getClienteByIdLogin(this.loginUuid).subscribe( res => {
-        this.cpf = res.cpf;
-      }      
-    );
-    this.getAllAlugueis();
+  getAllClientesComLogin() {
+    this.clienteService.getAllClientesComLogin().subscribe( res => {
+      const clienteEncontrado = res.find(cliente => cliente.login.usuario.toLowerCase() === this.usuario.toLowerCase());
+      console.log(clienteEncontrado);
+      if (clienteEncontrado) {
+        this.statusMsg = 'success';
+        this.cpf = clienteEncontrado.cpf;
+        this.getAllAlugueis();
+      } else {
+        this.statusMsg = 'fail';
+      }
+    });    
   }
-  
+
   getAllAlugueis() {
     this.clienteService.getAlugueisByCPFClient(this.cpf).subscribe( (res: any) => {
       this.aluguelData = res;

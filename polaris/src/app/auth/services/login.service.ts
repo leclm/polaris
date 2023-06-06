@@ -12,6 +12,7 @@ export class LoginService {
   token: string | null = null;
   role: string = '';
   loginUuid: string = '';  
+  usuario: string = '';  
   httpOptions = { headers: new HttpHeaders({ "Content-Type": "application/json"})};
   
   private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
@@ -29,7 +30,8 @@ export class LoginService {
       this.loginStatus.next(false);
       localStorage.removeItem(key);
       localStorage.setItem('loginStatus', '0');
-      localStorage.removeItem('userRole')
+      localStorage.removeItem('loginUuid');
+      localStorage.removeItem('usuario');
       console.log('Key and value removed from local storage.');
     } else {
       console.log('Key not found in local storage.');
@@ -53,11 +55,12 @@ export class LoginService {
         tap((response: HttpResponse<LoginAcesso>) => {          
           this.role = response.body?.role ?? '';
           this.loginUuid = response.body?.loginUuid ?? '';
-
+          this.usuario = response.body?.usuario ?? '';
+          
           this.loginStatus.next(true);     
           localStorage.setItem('loginStatus', '1');
-          
           localStorage.setItem('loginUuid', this.loginUuid);
+          localStorage.setItem('usuario', this.usuario); 
           const token = response.body?.token;
           if (token) {
             this.saveTokenToLocalStorage(token);

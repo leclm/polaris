@@ -2,7 +2,16 @@
   <div class="container-content p-4">
     <h1 class="mb-4">Histórico de Aluguéis</h1>
 
-    <div class="table-responsive">
+    <div [ngSwitch]="statusMsg">
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-warning alert-dismissible fade show mb-5" role="alert">
+          Você ainda não realizou nenhum aluguel conosco! <br/> Entre em contato pelo telefone (41) 3003-3003 e realize seu primeiro aluguel!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="statusMsg === 'success'" class="table-responsive" >
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
