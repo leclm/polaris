@@ -7,7 +7,7 @@
     </div>
 
     <ul *ngIf="perfil" class="list-group list-group-flush">
-      <li class="mb-3"><a [routerLink]="['/sistema']">Home</a></li>
+      <li *ngIf="!perfil" class="mb-3"><a [routerLink]="['/sistema']">Home</a></li>
       
       <li *ngIf="perfil === 'cliente'" class="mb-3"><a [routerLink]="['/cliente/visualizar-aluguel']">Visualizar Aluguéis</a></li>
       <li *ngIf="perfil === 'cliente'" class="mb-3"><a [routerLink]="['/cliente/alterar-senha']">Alterar Senha</a></li>

@@ -1,20 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../services';
+
+enum EstadoAluguel {
+  Solicitado = 0,
+  "Em Andamento" = 1,
+  "Pagamento Atrasado" = 2,
+  "Devolução Atrasada" = 3,
+  Cancelado = 4,
+  "Aguardando Retirada do Contêiner" = 5,
+  Finalizado = 6
+}
 @Component({
   selector: 'app-visualizar-aluguel',
   templateUrl: './visualizar-aluguel.component.html',
   styleUrls: ['./visualizar-aluguel.component.scss']
 })
 export class VisualizarAluguelComponent implements OnInit {
-  public authData: any;
   public aluguelData: any;
+  public estadoAluguel = EstadoAluguel;
+  public cpf!: string;
 
-  constructor( private _clienteServiceAPI: ClienteService ) { }
+  constructor( private clienteService: ClienteService ) { }
 
   ngOnInit(): void {
-    this._clienteServiceAPI.getAluguelData().subscribe( (res: any) => {
-        this.aluguelData = res;
-      }
-    )
+    this.getAllAlugueis();
   }
+
+  getAllAlugueis() {
+    this.clienteService.getAlugueisByCPFClient(this.cpf).subscribe( (res: any) => {
+      this.aluguelData = res;
+      this.getEstadoText(this.aluguelData);
+    })
+  };
+
+  getEstadoText(data: any) {
+    for (const element of data) {
+      let estado = element.estadoAluguel;
+      let estadoText = EstadoAluguel[estado]
+      element.estadoAluguel = estadoText;
+    }
+  };
 }

@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
     senha: '',
     token: '',
     role: '',
-    loginUuid: ''
+    loginUuid: '',
+    status: false
   }
 
   @ViewChild('formLogin') formLogin!: NgForm;
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
         (response: HttpResponse<LoginAcesso>) => {
           if (response.status === 200 || response.status === 201) {
             console.log('Put request successful');
+            console.log(response.body);
             if (response.body?.role === 'gerente') {
               this.router.navigate(['/gerente/dashboard']);
             } else if (response.body?.role === 'cliente') {

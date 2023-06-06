@@ -2,6 +2,21 @@
     <div class="container-content p-4">
       <h1 class="mb-4">Estoque de Contêineres</h1>
   
+      <div [ngSwitch]="statusMsg">
+        <div *ngSwitchCase="'success'">
+          <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+            Exclusão realizada com sucesso!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+        <div *ngSwitchCase="'fail'">
+          <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+            Só é possível excluir um contêiner que não possua aluguéis em andamento!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+
       <div class="table-responsive">
         <table class="table align-middle text-center">
           <thead class="table-light">
@@ -29,7 +44,7 @@
                 <a [routerLink]="['/gerente/editar-conteiner', item.conteinerUuid]" alt="Editar" title="Editar">
                   <i class="fa fa-user-edit" aria-hidden="true"></i>
                 </a>     
-                <a (click)="didTapOnDelete(item.conteinerUuid)">
+                <a (click)="didTapOnDelete(item.conteinerUuid, item.codigo)">
                   <i class="fa fa-trash-alt" aria-hidden="true"></i>
                 </a>
               </td>
