@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/auth';
 import { Aluguel } from 'src/app/models/aluguel.model';
+import { ClienteLogin } from 'src/app/models/clienteLogin.model';
 import { Login } from 'src/app/models/login.model';
 
 @Injectable({
@@ -20,6 +21,12 @@ export class ClienteService {
     return this.http.get<Aluguel>(url, this.loginService.httpOptions);
   }
 
+  getAllClientesComLogin(): Observable<ClienteLogin[]> {  
+    this.loginService.buildHeaderToken();  
+    const url = `${this.loginURL}/Clientes`;
+    return this.http.get<ClienteLogin[]>(url, this.loginService.httpOptions);
+  }
+  
   alterarSenha(login: Login): Observable<HttpResponse<Login>> {
     this.loginService.buildHeaderToken();
     const url = `${this.loginURL}/Logins/alterar-senha`;

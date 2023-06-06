@@ -60,8 +60,7 @@ export class EditarConteinerComponent implements OnInit {
         console.error('Error:', error);
         this.statusMsg = 'fail';
       }
-    );
-    
+    );    
   }
 
   getAllConteineres() {

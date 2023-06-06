@@ -61,9 +61,10 @@ export class GerenteService {
     return this.http.get<Cliente>(url, this.loginService.httpOptions);
   }
   
-  getClienteByIdLogin(id: string): Observable<ClienteLogin> {
+  // arrumar isso, esse endpoint nao existe
+  getClienteByIdLogin(clienteUuid: string): Observable<ClienteLogin> {
     this.loginService.buildHeaderToken();
-    const url = `${this.loginURL}/Clientes/${id}`;
+    const url = `${this.loginURL}/Clientes/${clienteUuid}`;
     return this.http.get<ClienteLogin>(url, this.loginService.httpOptions);
   }
 
