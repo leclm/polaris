@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { environment } from 'src/environments/environment';
-import { ClienteService } from '../services';
 import { ActivatedRoute } from '@angular/router';
+import { GerenteService } from 'src/app/gerente/services';
 
 @Component({
   selector: 'app-detalhes-aluguel',
@@ -11,28 +11,58 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetalhesAluguelComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
-  public authData: any;
   public aluguelData: any;
-  public aluguelId: any;
+  public aluguelUuid: any;
+  public totalDays!: number;
 
-  constructor( private _clienteServiceAPI: ClienteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.aluguelUuid = this.activatedRoute.snapshot.params['id'];
     this.initConfig();
+    this.getAllAlugueis();
+    this.getAluguelById();
+  }
 
-    this.aluguelId = this.activatedRoute.snapshot.params['id'];
-    
-    this._clienteServiceAPI.getAluguelData().subscribe( (res: any) => {
+  getAllAlugueis() {
+    this.gerenteService.getAllAlugueis().subscribe( (res: any) => {
         this.aluguelData = res;
-        this.getTotal(this.aluguelData);
       }
     )
+  }
+
+  convertStringToDate(dateString: string) {
+    const dateParts = dateString.split(/[-/\.]/); // Split by "-" or "/" or "."
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1; // Subtract 1 as month index is zero-based
+    const day = parseInt(dateParts[2]);
+    const date = new Date(year, month, day);
+    return date;
+  }  
+
+  calculateDaysBetweenDates(startDate: Date, endDate: Date): number {
+    const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+    const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+    const diffInDays = Math.round(Math.abs((start.getTime() - end.getTime()) / oneDay));
+    return diffInDays;
+  }
+
+  getAluguelById() {
+    this.gerenteService.getAluguelById(this.aluguelUuid)
+      .subscribe( (res: any) => {
+        console.log(res);
+        let dataInicioString = this.convertStringToDate(res.dataInicio);
+        let dataDevolucaoString = this.convertStringToDate(res.dataDevolucao);    
+        this.totalDays = this.calculateDaysBetweenDates(dataInicioString, dataDevolucaoString);
+      }
+    );
   }
 
   private getTotal(aluguel?: any): any {
     let total = 0;
     for (let i = 0; i < aluguel.content.length; i++) {
-      if ( this.aluguelId == aluguel.content[i].id ) {
+      if ( this.aluguelUuid == aluguel.content[i].id ) {
         total = aluguel.content[i].valorTotalAluguel - aluguel.content[i].desconto;
       }
     }
