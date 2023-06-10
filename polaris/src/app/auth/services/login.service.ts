@@ -30,6 +30,7 @@ export class LoginService {
       this.loginStatus.next(false);
       localStorage.removeItem(key);
       localStorage.setItem('loginStatus', '0');
+      localStorage.removeItem('role'); 
       localStorage.removeItem('loginUuid');
       localStorage.removeItem('usuario');
       console.log('Key and value removed from local storage.');
@@ -57,7 +58,8 @@ export class LoginService {
           this.loginUuid = response.body?.loginUuid ?? '';
           this.usuario = response.body?.usuario ?? '';
           
-          this.loginStatus.next(true);     
+          this.loginStatus.next(true);   
+          localStorage.setItem('role', this.role);   
           localStorage.setItem('loginStatus', '1');
           localStorage.setItem('loginUuid', this.loginUuid);
           localStorage.setItem('usuario', this.usuario); 
@@ -73,6 +75,8 @@ export class LoginService {
 
   checkLoginStatus(): boolean {
     let loginCookie = localStorage.getItem("loginStatus");
+    let role = localStorage.getItem('role');
+    if(role != null){this.role = role}
     if (loginCookie == "1") {
       return true;
     }
