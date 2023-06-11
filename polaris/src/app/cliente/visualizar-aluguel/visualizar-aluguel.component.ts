@@ -33,7 +33,6 @@ export class VisualizarAluguelComponent implements OnInit {
   getAllClientesComLogin() {
     this.clienteService.getAllClientesComLogin().subscribe( res => {
       const clienteEncontrado = res.find(cliente => cliente.login.usuario.toLowerCase() === this.usuario.toLowerCase());
-      console.log(clienteEncontrado);
       if (clienteEncontrado) {
         this.statusMsg = 'success';
         this.cpf = clienteEncontrado.cpf;
