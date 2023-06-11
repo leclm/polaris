@@ -6,7 +6,7 @@ using static Polaris.Aluguel.Exceptions.CustomExceptions;
 
 namespace Polaris.Aluguel.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("[controller]")]
     [ApiController]
     public class PagamentoController : UtilsController
