@@ -24,5 +24,13 @@
             public AtualizarAluguelException(string message)
                 : base(message) { }
         }
+
+        public class PagamentoPayPalException : Exception
+        {
+            public PagamentoPayPalException() { }
+
+            public PagamentoPayPalException(string message)
+                : base(message) { }
+        }
     }
 }

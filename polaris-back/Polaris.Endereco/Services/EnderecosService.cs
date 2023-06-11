@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Polaris.Endereco.DTOs;
 using Polaris.Endereco.Repository;
 using Polaris.Endereco.Utils;

@@ -86,9 +86,11 @@ builder.Services.AddScoped<IAlugueisService, AlugueisService>();
 builder.Services.AddScoped<IEnderecoExternalService, EnderecoExternalService>();
 builder.Services.AddScoped<IConteinerExternalService, ConteinerExternalService>();
 builder.Services.AddScoped<IClienteExternalService, ClienteExternalService>();
+builder.Services.AddScoped<IPagamentoService, PagamentoService>();
 
 builder.Services.Configure<ExternalConfigs>(builder.Configuration.GetSection(nameof(ExternalConfigs)));
-builder.Services.Configure<TokenConfigs>(builder.Configuration.GetSection("TokenConfigs"));
+builder.Services.Configure<TokenConfigs>(builder.Configuration.GetSection(nameof(TokenConfigs)));
+builder.Services.Configure<BraintreeConfigs>(builder.Configuration.GetSection(nameof(BraintreeConfigs)));
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
