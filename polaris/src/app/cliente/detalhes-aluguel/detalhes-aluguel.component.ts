@@ -72,7 +72,7 @@ export class DetalhesAluguelComponent implements OnInit {
   private initConfig(): void {
     this.payPalConfig = {
       currency: 'BRL',
-      clientId: environment.clientId,
+      clientId: environment.clientIdPayPal,
       createOrderOnClient: (data) => <ICreateOrderRequest> {
         intent: 'CAPTURE',
         purchase_units: [{

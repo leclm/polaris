@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { GerenteService } from '../services';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import {} from 'googlemaps';
 
 enum EstadoAluguel {
@@ -33,7 +34,6 @@ enum EstadoConteiner {
 })
 
 export class DashboardComponent implements OnInit,AfterViewInit {
-  
   active = 1;
   chart: any;
   showChart: Boolean = false;
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   @ViewChild('map') mapElement: any;
   map!: google.maps.Map;
-  private apiKey = 'AIzaSyDT7c9WiX0QDvFDopYb6gPLLFE1hi6eXnE';
+  private apiKey =  environment.apikeyMap;
 
   dataConteiner = [
     { label: 'Cancelado', y: 0 },
@@ -72,7 +72,6 @@ export class DashboardComponent implements OnInit,AfterViewInit {
 
   async ngOnInit() { 
     await this.loadData();
-    //setTimeout(() => this.showChart = true, 300); 
   }
 
  ngAfterViewInit() {
@@ -116,15 +115,10 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   getEnderecoAluguel(data: any) {
     for (let i = 0; i < data.length; i++) {
       let endereco = data[i].endereco;
-      let cep = JSON.stringify(endereco.cep)
-      let logradouro = JSON.stringify(endereco.logradouro)
-      let numero = JSON.stringify(endereco.numero) 
-      console.log( `${cep} ${logradouro} ${numero}`)
     }
   };
 
-  //GRAFICO
-
+  // Gráfico
   columnChartOptions = {
     animationEnabled: true,
     title: {
@@ -168,8 +162,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     this.showChart = false;
   }
 
-  //MAPA
-
+  // Mapa
   private loadGoogleMapsScript(callback: () => void) {
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}`;
@@ -193,13 +186,11 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     let logradouro = JSON.stringify(endereco.logradouro)
     let numero = JSON.stringify(endereco.numero) 
     let address =  `${cep} ${logradouro} ${numero}`;
-    console.log(address)
     this.getLatLngFromAddress(address, idAluguel, clienteCpf, map) 
   }
 }
 
 async getLatLngFromAddress(address: string, id:string, cpf:string,map: any) {
-
   fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.apiKey}`)
   .then((response) => {
       return response.json();

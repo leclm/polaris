@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  clientId: 'ATRRGPDaqys1gHrGPgOWZ2GM1e17lQjafANr0Adg78qKd-iRE8weUZ3sUh2T9m6kzAwnJ-SeDEiXUmsQ'
+  clientIdPayPal: 'ATRRGPDaqys1gHrGPgOWZ2GM1e17lQjafANr0Adg78qKd-iRE8weUZ3sUh2T9m6kzAwnJ-SeDEiXUmsQ',
+  apikeyMap: 'AIzaSyDT7c9WiX0QDvFDopYb6gPLLFE1hi6eXnE'
 };
 
 /*
