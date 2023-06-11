@@ -14,6 +14,7 @@ export class DetalhesAluguelComponent implements OnInit {
   public aluguelData: any;
   public aluguelUuid: any;
   public totalDays!: number;
+  public statusMsg!: string;
 
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
@@ -51,7 +52,6 @@ export class DetalhesAluguelComponent implements OnInit {
   getAluguelById() {
     this.gerenteService.getAluguelById(this.aluguelUuid)
       .subscribe( (res: any) => {
-        console.log(res);
         let dataInicioString = this.convertStringToDate(res.dataInicio);
         let dataDevolucaoString = this.convertStringToDate(res.dataDevolucao);    
         this.totalDays = this.calculateDaysBetweenDates(dataInicioString, dataDevolucaoString);
@@ -59,11 +59,11 @@ export class DetalhesAluguelComponent implements OnInit {
     );
   }
 
-  private getTotal(aluguel?: any): any {
+  getTotal(aluguel?: any): any {
     let total = 0;
-    for (let i = 0; i < aluguel.content.length; i++) {
-      if ( this.aluguelUuid == aluguel.content[i].id ) {
-        total = aluguel.content[i].valorTotalAluguel - aluguel.content[i].desconto;
+    for (let i = 0; i < aluguel.length; i++) {
+      if (this.aluguelUuid == aluguel[i].aluguelUuid) {
+        total = aluguel[i].valorTotalAluguel - aluguel[i].desconto;
       }
     }
     return total;
@@ -104,19 +104,22 @@ export class DetalhesAluguelComponent implements OnInit {
         label: 'paypal',
         layout: 'vertical'
       },
-      onApprove: (data, actions) => {
+      onApprove: (data, actions) => {        
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then((details: any) => {
           console.log('onApprove - you can get full order details inside onApprove: ', details);
+          this.statusMsg = 'success';
         });
       },
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
       },
       onCancel: (data, actions) => {
+        this.statusMsg = 'cancel';
         console.log('OnCancel', data, actions);
       },
       onError: err => {
+        this.statusMsg = 'fail';
         console.log('OnError', err);
       },
       onClick: (data, actions) => {
