@@ -97,11 +97,6 @@ namespace Polaris.Servico.Services
                 throw new CadastrarTerceirizadoException("Cnpj inválido. Erro ao cadastrar um terceirizado.");
             };
 
-            //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
-            //{
-            //    throw new CadastrarTerceirizadoException("Telefone inválido. Erro ao cadastrar um terceirizado.");
-            //};
-
             if (ValidaEmail.IsValidEmail(terceirizado.Email) is false)
             {
                 throw new CadastrarTerceirizadoException("E-mail inválido. Erro ao cadastrar um terceirizado.");
@@ -141,11 +136,6 @@ namespace Polaris.Servico.Services
             {
                 throw new AtualizarTerceirizadoException("Cnpj inválido. Erro ao editar um terceirizado.");
             };
-
-            //if (ValidaTelefone.IsTelefone(terceirizadoDto.Telefone) is false)
-            //{
-            //    throw new AtualizarTerceirizadoException("Telefone inválido. Erro ao editar um terceirizado.");
-            //};
 
             if (ValidaEmail.IsValidEmail(terceirizadoDto.Email) is false)
             {

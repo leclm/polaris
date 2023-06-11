@@ -19,7 +19,7 @@ namespace Polaris.Conteiner.Models
         public int ConteinerId { get; set; }
         public Guid ConteinerUuid { get; set; }
         public int Codigo { get; set; }
-        public String Fabricacao { get; set; }
+        public string Fabricacao { get; set; }
         [MinLength(1, ErrorMessage = "Erro. Digite um fabricante.")]
         [MaxLength(100, ErrorMessage = "Erro. Excedeu o número de caracteres.")]
         [NotNull]

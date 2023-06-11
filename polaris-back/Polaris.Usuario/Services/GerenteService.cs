@@ -87,11 +87,6 @@ namespace Polaris.Usuario.Services
                 throw new CadastrarGerenteException("CNPJ inválido. Erro ao cadastrar um gerente.");
             };
 
-            //if (ValidaTelefone.IsTelefone(gerenteDto.Telefone) is false)
-            //{
-            //    throw new CadastrarGerenteException("Telefone inválido. Erro ao cadastrar um gerente.");
-            //};
-
             if (ValidaEmail.IsValidEmail(gerente.Email) is false)
             {
                 throw new CadastrarGerenteException("E-mail inválido. Erro ao cadastrar um gerente.");
@@ -109,11 +104,6 @@ namespace Polaris.Usuario.Services
             {
                 throw new AtualizarGerenteException("Gerente inválido. Erro ao atualizar.");
             }
-
-            //if (ValidaTelefone.IsTelefone(gerenteDto.Telefone) is false)
-            //{
-            //    throw new CadastrarGerenteException("Telefone inválido. Erro ao cadastrar um gerente.");
-            //};
 
             var gerente = await _context.GerenteRepository.GetGerente(gerenteDto.GerenteUuid);
 
