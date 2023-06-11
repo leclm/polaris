@@ -6,9 +6,9 @@
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th [appSort]="aluguelData" data-order="desc" data-name="nome">Cliente <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="aluguelData" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="aluguelData" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Cliente</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
             <th [appSort]="aluguelData" data-order="desc" data-name="estadoAluguel">Status <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th [appSort]="aluguelData" data-order="desc" data-name="dataInicio">Início <i class="fa fa-sort" aria-hidden="true"></i></th>
             <th [appSort]="aluguelData" data-order="desc" data-name="dataDevolucao">Fim <i class="fa fa-sort" aria-hidden="true"></i></th>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of aluguelData">
-            <td>{{ item.cliente.nome! | capitalizacaoGerente }}</td>
+            <td>{{ item.cliente.nome! | capitalizacaoGerente }} {{ item.cliente.sobrenome! | capitalizacaoGerente }}</td>
             <td>{{ item.cliente.telefone! | phoneGerente }}</td>
             <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacaoGerente }}</td>
             <td>{{ item.estadoAluguel! | capitalizacaoGerente }}</td>
