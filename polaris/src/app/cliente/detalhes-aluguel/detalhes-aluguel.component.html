@@ -30,7 +30,7 @@
         <div class="mb-3">
           <p class="title">Dados cadastrais</p>
           <div class="content d-flex justify-content-start ms-3">
-            <form class="row g-3">
+            <form class="row g-3" id="payment-form" (ngSubmit)="initConfig()">
               <div class="col-md-6">         
                 <label for="inputCliente" class="form-label">Responsável pelo aluguel:</label>
                 <p class="form-control disabled"> {{ item.cliente.nome! | capitalizacao }} {{ item.cliente.sobrenome! | capitalizacao }} </p>
@@ -120,8 +120,14 @@
                 </div>
               </div>
 
-              <div class="ctn-btn d-flex justify-content-between mt-4 mb-4">
-                <ngx-paypal class="mt-4 mb-4" [config]="payPalConfig"></ngx-paypal>
+              <div class="position-relative col-md-12 mt-4 mb-4 ctn-btn">
+                <div class="bt-drop-in-wrapper">
+                  <div id="bt-dropin"></div>
+                </div>                
+                <button style="width: 100%" class="button" id="payment-btn" type="submit"><span>Opções de pagamento</span></button>
+              </div>
+               
+              <div class="ctn-btn d-flex justify-content-around mt-4 mb-4">
                 <a href="#">Ver contrato</a>
                 <a [routerLink]="['/cliente/visualizar-aluguel']">Voltar</a>
               </div> 
