@@ -10,7 +10,7 @@ enum EstadoAluguel {
   "Pagamento Atrasado" = 2,
   "Devolução Atrasada" = 3,
   "Cancelado" = 4,
-  "Aguardando Retirada do Contêiner" = 5,
+  "Aguardando Retirada" = 5,
   "Finalizado" = 6
 }
 
@@ -106,8 +106,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     for (let i = 0; i < data.length; i++) {
       let estado = data[i].estadoAluguel;
       let estadoData = EstadoAluguel[estado]
-      for (let data of this.dataAluguel ) {
-        if (data.label === estadoData) { 
+      for (let data of this.dataAluguel ) {     
+        if (data.label === estadoData) {   
           data.y = data.y+1;    
        }}}
        this.showChart = true; 
