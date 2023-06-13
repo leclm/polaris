@@ -11,27 +11,45 @@
       </div>
     </div>
 
-    <div *ngIf="statusMsg === 'success'" class="table-responsive" >
+    <div *ngIf="statusMsg === 'success'" class="table-responsive">
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th>Cliente</th>
-            <th>Telefone</th>
+            <th>Código</th>
+            <th>Categoria</th>
+            <th>Tipo</th>
             <th>Endereço</th>
-            <th>Status</th>
-            <th>Início</th>
-            <th>Fim</th>
+            <th>Valor</th>
+            <th>Estado</th>
             <th>Detalhes</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of aluguelData">
-            <td>{{ item.cliente.nome! | capitalizacao }}</td>
-            <td>{{ item.cliente.telefone! | phone }}</td>
+            <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>#{{ childItem.codigo }}</td>
+                </tr>
+              </table>
+            </td>
+             <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>{{ childItem.categoriaConteiner.nome ! | capitalizacao }}</td>
+                </tr>
+              </table>
+            </td>
+             <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>{{ childItem.tipoConteiner.nome ! | capitalizacao }}</td>
+                </tr>
+              </table>
+            </td>
             <td>{{ item.endereco.logradouro! | capitalizacao }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacao }}</td>
+            <td>{{ item.valorTotalAluguel | currency }}</td>
             <td>{{ item.estadoAluguel! | capitalizacao }}</td>
-            <td>{{ item.dataInicio! | date }}</td>
-            <td>{{ item.dataDevolucao! | date }}</td>
             <td>
               <a [routerLink]="['/cliente/detalhes-aluguel', item.aluguelUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>

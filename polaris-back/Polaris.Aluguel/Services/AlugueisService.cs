@@ -160,7 +160,7 @@ namespace Polaris.Aluguel.Services
             return aluguelDto;
         }
 
-        private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaInformacoesAlugueis(IEnumerable<Models.Aluguel> alugueis, string token = "")
+        private async Task<IEnumerable<RetornoAluguelViewModel>> ConsultaInformacoesAlugueis(IEnumerable<Models.Aluguel> alugueis, string token)
         {
             List<RetornoAluguelViewModel> alugueisDto = new();
             foreach (var aluguel in alugueis)

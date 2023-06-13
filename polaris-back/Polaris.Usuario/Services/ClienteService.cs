@@ -87,11 +87,6 @@ namespace Polaris.Usuario.Services
                 throw new CadastrarClienteException("CPF inválido. Erro ao cadastrar um cliente.");
             };
 
-            //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
-            //{
-            //    throw new CadastrarClienteException("Telefone inválido. Erro ao cadastrar um terceirizado.");
-            //};
-
             if (ValidaEmail.IsValidEmail(cliente.Email) is false)
             {
                 throw new CadastrarClienteException("E-mail inválido. Erro ao cadastrar um cliente.");
@@ -109,11 +104,6 @@ namespace Polaris.Usuario.Services
             {
                 throw new AtualizarClienteException("Cliente inválido. Erro ao atualizar.");
             }
-
-            //if (ValidaTelefone.IsTelefone(terceirizado.Telefone) is false)
-            //{
-            //    throw new CadastrarClienteException("Telefone inválido. Erro ao cadastrar um terceirizado.");
-            //};
 
             var cliente = await _context.ClienteRepository.GetCliente(clienteDto.ClienteUuid);
 
