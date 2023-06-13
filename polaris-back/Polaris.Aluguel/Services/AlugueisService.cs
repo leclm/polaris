@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json.Linq;
+using NuGet.Common;
 using Polaris.Aluguel.Enums;
 using Polaris.Aluguel.ExternalServices;
 using Polaris.Aluguel.Models;
@@ -97,10 +99,21 @@ namespace Polaris.Aluguel.Services
             _context.AluguelRepository.Add(aluguel);
             await _context.Commit();
 
+            double valorTotalCalculadoBack = 0;
+            var tempoDeAluguel = CalcularDiasEntreDatas(aluguelDto.DataInicio, aluguelDto.DataDevolucao);
+
             aluguel.Conteineres = new List<Models.Conteiner>();
             foreach (var conteinerUuid in aluguelDto.ConteineresUuid)
             {
                 var conteiner = _mapper.Map<Models.Conteiner>(await _conteinerExternalService.GetConteineres(conteinerUuid, token));
+
+                if(conteiner.Estado != EstadoConteiner.Disponível)
+                {
+                    throw new CadastrarAluguelException("Conteiner não está disponível");
+                }
+
+                valorTotalCalculadoBack += conteiner.TipoConteiner.ValorDiaria * tempoDeAluguel;
+
                 (conteiner.ConteinerId, conteiner.CategoriaConteinerId, conteiner.TipoConteinerId) = 
                     _conteinerRepository.GetConteinerIds(conteiner.ConteinerUuid, conteiner.CategoriaConteiner.CategoriaConteinerUuid, conteiner.TipoConteiner.TipoConteinerUuid);
                 conteiner.TipoConteiner = null;
@@ -109,6 +122,16 @@ namespace Polaris.Aluguel.Services
                 _conteinerExternalService.AlterarDisponibilidadeConteiner(conteinerUuid, (int)EstadoConteiner.Locado, token);
             }
 
+            if (valorTotalCalculadoBack != aluguelDto.ValorTotalAluguel)
+            {
+                throw new CadastrarAluguelException("O valor não corresponde ao calculado.");
+            }
+            else
+            {
+                aluguel.ValorTotalAluguel = valorTotalCalculadoBack;
+            }
+
+            _context.AluguelRepository.Update(aluguel);
             await _context.Commit();
             return aluguel.AluguelUuid;
         }
@@ -178,16 +201,6 @@ namespace Polaris.Aluguel.Services
         {
             TimeSpan diferenca = dataFinal - dataInicial;
             return diferenca.Days;
-        }
-
-        private static int CalcularMesesEntreDatas(DateTime dataInicial, DateTime dataFinal)
-        {
-            int meses = ((dataFinal.Year - dataInicial.Year) * 12) + dataFinal.Month - dataInicial.Month;
-
-            if (dataFinal.Day < dataInicial.Day)
-                meses--;
-
-            return meses;
         }
     }
 }
