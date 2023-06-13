@@ -98,8 +98,8 @@
                   <p class="line-price pt-2"><span>Total com desconto:</span> {{ item.valorTotalAluguel-item.desconto! | currency }}</p>
                 </div>
               </div>
-
               <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                <a (click)="generatePdf()">Visualizar contrato</a>
                 <a (click)="goBack()">Voltar</a>
               </div>
             </form>

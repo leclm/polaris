@@ -6,7 +6,7 @@ import { ClienteEdicao } from 'src/app/models/clienteEdicao.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { GerenteService } from '../services';
 import { Cliente } from 'src/app/models/cliente.model';
-import { CustomvalidationService } from 'src/app/shared';
+import { CustomvalidationService, ViaCepService } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -18,6 +18,8 @@ export class EditarClienteComponent implements OnInit {
   public clienteUuid: any;
   public clienteData: any;
   public clienteById!: Cliente;
+  public cnpjNotValid = false;
+  public cepNotValid = false;
 
   public endereco: Endereco = {
     cep: '',
@@ -39,7 +41,7 @@ export class EditarClienteComponent implements OnInit {
   }
   
   @ViewChild("formCliente") formCliente!: NgForm;
-  constructor( private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService, private viaCepService: ViaCepService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.clienteUuid = this.activatedRoute.snapshot.params['id']; 
@@ -85,6 +87,20 @@ export class EditarClienteComponent implements OnInit {
         this.clienteData = res;
       }
     )
+  }
+
+  searchAddress(event: any) {
+    console.log(this.cliente.endereco.cep)
+    this.viaCepService.getAddressByCep(this.cliente.endereco.cep).subscribe(data => {
+      this.cliente.endereco.cidade = data.localidade;
+      this.cliente.endereco.estado = data.uf;
+      this.cliente.endereco.logradouro = data.logradouro;
+      if(data.uf==undefined){
+        this.cepNotValid = true;
+      } else{
+        this.cepNotValid = false;
+      }
+    });
   }
 
   getClienteById() {
