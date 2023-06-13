@@ -45,6 +45,7 @@
               <!--  <input class="form-control" placeholder={{cliente.dataNascimento}} id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento"
                 name="dataNascimento"/>-->
   
+            <!-- -->
             <input class="form-control" placeholder={{dataVar}} id="inputDataNascimento" [(ngModel)]="dataVar"
                 name="dataNascimento" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
               <div class="input-group-append">
@@ -56,6 +57,7 @@
                 </ng-template>
               </div>
             </div>
+            <!-- -->
 
           </div>
               <div class="col-md-6">
