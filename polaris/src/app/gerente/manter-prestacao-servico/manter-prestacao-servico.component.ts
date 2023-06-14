@@ -54,6 +54,13 @@ export class ManterPrestacaoServicoComponent implements OnInit {
     this.getConteinerById();
   }
   public dataVar = 'dd-mm-aaaa';
+  public dataNotValidNotify = false;
+
+  VerifyValidDate(){
+    if(this.dataVar == 'dd-mm-aaaa'){
+      this.dataNotValidNotify = true;
+    } else {this.dataNotValidNotify = false;}
+  }
 
   valuechange(date: any) {
 
@@ -72,6 +79,7 @@ export class ManterPrestacaoServicoComponent implements OnInit {
   }
   cadastrar() {
     this.alteraDisponibilidadeConteiner();
+    this.VerifyValidDate(); 
     this.gerenteService.addPrestacaoServico(this.prestacaoServico).subscribe(
       (response: HttpResponse<PrestacaoServico>) => {   
         if (response.status === 200 || response.status === 201) {

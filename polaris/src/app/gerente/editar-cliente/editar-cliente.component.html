@@ -42,10 +42,11 @@
               <div class="col-md-6">
             <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
             <div class="input-group mb-6">
-              <input class="form-control" placeholder={{cliente.dataNascimento}} id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento"
-                name="dataNascimento"/>
+              <!--  <input class="form-control" placeholder={{cliente.dataNascimento}} id="inputDataNascimento" [(ngModel)]="cliente.dataNascimento"
+                name="dataNascimento"/>-->
   
-             <!-- <input class="form-control" placeholder={{dataVar}} id="inputDataNascimento" [(ngModel)]="dataVar"
+            <!-- -->
+            <input class="form-control" placeholder={{dataVar}} id="inputDataNascimento" [(ngModel)]="dataVar"
                 name="dataNascimento" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
@@ -54,11 +55,10 @@
                   <hr class="my-0" />
                   <button class="btn btn-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
                 </ng-template>
-              </div>-->
+              </div>
             </div>
-            <!--<div *ngIf="dataVar=='dd-mm-aaaa'" class="alert alert-danger">
-              Preencha a data
-            </div>-->
+            <!-- -->
+
           </div>
               <div class="col-md-6">
                 <label for="inputCpf" class="form-label">CPF</label>
@@ -78,11 +78,11 @@
         
               <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="cliente.endereco.cep" #cep="ngModel" required mask='00000-000'>
-                <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
-                  Digite um CEP válido.
+                <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="cliente.endereco.cep" (input)="searchAddress($event)" #cep="ngModel" required mask='00000-000'>
+                <div *ngIf="cep.pristine && cep.touched" class="alert alert-danger">
+                  Digite o CEP.
                 </div>
-                <div [hidden]="!cep.errors?.['required']">Digite o CEP.</div>
+                <div *ngIf="cepNotValid==true" class="alert alert-danger">Digite um CEP válido</div>
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>
@@ -95,7 +95,7 @@
               </div>
               <div class="col-md-6">
                 <label for="inputEndereco" class="form-label">Endereço</label>
-                <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso" name="logradouro" [(ngModel)]="cliente.endereco.logradouro" #logradouro="ngModel">
+                <input type="text" class="form-control" id="inputEndereco" placeholder="Rua" name="logradouro" [(ngModel)]="cliente.endereco.logradouro" #logradouro="ngModel">
               </div>
               <div class="col-md-3">
                 <label for="inputNumero" class="form-label">Número</label>

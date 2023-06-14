@@ -21,6 +21,8 @@ export class EditarTerceirizadoComponent implements OnInit {
   public terceirizadoData: any;
   public statusMsg!: string;
   public selectedOptions: string[] = [];
+  public cnpjNotValid = false;
+  public cepNotValid = false;
   
   public endereco: Endereco = {
     cep: '',
@@ -49,7 +51,7 @@ export class EditarTerceirizadoComponent implements OnInit {
 
   @ViewChild("formTerceirizado") formTerceirizado!: NgForm;
 
-  constructor(  private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor(  private CustomvalidationService: CustomvalidationService, private viaCepService: ViaCepService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.terceirizadoUuid = this.activatedRoute.snapshot.params['id']; 
@@ -78,14 +80,14 @@ export class EditarTerceirizadoComponent implements OnInit {
         this.terceirizado.listaServicos = res.servicos.map((i: any) => i.servicoUuid);
       }
     )
-
-    this.gerenteService.getAllServicos().subscribe( (res: any) => {
-        this.servicosCadastrados = res;
-        for (let data of this.servicosCadastrados) {
-          data.nome = this.CustomvalidationService.camelize(data.nome)  
-        }
+    this.gerenteService.getAllServicosAtivos()
+    .subscribe( response => {
+      this.servicosCadastrados = response;
+      for (let data of this.servicosCadastrados) {
+        data.nome = this.CustomvalidationService.camelize(data.nome)   
       }
-    )
+    })
+
   }
 
   onCheckboxChange(item: any) {
@@ -96,13 +98,24 @@ export class EditarTerceirizadoComponent implements OnInit {
   getCheckedItems() {
     return this.servicosAtuaisTerceirizado.filter(item => item.checked);
   }
-  
-  public cnpjNotValid = false;
-  public cepNotValid = false;
 
   validateCnpj(event: any) {
       let valid = this.CustomvalidationService.validaCnpj(this.terceirizado.cnpj)
       this.cnpjNotValid = valid;
+  }
+
+  searchAddress(event: any) {
+    console.log(this.terceirizado.endereco.cep)
+    this.viaCepService.getAddressByCep(this.terceirizado.endereco.cep).subscribe(data => {
+      this.terceirizado.endereco.cidade = data.localidade;
+      this.terceirizado.endereco.estado = data.uf;
+      this.terceirizado.endereco.logradouro = data.logradouro;
+      if(data.uf==undefined){
+        this.cepNotValid = true;
+      } else{
+        this.cepNotValid = false;
+      }
+    });
   }
 
   editar() {

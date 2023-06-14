@@ -28,6 +28,11 @@ export class ManterAluguelComponent implements OnInit {
   public conteinerData: any;
   public totalDays!: number;
   public valorTotalAluguel!: number;
+  public cepNotValid = false;
+  public dataIni = 'dd-mm-aaaa';
+  public dataDev = 'dd-mm-aaaa';
+  public dataIniNotValidNotify = false;
+  public dataDevNotValidNotify = false;
 
   public endereco: Endereco = {
     cep: '',
@@ -87,8 +92,6 @@ export class ManterAluguelComponent implements OnInit {
     this.getAllCategoriasAtivas(); 
     this.getAllTiposAtivos();
   }
-  public dataIni = 'dd-mm-aaaa';
-  public dataDev = 'dd-mm-aaaa';
   closeDatepicker(id: { close: () => void; }){
     id.close();
   }
@@ -103,14 +106,14 @@ export class ManterAluguelComponent implements OnInit {
     } else {month = date.month}
     
     this.aluguel.dataInicio = `${date.year}-${month}-${day}`;
-    console.log(this.aluguel.dataInicio)
     this.dataIni = `${date.day}-${date.month}-${date.year}`;
-    console.log(this.aluguel)
+    this.VerifyValidDate(); 
   }
 
   valuechangeDev(date: any) {
     let day: any;
     let month: any;
+
     if((JSON.stringify(date.day).length)==1){
       day = "0"+JSON.stringify(date.day)
     } else {day = date.day}
@@ -118,10 +121,18 @@ export class ManterAluguelComponent implements OnInit {
       month = "0"+JSON.stringify(date.month)
     } else {month = date.month}
     
-    this.aluguel.dataInicio = `${date.year}-${month}-${day}`;
-    console.log(this.aluguel.dataInicio)
+    this.aluguel.dataDevolucao = `${date.year}-${month}-${day}`;
     this.dataDev = `${date.day}-${date.month}-${date.year}`;
-    console.log(this.aluguel)
+    this.VerifyValidDate(); 
+  }
+
+  VerifyValidDate(){
+    if(this.dataIni == 'dd-mm-aaaa'){
+      this.dataIniNotValidNotify = true;
+    } else {this.dataIniNotValidNotify = false;}
+    if(this.dataDev == 'dd-mm-aaaa'){
+      this.dataDevNotValidNotify = true;
+    } else {this.dataDevNotValidNotify = false;}
   }
 
   getAllClientesAtivos() {
@@ -139,8 +150,6 @@ export class ManterAluguelComponent implements OnInit {
     })
   }
 
-  public cepNotValid = false;
-
   searchAddress(event: any) {
     this.viaCepService.getAddressByCep(this.enderecoLocacao.cep).subscribe(data => {
       this.enderecoLocacao.cidade = data.localidade;
@@ -150,9 +159,9 @@ export class ManterAluguelComponent implements OnInit {
         this.cepNotValid = true;
       } else{
         this.cepNotValid = false;
-      }
+      }    
+      this.VerifyValidDate();  
     });
-
   }
 
   getAllCategoriasAtivas() {

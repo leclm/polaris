@@ -6,7 +6,7 @@ import { ClienteEdicao } from 'src/app/models/clienteEdicao.model';
 import { Endereco } from 'src/app/models/endereco.model';
 import { GerenteService } from '../services';
 import { Cliente } from 'src/app/models/cliente.model';
-import { CustomvalidationService } from 'src/app/shared';
+import { CustomvalidationService, ViaCepService } from 'src/app/shared';
 
 @Component({
   selector: 'app-editar-cliente',
@@ -18,6 +18,8 @@ export class EditarClienteComponent implements OnInit {
   public clienteUuid: any;
   public clienteData: any;
   public clienteById!: Cliente;
+  public cnpjNotValid = false;
+  public cepNotValid = false;
 
   public endereco: Endereco = {
     cep: '',
@@ -39,7 +41,7 @@ export class EditarClienteComponent implements OnInit {
   }
   
   @ViewChild("formCliente") formCliente!: NgForm;
-  constructor( private CustomvalidationService: CustomvalidationService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private CustomvalidationService: CustomvalidationService, private viaCepService: ViaCepService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.clienteUuid = this.activatedRoute.snapshot.params['id']; 
@@ -51,6 +53,7 @@ export class EditarClienteComponent implements OnInit {
   valuechange(date: any) {
     let day: any;
     let month: any;
+    let year = JSON.stringify(date.year)
     if((JSON.stringify(date.day).length)==1){
       day = "0"+JSON.stringify(date.day)
     } else {day = date.day}
@@ -58,12 +61,11 @@ export class EditarClienteComponent implements OnInit {
       month = "0"+JSON.stringify(date.month)
     } else {month = date.month}
     
-    this.cliente.dataNascimento = `${date.year}-${month}-${day}`;
+    this.cliente.dataNascimento = `${year}-${month}-${day}T00:00:00`;
     console.log(this.cliente.dataNascimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
   editar() {
-    console.log(this.cliente);
     this.gerenteService.editarCliente(this.cliente).subscribe(
       (response: HttpResponse<ClienteEdicao>) => {   
         if (response.status === 200 || response.status === 201) {
@@ -87,6 +89,20 @@ export class EditarClienteComponent implements OnInit {
     )
   }
 
+  searchAddress(event: any) {
+    console.log(this.cliente.endereco.cep)
+    this.viaCepService.getAddressByCep(this.cliente.endereco.cep).subscribe(data => {
+      this.cliente.endereco.cidade = data.localidade;
+      this.cliente.endereco.estado = data.uf;
+      this.cliente.endereco.logradouro = data.logradouro;
+      if(data.uf==undefined){
+        this.cepNotValid = true;
+      } else{
+        this.cepNotValid = false;
+      }
+    });
+  }
+
   getClienteById() {
     this.gerenteService.getClienteById(this.clienteUuid).subscribe( (res: any) => {
         this.clienteById = res;
@@ -103,8 +119,10 @@ export class EditarClienteComponent implements OnInit {
         let dataNasc = this.clienteById.dataNascimento;
         let dataArr = dataNasc.split("T");
         dataArr = dataArr[0].split("-")
-        this.cliente.dataNascimento = `${dataArr[2]}-${dataArr[1]}-${dataArr[0]}`;
-        this.dataVar = this.cliente.dataNascimento;
+  
+        this.dataVar = `${dataArr[2]}-${dataArr[1]}-${dataArr[0]}`;
+        this.cliente.dataNascimento = `${dataArr[0]}-${dataArr[1]}-${dataArr[2]}T00:00:00`;
+
       }
     )
   }

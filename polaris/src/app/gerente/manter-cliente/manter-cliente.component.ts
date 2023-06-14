@@ -41,6 +41,13 @@ export class ManterClienteComponent implements OnInit {
   }
   
   public dataVar = 'dd-mm-aaaa';
+  public dataNotValidNotify = false;
+
+  VerifyValidDate(){
+    if(this.dataVar == 'dd-mm-aaaa'){
+      this.dataNotValidNotify = true;
+    } else {this.dataNotValidNotify = false;}
+  }
 
   valuechange(date: any) {
     let day: any;
@@ -53,17 +60,19 @@ export class ManterClienteComponent implements OnInit {
     } else {month = date.month}
     
     this.cliente.dataNascimento = `${date.year}-${month}-${day}`;
-    console.log(this.cliente.dataNascimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
-    console.log(this.cliente)
+    this.VerifyValidDate(); 
+
   }
 
   cadastrar() {
 
       this.CustomvalidationService.camelize(this.cliente.nome)
       this.CustomvalidationService.camelize(this.cliente.sobrenome)
+      console.log(this.cliente)
 
     this.gerenteService.addCliente(this.cliente).subscribe(
+
       (response: HttpResponse<Cliente>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';
@@ -98,6 +107,7 @@ export class ManterClienteComponent implements OnInit {
       } else{
         this.cepNotValid = false;
       }
+      this.VerifyValidDate(); 
     });
   }
 }
