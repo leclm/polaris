@@ -61,6 +61,7 @@ export class ManterClienteComponent implements OnInit {
     
     this.cliente.dataNascimento = `${date.year}-${month}-${day}`;
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
+    this.VerifyValidDate(); 
 
   }
 
