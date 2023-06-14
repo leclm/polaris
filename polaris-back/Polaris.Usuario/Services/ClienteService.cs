@@ -119,6 +119,7 @@ namespace Polaris.Usuario.Services
             clienteBase.Nome = clienteDto.Nome;
             clienteBase.Sobrenome = clienteDto.Sobrenome;
             clienteBase.Telefone = clienteDto.Telefone;
+            clienteBase.DataNascimento = clienteDto.DataNascimento;
             StringUtils.ClassToUpper(clienteBase);
             _context.ClienteRepository.Update(clienteBase);
             await _context.Commit();
