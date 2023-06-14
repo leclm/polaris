@@ -14,6 +14,7 @@ export class DetalhesAluguelComponent implements OnInit {
   public jwt: any;
   public totalDays!: number;
   public statusMsg!: string;
+  public pago!: string;
 
   constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
@@ -107,6 +108,7 @@ export class DetalhesAluguelComponent implements OnInit {
         let dataInicioString = this.convertStringToDate(res.dataInicio);
         let dataDevolucaoString = this.convertStringToDate(res.dataDevolucao);    
         this.totalDays = this.calculateDaysBetweenDates(dataInicioString, dataDevolucaoString);
+        this.pago = res.estadoAluguel.toString();
       }
     );
   }
@@ -120,63 +122,4 @@ export class DetalhesAluguelComponent implements OnInit {
     }
     return total;
   }
-
-  /*private initConfig(): void {
-    this.payPalConfig = {
-      currency: 'BRL',
-      clientId: environment.clientIdPayPal,
-      createOrderOnClient: (data) => <ICreateOrderRequest> {
-        intent: 'CAPTURE',
-        purchase_units: [{
-          amount: {
-            currency_code: 'BRL',
-            value: this.getTotal(this.aluguelData).toString(),
-            breakdown: {
-              item_total: {
-                currency_code: 'BRL',
-                value: this.getTotal(this.aluguelData).toString()
-              }
-            }
-          },
-          items: [{
-            name: 'Enterprise Subscription',
-            quantity: '1',
-            category: 'DIGITAL_GOODS',
-            unit_amount: {
-              currency_code: 'BRL',
-              value: this.getTotal(this.aluguelData).toString()
-            },
-          }]
-        }]
-      },
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        label: 'paypal',
-        layout: 'vertical'
-      },
-      onApprove: (data, actions) => {        
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        actions.order.get().then((details: any) => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
-          this.statusMsg = 'success';
-        });
-      },
-      onClientAuthorization: (data) => {
-        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      },
-      onCancel: (data, actions) => {
-        this.statusMsg = 'cancel';
-        console.log('OnCancel', data, actions);
-      },
-      onError: err => {
-        this.statusMsg = 'fail';
-        console.log('OnError', err);
-      },
-      onClick: (data, actions) => {
-        console.log('onClick', data, actions);
-      }
-    };
-  }*/
 }
