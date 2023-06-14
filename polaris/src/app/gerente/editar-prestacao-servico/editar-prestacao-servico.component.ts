@@ -72,7 +72,6 @@ export class EditarPrestacaoServicoComponent implements OnInit {
     } else {month = date.month}
     
     this.prestacaoServicoAtualizacao.dataProcedimento = `${date.year}-${month}-${day}`;
-    console.log(this.prestacaoServicoAtualizacao.dataProcedimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
 

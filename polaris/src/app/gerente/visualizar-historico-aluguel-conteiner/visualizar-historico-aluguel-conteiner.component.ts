@@ -32,7 +32,6 @@ export class VisualizarHistoricoAluguelConteinerComponent implements OnInit {
     this.gerenteService.getAlugueisByConteiner(this.codigoConteiner).subscribe( (res: any) => {
         this.conteinerAluguelData = res;
         this.getEstadoText(this.conteinerAluguelData);
-        console.log(this.conteinerAluguelData);
       }
     );
   }

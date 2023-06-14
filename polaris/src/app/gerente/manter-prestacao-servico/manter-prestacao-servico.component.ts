@@ -74,7 +74,6 @@ export class ManterPrestacaoServicoComponent implements OnInit {
     } else {month = date.month}
     
     this.prestacaoServico.dataProcedimento = `${date.year}-${month}-${day}`;
-    console.log(this.prestacaoServico.dataProcedimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
   cadastrar() {

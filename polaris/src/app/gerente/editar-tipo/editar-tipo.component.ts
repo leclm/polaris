@@ -47,11 +47,8 @@ export class EditarTipoComponent implements OnInit {
 
   changeCents(event: any) {
     this.tipoVar
-    let valor = JSON.stringify(this.tipo.valorDiaria)
-    
+    let valor = JSON.stringify(this.tipo.valorDiaria)    
     if(valor=="0"){this.valueNotValid=true}else {this.valueNotValid=false}
-    console.log(JSON.stringify(this.tipo.valorDiaria))
-    console.log(this.valueNotValid)
     this.valueNotValid
 }
 

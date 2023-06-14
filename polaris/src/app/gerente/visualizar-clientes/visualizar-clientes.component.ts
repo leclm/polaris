@@ -33,7 +33,7 @@ export class VisualizarClientesComponent implements OnInit {
 
   alterarStatusLoginCliente(uuid: string) {
     this.gerenteService.alterarStatusLoginCliente(uuid).subscribe(
-      response => console.log("mudou"),
+      response => console.log("Status do login alterado com sucesso!"),
       error => console.error(error)
     );       
   }

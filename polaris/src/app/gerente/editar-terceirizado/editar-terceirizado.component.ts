@@ -105,7 +105,6 @@ export class EditarTerceirizadoComponent implements OnInit {
   }
 
   searchAddress(event: any) {
-    console.log(this.terceirizado.endereco.cep)
     this.viaCepService.getAddressByCep(this.terceirizado.endereco.cep).subscribe(data => {
       this.terceirizado.endereco.cidade = data.localidade;
       this.terceirizado.endereco.estado = data.uf;

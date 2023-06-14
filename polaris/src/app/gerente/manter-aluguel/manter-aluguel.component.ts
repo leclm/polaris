@@ -231,7 +231,6 @@ export class ManterAluguelComponent implements OnInit {
   }
   
   cadastrar() {
-    console.log(this.aluguel);
     this.gerenteService.addAluguel(this.aluguel).subscribe(
       (response: HttpResponse<Aluguel>) => {   
         if (response.status === 200 || response.status === 201) {
