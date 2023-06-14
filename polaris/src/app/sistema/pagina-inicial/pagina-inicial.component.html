@@ -18,11 +18,11 @@
       <br/>Entre em contato através do telefone (41) 3003-3003
     </p>
 
-    <p class="mt-5 ms-5 me-5">
+    <p *ngIf="logado === '0'" class="mt-5 ms-5 me-5">
       Já tem acesso? Faça o login abaixo!
     </p>
     
-    <div class="ctn-btn d-flex justify-content-evenly mt-1">
+    <div *ngIf="logado === '0'" class="ctn-btn d-flex justify-content-evenly mt-1">
       <a [routerLink]="['/auth/login']">Entrar</a>
     </div>
   </div>

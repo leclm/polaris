@@ -70,6 +70,8 @@ export class PaginaInicialComponent implements OnInit {
 	pauseOnIndicator = false;
 	pauseOnHover = true;
 	pauseOnFocus = true;
+  
+	logado: string | null = null;;
 
   constructor(config: NgbCarouselConfig) {
     config.interval = 2000;
@@ -80,5 +82,6 @@ export class PaginaInicialComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.logado = localStorage.getItem("loginStatus");
   }
 }
