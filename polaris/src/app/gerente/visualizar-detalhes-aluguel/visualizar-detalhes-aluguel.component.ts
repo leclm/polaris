@@ -51,7 +51,6 @@ export class VisualizarDetalhesAluguelComponent implements OnInit {
   getAluguelById() {
     this.gerenteService.getAluguelById(this.aluguelUuid)
       .subscribe( (res: any) => {
-        console.log(res)
         let dataInicioString = this.convertStringToDate(res.dataInicio);
         let dataDevolucaoString = this.convertStringToDate(res.dataDevolucao);    
         this.totalDays = this.calculateDaysBetweenDates(dataInicioString, dataDevolucaoString);

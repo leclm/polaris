@@ -62,7 +62,6 @@ export class EditarClienteComponent implements OnInit {
     } else {month = date.month}
     
     this.cliente.dataNascimento = `${year}-${month}-${day}T00:00:00`;
-    console.log(this.cliente.dataNascimento)
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
   editar() {
@@ -90,7 +89,6 @@ export class EditarClienteComponent implements OnInit {
   }
 
   searchAddress(event: any) {
-    console.log(this.cliente.endereco.cep)
     this.viaCepService.getAddressByCep(this.cliente.endereco.cep).subscribe(data => {
       this.cliente.endereco.cidade = data.localidade;
       this.cliente.endereco.estado = data.uf;

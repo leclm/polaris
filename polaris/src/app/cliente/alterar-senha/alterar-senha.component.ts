@@ -49,7 +49,6 @@ export class AlterarSenhaComponent implements OnInit {
   }
 
   editar() {
-    console.log(this.login);
     this.clienteService.alterarSenha(this.login).subscribe(
       (response: HttpResponse<Login>) => {   
         if (response.status === 200 || response.status === 201) {

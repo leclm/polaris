@@ -32,10 +32,6 @@ export class ClienteService {
     const url = `${this.loginURL}/Logins/alterar-senha`;
     return this.http.put<Login>(url, login, { headers: this.loginService.httpOptions.headers, observe: 'response' });
   }
-  
-  getAluguelData() {
-    return this.http.get('http://localhost:8180/aluguel');
-  }
 }
 
 
