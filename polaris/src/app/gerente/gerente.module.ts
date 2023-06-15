@@ -32,7 +32,7 @@ import { ManterPrestacaoServicoComponent } from './manter-prestacao-servico/mant
 import { EditarPrestacaoServicoComponent } from './editar-prestacao-servico/editar-prestacao-servico.component';
 import { EditarDisponibilidadeConteinerComponent } from './editar-disponibilidade-conteiner/editar-disponibilidade-conteiner.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
-import { CapitalizacaoGerentePipe, CpfGerentePipe, DateGerentePipe, PhoneGerentePipe } from '../shared';
+import { CapitalizacaoGerentePipe, CepGerentePipe, CnpjGerentePipe, CpfGerentePipe, DateGerentePipe, PhoneGerentePipe } from '../shared';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgbPaginationModule, NgbAlertModule, NgbDate, NgbModule, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { VisualizarHistoricoAlugueisComponent } from './visualizar-historico-alugueis/visualizar-historico-alugueis.component';
@@ -79,6 +79,8 @@ var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
     CapitalizacaoGerentePipe,
     PhoneGerentePipe,
     CpfGerentePipe,
+    CnpjGerentePipe,
+    CepGerentePipe,
     DateGerentePipe,
     DashboardComponent,
     ManterAluguelComponent,

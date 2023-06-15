@@ -34,7 +34,7 @@
               <p class="title mt-5">Endereço de locação</p>
               <div class="col-md-4 mt-0">
                 <label for="inputCep" class="form-label">CEP</label>
-                <p class="form-control disabled" id="inputCep">{{ item.endereco.cep }}</p>
+                <p class="form-control disabled" id="inputCep">{{ item.endereco.cep | cepGerente  }}</p>
               </div>
 
                <div class="col-md-4 mt-0">
