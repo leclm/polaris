@@ -24,8 +24,8 @@
               </table>
             </td>
             <td>{{ item.empresa! | capitalizacaoGerente }}</td>
-            <td>{{ item.telefone }}</td>
-            <td>{{ item.cnpj }}</td>
+            <td>{{ item.telefone | phoneGerente }}</td>
+            <td>{{ item.cnpj | cnpjGerente }}</td>
             <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }}</td>
             <td>
               <a [routerLink]="['/gerente/visualizar-detalhes-terceirizado', item.terceirizadoUuid]">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GerenteService } from 'src/app/gerente/services';
+import { ContractPdfService } from 'src/app/shared';
 import * as dropin from 'braintree-web-drop-in';
 
 @Component({
@@ -16,7 +17,7 @@ export class DetalhesAluguelComponent implements OnInit {
   public statusMsg!: string;
   public pago!: string;
 
-  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private ContractPdfService: ContractPdfService, private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.aluguelUuid = this.activatedRoute.snapshot.params['id'];
@@ -122,4 +123,13 @@ export class DetalhesAluguelComponent implements OnInit {
     }
     return total;
   }
+
+  generatePdf(){
+    this.gerenteService.getAluguelById(this.aluguelUuid).subscribe( (res: any) => {
+      this.ContractPdfService.generatePdfService(res)   
+    }
+  )
+  }
+
+
 }

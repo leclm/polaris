@@ -28,7 +28,7 @@
               </div>
               <div class="col-md-6">
                 <label for="inputTelefone" class="form-label">Telefone</label>
-                <p class="form-control"> {{ item.telefone }} </p>
+                <p class="form-control"> {{ item.telefone | phoneGerente }} </p>
               </div>
               <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
@@ -37,7 +37,7 @@
 
               <div class="col-md-4">
                 <label for="inputCep" class="form-label">CEP</label>
-                <p class="form-control"> {{ item.endereco.cep }} </p>
+                <p class="form-control"> {{ item.endereco.cep | cepGerente }} </p>
               </div>
               <div class="col-md-4">
                 <label for="inputEstado" class="form-label">Estado</label>
