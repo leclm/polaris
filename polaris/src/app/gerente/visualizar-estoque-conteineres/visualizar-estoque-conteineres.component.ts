@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GerenteService } from '../services';
 import { HttpResponse } from '@angular/common/http';
-import { AluguelEstado } from 'src/app/models/aluguelEstado.model';
 import { Conteiner } from 'src/app/models/conteiner.model';
-import { Aluguel } from 'src/app/models/aluguel.model';
 
 enum EstadoConteiner {
   Cancelado = 0,
@@ -56,6 +54,25 @@ export class VisualizarEstoqueConteineresComponent implements OnInit {
         if (estadoAluguelValues.includes(0) || estadoAluguelValues.includes(1) || estadoAluguelValues.includes(2) || estadoAluguelValues.includes(3) || estadoAluguelValues.includes(5)) {
           this.statusMsg = 'fail';
         } else {
+          this.gerenteService.deleteConteiner(uuid).subscribe(
+            (response: HttpResponse<Conteiner>) => {   
+              if (response.status === 200 || response.status === 201) {
+                this.statusMsg = 'success';
+                this.loadData();
+                console.log('Put request successful');
+              } else {
+                console.log('Put request failed');
+              }
+            },
+            (error) => {
+              console.error('Error:', error);
+              this.statusMsg = 'fail';
+            }
+          );
+        }
+      },
+      (error: any) => {
+        if (error.status === 404) {
           this.gerenteService.deleteConteiner(uuid).subscribe(
             (response: HttpResponse<Conteiner>) => {   
               if (response.status === 200 || response.status === 201) {

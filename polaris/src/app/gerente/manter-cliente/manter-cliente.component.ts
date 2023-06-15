@@ -66,10 +66,8 @@ export class ManterClienteComponent implements OnInit {
   }
 
   cadastrar() {
-
-      this.CustomvalidationService.camelize(this.cliente.nome)
-      this.CustomvalidationService.camelize(this.cliente.sobrenome)
-      console.log(this.cliente)
+    this.CustomvalidationService.camelize(this.cliente.nome)
+    this.CustomvalidationService.camelize(this.cliente.sobrenome)
 
     this.gerenteService.addCliente(this.cliente).subscribe(
 
@@ -93,8 +91,6 @@ export class ManterClienteComponent implements OnInit {
   
   validateCpf(event: any) {
     this.cpfNotValid =  this.CustomvalidationService.ValidaCpf(this.cliente.cpf)
-    console.log(this.cpfNotValid)
-    console.log(this.cliente)
   }
 
   searchAddress(event: any) {

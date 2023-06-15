@@ -22,7 +22,6 @@ export class VisualizarHistoricoTerceirizadoComponent implements OnInit {
   getAllPrestacaoServicos() {
     this.gerenteService.getAllPrestacaoServicos().subscribe( (res: any) => {
         this.prestacaoServicoData = res;
-        console.log(this.prestacaoServicoData)
       }
     )
   }
