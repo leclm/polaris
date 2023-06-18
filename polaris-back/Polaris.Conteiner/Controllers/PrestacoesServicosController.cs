@@ -23,31 +23,6 @@ namespace Polaris.Conteiner.Controllers
         }
 
 
-        ///// <summary>
-        ///// Este endpoint deve consultar as prestações de serviços realizadas por um terceirizado
-        ///// </summary>
-        ///// <returns>
-        ///// Retorna a lista com todas as prestações de serviços realizadas por um terceirizado
-        ///// </returns>
-        ///// GET: api/PrestacoesServico/terceirizado
-        //[HttpGet("Terceirizado/{terceirizado}")]
-        //public async Task<ActionResult> GetPrestacoesServicosPorTerceirizado(string terceirizado)
-        //{
-        //    try
-        //    {
-        //        //return Ok(await _service.GetTerceirizadosPorServico(servico));
-        //        return Ok();
-        //    }
-        //    catch (PrestacaoServicoNaoEncontradaException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return ReturnError();
-        //    }
-        //}
-
         /// <summary>
         /// Este endpoint deve consultar as prestações de serviços realizadas em um conteiner
         /// </summary>
@@ -160,53 +135,6 @@ namespace Polaris.Conteiner.Controllers
             }
         }
 
-        ///// <summary>
-        ///// Este endpoint deve atualizar uma prestação de serviço
-        ///// </summary>
-        ///// <remarks>
-        ///// Exemplo: <br />
-        ///// { <br />
-        /////   "terceirizadoUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722, <br />
-        /////   "cnpj":"32.738.811/0001-80",<br />
-        /////   "empresa": "Empresa Exemplo", <br />
-        /////   "email": "exemplo@email.com", <br />
-        /////   "telefone": "(XX)XXXXX-XXXX",   <br />
-        /////   "endereco": { <br />
-        /////   "enderecooUuid": "7db3f5dc-b90c-4d7d-b179-1d2341a96722,<br />
-        /////   "cep": "80220000", <br />
-        /////   "cidade": "Curitiba", <br />
-        /////   "estado": "Paraná",  <br />
-        /////   "logradouro": "Rua Exemplo",  <br />
-        /////   "complemento": "opcional",  <br />
-        /////   "numero": 100  <br />
-        /////   },  <br />
-        /////   "listaServicos": [  <br />
-        /////   "3fa85f64-5717-4562-b3fc-2c963f66afa6"  <br />
-        /////   ]<br />}
-        ///// </remarks>
-        ///// <returns>
-        ///// Retorna 201 caso sucesso
-        ///// Retorna 400 caso erro, retorna a mensagem especificando
-        ///// Retorna 500 caso erro interno         
-        ///// </returns>
-        //// PUT: api/PrestacoesServico
-        //[HttpPut]
-        //public async Task<IActionResult> PutPrestacaoServico(AtualizaPrestacaoDeServicoViewModel prestacaoServicoDto)
-        //{
-        //    try
-        //    {
-        //        //await _service.PutPrestacaoServico(prestacaoServicoDto);
-        //        return Ok();
-        //    }
-        //    catch (AtualizarPrestacaoServicoException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ReturnError();
-        //    }
-        //}
 
         /// <summary>
         /// Este endpoint deve alterar o estado da prestação de serviço via Guid
@@ -235,32 +163,5 @@ namespace Polaris.Conteiner.Controllers
                 return ReturnError();
             }
         }
-
-        ///// <summary>
-        ///// Este endpoint deve alterar o status de serviço de uma prestação de serviço via Guid
-        ///// </summary>
-        ///// <returns>
-        ///// Retorna 201 caso sucesso
-        ///// Retorna 404 caso uuid não encontrado
-        ///// Retorna 500 caso erro interno         
-        ///// </returns>
-        //// ALTERAR STATUS: api/PrestacoesServico/uuid/status
-        //[HttpPut("alterar-status/{uuid}/{status}")]
-        //public async Task<ActionResult> AlterarStatus(Guid uuid, EstadoConteiner status)
-        //{
-        //    try
-        //    {
-        //        //await _service.AlterarStatus(uuid, status);
-        //        return Ok();
-        //    }
-        //    catch (PrestacaoServicoNaoEncontradaException ex)
-        //    {
-        //        return NotFound(ex.Message);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return ReturnError();
-        //    }
-        //}
     }
 }
