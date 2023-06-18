@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Polaris.Usuario.Configs;
@@ -28,6 +29,7 @@ namespace Polaris.Usuario.Services
 
         public async Task<RetornoLoginViewModel> Logar(CadastroLoginViewModel loginDto)
         {
+            loginDto.Senha = GeraSenha(loginDto.Senha);
             var login = await _context.LoginRepository.GetByParameter(x => x.Usuario == loginDto.Usuario && x.Senha == loginDto.Senha);
 
             if (login == null || login.LoginId == 0)
@@ -35,7 +37,6 @@ namespace Polaris.Usuario.Services
                 throw new LoginNaoEncontradoException("Usuário/senha inválidos. Erro ao logar.");
             }
 
-            StringUtils.ClassToUpper(login);
             var isGerente = await IsGerente(login.LoginId);
 
             return new RetornoLoginViewModel()
@@ -96,14 +97,14 @@ namespace Polaris.Usuario.Services
                 throw new CadastrarLoginException("Usuário já existe. Erro ao cadastrar.");
             }
 
-            var login = _mapper.Map<Models.Login>(loginDto);
+            var login = _mapper.Map<Login>(loginDto);
+            login.Senha = GeraSenha(login.Senha);
 
             if (login is null)
             {
                 throw new CadastrarLoginException("Usuário/senha inválidos. Erro ao cadastrar.");
             }
 
-            StringUtils.ClassToUpper(login);
             login.LoginUuid = Guid.NewGuid();
             login.Status = true;
 
@@ -126,8 +127,8 @@ namespace Polaris.Usuario.Services
             if (login != null && login.LoginId != 0)
             {
                 login.Usuario = loginDto.Usuario;
-                login.Senha = loginDto.Senha;
-                StringUtils.ClassToUpper(login);
+                login.Senha = GeraSenha(loginDto.Senha);
+
 
                 _context.LoginRepository.Update(login);
                 await _context.Commit();
@@ -170,9 +171,21 @@ namespace Polaris.Usuario.Services
             }
 
             var loginBase = await _context.LoginRepository.GetByParameter(p => p.LoginUuid == loginDto.LoginUuid);
-            loginBase.Senha = loginDto.Senha;
+            loginBase.Senha = GeraSenha(loginDto.Senha);
             _context.LoginRepository.Update(loginBase);
             await _context.Commit();
+        }
+
+        private static string GeraSenha(string senha)
+        {
+            return Convert.ToBase64String(
+                KeyDerivation.Pbkdf2(
+                    password: senha,
+                    salt: BitConverter.GetBytes(2406),
+                    prf: KeyDerivationPrf.HMACSHA1,
+                    iterationCount: 10000,
+                    numBytesRequested: 256 / 8
+                ));
         }
     }
 }

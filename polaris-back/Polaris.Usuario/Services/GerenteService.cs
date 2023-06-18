@@ -73,13 +73,10 @@ namespace Polaris.Usuario.Services
             var enderecoUuid = await _enderecoExternalService.PostEnderecos(gerenteDto.Endereco, token);
             gerenteDto.Endereco = null;
 
-            var loginUuid = await _loginService.CadastrarLogin(new CadastroLoginViewModel(gerenteDto));
-
             var gerente = _mapper.Map<Gerente>(gerenteDto);
             StringUtils.ClassToUpper(gerente);
             gerente.GerenteUuid = Guid.NewGuid();
             gerente.EnderecoId = await _enderecoRepository.GetEnderecoId(enderecoUuid);
-            gerente.LoginId = await _loginRepository.GetLoginId(loginUuid);
             gerente.Status = true;
 
             if (ValidaCnpj.IsCnpj(gerente.Cnpj) is false)
@@ -91,6 +88,9 @@ namespace Polaris.Usuario.Services
             {
                 throw new CadastrarGerenteException("E-mail inválido. Erro ao cadastrar um gerente.");
             }
+
+            var loginUuid = await _loginService.CadastrarLogin(new CadastroLoginViewModel(gerenteDto));
+            gerente.LoginId = await _loginRepository.GetLoginId(loginUuid);
 
             _context.GerenteRepository.Add(gerente);
 
