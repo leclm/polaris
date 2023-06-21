@@ -61,7 +61,7 @@ export class ContractPdfService {
 
       { text: `
       2. ALUGUÉIS MENSAIS E VALOR TOTAL`, style: "subtitle" },
-      { text: `2.1 A locatária pagará ao locador a quantia total de R$ ${res.valorTotalAluguel}. O aluguel constitui o pagamento pelo uso do(s) equipamento(s) e será devido a partir do dia da assinatura do presente.
+      { text: `2.1 A locatária pagará ao locador a quantia total de R$ ${res.valorTotalAluguel - res.desconto}, já calculado os possíveis descontos fornecidos. O aluguel constitui o pagamento pelo uso do(s) equipamento(s) e será devido a partir do dia da assinatura do presente.
        `, alignment: 'justify' },
       { text: "3. MANUTENÇÃO, ASSISTÊNCIA TÉCNICA E SEGURO", style: "subtitle" },
       { text: `3.1 A manutenção do(s) equipamento(s), objeto(s) do presente contrato é de total responsabilidade da locatária durante o seu uso;

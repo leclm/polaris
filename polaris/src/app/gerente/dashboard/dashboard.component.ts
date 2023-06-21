@@ -124,6 +124,8 @@ export class DashboardComponent implements OnInit,AfterViewInit {
     title: {
       text: 'Aluguéis',
     },
+    axisY: {interval: 1}
+    ,
     data: [{
         type: 'column',
         dataPoints: this.dataAluguel
