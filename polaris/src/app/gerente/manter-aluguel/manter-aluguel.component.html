@@ -38,44 +38,40 @@
           <p class="title mt-5">Período de locação</p>
           <div class="col-md-6 mt-0">
             <label for="inputDataInicio" class="form-label">Data de Início</label>
-              <div class="input-group mb-6">
-
-               <!--<input type="text" class="form-control" id="inputDataInicio" name="dataInicio" placeholder="dd-mm-aaaa" [(ngModel)]="aluguel.dataInicio" />-->
-                 <input class="form-control" placeholder="{{dataIni}}" [(ngModel)]="dataIni" id="inputDataInicio" 
-                  name="dataInicio" (ngModelChange)="valuechangeIni($event)" ngbDatepicker [footerTemplate]="footerTemplate" #dIni="ngbDatepicker" readonly/>
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" (click)="dIni.toggle()" type="button"><i
-                      class="fa-solid fa-calendar"></i></button>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0" />
-                    <button class="btn btn-secondary btn-sm m-2 float-end" (click)="dIni.close()">Close</button>
-                  </ng-template>
-                </div>
+            <div class="input-group mb-6">
+              <input class="form-control" placeholder="{{dataIni}}" [(ngModel)]="dataIni" id="inputDataInicio" name="dataInicio" (ngModelChange)="valuechangeIni($event)" ngbDatepicker [footerTemplate]="footerTemplate" #dIni="ngbDatepicker" readonly/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="dIni.toggle()" type="button">
+                  <i class="fa-solid fa-calendar"></i>
+                </button>
+                <ng-template #footerTemplate>
+                  <hr class="my-0" />
+                  <button class="btn btn-secondary btn-sm m-2 float-end" (click)="dIni.close()">Close</button>
+                </ng-template>
               </div>
-             <div *ngIf="dataIniNotValidNotify" class="alert alert-danger">
-                Preencha a data de início
-              </div>
+            </div>
+            <div *ngIf="dataIniNotValidNotify" class="alert alert-danger">
+              Preencha a data de início
+            </div>
           </div>
 
           <div class="col-md-6 mt-0">
             <label for="inputDataDevolucao" class="form-label">Data de Devolução</label>
             <div class="input-group mb-6">
-
-            <!-- <input type="text" class="form-control" id="inputDataDevolucao" name="dataDevolucao" placeholder="dd-mm-aaaa" [(ngModel)]="aluguel.dataDevolucao" />-->
-
-           <input class="form-control" id="inputDataDevolucao" name="dataDevolucao" placeholder="{{dataDev}}" [(ngModel)]="dataDev" name="dataDevolucao" (ngModelChange)="valuechangeDev($event)" ngbDatepicker [footerTemplate]="footerTemplate" #dDev="ngbDatepicker" readonly/>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="dDev.toggle()" type="button"><i
-                  class="fa-solid fa-calendar"></i></button>
-              <ng-template #footerTemplate>
-                <hr class="my-0" />
-                <button class="btn btn-secondary btn-sm m-2 float-end" (click)="dDev.close()">Close</button>
-              </ng-template>
+              <input class="form-control" id="inputDataDevolucao" name="dataDevolucao" placeholder="{{dataDev}}" [(ngModel)]="dataDev" name="dataDevolucao" (ngModelChange)="valuechangeDev($event)" ngbDatepicker [footerTemplate]="footerTemplate" #dDev="ngbDatepicker" readonly/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="dDev.toggle()" type="button">
+                  <i class="fa-solid fa-calendar"></i>
+                </button>
+                <ng-template #footerTemplate>
+                  <hr class="my-0" />
+                  <button class="btn btn-secondary btn-sm m-2 float-end" (click)="dDev.close()">Close</button>
+                </ng-template>
+              </div>
             </div>
-          </div>
-          <div *ngIf="dataDevNotValidNotify" class="alert alert-danger">
-            Preencha a data de devolução
-          </div>
+            <div *ngIf="dataDevNotValidNotify" class="alert alert-danger">
+              Preencha a data de devolução
+            </div>
           </div>
 
           <p class="title mt-5">Endereço de locação</p>
@@ -83,8 +79,7 @@
             <label for="inputCep" class="form-label">CEP</label>
             <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="enderecoLocacao.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
             <div *ngIf="cepNotValid==true" class="alert alert-danger">Digite um CEP válido</div>
-            <div *ngIf="cep.pristine && cep.touched" class="alert alert-danger">Digite um CEP</div>
-            
+            <div *ngIf="cep.pristine && cep.touched" class="alert alert-danger">Digite um CEP</div>            
           </div>
           <div class="col-md-4 mt-0">
             <label for="inputEstado" class="form-label">Estado</label>
