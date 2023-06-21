@@ -37,6 +37,7 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   public statusMsg!: string;
   public terceirizadosCadastrados: Terceirizado[] = [];
   public servicosCadastrados: Servico[] = [];
+  public bkpDate!: string;
 
   public estadoConteiner = EstadoConteiner;
   public estadoPrestacaoServico = EstadoPrestacaoServico;
@@ -61,7 +62,6 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   public dataVar = this.prestacaoServicoAtualizacao.dataProcedimento;
 
   valuechange(date: any) {
-    
     let day: any;
     let month: any;
     if((JSON.stringify(date.day).length)==1){
@@ -70,7 +70,6 @@ export class EditarPrestacaoServicoComponent implements OnInit {
     if((JSON.stringify(date.month).length)==1){
       month = "0"+JSON.stringify(date.month)
     } else {month = date.month}
-    
     this.prestacaoServicoAtualizacao.dataProcedimento = `${date.year}-${month}-${day}`;
     this.dataVar = `${date.day}-${date.month}-${date.year}`;
   }
@@ -79,10 +78,17 @@ export class EditarPrestacaoServicoComponent implements OnInit {
     this.prestacaoServicoAtualizacao.prestacaoDeServicoUuid = this.prestacaoDeServicoUuid;
     this.prestacaoServicoAtualizacao.estadoPrestacaoServico = parseInt(this.estadoPrestacaoServicoSelecionada.toString());
     this.alteraDisponibilidadeConteiner();
+
+    if ( this.prestacaoServicoAtualizacao.dataProcedimento.charAt(2) === '-' ) {
+      this.bkpDate = this.prestacaoServicoAtualizacao.dataProcedimento 
+      this.prestacaoServicoAtualizacao.dataProcedimento = this.convertDateToMakePut(this.prestacaoServicoAtualizacao.dataProcedimento);
+    } 
+      
     this.gerenteService.alterarEstadoPrestacaoServico(this.prestacaoServicoAtualizacao).subscribe(
       (response: HttpResponse<PrestacaoServicoAtualizacao>) => {   
         if (response.status === 200 || response.status === 201) {
           this.statusMsg = 'success';
+          this.prestacaoServicoAtualizacao.dataProcedimento = this.bkpDate;
           console.log('Put request successful');
         } else {
           console.log('Put request failed');
@@ -104,7 +110,6 @@ export class EditarPrestacaoServicoComponent implements OnInit {
   getPrestacaoServicoById() {
     this.gerenteService.getPrestacaoServicoById(this.prestacaoDeServicoUuid).subscribe( response => {
       this.prestacaoServicoAtualizacao.dataProcedimento = response.dataProcedimento;
-
       let dataNasc = this.prestacaoServicoAtualizacao.dataProcedimento;
       let dataArr = dataNasc.split("T");
       dataArr = dataArr[0].split("-")
@@ -128,6 +133,15 @@ export class EditarPrestacaoServicoComponent implements OnInit {
 
   alteraDisponibilidadeConteiner() {
     this.gerenteService.alteraDisponibilidadeConteiner(this.conteinerUuid, this.estadoConteinerSelecionado).subscribe();
+  }
+
+  convertDateToMakePut(dateString: string): string {
+    const parts = dateString.split('-');
+    const year = parts[2];
+    const month = parts[1];
+    const day = parts[0];
+    const isoDate = `${year}-${month}-${day}T00:00:00.000Z`;
+    return isoDate;
   }
 
   // Popula EstadoConteiner e EstadoPrestacaoServico dropdown

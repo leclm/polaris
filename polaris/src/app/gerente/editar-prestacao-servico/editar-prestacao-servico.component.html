@@ -42,9 +42,7 @@
               <div class="col-md-4">
                 <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
                 <div class="input-group mb-4">
-                  <!--<input class="form-control" type="text" id="inputDataProcedimento" name="dataProcedimento" value="{{prestacaoServicoAtualizacao.dataProcedimento}}" [(ngModel)]="prestacaoServicoAtualizacao.dataProcedimento" #dataProcedimento="ngModel" />-->
-           
-                <input class="form-control" type="text" id="inputDataProcedimento" name="dataProcedimento" placeholder={{dataVar}} value="{{prestacaoServicoAtualizacao.dataProcedimento}}" [(ngModel)]="dataVar" #dataProcedimento="ngModel" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
+                  <input class="form-control" type="text" id="inputDataProcedimento" name="dataProcedimento" placeholder={{dataVar}} value="{{prestacaoServicoAtualizacao.dataProcedimento}}" [(ngModel)]="dataVar" #dataProcedimento="ngModel" (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i
                       class="fa-solid fa-calendar"></i></button>
