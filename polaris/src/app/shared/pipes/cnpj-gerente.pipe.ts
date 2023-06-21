@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CnpjGerentePipe implements PipeTransform {
 
   transform(value: string): string | null {
-    console.log(value)
     if (!value) {
       return null;
     }

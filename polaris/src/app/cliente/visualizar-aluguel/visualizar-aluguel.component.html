@@ -48,7 +48,7 @@
               </table>
             </td>
             <td>{{ item.endereco.logradouro! | capitalizacao }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacao }}</td>
-            <td>{{ item.valorTotalAluguel | currency }}</td>
+            <td>{{ item.valorTotalAluguel - item.desconto | currency }}</td>
             <td>{{ item.estadoAluguel! | capitalizacao }}</td>
             <td>
               <a [routerLink]="['/cliente/detalhes-aluguel', item.aluguelUuid]">
