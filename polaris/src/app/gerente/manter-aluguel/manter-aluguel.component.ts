@@ -92,9 +92,11 @@ export class ManterAluguelComponent implements OnInit {
     this.getAllCategoriasAtivas(); 
     this.getAllTiposAtivos();
   }
+
   closeDatepicker(id: { close: () => void; }){
     id.close();
   }
+
   valuechangeIni(date: any) {
     let day: any;
     let month: any;
@@ -177,13 +179,6 @@ export class ManterAluguelComponent implements OnInit {
       this.tiposCadastrados = response;
     })
   }
-
-  findContainers() {
-    this.gerenteService.getConteineresByTipoCategoria(this.conteiner.categoria, this.conteiner.tipo)
-    .subscribe( response => {
-      this.conteineresCadastrados = response;
-    })
-  }
  
   calculateDaysBetweenDates(startDate: Date, endDate: Date): number {
     const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
@@ -223,13 +218,36 @@ export class ManterAluguelComponent implements OnInit {
         this.aluguel.valorTotalAluguel = valorTotal;
       }
     });
-  }
+  }  
 
   removeConteiner(conteiner: string) {
     this.carrinho = this.carrinho.filter(obj => obj.conteinerUuid !== conteiner);
     this.aluguel.conteineresUuid = this.aluguel.conteineresUuid.filter(obj => obj !== conteiner);
   }
   
+  findContainers() {
+    this.gerenteService.getConteineresByTipoCategoria(this.conteiner.categoria, this.conteiner.tipo).subscribe(
+      (response: HttpResponse<Conteiner[]>) => {   
+        this.statusMsg = '';
+        
+        if (response.status === 200 || response.status === 201) {
+          if (response.body === undefined || response.body === null) { 
+            console.log('Post request failed');
+          } else {
+            this.conteineresCadastrados = response.body;
+          }
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.statusMsg = 'notfound';
+          for (let i = 0; i <= this.conteineresCadastrados.length; i++) {
+            this.conteineresCadastrados.pop();
+          }
+      }
+    );
+  }
+
   cadastrar() {
     this.gerenteService.addAluguel(this.aluguel).subscribe(
       (response: HttpResponse<Aluguel>) => {   
