@@ -9,7 +9,6 @@ import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-t
 import { SortDirective } from '../shared/directives/sort.directive';
 import { EditarTerceirizadoComponent } from './editar-terceirizado/editar-terceirizado.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
-import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado/visualizar-historico-terceirizado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManterCategoriaComponent } from './manter-categoria/manter-categoria.component';
 import { VisualizarCategoriasComponent } from './visualizar-categorias/visualizar-categorias.component';
@@ -57,7 +56,6 @@ var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
     SortDirective,
     EditarTerceirizadoComponent,
     EditarClienteComponent,
-    VisualizarHistoricoTerceirizadoComponent,
     ManterCategoriaComponent,
     VisualizarCategoriasComponent,
     EditarCategoriaComponent,

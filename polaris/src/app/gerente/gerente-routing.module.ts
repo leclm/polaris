@@ -11,7 +11,6 @@ import { VisualizarCategoriasComponent } from './visualizar-categorias';
 import { VisualizarClientesComponent } from './visualizar-clientes';
 import { VisualizarDetalhesClienteComponent } from './visualizar-detalhes-cliente';
 import { VisualizarDetalhesTerceirizadoComponent } from './visualizar-detalhes-terceirizado';
-import { VisualizarHistoricoTerceirizadoComponent } from './visualizar-historico-terceirizado';
 import { VisualizarTerceirizadosComponent } from './visualizar-terceirizados';
 import { VisualizarTiposComponent } from './visualizar-tipos';
 import { VisualizarEstoqueConteineresComponent } from './visualizar-estoque-conteineres';
@@ -113,14 +112,6 @@ export const GerenteRoutes: Routes = [
   {
     path: 'gerente/visualizar-detalhes-terceirizado/:id',
     component: VisualizarDetalhesTerceirizadoComponent,
-    canActivate: [AuthGuard],
-      data: {
-        role: 'gerente'
-      }
-  },
-  {
-    path: 'gerente/visualizar-historico-terceirizado/:id',
-    component: VisualizarHistoricoTerceirizadoComponent,
     canActivate: [AuthGuard],
       data: {
         role: 'gerente'
