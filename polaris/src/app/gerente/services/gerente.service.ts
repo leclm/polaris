@@ -284,10 +284,10 @@ export class GerenteService {
     return this.http.get<ConteinerEstado>(url, this.loginService.httpOptions);
   }
 
-  getConteineresByTipoCategoria(categoriaUuid: string, tipoUuid: string): Observable<Conteiner[]> {
+  getConteineresByTipoCategoria(categoriaUuid: string, tipoUuid: string): Observable<HttpResponse<Conteiner[]>> {
     this.loginService.buildHeaderToken();
     const url = `${this.conteinerURL}/Conteineres/conteineres-ativos-disponiveis/categoria/${categoriaUuid}/tipo/${tipoUuid}`;
-    return this.http.get<Conteiner[]>(url, this.loginService.httpOptions);
+    return this.http.get<Conteiner[]>(url, { headers: this.loginService.httpOptions.headers, observe: 'response' });
   }
 
   addConteiner(conteiner: Conteiner): Observable<HttpResponse<Conteiner>> {
