@@ -92,7 +92,50 @@ export class ManterAluguelComponent implements OnInit {
     this.getAllCategoriasAtivas(); 
     this.getAllTiposAtivos();
   }
+  
+  getAllClientesAtivos() {
+    this.gerenteService.getAllClientesAtivos()
+    .subscribe( response => {
+      this.clientesCadastrados = response;
+    })
+  }
 
+  getAllCategoriasAtivas() {
+    this.gerenteService.getAllCategoriasAtivas()
+    .subscribe( response => {
+      this.categoriasCadastradas = response;
+    })
+  }
+
+  getAllTiposAtivos() {
+    this.gerenteService.getAllTiposAtivos()
+    .subscribe( response => {
+      this.tiposCadastrados = response;
+    })
+  }
+  
+  alteraDisponibilidadeConteiner() {
+    this.gerenteService.alteraDisponibilidadeConteiner(this.conteinerUuid, 4);
+  }
+
+  cadastrar() {
+    this.alteraDisponibilidadeConteiner();
+    this.gerenteService.addAluguel(this.aluguel).subscribe(
+      (response: HttpResponse<Aluguel>) => {   
+        if (response.status === 200 || response.status === 201) {
+          this.statusMsg = 'success';
+          console.log('Post request successful');
+        } else {
+          console.log('Post request failed');
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.statusMsg = 'fail';
+      }
+    );
+  }
+  
   closeDatepicker(id: { close: () => void; }){
     id.close();
   }
@@ -136,13 +179,6 @@ export class ManterAluguelComponent implements OnInit {
       this.dataDevNotValidNotify = true;
     } else {this.dataDevNotValidNotify = false;}
   }
-
-  getAllClientesAtivos() {
-    this.gerenteService.getAllClientesAtivos()
-    .subscribe( response => {
-      this.clientesCadastrados = response;
-    })
-  }
    
   fillClientObject(event: any) {
     this.gerenteService.getClienteById(this.clienteUuid)
@@ -164,20 +200,6 @@ export class ManterAluguelComponent implements OnInit {
       }    
       this.VerifyValidDate();  
     });
-  }
-
-  getAllCategoriasAtivas() {
-    this.gerenteService.getAllCategoriasAtivas()
-    .subscribe( response => {
-      this.categoriasCadastradas = response;
-    })
-  }
-
-  getAllTiposAtivos() {
-    this.gerenteService.getAllTiposAtivos()
-    .subscribe( response => {
-      this.tiposCadastrados = response;
-    })
   }
  
   calculateDaysBetweenDates(startDate: Date, endDate: Date): number {
@@ -244,23 +266,6 @@ export class ManterAluguelComponent implements OnInit {
           for (let i = 0; i <= this.conteineresCadastrados.length; i++) {
             this.conteineresCadastrados.pop();
           }
-      }
-    );
-  }
-
-  cadastrar() {
-    this.gerenteService.addAluguel(this.aluguel).subscribe(
-      (response: HttpResponse<Aluguel>) => {   
-        if (response.status === 200 || response.status === 201) {
-          this.statusMsg = 'success';
-          console.log('Post request successful');
-        } else {
-          console.log('Post request failed');
-        }
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.statusMsg = 'fail';
       }
     );
   }
