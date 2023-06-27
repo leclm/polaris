@@ -1,6 +1,15 @@
 
 <h1 align="center">Polaris</h1>
 
+<span align="center">
+<img alt="carrossel" src="polaris/polaris/src/assets/images/readme/tela-inicial-carrossel.gif" width="42.5%">    
+<img alt="paypal mobile" src="paypal.png" width="55%">
+</span>
+<span align="center">
+<img alt="Dashboard desktop" src="dashboard-desktop.png" width="77%">
+<img alt="Dashboard mobile" src="dashboard-mobile.png" width="21%">
+</span>
+
 <h2 align="center">Technologies</h2>
 
 - [Angular](https://v13.angular.io/docs)
