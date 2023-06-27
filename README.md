@@ -58,8 +58,8 @@
 
 <div align="center">
 
-[![Linkedin Badge](https://img.shields.io/badge/-Let%C3%ADcia%20Lima-292929?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/leticiachagaslima/)](https://www.linkedin.com/in/leticiachagaslima/)
 [![Linkedin Badge](https://img.shields.io/badge/-Katiana%20Zeitz-292929?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/katiana/)](https://www.linkedin.com/in/katianazeitz/)
-[![Linkedin Badge](https://img.shields.io/badge/-Robson%20Oliveira-292929?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/leticiachagaslima/)](https://www.linkedin.com/in/r94oliveira/)
+[![Linkedin Badge](https://img.shields.io/badge/-Let%C3%ADcia%20Lima-292929?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/leticiachagaslima/)](https://www.linkedin.com/in/leticiachagaslima/)
+[![Linkedin Badge](https://img.shields.io/badge/-Robson%20Oliveira-292929?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/r94oliveira/)](https://www.linkedin.com/in/r94oliveira/)
 
 </div>
