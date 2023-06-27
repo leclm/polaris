@@ -2,12 +2,12 @@
 <h1 align="center">Polaris</h1>
 
 <span align="center">
-<img alt="carrossel" src="polaris/polaris/src/assets/images/readme/tela-inicial-carrossel.gif" width="42.5%">    
-<img alt="paypal mobile" src="paypal.png" width="55%">
+<img alt="carrossel" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/tela-inicial-carrossel.gif" width="42.5%">    
+<img alt="paypal mobile" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/paypal.png" width="55%">
 </span>
 <span align="center">
-<img alt="Dashboard desktop" src="dashboard-desktop.png" width="77%">
-<img alt="Dashboard mobile" src="dashboard-mobile.png" width="21%">
+<img alt="Dashboard desktop" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/dashboard-desktop.png" width="77%">
+<img alt="Dashboard mobile" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/dashboard-mobile.png" width="21%">
 </span>
 
 <h2 align="center">Technologies</h2>
