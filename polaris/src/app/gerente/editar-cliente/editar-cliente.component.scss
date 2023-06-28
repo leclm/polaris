@@ -35,7 +35,9 @@ $white: #fff;
   
   .content {
     flex-direction: column;
-    
+    .disabled {
+      background-color: $border-gray;
+    }
     .ctn-btn {
       flex-direction: column;
       align-items: center;

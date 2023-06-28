@@ -1,84 +1,142 @@
-<div class="detalhes-aluguel container-fluid mt-4 mb-4">
-  <div *ngFor="let item of aluguelData.content">
-    <div *ngIf="item.id == aluguelId">
+<div class="visualizar-detalhes-aluguel container-fluid mt-4 mb-4">
+  <div *ngFor="let item of aluguelData">
+    <div *ngIf="item.aluguelUuid == aluguelUuid">
       <div class="container-content mb-4 p-4">
-        <h1>Visualizar Detalhes do Aluguel</h1>
-        
+        <h1>Detalhes do Aluguel</h1>
+
         <div class="line mb-5"></div>
+        
+        <div [ngSwitch]="statusMsg">
+          <div *ngSwitchCase="'success'">
+            <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+              Pagamento realizado com sucesso!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+          <div *ngSwitchCase="'cancel'">
+            <div class="alert alert-warning alert-dismissible fade show mb-5" role="alert">
+              Você cancelou seu pagamento. Não realizamos nenhuma cobrança na sua forma de pagamento. Inicie novamente ou selecione outra forma de pagamento.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+          <div *ngSwitchCase="'fail'">
+            <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+              Falha ao realizar pagamento!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
 
-        <div class="mb-5">
+        <div class="mb-3">
           <p class="title">Dados cadastrais</p>
-          <div class="content d-flex justify-content-start ms-5">
-            <p class="me-5"><span>Nome do locatário:</span> Letícia das Chagas Lima</p>
-            <p><span>CPF:</span> {{ item.cpfCliente! | cpf }}</p>
-          </div>
-        </div>
-      
-        <div class="mb-5">
-          <p class="title">Período de Locação</p>
-          <div class="content d-flex justify-content-start ms-5">
-            <p class="me-5"><span>Data de início:</span> {{ item.dataRetirada! | date:'mediumDate' }}</p>
-            <p class="me-5"><span>Data de devolução:</span> {{ item.dataDevolucao! | date : 'mediumDate' }}</p>
-            <p><span>Tipo de locação:</span> {{ item.tipoLocacao }}</p>
-          </div>
-        </div>
-      
-        <div class="mb-1">
-          <p class="title">Endereço de locação</p>
-          <div class="content d-flex justify-content-start ms-5">
-            <p class="me-5"><span>Endereço:</span> {{ item.endereco }}</p>
-            <p class="me-5"><span>Número:</span> {{ item.numero }}</p>
-            <p><span>Complemento:</span> {{ item.complemento }}</p>
-          </div>
-          <div class="content d-flex justify-content-start ms-5">
-            <p class="me-5"><span>CEP:</span> {{ item.cep! | cep }}</p>
-            <p class="me-5"><span>Cidade:</span> {{ item.cidade }}</p>
-            <p><span>Estado:</span> {{ item.estado }}</p>
-          </div>
-        </div>
-      </div>
+          <div class="content d-flex justify-content-start ms-3">
+            <form class="row g-3" id="payment-form" (ngSubmit)="initConfig()">
+              <div class="col-md-6">         
+                <label for="inputCliente" class="form-label">Responsável pelo aluguel:</label>
+                <p class="form-control disabled"> {{ item.cliente.nome! | capitalizacao }} {{ item.cliente.sobrenome! | capitalizacao }} </p>
+              </div>
 
-      <div class="container-content p-4">
-        <div class="mb-4">
-          <p class="title">Itens selecionados</p>
-          <div class="table-responsive">
-            <table class="table align-middle text-center">
-              <thead class="table-light">
-                <tr>
-                  <th>Código</th>
-                  <th>Categoria</th>
-                  <th>Tipo</th>
-                  <th>Valor por mês</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>#CCM002</td>
-                  <td>Construção Civil</td>
-                  <td>Médio</td>
-                  <td>R$ 400,00</td>
-                  <td> {{ item.valorTotalAluguel! | currency }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>    
-        <div class="pt-2 line">
-          <div class="price d-flex">
-            <p><span>Total da compra:</span> {{ item.valorTotalAluguel! | currency }}</p>
-            <p><span>Desconto:</span> {{ item.desconto! | currency }}</p>
-            <p class="line pt-2"><span>Total com desconto:</span> {{ (item.valorTotalAluguel - item.desconto)! | currency }}</p>
-          </div>
-        </div>
-      </div>
+              <div class="col-md-6">
+                <label for="inputCpf" class="form-label">CPF</label>
+                <p class="form-control disabled" id="inputCpf">{{ item.cliente.cpf! | cpf }}</p> 
+              </div>
+              
+              <p class="title mt-5">Período de locação</p>
+              <div class="col-md-6 mt-0">
+                <label for="inputDataInicio" class="form-label">Data de Início</label>
+                <p class="form-control disabled" id="inputDataInicio">{{ item.dataInicio! | date }}</p> 
+              </div>
 
-      <div class="ctn-btn d-flex justify-content-evenly mt-4 mb-4">
-        <a href="#" routerLink="/cliente/visualizar-aluguel">Voltar</a>
-        <a href="#">Ver contrato</a>
-        <ngx-paypal class="mt-4" [config]="payPalConfig"></ngx-paypal>
-      </div>  
+              <div class="col-md-6 mt-0">
+                <label for="inputDataDevolucao" class="form-label">Data de Devolução</label>
+                <p class="form-control disabled" id="inputDataDevolucao">{{ item.dataDevolucao! | date }}</p> 
+              </div>
+              
+              <p class="title mt-5">Endereço de locação</p>
+              <div class="col-md-4 mt-0">
+                <label for="inputCep" class="form-label">CEP</label>
+                <p class="form-control disabled" id="inputCep">{{ item.endereco.cep }}</p>
+              </div>
+
+               <div class="col-md-4 mt-0">
+                <label for="inputEstado" class="form-label">Estado</label>
+                <p class="form-control disabled" id="inputEstado">{{ item.endereco.estado }}</p>
+              </div>
+              <div class="col-md-4 mt-0">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <p class="form-control disabled" id="inputCidade">{{ item.endereco.cidade! | capitalizacao }}</p>
+              </div>
+              <div class="col-md-6">
+                <label for="inputLogradouro" class="form-label">Endereço</label>
+                <p class="form-control disabled" id="inputLogradouro">{{ item.endereco.logradouro! | capitalizacao }}</p>
+              </div>
+              <div class="col-md-3">
+                <label for="inputNumero" class="form-label">Número</label>
+                <p class="form-control disabled" id="inputNumero">{{ item.endereco.numero }}&#160;</p>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="inputComplemento" class="form-label">Complemento</label>
+                <p class="form-control disabled" id="inputComplemento">{{ item.endereco.complemento! | capitalizacao }}&#160;</p>
+              </div>
+
+              <div class="line mb-5"></div>
+
+              <p class="title">Contêineres Alugados</p>
+              <div class="col-md-12">         
+                <div class="table-responsive">
+                  <table class="table align-middle text-center">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Cód</th>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
+                        <th>Valor Diária</th>
+                        <th>Diárias</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of item.conteineres">
+                        <td>#{{ item.codigo }}</td>
+                        <td>{{ item.categoriaConteiner.nome! | capitalizacao }}</td>
+                        <td>{{ item.tipoConteiner.nome! | capitalizacao }}</td>
+                        <td>{{ item.tipoConteiner.valorDiaria | currency }}</td>
+                        <td>{{ totalDays }} </td>
+                        <td>{{ totalDays*item.tipoConteiner.valorDiaria! | currency }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="pt-2 line-price">
+                <div class="price d-flex">
+                  <p><span>Total da compra:</span> {{ item.valorTotalAluguel! | currency }} </p>
+                  <div class="desconto mb-3">
+                    <p class="me-2 mt-2"><span>Desconto:</span></p>
+                    <p class="me-2 mt-2">{{ item.desconto! | currency }}</p>
+                  </div>
+                  <p class="line-price pt-2"><span>Total com desconto:</span> {{ item.valorTotalAluguel-item.desconto! | currency }}</p>
+                </div>
+              </div>
+
+              <div *ngIf="pago != '5'" class="position-relative col-md-12 mt-4 mb-4 ctn-btn">
+                <div class="bt-drop-in-wrapper">
+                  <div id="bt-dropin"></div>
+                </div>                
+                <button style="width: 100%" class="button" id="payment-btn" type="submit"><span>Opções de pagamento</span></button>
+              </div>
+               
+              <div class="ctn-btn d-flex justify-content-around mt-4 mb-4">
+                <a (click)="generatePdf()">Visualizar contrato</a>
+                <a [routerLink]="['/cliente/visualizar-aluguel']">Voltar</a>
+              </div> 
+            </form>
+          </div>
+        </div> 
+      </div>
     </div>
   </div>
-  
 </div>
+
+   

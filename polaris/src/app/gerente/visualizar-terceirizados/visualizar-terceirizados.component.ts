@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GerenteService } from '../services';
 
 @Component({
   selector: 'app-visualizar-terceirizados',
@@ -6,30 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./visualizar-terceirizados.component.scss']
 })
 export class VisualizarTerceirizadosComponent implements OnInit {
-  clienteData = {
-    content: [
-      {
-        'id': '1',
-        'tipo': 'Limpeza',
-        'empresa': 'Lava Contêiner S.A.',
-        'telefone': '(41) 9 9999-9999',
-        'cnpj': '00.394.460/0001-87',
-        'endereco': 'Rua Bruno Filgueira'
-      },
-      {
-        'id': '2',
-        'tipo': 'Frete',
-        'empresa': 'Frete Total',
-        'telefone': '(41) 9 8888-8888',
-        'cnpj': '00.394.460/0001-87',
-        'endereco': 'Rua Saldanha Marinho'
-      }   
-    ]
-  }
+  public servicoData: any;
+  public terceirizadoData: any;
+  public terceirizadoUuid!: string;
 
-  constructor() { }
+  constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
+    this.gerenteService.getAllServicos().subscribe( (res: any) => {
+        this.servicoData = res;
+      }
+    );
+    this.loadData();
   }
 
+  loadData() {
+    this.gerenteService.getAllTerceirizadosAtivos().subscribe( (res: any) => {
+      this.terceirizadoData = res;
+    })
+  };
+
+  didTapOnDelete(uuid: string) {
+    this.gerenteService.deleteTerceirizado(uuid).subscribe(
+      response => this.loadData(),
+      error => console.error(error)
+    )
+  };
 }

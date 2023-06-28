@@ -1,0 +1,42 @@
+<div class="visualizar-historico-alugueis container-fluid mt-4 mb-4">
+  <div class="container-content p-4">
+    <h1 class="mb-4">Histórico de Aluguéis</h1>
+
+    <div class="table-responsive">
+      <table class="table align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Cliente</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="estadoAluguel">Status <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="dataInicio">Início <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="aluguelData" data-order="desc" data-name="dataDevolucao">Fim <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of aluguelData">
+            <td>{{ item.cliente.nome! | capitalizacaoGerente }} {{ item.cliente.sobrenome! | capitalizacaoGerente }}</td>
+            <td>{{ item.cliente.telefone! | phoneGerente }}</td>
+            <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacaoGerente }}</td>
+            <td>{{ item.estadoAluguel! | capitalizacaoGerente }}</td>
+            <td>{{ item.dataInicio! | dateGerente }}</td>
+            <td>{{ item.dataDevolucao! | dateGerente }}</td>
+            <td>
+              <a [routerLink]="['/gerente/visualizar-detalhes-aluguel', item.aluguelUuid]">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </a> 
+              <a [routerLink]="['/gerente/editar-estado-aluguel', item.aluguelUuid]">
+                <i class="fa fa-user-edit" aria-hidden="true"></i>
+              </a>  
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a [routerLink]="['/gerente/manter-aluguel']">Novo Aluguel</a>
+      </div>
+    </div>
+  </div>
+</div>

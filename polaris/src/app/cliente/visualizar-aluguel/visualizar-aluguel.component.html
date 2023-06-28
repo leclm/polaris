@@ -1,38 +1,59 @@
 <div class="historico-alugueis container-fluid mt-4 mb-4">
-  <div class="container-content mb-4 pt-3 pb-3 ps-3">
-    <h1>Bem-vindo(a), Adriana Medeiros!</h1>
-  </div>
-
   <div class="container-content p-4">
     <h1 class="mb-4">Histórico de Aluguéis</h1>
 
-    <div class="table-responsive">
+    <div [ngSwitch]="statusMsg">
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-warning alert-dismissible fade show mb-5" role="alert">
+          Você ainda não realizou nenhum aluguel conosco! <br/> Entre em contato pelo telefone (41) 3003-3003 e realize seu primeiro aluguel!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="statusMsg === 'success'" class="table-responsive">
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
             <th>Código</th>
-            <th>Início</th>
-            <th>Fim</th>
+            <th>Categoria</th>
+            <th>Tipo</th>
+            <th>Endereço</th>
             <th>Valor</th>
-            <th>Status</th>
-            <th>Pagamento atrasado</th>
-            <th>Devolução atrasada</th>
-            <th>Ver</th>
+            <th>Estado</th>
+            <th>Detalhes</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of aluguelData.content">
-            <td>#</td>
-            <td>{{ item.dataRetirada! | date:'mediumDate' }}</td>
-            <td>{{ item.dataDevolucao! | date:'mediumDate' }}</td>
-            <td>{{ item.valorTotalAluguel! | currency }}</td>
-            <td>{{ item.status }}</td>
-            <td>Sim</td>
-            <td>Não</td>
+          <tr *ngFor="let item of aluguelData">
             <td>
-              <a [routerLink]="['/cliente/detalhes-aluguel', item.id]" href="#">
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>#{{ childItem.codigo }}</td>
+                </tr>
+              </table>
+            </td>
+             <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>{{ childItem.categoriaConteiner.nome ! | capitalizacao }}</td>
+                </tr>
+              </table>
+            </td>
+             <td>
+              <table>
+                <tr *ngFor="let childItem of item.conteineres">
+                  <td>{{ childItem.tipoConteiner.nome ! | capitalizacao }}</td>
+                </tr>
+              </table>
+            </td>
+            <td>{{ item.endereco.logradouro! | capitalizacao }}, {{ item.endereco.numero }} - {{ item.endereco.complemento! | capitalizacao }}</td>
+            <td>{{ item.valorTotalAluguel - item.desconto | currency }}</td>
+            <td>{{ item.estadoAluguel! | capitalizacao }}</td>
+            <td>
+              <a [routerLink]="['/cliente/detalhes-aluguel', item.aluguelUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
-              </a>
+              </a> 
             </td>
           </tr>
         </tbody>

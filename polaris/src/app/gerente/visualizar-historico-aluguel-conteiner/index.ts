@@ -1,0 +1,1 @@
+export * from './visualizar-historico-aluguel-conteiner.component';

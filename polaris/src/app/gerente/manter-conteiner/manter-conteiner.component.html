@@ -1,0 +1,83 @@
+<div class="manter-conteiner container-fluid mt-4 mb-4">
+    <div class="container-content mb-4 p-4">
+      <h1>Cadastrar Novo Contêiner</h1>
+  
+      <div class="line-bottom mb-5"></div>
+  
+      <div [ngSwitch]="statusMsg">
+        <div *ngSwitchCase="'success'">
+          <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+            Cadastro realizado com sucesso!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+        <div *ngSwitchCase="'fail'">
+          <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+            Falha ao cadastrar, confira os dados e tente novamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <p class="title">Dados cadastrais</p>
+        <div class="content d-flex ms-3">
+          <form class="row g-3" #formConteiner="ngForm" (ngSubmit)="cadastrar()">
+            <div class="col-md-3">
+              <label for="inputFabricacao" class="form-label">Ano de Fabricação</label>
+              <input class="form-control" placeholder="AAAA" name="fabricacao" [(ngModel)]="conteiner.fabricacao" #fabricacao="ngModel" required>
+
+              <div *ngIf="fabricacao.errors && (fabricacao.dirty || fabricacao.touched)" class="alert alert-danger">
+                  <div [hidden]="!fabricacao.errors?.['required']">Digite o ano de fabricação.</div>
+              </div>
+            </div>
+            
+            <div class="col-md-3">
+              <label for="inputFabricante" class="form-label">Fabricante</label>
+              <input type="text" class="form-control" id="inputFabricante" [(ngModel)]="conteiner.fabricante" name="fabricante" #fabricante="ngModel" required>
+
+              <div *ngIf="fabricante.errors && (fabricante.dirty || fabricante.touched)" class="alert alert-danger">
+                  <div [hidden]="!fabricante.errors?.['required']">Digite o fabricante.</div>
+              </div>
+            </div>
+            
+            <div class="col-md-3">
+              <label for="inputCor" class="form-label">Cor</label>
+              <input type="text" class="form-control" id="inputCor" [(ngModel)]="conteiner.cor" name="cor" #cor="ngModel" required>
+
+              <div *ngIf="cor.errors && (cor.dirty || cor.touched)" class="alert alert-danger">
+                  <div [hidden]="!cor.errors?.['required']">Digite a cor.</div>
+              </div>
+            </div>
+                        
+            <div class="col-md-3">
+              <label for="inputMaterial" class="form-label">Material</label>
+              <input type="text" class="form-control" id="inputMaterial" [(ngModel)]="conteiner.material" name="material" #material="ngModel" required>
+
+              <div *ngIf="material.errors && (material.dirty || material.touched)" class="alert alert-danger">
+                  <div [hidden]="!material.errors?.['required']">Digite o material.</div>
+              </div>
+            </div>     
+  
+            <div class="col-md-6">         
+              <label for="inputCategoria" class="form-label">Categoria</label>
+              <select class="form-select" id="inputCategoria" aria-label="categoria" name="categoria" [(ngModel)]="conteiner.categoria">
+                <option *ngFor="let item of categoriasCadastradas" [value]="item.categoriaConteinerUuid">{{item.nome | capitalizacaoGerente}}</option>
+              </select>
+            </div>
+  
+            <div class="col-md-6">         
+              <label for="inputTipo" class="form-label">Tipo</label>
+              <select class="form-select" id="inputTipo" aria-label="tipo" name="tipo" [(ngModel)]="conteiner.tipo">
+                <option *ngFor="let item of tiposCadastrados" [value]="item.tipoConteinerUuid">{{item.nome | capitalizacaoGerente}}</option>
+              </select>
+            </div>
+  
+            <div class="ctn-btn d-flex justify-content-evenly mt-5">
+              <button type="submit">Cadastrar</button>
+              <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
+            </div>
+          </form>
+        </div>
+      </div>  
+  </div>

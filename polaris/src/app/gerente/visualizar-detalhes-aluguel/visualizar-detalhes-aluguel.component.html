@@ -1,0 +1,111 @@
+<div class="visualizar-detalhes-aluguel container-fluid mt-4 mb-4">
+  <div *ngFor="let item of aluguelData">
+    <div *ngIf="item.aluguelUuid == aluguelUuid">
+      <div class="container-content mb-4 p-4">
+        <h1>Detalhes do Aluguel</h1>
+
+        <div class="line mb-5"></div>
+        
+        <div class="mb-3">
+          <p class="title">Dados cadastrais</p>
+          <div class="content d-flex justify-content-start ms-3">
+            <form class="row g-3">
+              <div class="col-md-6">         
+                <label for="inputCliente" class="form-label">Responsável pelo aluguel:</label>
+                <p class="form-control disabled"> {{ item.cliente.nome! | capitalizacaoGerente }} {{ item.cliente.sobrenome! | capitalizacaoGerente }} </p>
+              </div>
+
+              <div class="col-md-6">
+                <label for="inputCpf" class="form-label">CPF</label>
+                <p class="form-control disabled" id="inputCpf">{{ item.cliente.cpf! | cpfGerente }}</p> 
+              </div>
+              
+              <p class="title mt-5">Período de locação</p>
+              <div class="col-md-6 mt-0">
+                <label for="inputDataInicio" class="form-label">Data de Início</label>
+                <p class="form-control disabled" id="inputDataInicio">{{ item.dataInicio! | dateGerente }}</p> 
+              </div>
+
+              <div class="col-md-6 mt-0">
+                <label for="inputDataDevolucao" class="form-label">Data de Devolução</label>
+                <p class="form-control disabled" id="inputDataDevolucao">{{ item.dataDevolucao! | dateGerente }}</p> 
+              </div>
+              
+              <p class="title mt-5">Endereço de locação</p>
+              <div class="col-md-4 mt-0">
+                <label for="inputCep" class="form-label">CEP</label>
+                <p class="form-control disabled" id="inputCep">{{ item.endereco.cep | cepGerente  }}</p>
+              </div>
+
+               <div class="col-md-4 mt-0">
+                <label for="inputEstado" class="form-label">Estado</label>
+                <p class="form-control disabled" id="inputEstado">{{ item.endereco.estado }}</p>
+              </div>
+              <div class="col-md-4 mt-0">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <p class="form-control disabled" id="inputCidade">{{ item.endereco.cidade! | capitalizacaoGerente }}</p>
+              </div>
+              <div class="col-md-6">
+                <label for="inputLogradouro" class="form-label">Endereço</label>
+                <p class="form-control disabled" id="inputLogradouro">{{ item.endereco.logradouro! | capitalizacaoGerente }}</p>
+              </div>
+              <div class="col-md-3">
+                <label for="inputNumero" class="form-label">Número</label>
+                <p class="form-control disabled" id="inputNumero">{{ item.endereco.numero }}&#160;</p>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="inputComplemento" class="form-label">Complemento</label>
+                <p class="form-control disabled" id="inputComplemento">{{ item.endereco.complemento! | capitalizacaoGerente }}&#160;</p>
+              </div>
+
+              <div class="line mb-5"></div>
+
+              <p class="title">Contêineres Alugados</p>
+              <div class="col-md-12">         
+                <div class="table-responsive">
+                  <table class="table align-middle text-center">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Cód</th>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
+                        <th>Valor Diária</th>
+                        <th>Diárias</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of item.conteineres">
+                        <td>#{{ item.codigo }}</td>
+                        <td>{{ item.categoriaConteiner.nome! | capitalizacaoGerente }}</td>
+                        <td>{{ item.tipoConteiner.nome! | capitalizacaoGerente }}</td>
+                        <td>{{ item.tipoConteiner.valorDiaria | currency }}</td>
+                        <td>{{ totalDays }} </td>
+                        <td>{{ totalDays*item.tipoConteiner.valorDiaria! | currency }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="pt-2 line-price">
+                <div class="price d-flex">
+                  <p><span>Total da compra:</span> {{ item.valorTotalAluguel! | currency }} </p>
+                  <div class="desconto mb-3">
+                    <p class="me-2 mt-2"><span>Desconto:</span></p>
+                    <p class="me-2 mt-2">{{ item.desconto! | currency }}</p>
+                  </div>
+                  <p class="line-price pt-2"><span>Total com desconto:</span> {{ item.valorTotalAluguel-item.desconto! | currency }}</p>
+                </div>
+              </div>
+              <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                <a (click)="generatePdf()">Visualizar contrato</a>
+                <a (click)="goBack()">Voltar</a>
+              </div>
+            </form>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>

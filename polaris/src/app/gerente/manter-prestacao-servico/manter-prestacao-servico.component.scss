@@ -1,0 +1,74 @@
+$aqua: #0fbda3;
+$border-gray: #dee2e6;
+$dark-blue: #0f2b46;
+$dark-gray: #2d2e30;
+$white: #fff;
+
+.manter-prestacao-servico {
+  .container-content {
+    border: 1px solid $border-gray;
+    border-radius: 15px;
+    background-color: $white;
+
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  h1 {
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  p, label {
+    font-size: 14px;
+  }
+
+  .line-bottom {
+    border-bottom: $dark-blue 1px solid;
+  }
+
+  .content {
+    flex-direction: column;
+    p {
+      font-size: 1rem;
+      height: 37px;
+      margin: 0;
+    }
+    .ctn-btn {
+      flex-direction: column;
+      align-items: center;
+      a, button {
+        border-radius: 50px;
+        text-decoration: none;
+        padding: 0.3rem 1rem;
+        margin: 10px 0;
+        border: 1px solid transparent;
+        background-color: $dark-blue;
+        color: $white;
+        text-align: center;      
+      }
+      :hover {
+        color: unset;
+        background-color: $aqua;
+      }
+    }
+  }  
+}
+
+@media (min-width: 768px) {
+  .content {
+    flex-direction: row !important;
+    .ctn-btn {
+      flex-direction: row-reverse !important;
+      a, button {      
+        width: 22%;
+      }
+    }
+  }  
+}

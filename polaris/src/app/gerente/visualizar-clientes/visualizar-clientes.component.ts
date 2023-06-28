@@ -7,86 +7,41 @@ import { GerenteService } from '../services';
   styleUrls: ['./visualizar-clientes.component.scss']
 })
 export class VisualizarClientesComponent implements OnInit {
-  //public clienteData: any;
-  public aluguelData: any;
+  public clienteData: any;
+  public loginUuid!: string;
+  public loginStatusUuid!: string;
 
-  clienteData = {
-    content: [
-      {
-        'id': '1',
-        'nome': 'Letícia das Chagas Lima ',
-        'telefone': '(41) 9 9891-7792',
-        'cpf': '07804144970',
-        'dataDevolucao': '30/04/2023',
-        'endereco': 'Rua Bruno Filgueira',
-        'numero': '54',
-        'cidade': 'Curitiba'
-      },
-      {
-        'id': '2',
-        'nome': 'Lucas das Chagas Lima ',
-        'telefone': '(41) 9 8855-7465',
-        'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
-        'endereco': 'Rua Adir Dalabona',
-        'numero': '111',
-        'cidade': 'Curitiba'
-      },
-      {
-        'id': '2',
-        'nome': 'Lucas das Chagas Lima ',
-        'telefone': '(41) 9 8855-7465',
-        'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
-        'endereco': 'Rua Adir Dalabona',
-        'numero': '111',
-        'cidade': 'Curitiba'
-      },
-      {
-        'id': '2',
-        'nome': 'Lucas das Chagas Lima ',
-        'telefone': '(41) 9 8855-7465',
-        'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
-        'endereco': 'Rua Adir Dalabona',
-        'numero': '111',
-        'cidade': 'Curitiba'
-      },
-      {
-        'id': '2',
-        'nome': 'Lucas das Chagas Lima ',
-        'telefone': '(41) 9 8855-7465',
-        'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
-        'endereco': 'Rua Adir Dalabona',
-        'numero': '111',
-        'cidade': 'Curitiba'
-      },
-      {
-        'id': '2',
-        'nome': 'Lucas das Chagas Lima ',
-        'telefone': '(41) 9 8855-7465',
-        'cpf': '15425478585',
-        'dataDevolucao': '31/03/2023',
-        'endereco': 'Rua Adir Dalabona',
-        'numero': '111',
-        'cidade': 'Curitiba'
-      }      
-    ]
-  }
-
-  constructor( private _gerenteServiceAPI: GerenteService ) { }
+  constructor( private gerenteService: GerenteService ) { }
 
   ngOnInit(): void {
-    this._gerenteServiceAPI.getClienteData().subscribe( (res: any) => {
-        this.clienteData = res;
-      }
-    )
-
-    this._gerenteServiceAPI.getAluguelData().subscribe( (res: any) => {
-        this.aluguelData = res;
-      }
-    )
+    this.getAllClientesAtivos();
+    this.loadData();
   }
 
+  getAllClientesAtivos() {
+    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
+        this.clienteData = res;
+      }
+    );
+  }
+  
+  loadData() {
+    this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
+      this.clienteData = res;
+    })
+  };
+
+  alterarStatusLoginCliente(uuid: string) {
+    this.gerenteService.alterarStatusLoginCliente(uuid).subscribe(
+      response => console.log("Status do login alterado com sucesso!"),
+      error => console.error(error)
+    );       
+  }
+
+  didTapOnDelete(clienteUuid: string) {
+    this.gerenteService.deleteCliente(clienteUuid).subscribe(
+      response => this.loadData(),
+      error => console.error(error)
+    );    
+  };
 }

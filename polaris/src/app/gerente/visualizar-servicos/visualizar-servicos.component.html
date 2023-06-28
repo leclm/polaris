@@ -1,0 +1,32 @@
+<div class="visualizar-servicos container-fluid mt-4 mb-4">
+  <div class="container-content p-4">
+    <h1 class="mb-4">Serviços Cadastrados</h1>
+
+    <div class="table-responsive">
+      <table class="table align-middle text-center">
+        <thead class="table-light">
+          <tr>
+            <th [appSort]="servicoData" data-order="desc" data-name="nome">Nome <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of servicoData">
+            <td>{{ item.nome! | capitalizacaoGerente }}</td>
+            <td>
+              <a [routerLink]="['/gerente/editar-servico', item.servicoUuid]">
+                <i class="fa fa-user-edit" aria-hidden="true"></i>
+              </a>      
+              <a (click)="didTapOnDelete(item.servicoUuid)">
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>   
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="ctn-btn d-flex justify-content-evenly mt-5">
+        <a [routerLink]="['/gerente/manter-servico']">Adicionar Serviço</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,55 +1,54 @@
 <div class="d-flex" id="wrapper">
   <div class="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
-    <div class="sidebar-heading">
-      <a id="link-home" href="#" routerLink="/cliente">
+    <div class="sidebar-heading" *ngIf="perfil">
+      <a id="link-home" [routerLink]="['/cliente']">
         <img class="logo" loading="lazy" class="lozad" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
       </a>
     </div>
 
-    <!-- Menu Cliente
-    <ul class="list-group list-group-flush">
-      <li class="mb-3"><a href="#" routerLink="/cliente">Home</a></li>
-      <li class="container-logout"><a href="#"><button type="button" class="btn">Logout</button></a></li>
-    </ul>  -->
-
-    <!-- Menu funcionário -->
-    <ul class="list-group list-group-flush">
-      <li class="mb-3"><a href="#">Home</a></li>
-      <li class=" mb-3"><a href="#">Dashboard</a></li>
-
-      <li><a href="#">Aluguel</a></li>
-      <li class="ms-4"><a href="#">Novo Aluguel</a></li>
-      <li class="ms-4 mb-3"><a href="#">Visualizar Aluguéis</a></li>
+    <ul *ngIf="perfil" class="list-group list-group-flush">
+      <li *ngIf="!perfil" class="mb-3"><a [routerLink]="['/sistema']">Home</a></li>
       
-      <li><a href="/gerente/visualizar-clientes">Cliente</a></li>
-      <li class="ms-4"><a href="/gerente/manter-cliente">Cadastro</a></li>
-      <li class="ms-4 mb-3"><a href="/gerente/visualizar-clientes">Visualizar Clientes</a></li>
+      <li *ngIf="perfil === 'cliente'" class="mb-3"><a [routerLink]="['/cliente/visualizar-aluguel']">Visualizar Aluguéis</a></li>
+      <li *ngIf="perfil === 'cliente'" class="mb-3"><a [routerLink]="['/cliente/alterar-senha']">Alterar Senha</a></li>
+      
+      <li *ngIf="perfil === 'gerente'" class="mb-3"><a [routerLink]="['/gerente/dashboard']">Dashboard</a></li>
+      
+      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['/gerente/manter-aluguel']">Aluguel</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/manter-aluguel']">Novo Aluguel</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4 mb-3"><a  [routerLink]="['/gerente/visualizar-historico-alugueis']">Visualizar Aluguéis</a></li>
+      
+      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['/gerente/visualizar-clientes']">Clientes</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/manter-cliente']">Cadastro</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4 mb-3"><a [routerLink]="['/gerente/visualizar-clientes']">Visualizar Clientes</a></li>
 
-      <li><a href="#">Contêiner</a></li>
-      <li class="ms-4"><a href="#">Cadastro</a></li>
-      <li class="ms-4 mb-3"><a href="#">Estoque</a></li>
+      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['gerente/visualizar-estoque-conteineres']">Contêineres</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/manter-conteiner']">Cadastro</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4 mb-3"><a  [routerLink]="['gerente/visualizar-estoque-conteineres']">Estoque</a></li>
+      
+      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['/gerente/visualizar-categorias']">Categorias e Tipos</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/visualizar-categorias']">Visualizar Categorias</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4 mb-3"><a [routerLink]="['/gerente/visualizar-tipos']">Visualizar Tipos</a></li>
 
-      <li><a href="#">Categorias e Tipos</a></li>
-      <li class="ms-4"><a href="#">Visualizar Categorias</a></li>
-      <li class="ms-4 mb-3"><a href="#">Visualizar Tipos</a></li>
-
-      <li><a href="/gerente/visualizar-terceirizados">Terceirizados</a></li>
-      <li class="ms-4"><a href="/gerente/manter-terceirizado">Cadastro</a></li>
-      <li class="ms-4 mb-3"><a href="/gerente/visualizar-terceirizados">Visualizar Terceirizados</a></li>
-
-      <li class="container-logout"><a href="#"><button type="button" class="btn">Logout</button></a></li>
+      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['/gerente/visualizar-terceirizados']">Terceirizados</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/manter-terceirizado']">Cadastro</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/visualizar-terceirizados']">Visualizar Terceirizados</a></li>
+      <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/visualizar-servicos']">Visualizar Serviços</a></li>
+           
+      <li *ngIf="perfil" class="container-logout"><a href="#"><button #logoutBtn type="button" class="btn" (click)="deleteFromLocalStorage()">Sair</button></a></li>
+      <li *ngIf="!perfil" class="container-logout"><a href="#"><button class="btn" [routerLink]="['/sistema']">Entrar</button></a></li>
     </ul>
   </div>
 
   <div class="page-content-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <a class="menu-toogle" (click)="clickEvent()"><i class="fa fa-bars me-3" aria-hidden="true"></i>Menu</a>
+        <a *ngIf="perfil" class="menu-toogle" (click)="clickEvent()"><i class="fa fa-bars me-3" aria-hidden="true"></i>Menu</a>
         <p class="text-center">Sistema de Gerenciamento de Aluguéis de Contêineres</p>
-        <a id="link-home-logo" href="#" routerLink="/cliente">
+        <a id="link-home" [routerLink]="['/cliente']">
           <img class="logo" loading="lazy" class="lozad me-4" src="../assets/images/png/polaris-high-resolution-logo-white-on-transparent-background.png" alt="Logo Polaris" title="Logo Polaris" data-loaded="true">
         </a>
-      </div>
+      </div>      
     </nav>
     <div class="ms-3 me-4">
       <router-outlet></router-outlet>

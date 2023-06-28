@@ -6,40 +6,34 @@
       <table class="table align-middle text-center">
         <thead class="table-light">
           <tr>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="nome">Nome <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="cpf">CPF <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="endereco">Endereço <i class="fa fa-sort" aria-hidden="true"></i></th>
-            <th [appSort]="clienteData.content" data-order="desc" data-name="dataDevolucao">Data da Devolução <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData" data-order="desc" data-name="nome">Nome <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData" data-order="desc" data-name="telefone">Telefone <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th [appSort]="clienteData" data-order="desc" data-name="cpf">CPF <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th>Endereço</th>
             <th>Opções</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of clienteData.content">
-            <td>{{ item.nome }}</td>
-            <td>{{ item.telefone }}</td>
-            <td>{{ item.cpf }}</td>
-            <td>{{ item.endereco }}</td>
-            <td>{{ item.dataDevolucao }}</td>
+          <tr *ngFor="let item of clienteData">
+            <td>{{ item.nome! | capitalizacaoGerente }} {{ item.sobrenome! | capitalizacaoGerente }}</td>
+            <td>{{ item.telefone! | phoneGerente }}</td>
+            <td>{{ item.cpf! | cpfGerente }}</td> <td>{{ item.endereco.logradouro! | capitalizacaoGerente }}, {{ item.endereco.numero }}</td>
             <td>
-              <a href="/gerente/visualizar-detalhes-cliente/2">
+              <a [routerLink]="['/gerente/visualizar-detalhes-cliente', item.clienteUuid]">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </a>
-              <a href="/gerente/editar-cliente/2">
+              <a [routerLink]="['/gerente/editar-cliente', item.clienteUuid]">
                 <i class="fa fa-user-edit" aria-hidden="true"></i>
               </a>              
-              <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              <a (click)="didTapOnDelete(item.clienteUuid)" (click)="alterarStatusLoginCliente(item.login.loginUuid)">
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </a>  
             </td>
           </tr>
-          <!--
-            <a [routerLink]="['/gerente/visualizar-detalhes-cliente', item.id]" href="#">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-            </a>-->
         </tbody>
       </table>
       <div class="ctn-btn d-flex justify-content-evenly mt-5">
-        <a href="/gerente/manter-cliente">Cadastrar Cliente</a>
-        <!--<a href="#" routerLink="/gerente/manter-cliente">Cadastrar Cliente</a>-->
+        <a [routerLink]="['/gerente/manter-cliente']">Cadastrar Cliente</a>
       </div>
     </div>
   </div>

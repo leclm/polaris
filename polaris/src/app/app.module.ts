@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
@@ -11,6 +10,8 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { GerenteModule } from './gerente/gerente.module';
+import { FormsModule } from '@angular/forms';
+import { SistemaModule } from './sistema';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -22,6 +23,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   suffix: "",
   thousands: "."
 };
+
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -32,11 +34,13 @@ registerLocaleData(localePt, 'pt');
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    AuthModule,
-    ClienteModule,
     NgxMaskModule.forRoot(),
     CurrencyMaskModule,
-    GerenteModule
+    FormsModule,
+    SistemaModule,
+    GerenteModule,
+    AuthModule,
+    ClienteModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CURRENCY_MASK_CONFIG },

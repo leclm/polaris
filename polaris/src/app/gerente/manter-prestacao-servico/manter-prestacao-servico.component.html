@@ -1,0 +1,78 @@
+<div class="manter-prestacao-servico container-fluid mt-4 mb-4">
+  <div class="container-content mb-4 p-4">
+    <h1>Cadastrar Nova Prestação de Serviço</h1>
+
+    <div class="line-bottom mb-5"></div>
+
+    <div [ngSwitch]="statusMsg">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Cadastro realizado com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao cadastrar, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <p class="title">Dados cadastrais</p>
+      <div class="content d-flex ms-3">
+        <form class="row g-3" #formPrestacaoServico="ngForm" (ngSubmit)="cadastrar()">
+          <div class="col-md-6">         
+            <label for="inputEstadoConteiner" class="form-label">Estado do Contêiner</label>
+            <select class="form-select" id="inputEstadoConteiner" aria-label="estadoConteiner" [(ngModel)]="estadoConteinerSelecionado" name="estadoConteiner">
+              <option *ngFor="let a of fakeArrayConteiner; let index = index" [value]="index">{{estadoConteiner[index]}}</option>
+            </select>
+          </div> 
+          
+          <div class="col-md-6">
+            <label for="inputDataProcedimento" class="form-label">Data do Procedimento</label>
+            <div class="input-group mb-6">
+              <input type="text" class="form-control" id="inputDataProcedimento" name="dataProcedimento" placeholder="{{dataVar}}" [(ngModel)]="dataVar" #dataProcedimento="ngModel"  (ngModelChange)="valuechange($event)" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" readonly/>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                  <i class="fa-solid fa-calendar"></i>
+                </button>
+                <ng-template #footerTemplate>
+                  <hr class="my-0" />
+                  <button class="btn btn-secondary btn-sm m-2 float-end" (click)="d.close()">Close</button>
+                </ng-template>
+              </div>
+            </div>
+            <div *ngIf="dataNotValidNotify" class="alert alert-danger">
+              Preencha a data
+            </div>
+          </div>
+          
+          <div class="col-md-6">         
+            <label for="inputEmpresa" class="form-label">Empresa</label>
+            <select class="form-select" id="inputEmpresa" aria-label="empresa" name="empresa" [(ngModel)]="prestacaoServico.terceirizado">
+              <option *ngFor="let item of terceirizadosCadastrados" [value]="item.terceirizadoUuid">{{item.empresa | capitalizacaoGerente}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">         
+            <label for="inputServico" class="form-label">Serviço</label>
+            <select class="form-select" id="inputServico" aria-label="servico" name="servico" [(ngModel)]="prestacaoServico.servico">
+              <option *ngFor="let item of servicosCadastrados" [value]="item.servicoUuid">{{item.nome | capitalizacaoGerente}}</option>
+            </select>
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputComentario" class="form-label">Comentário</label>
+            <textarea class="form-control" id="inputComentario" rows="4" cols="50" name="comentario" [(ngModel)]="prestacaoServico.comentario" #comentario="ngModel"></textarea>
+          </div>
+
+          <div class="ctn-btn d-flex justify-content-evenly mt-5">
+            <button type="submit">Cadastrar</button>
+            <a [routerLink]="['/gerente/visualizar-estoque-conteineres']">Voltar</a>
+          </div>
+        </form>
+      </div>
+    </div>  
+</div>

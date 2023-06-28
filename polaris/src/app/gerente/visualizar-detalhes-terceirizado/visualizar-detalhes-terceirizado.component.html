@@ -1,66 +1,70 @@
 <div class="visualizar-detalhes-terceirizado container-fluid mt-4 mb-4">
-  <!--<div *ngFor="let item of clienteData.content">
-    <div *ngIf="item.id == clienteId">-->
-  <div class="container-content mb-4 p-4">
-    <h1>Visualizar Detalhes do Terceirizado</h1>
+  <div *ngFor="let item of terceirizadoData">
+    <div *ngIf="item.terceirizadoUuid == terceirizadoUuid">
+      <div class="container-content mb-4 p-4">
+        <h1>Visualizar Detalhes do Terceirizado</h1>
 
-    <div class="line mb-5"></div>
+        <div class="line mb-5"></div>
 
-    <div class="mb-3">
-      <p class="title">Dados cadastrais</p>
-      <div class="content d-flex justify-content-start ms-3">
-        <form class="row g-3">
-          <div class="col-md-4">
-            <label for="inputEmpresa" class="form-label">Empresa</label>
-            <p class="form-control"> Frete Total </p>
-          </div>
-          <div class="col-md-4">
-            <label for="inputCnpj" class="form-label">CNPJ</label>
-            <p class="form-control">00.394.460/0001-87</p>
-          </div>
-          <div class="col-md-4">
-            <label for="inputTipo" class="form-label">Tipo da Empresa</label>
-            <p class="form-control">Frete</p>
-          </div>
-          <div class="col-md-6">
-            <label for="inputTelefone" class="form-label">Telefone</label>
-            <p class="form-control">(41) 9 8888-8888</p>
-          </div>
-          <div class="col-md-6">
-            <label for="inputEmail" class="form-label">Email</label>
-            <p class="form-control">polaris@gmail.com</p>
-          </div>
-          <div class="col-md-4">
-            <label for="inputCep" class="form-label">CEP</label>
-            <p class="form-control">85854-964</p>
-          </div>
-          <div class="col-md-4">
-            <label for="inputEstado" class="form-label">Estado</label>
-            <p class="form-control">Estado</p>
-          </div>
-          <div class="col-md-4">
-            <label for="inputCidade" class="form-label">Cidade</label>
-            <p class="form-control">Curitiba</p>
-          </div>
-          <div class="col-6">
-            <label for="inputEndereco" class="form-label">Endereço</label>
-            <p class="form-control">Rua Adir Dalabona</p>
-          </div>
-          <div class="col-3">
-            <label for="inputNumero" class="form-label">Número</label>
-            <p class="form-control">341</p>
-          </div>
-          <div class="col-3 mb-3">
-            <label for="inputComplemento" class="form-label">Complemento</label>
-            <p class="form-control">Casa 2</p>
-          </div>
-          
+        <div class="mb-3">
+          <p class="title">Dados cadastrais</p>
+          <div class="content d-flex justify-content-start ms-3">
+            <form class="row g-3">
+              <div class="col-md-6">
+                <label for="inputEmpresa" class="form-label">Empresa</label>
+                <p class="form-control"> {{ item.empresa! | capitalizacaoGerente }} </p>
+              </div>
+              <div class="col-md-6">
+                <label for="inputCnpj" class="form-label">CNPJ</label>
+                <p class="form-control"> {{ item.cnpj | cnpjGerente }} </p>
+              </div>
+              <div class="col-md-12">
+                <label for="inputTipo" class="form-label">Serviços Prestados</label>
+                <div class="ctn-servicos">
+                  <p class="form-control" *ngFor="let childItem of item.servicos">
+                    {{ childItem.nome! | capitalizacaoGerente }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="inputTelefone" class="form-label">Telefone</label>
+                <p class="form-control"> {{ item.telefone | phoneGerente }} </p>
+              </div>
+              <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Email</label>
+                <p class="form-control"> {{ item.email }} </p>
+              </div>
+              <div class="col-md-4">
+                <label for="inputCep" class="form-label">CEP</label>
+                <p class="form-control"> {{ item.endereco.cep | cepGerente }} </p>
+              </div>
+              <div class="col-md-4">
+                <label for="inputEstado" class="form-label">Estado</label>
+                <p class="form-control"> {{ item.endereco.estado }} </p>
+              </div>
+              <div class="col-md-4">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <p class="form-control"> {{ item.endereco.cidade! | capitalizacaoGerente }} </p>
+              </div>
+              <div class="col-md-6">
+                <label for="inputEndereco" class="form-label">Endereço</label>
+                <p class="form-control"> {{ item.endereco.logradouro! | capitalizacaoGerente }} </p>
+              </div>
+              <div class="col-md-3">
+                <label for="inputNumero" class="form-label">Número</label>
+                <p class="form-control"> {{ item.endereco.numero }} &#160; </p>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="inputComplemento" class="form-label">Complemento</label>
+                <p class="form-control"> {{ item.endereco.complemento! | capitalizacaoGerente }} &#160; </p>
+              </div>             
 
-          <div class="ctn-btn d-flex justify-content-evenly mt-5">
-            <a href="/gerente/visualizar-historico-terceirizado/2">Ver Histórico de Serviços</a>
-            <a href="/gerente/visualizar-terceirizados">Voltar</a>
+              <div class="ctn-btn d-flex justify-content-evenly mt-5">
+                <a [routerLink]="['/gerente/visualizar-terceirizados']">Voltar</a>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

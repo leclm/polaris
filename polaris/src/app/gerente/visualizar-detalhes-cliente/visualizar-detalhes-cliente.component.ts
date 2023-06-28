@@ -8,17 +8,20 @@ import { GerenteService } from '../services';
   styleUrls: ['./visualizar-detalhes-cliente.component.scss']
 })
 export class VisualizarDetalhesClienteComponent implements OnInit {
-  //public clienteData: any;
-  public clienteId: any;
+  public clienteUuid: any;
+  public clienteData: any;
 
-  constructor( private _gerenteServiceAPI: GerenteService, private activatedRoute: ActivatedRoute ) { }
+  constructor( private gerenteService: GerenteService, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    this.clienteId = this.activatedRoute.snapshot.params['id'];
-    
-    /*this._gerenteServiceAPI.getClienteData().subscribe( (res: any) => {
+    this.clienteUuid = this.activatedRoute.snapshot.params['id'];
+    this.getAllClientesAtivos();
+  }
+
+  getAllClientesAtivos() {
+      this.gerenteService.getAllClientesAtivos().subscribe( (res: any) => {
         this.clienteData = res;
       }
-    )*/
+    )
   }
 }

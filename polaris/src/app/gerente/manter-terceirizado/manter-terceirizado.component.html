@@ -3,67 +3,95 @@
     <h1>Cadastrar Novo Terceirizado</h1>
 
     <div class="line mb-5"></div>
-    
+
+    <div [ngSwitch]="statusMsg">
+      <div *ngSwitchCase="'success'">
+        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
+          Cadastro realizado com sucesso!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'fail'">
+        <div class="alert alert-danger alert-dismissible fade show mb-5" role="alert">
+          Falha ao cadastrar, confira os dados e tente novamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
     <div class="mb-3">
       <p class="title">Dados cadastrais</p>
       <div class="content d-flex ms-3">
-        <form class="row g-3">
-          <div class="col-md-4">
-            <label for="inputNomeEmpresa" class="form-label">Nome da Empresa</label>
-            <input type="text" class="form-control" id="inputNomeEmpresa">
+        <form class="row g-3" #formTerceirizado="ngForm" (ngSubmit)="cadastrar()">
+          <div class="col-md-6">
+            <label for="inputEmpresa" class="form-label">Nome da Empresa</label>
+            <input type="text" class="form-control" id="inputEmpresa" [(ngModel)]="terceirizado.empresa" name="empresa"  #nome="ngModel" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+              <div [hidden]="!nome.errors?.['required']">Digite o nome da empresa.</div>
+            </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="inputCnpj" class="form-label">CNPJ</label>
-            <input type="text" class="form-control" id="inputCnpj">
+            <input type="text" class="form-control" id="inputCnpj" [(ngModel)]="terceirizado.cnpj" (input)="validateCnpj($event)" name="cnpj" #cnpj="ngModel" mask="00.000.000/0000-00" >
+            
+            <div *ngIf="cnpj.pristine && cnpj.touched" class="alert alert-danger">Digite um CNPJ.</div>
+            <div *ngIf="cnpjNotValid" class="alert alert-danger">Digite um CNPJ válido.</div>
           </div>
-          <div class="col-md-4">
-            <label for="inputTipo" class="form-label">Tipo de Empresa</label>
-            <select class="form-select" id="inputTipo" aria-label="Tipo de empresa">
-              <option value="1" selected>Frete</option>
-              <option value="2">Limpeza</option>
-              <option value="3">Manutenção</option>
-            </select>
-          </div>
-
+          <div class="col-md-12 mt-4 ctn-servicos">
+            <label>Serviço Prestado: </label>
+            <div *ngFor="let item of servicosCadastrados">
+              <label>
+                <input type="checkbox" name="nome" [(ngModel)]="item.checked" (change)="onCheckboxChange(item)"> {{item.nome}}
+              </label>
+            </div>
+          </div> 
           <div class="col-md-6">
             <label for="inputTelefone" class="form-label">Telefone</label>
-            <input type="tel" class="form-control" id="inputTelefone">
+            <input type="tel" class="form-control" id="inputTelefone" [(ngModel)]="terceirizado.telefone" name="telefone"  #telefone="ngModel" required mask="(00) 00000-0000">
+            <div *ngIf="telefone.pristine && telefone.touched" class="alert alert-danger">
+              <div [hidden]="!telefone.errors?.['required']">Digite o telefone.</div>
+            </div>
           </div>
-
           <div class="col-md-6">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail">
-          </div>
-     
+            <input type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"  class="form-control" id="inputEmail" [(ngModel)]="terceirizado.email" name="email"   #email="ngModel" required  email="true">
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+              <div [hidden]="!email.errors?.['required']">Digite o email.</div>
+              <div [hidden]="!email.errors?.['pattern']">Digite um email válido.</div>
+            </div>
+          </div>     
           <div class="col-md-4">
             <label for="inputCep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="inputCep">
+            <input type="text" class="form-control" id="inputCep" name="cep" [(ngModel)]="endereco.cep" (input)="searchAddress($event)" #cep="ngModel" mask='00000-000' required>
+            <div *ngIf="cep.pristine && cep.touched" class="alert alert-danger">
+              Digite o CEP.
+            </div>
+            <div *ngIf="cepNotValid==true" class="alert alert-danger">Digite um CEP válido</div>
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="inputEstado">
+           <p class="form-control" id="inputEstado">{{ endereco.estado }}</p> 
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="inputCidade">
+            <p class="form-control" id="inputCidade">{{ endereco.cidade }}</p>
           </div>
-          <div class="col-6">
-            <label for="inputEndereco" class="form-label">Endereço</label>
-            <input type="text" class="form-control" id="inputEndereco" placeholder="Rua Martin Afonso">
+          <div class="col-md-6">
+            <label for="inputLogradouro" class="form-label">Endereço</label>
+            <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p>
           </div>
-          <div class="col-3">
+          <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
-            <input type="number" class="form-control" id="inputNumero" placeholder="123">
+            <input type="number" class="form-control" id="inputNumero" placeholder="123" [(ngModel)]="endereco.numero"  name="numero">
           </div>
-          <div class="col-3 mb-3">
+          <div class="col-md-3 mb-3">
             <label for="inputComplemento" class="form-label">Complemento</label>
-            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2">
+            <input type="text" class="form-control" id="inputComplemento" placeholder="Casa 2" [(ngModel)]="endereco.complemento" name="complemento">
           </div>
 
           <div class="ctn-btn d-flex justify-content-evenly mt-5">
             <button type="submit">Cadastrar</button>
-            <a href="/gerente/visualizar-terceirizados">Voltar</a>
-            <!--<a href="#" routerLink="/gerente/visualizar-clientes">Voltar</a>-->
+            <a [routerLink]="['/gerente/visualizar-terceirizados']">Voltar</a>
           </div>
         </form>
       </div>
