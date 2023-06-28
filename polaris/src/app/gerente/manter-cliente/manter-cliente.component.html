@@ -54,6 +54,9 @@
             <div *ngIf="dataNotValidNotify" class="alert alert-danger">
               Preencha a data
             </div>
+            <div *ngIf="dataNotValidDiffNotify" class="alert alert-danger">
+              Data inválida. É necessário ter no mínimo 18 anos.
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputCpf" class="form-label">CPF</label>

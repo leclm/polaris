@@ -33,6 +33,8 @@ export class ManterAluguelComponent implements OnInit {
   public dataDev = 'dd-mm-aaaa';
   public dataIniNotValidNotify = false;
   public dataDevNotValidNotify = false;
+  public dataIniNotValidDiffNotify = false;
+  public dataDevNotValidDiffNotify = false;
 
   public endereco: Endereco = {
     cep: '',
@@ -178,6 +180,45 @@ export class ManterAluguelComponent implements OnInit {
     if(this.dataDev == 'dd-mm-aaaa'){
       this.dataDevNotValidNotify = true;
     } else {this.dataDevNotValidNotify = false;}
+
+    const datePartsDev = this.dataDev.split(/[-/\.]/); // Split by "-" or "/" or "."
+    const yearDev = parseInt(datePartsDev[2]);
+    const monthDev = parseInt(datePartsDev[1]) - 1; // Subtract 1 as month index is zero-based
+    const dayDev = parseInt(datePartsDev[0]);
+
+    const datePartsIni = this.dataIni.split(/[-/\.]/); // Split by "-" or "/" or "."
+    const yearIni = parseInt(datePartsIni[2]);
+    const monthIni = parseInt(datePartsIni[1])-1; // Subtract 1 as month index is zero-based
+    const dayIni = parseInt(datePartsIni[0]);
+
+    var today = new Date();
+    var startDate = new Date(yearIni,monthIni,dayIni);
+    var endDate = new Date(yearDev,monthDev,dayDev);
+   
+    var diffEndStart = startDate.getFullYear() - endDate.getFullYear();
+    var m = startDate.getMonth() - endDate.getMonth();
+    if (m < 0 || (m === 0 && startDate.getDate() < endDate.getDate())) {
+      diffEndStart--;
+    }
+    if(diffEndStart >= 0){
+      this.dataDevNotValidDiffNotify = true;
+    } else {
+      this.dataDevNotValidDiffNotify = false;    
+    }
+   
+
+    var diffStartToday = today.getFullYear() - startDate.getFullYear();
+    var m = today.getMonth() - startDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < startDate.getDate())) {
+      diffStartToday--;
+    }
+    if(diffStartToday >= 0){
+      this.dataIniNotValidDiffNotify = true;
+    } else {
+      this.dataIniNotValidDiffNotify = false;
+    }
+
+
   }
    
   fillClientObject(event: any) {

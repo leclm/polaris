@@ -42,11 +42,31 @@ export class ManterClienteComponent implements OnInit {
   
   public dataVar = 'dd-mm-aaaa';
   public dataNotValidNotify = false;
+  public dataNotValidDiffNotify = false;
 
   VerifyValidDate(){
     if(this.dataVar == 'dd-mm-aaaa'){
       this.dataNotValidNotify = true;
     } else {this.dataNotValidNotify = false;}
+
+    const dateParts = this.dataVar.split(/[-/\.]/); // Split by "-" or "/" or "."
+    const year = parseInt(dateParts[2]);
+    const month = parseInt(dateParts[1])-1; // Subtract 1 as month index is zero-based
+    const day = parseInt(dateParts[0]);
+
+    var today = new Date();
+    var birthDate = new Date(year,month,day);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    if(age < 18){
+      this.dataNotValidDiffNotify = true;
+    } else {
+      this.dataNotValidDiffNotify = false;     
+    }
+
   }
 
   valuechange(date: any) {
