@@ -59,6 +59,9 @@
             <div *ngIf="dataIniNotValidNotify" class="alert alert-danger">
               Preencha a data de início
             </div>
+            <div *ngIf="dataIniNotValidDiffNotify" class="alert alert-danger">
+              A data de início não pode ser uma data igual ou anterior à data atual
+            </div>
           </div>
 
           <div class="col-md-6 mt-0">
@@ -77,6 +80,9 @@
             </div>
             <div *ngIf="dataDevNotValidNotify" class="alert alert-danger">
               Preencha a data de devolução
+            </div>
+            <div *ngIf="dataDevNotValidDiffNotify" class="alert alert-danger">
+              A data de devolução não pode ser anterior ou igual à data de início
             </div>
           </div>
 
