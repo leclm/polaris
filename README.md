@@ -1,14 +1,41 @@
 
 <h1 align="center">Polaris</h1>
 
-<span align="center">
-<img alt="carrossel" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/tela-inicial-carrossel.gif" width="42.5%">    
-<img alt="paypal mobile" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/paypal.png" width="55%">
-</span>
-<span align="center">
-<img alt="Dashboard desktop" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/dashboard-desktop.png" width="77%">
-<img alt="Dashboard mobile" src="https://github.com/leclm/polaris/blob/front2/polaris/src/assets/images/readme/dashboard-mobile.png" width="21%">
-</span>
+<h2 align="center">About</h2>
+   
+<p align="left">
+  The present work aims to help small companies in the management of
+   container rentals, with the main purpose of increasing the automation of tasks and
+   centralizing data, making the process of managing the lease by the owner easier and
+   faster. The system helps in the organization of the company, grouping the types of
+   containers available, their technical specifications, stock controls and lease history. In
+   addition, it allows payment through PayPal in an automated way. It also allows
+   customers to have access to a logged area with details and history of all their rentals.
+</p>
+<br>
+
+---
+
+<h2 align="center">Preview</h2><br>
+
+<p align="center">
+   <img src="./polaris/src/assets/images/readme/notebook.png" width="600px" alt="Polaris"/>
+</p>
+
+<p align="center">
+   <img src="./polaris/src/assets/images/readme/tablet.png" width="600px" alt="Polaris"/>
+</p>
+
+<p align="center">
+   <img src="./polaris/src/assets/images/readme/smartphone.png" width="600px" alt="Polaris"/>
+</p>
+
+<p align="center">
+   <img src="./polaris/src/assets/images/readme/tela-inicial-carrossel.gif" width="600px" alt="Polaris"/>
+</p>
+
+---
+
 
 <h2 align="center">Technologies</h2>
 
