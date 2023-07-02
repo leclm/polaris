@@ -70,15 +70,15 @@
           </div>
           <div class="col-md-4">
             <label for="inputEstado" class="form-label">Estado</label>
-           <p class="form-control" id="inputEstado">{{ endereco.estado }}</p> 
+            <input type="text" class="form-control" id="inputEstado" [(ngModel)]="endereco.estado" name="estado" #estado="ngModel"> 
           </div>
           <div class="col-md-4">
             <label for="inputCidade" class="form-label">Cidade</label>
-            <p class="form-control" id="inputCidade">{{ endereco.cidade }}</p>
+            <input type="text" class="form-control" id="inputCidade" [(ngModel)]="endereco.cidade" name="cidade" #cidade="ngModel">
           </div>
           <div class="col-md-6">
             <label for="inputLogradouro" class="form-label">Endereço</label>
-            <p class="form-control" id="inputLogradouro">{{ endereco.logradouro }}</p>
+            <input type="text" class="form-control" id="inputEndereco" [(ngModel)]="endereco.logradouro" name="logradouro" #logradouro="ngModel">
           </div>
           <div class="col-md-3">
             <label for="inputNumero" class="form-label">Número</label>
