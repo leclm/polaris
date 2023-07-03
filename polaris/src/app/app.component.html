@@ -14,7 +14,7 @@
       
       <li *ngIf="perfil === 'gerente'" class="mb-3"><a [routerLink]="['/gerente/dashboard']">Dashboard</a></li>
       
-      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['/gerente/manter-aluguel']">Aluguel</a></li>
+      <li *ngIf="perfil === 'gerente'"><a [routerLink]="['/gerente/visualizar-historico-alugueis']">Aluguel</a></li>
       <li *ngIf="perfil === 'gerente'" class="ms-4"><a [routerLink]="['/gerente/manter-aluguel']">Novo Aluguel</a></li>
       <li *ngIf="perfil === 'gerente'" class="ms-4 mb-3"><a  [routerLink]="['/gerente/visualizar-historico-alugueis']">Visualizar Aluguéis</a></li>
       
